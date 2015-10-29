@@ -1,4 +1,4 @@
-package android.abcxo.com.ifootball.controller;
+package android.abcxo.com.ifootball.controllers;
 
 import android.abcxo.com.ifootball.R;
 import android.os.Bundle;

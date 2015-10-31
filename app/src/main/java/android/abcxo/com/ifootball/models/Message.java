@@ -1,7 +1,6 @@
 package android.abcxo.com.ifootball.models;
 
-import android.abcxo.com.ifootball.models.raws.Raw;
-import android.abcxo.com.ifootball.models.users.User;
+import java.util.List;
 
 /**
  * Created by SHARON on 15/10/29.
@@ -9,5 +8,5 @@ import android.abcxo.com.ifootball.models.users.User;
 public class Message{
     public User user;
     public String time;
-    public Raw content;
+    public List<Content> contents;
 }

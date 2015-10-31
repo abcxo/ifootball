@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!--主色调-->
+    <color name="colorPrimary">#009688</color>
+    <!--暗黑主色调-->
+    <color name="colorPrimaryDark">#00786C</color>
+    <!--明亮主色调-->
+    <color name="colorPrimaryLight">#89009688</color>
+
+    <!--添加文本-->
+    <color name="colorAccentText">#009688</color>
+    <!--添加图片-->
+    <color name="colorAccentImage">#4A90E2</color>
+    <!--照相-->
+    <color name="colorAccentCamera">#4A4A4A</color>
+    <!--添加球队-->
+    <color name="colorAccentAdd">#3E50B4</color>
+    <!--搜索-->
+    <color name="colorAccentSearch">#4A90E2</color>
+
+    <!--高亮图标-->
+    <color name="colorIconHighlight">#FFFFFF</color>
+    <!--明亮图标-->
+    <color name="colorIconLight">#B2FFFFFF</color>
+    <!--默认图标-->
+    <color name="colorIcon">#33000000</color>
+    <!--特殊图标-->
+    <color name="colorIconSpecial">#F5A623</color>
+
+    <!--明亮蒙版-->
+    <color name="colorMaskLight">#CCFFFFFF</color>
+    <!--暗黑蒙版-->
+    <color name="colorMaskDark">#60000000</color>
+
+    <!--高亮文字-->
+    <color name="colorTextHighlight">#FFFFFF</color>
+    <!--明亮文字-->
+    <color name="colorTextLight">#B2FFFFFF</color>
+
+    <!--标题-->
+    <color name="colorTextTitle">#DD000000</color>
+    <!--输入-->
+    <color name="colorTextInput">#B2000000</color>
+    <!--内容-->
+    <color name="colorTextContent">#89000000</color>
+    <!--附加-->
+    <color name="colorTextAppend">#60000000</color>
+
 </resources>

@@ -22,6 +22,8 @@
     <color name="colorIconHighlight">#FFFFFF</color>
     <!--明亮图标-->
     <color name="colorIconLight">#B2FFFFFF</color>
+    <!--暗黑图标-->
+    <color name="colorIconDark">#DD000000</color>
     <!--默认图标-->
     <color name="colorIcon">#33000000</color>
     <!--特殊图标-->

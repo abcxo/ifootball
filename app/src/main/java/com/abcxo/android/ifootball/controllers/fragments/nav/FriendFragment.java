@@ -24,5 +24,8 @@ public class FriendFragment extends NavFragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_friend, container, false);
     }
-
+    @Override
+    public int getToolbarResId() {
+        return R.id.friend_toolbar;
+    }
 }

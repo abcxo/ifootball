@@ -37,4 +37,8 @@ public class MessageFragment extends NavFragment {
         return inflater.inflate(R.layout.fragment_message, container, false);
     }
 
+    @Override
+    public int getToolbarResId() {
+        return R.id.message_toolbar;
+    }
 }

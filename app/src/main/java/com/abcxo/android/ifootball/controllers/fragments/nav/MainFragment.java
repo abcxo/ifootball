@@ -39,5 +39,8 @@ public class MainFragment extends NavFragment {
 
     }
 
-
+    @Override
+    public int getToolbarResId() {
+        return R.id.main_toolbar;
+    }
 }

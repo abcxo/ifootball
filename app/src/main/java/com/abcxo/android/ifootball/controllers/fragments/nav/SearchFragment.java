@@ -25,6 +25,9 @@ public class SearchFragment extends NavFragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
-
+    @Override
+    public int getToolbarResId() {
+        return R.id.search_toolbar;
+    }
 
 }

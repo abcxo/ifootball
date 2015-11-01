@@ -25,5 +25,8 @@ public class PromptFragment extends NavFragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_prompt, container, false);
     }
-
+    @Override
+    public int getToolbarResId() {
+        return R.id.prompt_toolbar;
+    }
 }

@@ -1,4 +1,4 @@
-package android.abcxo.com.ifootball;
+package com.abcxo.android.ifootball;
 
 import org.junit.Test;
 

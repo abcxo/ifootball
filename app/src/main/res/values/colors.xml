@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--主色调-->
-    <color name="colorPrimary">#009688</color>
+    <color name="color_primary">#009688</color>
     <!--暗黑主色调-->
-    <color name="colorPrimaryDark">#00786C</color>
+    <color name="color_primary_dark">#00786C</color>
     <!--明亮主色调-->
-    <color name="colorPrimaryLight">#89009688</color>
+    <color name="color_primary_light">#89009688</color>
 
     <!--添加文本-->
-    <color name="colorAccentText">#009688</color>
+    <color name="color_accent_text">#009688</color>
     <!--添加图片-->
-    <color name="colorAccentImage">#4A90E2</color>
+    <color name="color_accent_image">#4A90E2</color>
     <!--照相-->
-    <color name="colorAccentCamera">#4A4A4A</color>
+    <color name="color_accent_camera">#4A4A4A</color>
     <!--添加球队-->
-    <color name="colorAccentAdd">#3E50B4</color>
+    <color name="color_accent_add">#3E50B4</color>
     <!--搜索-->
-    <color name="colorAccentSearch">#4A90E2</color>
+    <color name="color_accent_search">#4A90E2</color>
 
     <!--高亮图标-->
-    <color name="colorIconHighlight">#FFFFFF</color>
+    <color name="color_icon_highlight">#FFFFFF</color>
     <!--明亮图标-->
-    <color name="colorIconLight">#B2FFFFFF</color>
+    <color name="color_icon_light">#B2FFFFFF</color>
     <!--暗黑图标-->
-    <color name="colorIconDark">#DD000000</color>
+    <color name="color_icon_dark">#DD000000</color>
     <!--默认图标-->
-    <color name="colorIcon">#33000000</color>
+    <color name="color_icon">#33000000</color>
     <!--特殊图标-->
-    <color name="colorIconSpecial">#F5A623</color>
+    <color name="color_icon_special">#F5A623</color>
 
     <!--明亮蒙版-->
-    <color name="colorMaskLight">#CCFFFFFF</color>
+    <color name="color_mask_light">#CCFFFFFF</color>
     <!--暗黑蒙版-->
-    <color name="colorMaskDark">#60000000</color>
+    <color name="color_mask_dark">#60000000</color>
 
     <!--高亮文字-->
-    <color name="colorTextHighlight">#FFFFFF</color>
+    <color name="color_text_highlight">#FFFFFF</color>
     <!--明亮文字-->
-    <color name="colorTextLight">#B2FFFFFF</color>
+    <color name="color_text_light">#B2FFFFFF</color>
 
     <!--标题-->
-    <color name="colorTextTitle">#DD000000</color>
+    <color name="color_text_title">#DD000000</color>
     <!--输入-->
-    <color name="colorTextInput">#B2000000</color>
+    <color name="color_text_input">#B2000000</color>
     <!--内容-->
-    <color name="colorTextContent">#89000000</color>
+    <color name="color_text_content">#89000000</color>
     <!--附加-->
-    <color name="colorTextAppend">#60000000</color>
+    <color name="color_text_append">#60000000</color>
 
 </resources>

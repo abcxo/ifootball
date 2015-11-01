@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group
-        android:id="@+id/nav_group_main"
+        android:id="@+id/nav_group_nav"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_item_main"
@@ -28,12 +28,12 @@
             android:title="@string/menu_item_search" />
     </group>
 
-    <group android:id="@+id/nav_group_extras">
+    <group android:id="@+id/nav_group_append">
         <item
             android:id="@+id/nav_item_setting"
             android:title="@string/menu_item_setting" />
         <item
-            android:id="@+id/nav_item_helo"
+            android:id="@+id/nav_item_help"
             android:title="@string/menu_item_help" />
         <item
             android:id="@+id/nav_item_about"

@@ -48,4 +48,10 @@
     <!--附加-->
     <color name="color_text_append">#60000000</color>
 
+    <color name="color_refresh_1">#FF3910</color>
+    <color name="color_refresh_2">#FFC6D6</color>
+    <color name="color_refresh_3">#4ADECE</color>
+    <color name="color_refresh_4">#FFBD52</color>
+
+
 </resources>

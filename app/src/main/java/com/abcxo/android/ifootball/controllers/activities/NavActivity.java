@@ -7,9 +7,15 @@ import com.abcxo.android.ifootball.controllers.fragments.nav.NavFragment;
 import com.abcxo.android.ifootball.controllers.fragments.nav.PromptFragment;
 import com.abcxo.android.ifootball.controllers.fragments.nav.SearchFragment;
 import com.abcxo.android.ifootball.controllers.fragments.nav.MainFragment;
+import com.abcxo.android.ifootball.databinding.NavHeaderMainBinding;
+import com.abcxo.android.ifootball.models.User;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +24,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, NavFragment.OnFragmentInteractionListener {
@@ -30,6 +38,8 @@ public class NavActivity extends AppCompatActivity
     private NavFragment promptFg;
     private NavFragment searchFg;
 
+    private Fragment currentFg;
+
     private int selectedItemId;
 
 
@@ -37,35 +47,78 @@ public class NavActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav);
-        toMain();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        toMain();
+
+
+        View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        NavHeaderMainBinding binding = DataBindingUtil.bind(navHeaderView);
+        User user = UserRestful.getInstance().getLoginUser();
+        binding.setUser(user);
+
     }
 
 
     private void toMain() {
-        if (mainFg == null) mainFg = MainFragment.newInstance();
-        getFragmentManager().beginTransaction().replace(R.id.content, mainFg).commit();
+        if (mainFg == null) {
+            mainFg = MainFragment.newInstance();
+
+        }
+        toNav(mainFg);
+
     }
 
     private void toFriend() {
-        if (friendFg == null) friendFg = FriendFragment.newInstance();
-        getFragmentManager().beginTransaction().replace(R.id.content, friendFg).commit();
+        if (friendFg == null) {
+            friendFg = FriendFragment.newInstance();
+
+        }
+        toNav(friendFg);
+
     }
 
     private void toMessage() {
-        if (messageFg == null) messageFg = MessageFragment.newInstance();
-        getFragmentManager().beginTransaction().replace(R.id.content, messageFg).commit();
+        if (messageFg == null) {
+            messageFg = MessageFragment.newInstance();
+        }
+        toNav(messageFg);
+
     }
 
     private void toPrompt() {
-        if (promptFg == null) promptFg = PromptFragment.newInstance();
-        getFragmentManager().beginTransaction().replace(R.id.content, promptFg).commit();
+        if (promptFg == null) {
+            promptFg = PromptFragment.newInstance();
+        }
+        toNav(promptFg);
+
+
     }
 
     private void toSearch() {
-        if (searchFg == null) searchFg = SearchFragment.newInstance();
-        getFragmentManager().beginTransaction().replace(R.id.content, searchFg).commit();
+        if (searchFg == null) {
+            searchFg = SearchFragment.newInstance();
+        }
+        toNav(searchFg);
+
+
+    }
+
+    private void toNav(Fragment fg) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        if (!fg.isAdded()) {
+            transaction.add(R.id.content, fg);
+        } else {
+            transaction.show(fg);
+        }
+        if (currentFg != null) {
+            transaction.hide(currentFg);
+        }
+        transaction.commit();
+        currentFg = fg;
+
+
     }
 
 

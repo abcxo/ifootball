@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.abcxo.android.ifootball.models.Tweet" />
+        <variable
+            name="tweet"
+            type="Tweet" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@mipmap/ic_launcher"
+            app:imageUrl="@{tweet.icon}"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/color_text_title"
+            android:textSize="16dp"
+            android:text="@{tweet.content.title}" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/summary"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/color_text_content"-->
+            <!--android:textSize="14dp"-->
+            <!--android:text="@{tweet.content.summary}"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/time"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/color_text_append"-->
+            <!--android:textSize="12dp" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/reply_icon"-->
+            <!--android:layout_width="18dp"-->
+            <!--android:layout_height="18dp"-->
+            <!--android:src="@drawable/ic_reply"-->
+            <!--android:tint="@color/color_icon"-->
+            <!--/>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/repeat_icon"-->
+            <!--android:layout_width="18dp"-->
+            <!--android:layout_height="18dp"-->
+            <!--android:src="@drawable/ic_repeat"-->
+            <!--android:tint="@color/color_icon" />-->
+
+
+        <!--<ImageView-->
+            <!--android:id="@+id/star_icon"-->
+            <!--android:layout_width="18dp"-->
+            <!--android:layout_height="18dp"-->
+            <!--android:src="@drawable/ic_star"-->
+            <!--android:tint="@color/color_icon" />-->
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/reply_count"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/color_text_append"-->
+            <!--android:textSize="12dp" />-->
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/repeat_count"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/color_text_append"-->
+            <!--android:textSize="12dp" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/star_count"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/color_text_append"-->
+            <!--android:textSize="12dp" />-->
+    </RelativeLayout>
+</layout>

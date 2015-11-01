@@ -2,6 +2,7 @@ package com.abcxo.android.ifootball.controllers.fragments.nav;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +22,11 @@ public class NavFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setToolbar();
+
+    }
+
+    private void setToolbar() {
         Toolbar toolbar = (Toolbar) getNavActivity().findViewById(R.id.toolbar);
         getNavActivity().setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) getNavActivity().findViewById(R.id.drawer_layout);
@@ -28,28 +34,23 @@ public class NavFragment extends Fragment {
                 getNavActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-//
-//
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            setToolbar();
+        }
+    }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (OnFragmentInteractionListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
@@ -61,7 +62,7 @@ public class NavFragment extends Fragment {
     }
 
 
-    public AppCompatActivity getNavActivity() {
+    private AppCompatActivity getNavActivity() {
         return (AppCompatActivity) getActivity();
     }
 

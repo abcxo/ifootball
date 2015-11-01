@@ -1,7 +1,5 @@
 package com.abcxo.android.ifootball.models;
 
-import java.util.List;
-
 /**
  * Created by SHARON on 15/10/29.
  */
@@ -11,19 +9,15 @@ public class Tweet {
     public String icon;
 
     public String source;
-    public List<Content> contents;
+    public Content content;
 
     public String time;
 
-    public int goodCount;
-    public int forwardCount;
+    public int starCount;
+    public int repeatCount;
     public int replyCount;
-    public TweetType tweetType;
+    public int type;
 
 
-    enum TweetType{
-        USER,
-        TEAM,
-        NEWS
-    }
+
 }

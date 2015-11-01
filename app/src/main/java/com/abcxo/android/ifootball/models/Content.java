@@ -11,14 +11,14 @@ public class Content {
     public String title;
 
     //TEXT
-    public String sumary;
+    public String summary;
     public String text;
 
 
     //IMAGE
     public List<String> images;
 
-    //VIDEO,URL
+    //VIDEO
     public String cover;
     public String url;
 
@@ -27,13 +27,5 @@ public class Content {
     public double lat;
 
     public Map<String, String> extras;
-
-    enum ContentType {
-        TEXT,
-        IMAGE,
-        VIDEO,
-        URL,
-        LOCATION
-    }
 
 }

@@ -1,4 +1,8 @@
 <resources>
     <dimen name="padding">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
+
+
+    <dimen name="icon_1">80dp</dimen>
+    <dimen name="icon_2">80dp</dimen>
 </resources>

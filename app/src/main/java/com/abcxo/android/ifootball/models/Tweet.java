@@ -7,6 +7,7 @@ public class Tweet {
     public String id;
     public String uid;
     public String icon;
+    public String name;
 
     public String source;
     public Content content;

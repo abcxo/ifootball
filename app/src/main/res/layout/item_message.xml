@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@{tweet.time}"
+            android:text="@{message.time}"
             android:textColor="@color/color_text_append"
             android:textSize="12dp"
             tools:text="3小时" />
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/item_count"
                 android:layout_marginRight="@dimen/padding"
-                android:text="@{tweet.content.summary}"
+                android:text="@{message.content.summary}"
                 android:textColor="@color/color_text_content"
                 android:textSize="14dp"
                 tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
@@ -77,6 +77,7 @@
                 android:padding="@dimen/padding_min"
                 android:textColor="@color/color_text_highlight"
                 android:textSize="8dp"
+                android:text="@{message.count}"
                 tools:text="2" />
         </RelativeLayout>
 

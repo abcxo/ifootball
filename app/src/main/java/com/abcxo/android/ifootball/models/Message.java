@@ -10,4 +10,5 @@ public class Message{
     public String name;
     public String time;
     public Content content;
+    public String count;
 }

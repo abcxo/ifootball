@@ -45,6 +45,8 @@
     <color name="color_text_input">#B2000000</color>
     <!--内容-->
     <color name="color_text_content">#89000000</color>
+    <!--特殊颜色-->
+    <color name="color_text_special">#F5A623</color>
     <!--附加-->
     <color name="color_text_append">#60000000</color>
 

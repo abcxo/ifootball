@@ -13,9 +13,9 @@ public class Tweet {
 
     public String time;
 
-    public int starCount;
-    public int repeatCount;
-    public int replyCount;
+    public String starCount;
+    public String  repeatCount;
+    public String replyCount;
     public int type;
 
 

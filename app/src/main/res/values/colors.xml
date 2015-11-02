@@ -27,7 +27,8 @@
     <!--默认图标-->
     <color name="color_icon">#33000000</color>
     <!--特殊图标-->
-    <color name="color_icon_special">#F5A623</color>
+    <color name="color_icon_yellow">#F5A623</color>
+    <color name="color_icon_red">#F44336</color>
 
     <!--明亮蒙版-->
     <color name="color_mask_light">#CCFFFFFF</color>

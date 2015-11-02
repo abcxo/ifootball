@@ -32,9 +32,9 @@
             android:layout_marginLeft="@dimen/padding"
             android:layout_toRightOf="@id/item_icon"
             android:singleLine="true"
-            android:text="@{tweet.content.title}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
+            android:text="@{tweet.content.title}"
             tools:text="咸蛋超人" />
 
         <TextView
@@ -44,6 +44,7 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/color_text_append"
             android:textSize="12dp"
+            android:text="@{tweet.time}"
             tools:text="3小时" />
 
         <TextView

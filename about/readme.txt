@@ -50,8 +50,9 @@ signature
 password
 avatar
 cover
-gender
+gender (unknwon,male,female)
 distance
+time
 lon
 lat
 type (normal,vip,super,team)

@@ -14,7 +14,7 @@ import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.controllers.adapters.TweetRecyclerViewAdapter;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 
-public class HomeFragment extends Fragment {
+public class TweetFragment extends Fragment {
     public static HomeFragment newInstance() {
         return newInstance(null);
     }

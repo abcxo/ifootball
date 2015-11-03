@@ -1,30 +1,25 @@
 package com.abcxo.android.ifootball.controllers.adapters;
 
-import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.databinding.ItemHomeBinding;
 import com.abcxo.android.ifootball.models.Tweet;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 /**
  * Created by shadow on 15/11/1.
  */
-public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.BindingHolder> {
+public class TweetRecyclerViewAdapter extends RecyclerView.Adapter<TweetRecyclerViewAdapter.BindingHolder> {
 
     public List<Tweet> tweets;
 
-    public HomeRecyclerViewAdapter(List<Tweet> tweets) {
+    public TweetRecyclerViewAdapter(List<Tweet> tweets) {
         this.tweets = tweets;
     }
 
@@ -51,6 +46,11 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         holder.binding.setTweet(tweet);
     }
 
+
+    @Override
+    public int getItemViewType(int position) {
+        return 3;
+    }
 
     @Override
     public int getItemCount() {

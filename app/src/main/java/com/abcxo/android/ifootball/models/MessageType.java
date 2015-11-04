@@ -7,7 +7,7 @@ public enum MessageType {
 
     MESSAGE(0),
     FOCUS(1),
-    REPLY(2),
+    COMMENT(2),
     PROMPT(3),
     REPLY(4),
     CHAT(5);

@@ -7,7 +7,7 @@
     <dimen name="padding_min">4dp</dimen>
 
 
-    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="nav_header_height">200dp</dimen>
 
 
     <dimen name="icon_1">80dp</dimen>

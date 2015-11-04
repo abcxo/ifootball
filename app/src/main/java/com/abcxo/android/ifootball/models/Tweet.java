@@ -13,11 +13,11 @@ public class Tweet {
     public String name = "";
     public String source = "";
     public String time = "";
-    public String replyCount = "";
+    public String commentCount = "";
     public String repeatCount = "";
     public String starCount = "";
     public Content content = new Content();
-    public TweetMainType mainType = TweetMainType.USER;
+    public TweetMainType mainType = TweetMainType.TWEET;
     public TweetDetailType detailType = TweetDetailType.TWEET;
     public Map<String, String> extras = new HashMap<>();
 

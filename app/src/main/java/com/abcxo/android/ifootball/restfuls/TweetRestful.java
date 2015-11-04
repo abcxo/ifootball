@@ -28,7 +28,7 @@ public class TweetRestful {
      */
 
     private void post(Runnable runnable) {
-        new Handler().postDelayed(runnable, 1000);
+        new Handler().postDelayed(runnable, 2000);
     }
 
     private Tweet testTweet() {
@@ -40,7 +40,7 @@ public class TweetRestful {
         tweet.name = "咸蛋超人";
         tweet.source = "新浪微博";
         tweet.time = "3小时前";
-        tweet.replyCount = "381";
+        tweet.commentCount = "381";
         tweet.repeatCount = "274";
         tweet.starCount = "96";
 
@@ -62,13 +62,13 @@ public class TweetRestful {
 
 
         tweet.content = content;
-        tweet.mainType = TweetMainType.USER;
+        tweet.mainType = TweetMainType.TWEET;
         tweet.detailType = TweetDetailType.TWEET;
 
         return tweet;
     }
 
-    private List<Tweet> testTweets() {
+    public List<Tweet> testTweets() {
         List<Tweet> tweets = new ArrayList<>();
         for (int i = 0; i < RestfulConstants.PAGE_SIZE; i++) {
             tweets.add(testTweet());
@@ -116,6 +116,7 @@ public class TweetRestful {
             @Override
             public void run() {
                 onGet.onSuccess(testTweet());
+                onGet.onFinish();
             }
         });
     }
@@ -123,7 +124,7 @@ public class TweetRestful {
 
     //获取Main列表
     public enum GetsType {
-        USER,
+        TWEET,
         TEAM,
         NEWS,
     }
@@ -142,6 +143,7 @@ public class TweetRestful {
             @Override
             public void run() {
                 onList.onSuccess(testTweets());
+                onList.onFinish();
             }
         });
     }
@@ -152,6 +154,7 @@ public class TweetRestful {
             @Override
             public void run() {
                 onList.onSuccess(testTweets());
+                onList.onFinish();
             }
         });
     }

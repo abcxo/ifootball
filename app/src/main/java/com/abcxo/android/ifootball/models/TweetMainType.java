@@ -5,7 +5,7 @@ package com.abcxo.android.ifootball.models;
  */
 public enum TweetMainType {
 
-    USER(0),
+    TWEET(0),
     TEAM(1),
     NEWS(2);
     private int index;

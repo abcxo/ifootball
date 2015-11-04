@@ -1,13 +1,9 @@
 package com.abcxo.android.ifootball.controllers.fragments.nav;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.IntegerRes;
-import android.support.annotation.LayoutRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,27 +17,26 @@ import com.abcxo.android.ifootball.R;
  */
 public abstract class NavFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
-   
+
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        toolbar = (Toolbar) getView().findViewById(R.id.toolbar);
+        drawer = (DrawerLayout) getNavActivity().findViewById(R.id.drawer_layout);
         syncToolbar();
-
     }
 
     private void syncToolbar() {
-        Toolbar toolbar = (Toolbar) getNavActivity().findViewById(getToolbarResId());
         getNavActivity().setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) getNavActivity().findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 getNavActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
     }
 
-    @IdRes
-    public abstract int getToolbarResId();
 
     @Override
     public void onHiddenChanged(boolean hidden) {

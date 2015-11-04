@@ -17,15 +17,73 @@ item_star（别人赞你）
 item_prompt（转发你的或者是@你的）
 item_chat（私信）
 
-New:
-fragment_new_tweet  （新建推文）
-fragment_new_team  （添加球队关注）
+
+activity:
+SignActivity
+NavActivity
+SettingActivity
+HelpActivity
+WebActivity
+
+
+fragment:
+NavFragment
+
+
+
+
+
+main:
+MainFragment 
+TweetFragment
+HomeFragment
+TeamFragment
+NewsFragment
+DiscoverFragment
+
+contact:
+ContactFragment
+UserFragment
+FriendFragment
+FocusFragment
+FansFragment
+
+message:
+MessageFragment
+
+
+search:
+SearchFragment
+SearchTweetFragment(TweetFragment)
+SearchUserFragment
+
+sign:
+LoginFragment
+RegisterFragment
+MeDetailFragment （UserDetailFragment）
+
+
+add:
+AddTweetFragment  （新建推文）
+AddTeamFragment  （添加球队关注）
 
 
 detail：
-fragment_user （用户详情）
-fragment_tweet （推文详情）
-fragment_news （新闻详情）
+UserDetailFragment （用户详情）
+TweetDetailFragment （推文详情）
+NewsDetailFragment （新闻详情）
+
+
+
+
+adapter:
+BindingAdapter
+TweetAdapter
+UserAdapter
+MessageAdapter
+ChatAdapter
+
+
 
 
 
@@ -68,7 +126,7 @@ Content content
 time
 starCount
 repeatCount
-replyCount
+commentCount
 mainType (user,team,news)
 detailType (tweet,news)
 extras

@@ -1,0 +1,18 @@
+package com.abcxo.android.ifootball.controllers.fragments.contact;
+
+import android.os.Bundle;
+
+/**
+ * Created by shadow on 15/11/5.
+ */
+public class FriendContactFragment extends ContactUserFragment {
+    public static FriendContactFragment newInstance() {
+        return newInstance(null);
+    }
+
+    public static FriendContactFragment newInstance(Bundle args) {
+        FriendContactFragment fragment = new FriendContactFragment();
+        if (args != null) fragment.setArguments(args);
+        return fragment;
+    }
+}

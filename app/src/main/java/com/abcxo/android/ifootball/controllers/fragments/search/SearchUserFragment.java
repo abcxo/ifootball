@@ -1,9 +1,9 @@
 package com.abcxo.android.ifootball.controllers.fragments.search;
 
-import android.app.Fragment;
+import com.abcxo.android.ifootball.controllers.fragments.sign.UserFragment;
 
 /**
  * Created by shadow on 15/11/4.
  */
-public class SearchUserFragment extends Fragment{
+public class SearchUserFragment extends UserFragment{
 }

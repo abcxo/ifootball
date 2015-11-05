@@ -5,12 +5,14 @@ package com.abcxo.android.ifootball.models;
  */
 public enum MessageType {
 
-    MESSAGE(0),
+    NORMAL(0),
     FOCUS(1),
     COMMENT(2),
     PROMPT(3),
-    REPLY(4),
-    CHAT(5);
+    STAR(4),
+    CHAT(5),
+    SPECIAL(6);
+
     private int index;
 
     MessageType(int index) {
@@ -24,4 +26,4 @@ public enum MessageType {
     public int getIndex() {
         return index;
     }
-}
+    }

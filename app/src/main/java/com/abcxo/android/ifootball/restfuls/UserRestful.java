@@ -30,7 +30,7 @@ public class UserRestful {
      */
 
     private void post(Runnable runnable) {
-        new Handler().postDelayed(runnable, 1000);
+        new Handler().postDelayed(runnable, 2000);
     }
 
 
@@ -127,6 +127,7 @@ public class UserRestful {
             @Override
             public void run() {
                 onGet.onSuccess(testUser());
+                onGet.onFinish();
 
             }
         });
@@ -138,6 +139,7 @@ public class UserRestful {
             @Override
             public void run() {
                 onGet.onSuccess(testUser());
+                onGet.onFinish();
 
             }
         });
@@ -149,6 +151,7 @@ public class UserRestful {
             @Override
             public void run() {
                 onGet.onSuccess(testUser());
+                onGet.onFinish();
 
             }
         });
@@ -160,6 +163,7 @@ public class UserRestful {
             @Override
             public void run() {
                 onGet.onSuccess(testUser());
+                onGet.onFinish();
 
             }
         });
@@ -183,6 +187,7 @@ public class UserRestful {
             @Override
             public void run() {
                 onList.onSuccess(testUsers());
+                onList.onFinish();
 
             }
         });
@@ -193,6 +198,7 @@ public class UserRestful {
             @Override
             public void run() {
                 onList.onSuccess(testUsers());
+                onList.onFinish();
 
             }
         });
@@ -205,6 +211,7 @@ public class UserRestful {
             @Override
             public void run() {
                 onTeams.onSuccess(testTeamUsers());
+                onTeams.onFinish();
 
             }
         });
@@ -217,6 +224,7 @@ public class UserRestful {
             @Override
             public void run() {
                 onDo.onSuccess();
+                onDo.onFinish();
             }
         });
     }
@@ -227,6 +235,7 @@ public class UserRestful {
             @Override
             public void run() {
                 onDo.onSuccess();
+                onDo.onFinish();
             }
         });
     }

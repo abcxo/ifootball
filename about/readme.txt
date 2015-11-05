@@ -138,5 +138,5 @@ icon
 name
 Content
 time
-type (focus,star,prompt,reply,chat,message)
+type (focus,star,prompt,comment,chat,message)
 extras

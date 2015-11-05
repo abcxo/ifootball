@@ -7,13 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
-import com.abcxo.android.ifootball.databinding.ItemTweetBinding;
 import com.abcxo.android.ifootball.models.Tweet;
 
 import java.util.List;
 
 import static com.abcxo.android.ifootball.models.TweetMainType.NEWS;
+import static com.abcxo.android.ifootball.models.TweetMainType.NORMAL;
+import static com.abcxo.android.ifootball.models.TweetMainType.SPECIAL;
 import static com.abcxo.android.ifootball.models.TweetMainType.TEAM;
 
 /**
@@ -28,7 +30,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.BindingHolde
     }
 
     public static class BindingHolder extends RecyclerView.ViewHolder {
-        public ItemTweetBinding binding;
+        public ViewDataBinding binding;
 
         public BindingHolder(View rowView) {
             super(rowView);
@@ -43,25 +45,27 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.BindingHolde
     }
 
     public View getItemLayoutView(ViewGroup parent, int type) {
-//        if (type == TEAM.getIndex()) {
-//            return LayoutInflater.from(parent.getContext())
-//                    .inflate(R.layout.item_team, parent, false);
-//        } else if (type == NEWS.getIndex()) {
-//            return LayoutInflater.from(parent.getContext())
-//                    .inflate(R.layout.item_news, parent, false);
-//        } else {
-//            return LayoutInflater.from(parent.getContext())
-//                    .inflate(R.layout.item_tweet, parent, false);
-//        }
-        return LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_tweet, parent, false);
+        if (type == NORMAL.getIndex()) {
+            return LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_tweet_normal, parent, false);
+        } else if (type == TEAM.getIndex()) {
+            return LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_tweet_team, parent, false);
+        } else if (type == NEWS.getIndex()) {
+            return LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_tweet_news, parent, false);
+        }else if (type == SPECIAL.getIndex()) {
+            return LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_tweet_special, parent, false);
+        }
+        return null;
 
     }
 
     @Override
     public void onBindViewHolder(BindingHolder holder, int position) {
         final Tweet tweet = tweets.get(position);
-        holder.binding.setTweet(tweet);
+        holder.binding.setVariable(BR.tweet, tweet);
 
     }
 

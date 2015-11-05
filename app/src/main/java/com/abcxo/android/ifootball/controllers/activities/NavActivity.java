@@ -1,8 +1,8 @@
 package com.abcxo.android.ifootball.controllers.activities;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
@@ -150,7 +150,7 @@ public class NavActivity extends AppCompatActivity
     }
 
     private void toNav(Fragment fg) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         if (!fg.isAdded()) {
             transaction.add(R.id.content, fg);

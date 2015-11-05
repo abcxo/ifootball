@@ -17,7 +17,7 @@ public class Tweet {
     public String repeatCount = "";
     public String starCount = "";
     public Content content = new Content();
-    public TweetMainType mainType = TweetMainType.TWEET;
+    public TweetMainType mainType = TweetMainType.NORMAL;
     public TweetDetailType detailType = TweetDetailType.TWEET;
     public Map<String, String> extras = new HashMap<>();
 

@@ -1,20 +1,48 @@
 package com.abcxo.android.ifootball.controllers.adapters;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import com.abcxo.android.ifootball.R;
-import com.abcxo.android.ifootball.controllers.fragments.main.DiscoverFragment;
-import com.abcxo.android.ifootball.controllers.fragments.main.HomeFragment;
-import com.abcxo.android.ifootball.controllers.fragments.main.NewsFragment;
-import com.abcxo.android.ifootball.controllers.fragments.main.TeamFragment;
+import com.abcxo.android.ifootball.controllers.fragments.main.DiscoverUserFragment;
+import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
+import com.abcxo.android.ifootball.controllers.fragments.main.NewsTweetFragment;
+import com.abcxo.android.ifootball.controllers.fragments.main.TeamTweetFragment;
+
+import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.DISCOVER;
+import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.HOME;
+import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.NEWS;
+import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.TEAM;
 
 /**
  * Created by shadow on 15/11/1.
  */
 public class MainAdapter extends FragmentPagerAdapter {
+
+    //获取用户列表
+    public enum PageType {
+
+        HOME(0),
+        TEAM(1),
+        NEWS(2),
+        DISCOVER(3);
+        private int index;
+
+        PageType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return PageType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
 
     private String[] titles;
 
@@ -25,18 +53,18 @@ public class MainAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return HomeFragment.newInstance();
-            case 1:
-                return TeamFragment.newInstance();
-            case 2:
-                return NewsFragment.newInstance();
-            case 3:
-                return DiscoverFragment.newInstance();
-            default:
-                return null;
+        if (position == HOME.getIndex()) {
+            return HomeTweetFragment.newInstance();
+        } else if (position == TEAM.getIndex()) {
+            return TeamTweetFragment.newInstance();
         }
+        if (position == NEWS.getIndex()) {
+            return NewsTweetFragment.newInstance();
+        }
+        if (position == DISCOVER.getIndex()) {
+            return DiscoverUserFragment.newInstance();
+        }
+        return null;
     }
 
     @Override

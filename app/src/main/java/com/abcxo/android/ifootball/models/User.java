@@ -20,5 +20,6 @@ public class User {
     public String lat = "";
     public GenderType gender = GenderType.UNKNOWN;
     public UserType type = UserType.NORMAL;
+    public UserMainType mainType = UserMainType.NORMAL;
     public Map<String, String> extras = new HashMap<>();
 }

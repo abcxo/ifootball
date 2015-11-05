@@ -1,6 +1,6 @@
 package com.abcxo.android.ifootball.controllers.fragments.nav;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,8 +18,8 @@ import com.abcxo.android.ifootball.R;
 public abstract class NavFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
-    private Toolbar toolbar;
-    private DrawerLayout drawer;
+    protected Toolbar toolbar;
+    protected DrawerLayout drawer;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

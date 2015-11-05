@@ -12,8 +12,9 @@ public class Message{
     public String icon = "";
     public String name = "";
     public String time = "";
+    public String count = "";
     public Content content = new Content();
-    public MessageType type = MessageType.MESSAGE;
+    public MessageType type = MessageType.NORMAL;
     public Map<String, String> extras = new HashMap<>();
 
 }

@@ -62,7 +62,7 @@ public class TweetRestful {
 
 
         tweet.content = content;
-        tweet.mainType = TweetMainType.TWEET;
+        tweet.mainType = TweetMainType.NORMAL;
         tweet.detailType = TweetDetailType.TWEET;
 
         return tweet;

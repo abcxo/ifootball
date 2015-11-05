@@ -9,9 +9,6 @@
     <string name="activity_web"></string>
 
 
-
-
-
     <string-array name="main_page_list">
         <item>主页</item>
         <item>球队</item>
@@ -19,9 +16,25 @@
         <item>发现</item>
     </string-array>
 
+    <string-array name="contact_page_list">
+        <item>我的好友</item>
+        <item>我的关注</item>
+        <item>我的粉丝</item>
+    </string-array>
+
+
+    <string-array name="message_page_list">
+        <item>全部</item>
+        <item>私信</item>
+        <item>评论</item>
+        <item>\&#064;我</item>
+        <item>点赞</item>
+        <item>关注</item>
+        <item>其他</item>
+    </string-array>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
 
 
     <string name="menu_item_main">主页</string>
@@ -31,7 +44,6 @@
     <string name="menu_item_setting">设置</string>
     <string name="menu_item_help">帮助&#038;反馈</string>
     <string name="menu_item_about">关于爱足球吧</string>
-
 
 
 </resources>

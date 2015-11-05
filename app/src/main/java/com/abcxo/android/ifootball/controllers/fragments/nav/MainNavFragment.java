@@ -35,12 +35,12 @@ public class MainNavFragment extends NavFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(4);
 
 
-        viewPager.setAdapter(new MainAdapter(getFragmentManager(), getActivity()));
+        viewPager.setAdapter(new MainAdapter(getChildFragmentManager(), getActivity()));
 
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

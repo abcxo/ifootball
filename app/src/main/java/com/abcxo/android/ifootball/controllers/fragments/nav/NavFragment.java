@@ -31,6 +31,7 @@ public abstract class NavFragment extends Fragment {
 
     private void syncToolbar() {
         getNavActivity().setSupportActionBar(toolbar);
+        getNavActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 getNavActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);

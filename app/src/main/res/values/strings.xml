@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">爱足球吧</string>
 
-    <string name="activity_nav"></string>
+    <string name="activity_nav">爱足球吧</string>
     <string name="activity_sign">登录/注册</string>
     <string name="activity_setting">设置</string>
     <string name="activity_help">帮助&#038;反馈</string>
@@ -32,6 +32,12 @@
         <item>关注</item>
         <item>其他</item>
     </string-array>
+
+    <string-array name="search_page_list">
+        <item>用户</item>
+        <item>推文</item>
+    </string-array>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

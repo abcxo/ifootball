@@ -57,11 +57,9 @@ public class MainAdapter extends FragmentPagerAdapter {
             return HomeTweetFragment.newInstance();
         } else if (position == TEAM.getIndex()) {
             return TeamTweetFragment.newInstance();
-        }
-        if (position == NEWS.getIndex()) {
+        } else if (position == NEWS.getIndex()) {
             return NewsTweetFragment.newInstance();
-        }
-        if (position == DISCOVER.getIndex()) {
+        } else if (position == DISCOVER.getIndex()) {
             return DiscoverUserFragment.newInstance();
         }
         return null;

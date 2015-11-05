@@ -65,12 +65,12 @@ public class MessageNavFragment extends NavFragment {
 
     private Fragment currentFg;
 
-    public static MessageFragment newInstance() {
+    public static MessageNavFragment newInstance() {
         return newInstance(null);
     }
 
-    public static MessageFragment newInstance(Bundle args) {
-        MessageFragment fragment = new MessageFragment();
+    public static MessageNavFragment newInstance(Bundle args) {
+        MessageNavFragment fragment = new MessageNavFragment();
         if (args != null) fragment.setArguments(args);
         return fragment;
     }

@@ -77,7 +77,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.BindingH
     @Override
     public void onBindViewHolder(BindingHolder holder, int position) {
         Message message = messages.get(position);
-        holder.binding.setVariable(BR.user, message);
+        holder.binding.setVariable(BR.message, message);
 
     }
 

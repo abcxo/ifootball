@@ -138,7 +138,7 @@ public class MessageNavFragment extends NavFragment {
         if (commentFg == null) {
             commentFg = CommentMessageFragment.newInstance();
         }
-        toMessage(allFg);
+        toMessage(commentFg);
 
     }
 
@@ -165,7 +165,7 @@ public class MessageNavFragment extends NavFragment {
         if (starFg == null) {
             starFg = StarMessageFragment.newInstance();
         }
-        toMessage(allFg);
+        toMessage(starFg);
 
     }
 

@@ -9,7 +9,7 @@ import com.abcxo.android.ifootball.controllers.fragments.sign.LoginSignFragment;
 /**
  * Created by shadow on 15/11/4.
  */
-public class SignActivity extends AppCompatActivity {
+public class AddTweetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

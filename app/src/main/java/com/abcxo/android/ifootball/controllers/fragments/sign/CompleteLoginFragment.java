@@ -1,4 +1,4 @@
-package com.abcxo.android.ifootball.controllers.fragments.add;
+package com.abcxo.android.ifootball.controllers.fragments.sign;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,13 +14,13 @@ import com.abcxo.android.ifootball.R;
 /**
  * Created by shadow on 15/11/4.
  */
-public class AddTweetFragment extends Fragment {
-    public static AddTweetFragment newInstance() {
+public class CompleteLoginFragment extends Fragment {
+    public static CompleteLoginFragment newInstance() {
         return newInstance(null);
     }
 
-    public static AddTweetFragment newInstance(Bundle args) {
-        AddTweetFragment fragment = new AddTweetFragment();
+    public static CompleteLoginFragment newInstance(Bundle args) {
+        CompleteLoginFragment fragment = new CompleteLoginFragment();
         if (args != null) fragment.setArguments(args);
         return fragment;
     }
@@ -28,17 +28,12 @@ public class AddTweetFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tweet, container, false);
+        return inflater.inflate(R.layout.fragment_sign_complete, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 }

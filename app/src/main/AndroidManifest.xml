@@ -24,11 +24,10 @@
             android:name=".controllers.activities.NavActivity"
             android:label="@string/activity_nav"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".controllers.activities.AboutActivity"
@@ -41,7 +40,13 @@
         <activity
             android:name=".controllers.activities.SignActivity"
             android:label="@string/activity_sign"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar.NoStatusBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".controllers.activities.SettingActivity"
             android:label="@string/activity_setting"

@@ -1,4 +1,4 @@
-package com.abcxo.android.ifootball.controllers.fragments.add;
+package com.abcxo.android.ifootball.controllers.fragments.sign;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,13 +14,13 @@ import com.abcxo.android.ifootball.R;
 /**
  * Created by shadow on 15/11/4.
  */
-public class AddTweetFragment extends Fragment {
-    public static AddTweetFragment newInstance() {
+public class LoginSignFragment extends Fragment {
+    public static LoginSignFragment newInstance() {
         return newInstance(null);
     }
 
-    public static AddTweetFragment newInstance(Bundle args) {
-        AddTweetFragment fragment = new AddTweetFragment();
+    public static LoginSignFragment newInstance(Bundle args) {
+        LoginSignFragment fragment = new LoginSignFragment();
         if (args != null) fragment.setArguments(args);
         return fragment;
     }
@@ -28,7 +28,7 @@ public class AddTweetFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tweet, container, false);
+        return inflater.inflate(R.layout.fragment_sign_login, container, false);
     }
 
     @Override

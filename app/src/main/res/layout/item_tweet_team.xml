@@ -12,15 +12,12 @@
             type="Tweet" />
     </data>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding">
+    <RelativeLayout style="@style/Item">
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{tweet.icon}"
             tools:src="@mipmap/test2" />
@@ -43,10 +40,9 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/name"
-            android:layout_marginTop="@dimen/padding_min"
             android:text="@{tweet.source}"
             android:textColor="@color/color_text_special"
-            android:textSize="14dp"
+            android:textSize="12dp"
             tools:text="新浪微博" />
 
         <TextView

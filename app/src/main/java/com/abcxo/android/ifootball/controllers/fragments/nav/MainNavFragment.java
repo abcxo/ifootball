@@ -117,17 +117,15 @@ public class MainNavFragment extends NavFragment {
                 if (currentIndex == HOME.getIndex()) {
                     startActivity(new Intent(getActivity(), AddTweetActivity.class));
                 } else if (currentIndex == TEAM.getIndex()) {
-                    startActivity(new Intent(getActivity(), AddTeamActivity.class));
+                    startActivity(new Intent(getActivity(), SignActivity.class));
                 } else if (currentIndex == NEWS.getIndex()) {
                 } else if (currentIndex == DISCOVER.getIndex()) {
-                    startActivity(new Intent(getActivity(), SignActivity.class));
+
                 }
             }
         });
 
     }
-
-
 
 
 }

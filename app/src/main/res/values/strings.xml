@@ -2,6 +2,14 @@
     <string name="app_name">爱足球吧</string>
 
     <string name="activity_nav">爱足球吧</string>
+
+    <string name="activity_detail_tweet">推文详情</string>
+    <string name="activity_detail_news">新闻详情</string>
+    <string name="activity_detail_user">用户详情</string>
+
+    <string name="activity_add_tweet">写推文</string>
+    <string name="activity_add_team">添加球队</string>
+
     <string name="activity_sign">登录/注册</string>
     <string name="activity_setting">设置</string>
     <string name="activity_help">帮助&#038;反馈</string>
@@ -52,4 +60,28 @@
     <string name="menu_item_about">关于爱足球吧</string>
 
 
+    <string name="sign_login_name_hint">邮箱</string>
+
+    <string name="sign_login_password_hint">密码</string>
+
+    <string name="sign_login_login_text">登录</string>
+    <string name="sign_login_register_text">注册</string>
+    <string name="sign_login_forget_password_text">忘记密码了？</string>
+
+
+    <string name="sign_complete_nick_text">昵称</string>
+
+    <string name="sign_complete_sign_text">签名（选填）</string>
+    <string name="sign_complete_complete_text">完成</string>
+
+
+    <string name="gender_male_text">男</string>
+    <string name="gender_female_text">女</string>
+
+
+    <string name="add_tweet_text_hint">有趣的事情呢？</string>
+    <string name="add_tweet_send_text">推文</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

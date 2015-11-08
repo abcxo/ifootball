@@ -5,7 +5,10 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="colorAccent">@color/color_accent_text</item>
+        <item name="colorAccent">@color/color_primary</item>
+
+        <item name="android:textColorHint">@color/color_text_slightLight</item>
+        <item name="colorControlNormal">@color/color_text_slightLight</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -14,12 +17,48 @@
     </style>
 
 
+    <style name="AppTheme.NoActionBar.NoStatusBar" parent="AppTheme.NoActionBar"></style>
+
+    <style name="AppTheme.NoActionBar.NoStatusBar.NoNavigationBar" parent="AppTheme.NoActionBar.NoStatusBar"></style>
 
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+    <style name="AppTheme.AppBarDark" parent="ThemeOverlay.AppCompat.Dark.ActionBar"></style>
+
+    <style name="AppTheme.AppBarLight" parent="ThemeOverlay.AppCompat.ActionBar"></style>
+
+    <style name="AppTheme.PopupLight" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="TextInputLayout" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/color_text_slightLight</item>
+        <item name="android:textSize">@dimen/text_input</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Gender" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/icon_gender_height</item>
+        <item name="android:gravity">center</item>
+        <item name="android:tint">@color/color_icon_highlight</item>
+        <item name="android:textColor">@color/color_text_highlight</item>
+        <item name="android:textSize">@dimen/text_small</item>
+
+        <item name="android:paddingLeft">@dimen/padding_min</item>
+        <item name="android:paddingRight">@dimen/padding_min</item>
+    </style>
+
+
+    <style name="Male" parent="Gender">
+        <item name="android:text">@string/gender_male_text</item>
+        <item name="android:background">@drawable/bg_male</item>
+        <item name="android:drawableLeft">@drawable/ic_male</item>
+    </style>
+
+    <style name="Female" parent="Gender">
+        <item name="android:text">@string/gender_female_text</item>
+        <item name="android:background">@drawable/bg_female</item>
+        <item name="android:drawableLeft">@drawable/ic_female</item>
+    </style>
 
 
 </resources>

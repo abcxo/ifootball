@@ -1,5 +1,9 @@
 package com.abcxo.android.ifootball.controllers.fragments.main;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.controllers.activities.NewsDetailActivity;
+import com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity;
 import com.abcxo.android.ifootball.controllers.adapters.TweetAdapter;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
+import com.abcxo.android.ifootball.views.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +62,10 @@ public class TweetFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(
+                getActivity(), DividerItemDecoration.VERTICAL));
 
-        adapter = new TweetAdapter(list);
+        adapter = new TweetAdapter(list, new Handler());
         recyclerView.setAdapter(adapter);
 
         refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
@@ -108,5 +117,27 @@ public class TweetFragment extends Fragment {
         adapter.notifyItemRangeInserted(bCount, tweets.size());
     }
 
+
+    public class Handler {
+        public void onClickTweet(View view) {
+            onClickItem(view, TweetDetailActivity.class);
+        }
+
+        public void onClickNews(View view) {
+
+            onClickItem(view, NewsDetailActivity.class);
+        }
+
+        public void onClickItem(View view, Class<? extends Activity> activity) {
+            ViewDataBinding binding = DataBindingUtil.getBinding(view);
+            Tweet tweet = (Tweet) binding.getRoot().getTag();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("tweet", tweet);
+            Intent intent = new Intent(getActivity(), activity);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+
+    }
 
 }

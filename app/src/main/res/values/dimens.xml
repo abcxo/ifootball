@@ -1,5 +1,7 @@
 <resources>
-    <dimen name="padding_max">24dp</dimen>
+    <dimen name="padding_max">40dp</dimen>
+    <dimen name="padding_big">32dp</dimen>
+    <dimen name="padding_mid">24dp</dimen>
     <dimen name="padding">16dp</dimen>
     <dimen name="_padding">-16dp</dimen>
     <dimen name="padding_small">8dp</dimen>
@@ -7,9 +9,40 @@
     <dimen name="padding_min">4dp</dimen>
 
 
+
+
     <dimen name="nav_header_height">200dp</dimen>
 
 
     <dimen name="icon_1">80dp</dimen>
     <dimen name="icon_2">80dp</dimen>
+
+
+    <dimen name="text_max">20dp</dimen>
+    <dimen name="text_big">18dp</dimen>
+    <dimen name="text_mid">16dp</dimen>
+    <dimen name="text">14dp</dimen>
+    <dimen name="text_small">12dp</dimen>
+
+
+    <!--标题-->
+    <dimen name="text_title">16dp</dimen>
+
+    <!--输入提示-->
+    <dimen name="text_hint">14dp</dimen>
+
+    <!--输入-->
+    <dimen name="text_input">16dp</dimen>
+    <!--内容-->
+    <dimen name="text_content">14dp</dimen>
+    <!--特殊颜色-->
+    <dimen name="text_special">14dp</dimen>
+    <!--附加-->
+    <dimen name="text_append">12dp</dimen>
+
+
+    <dimen name="text_button">14dp</dimen>
+
+    <dimen name="icon_gender_height">16dp</dimen>
+
 </resources>

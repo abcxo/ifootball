@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO"></uses-permission>
     <uses-permission android:name="android.permission.CAMERA"></uses-permission>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
@@ -24,11 +23,46 @@
             android:name=".controllers.activities.NavActivity"
             android:label="@string/activity_nav"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+
+
+        <activity
+            android:name=".controllers.activities.TweetDetailActivity"
+            android:label="@string/activity_detail_tweet"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".controllers.activities.NewsDetailActivity"
+            android:label="@string/activity_detail_news"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".controllers.activities.UserDetailActivity"
+            android:label="@string/activity_detail_user"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".controllers.activities.AddTweetActivity"
+            android:label="@string/activity_add_tweet"
+            android:theme="@style/AppTheme.NoActionBar.NoStatusBar"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
+
+        <activity
+            android:name=".controllers.activities.AddTeamActivity"
+            android:label="@string/activity_add_team"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
+        <activity
+            android:name=".controllers.activities.SignActivity"
+            android:label="@string/activity_sign"
+            android:theme="@style/AppTheme.NoActionBar.NoStatusBar.NoNavigationBar"></activity>
+
         <activity
             android:name=".controllers.activities.AboutActivity"
             android:label="@string/activity_about"
@@ -37,15 +71,7 @@
             android:name=".controllers.activities.HelpActivity"
             android:label="@string/activity_help"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".controllers.activities.SignActivity"
-            android:label="@string/activity_sign"
-            android:theme="@style/AppTheme.NoActionBar.NoStatusBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+
 
         <activity
             android:name=".controllers.activities.SettingActivity"

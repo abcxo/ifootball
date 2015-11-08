@@ -31,17 +31,19 @@
             android:padding="@dimen/padding"
             android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-            <ImageView
+            <com.alexzh.circleimageview.CircleImageView
                 android:id="@+id/imageView"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:paddingTop="@dimen/padding"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/padding"
+                app:view_borderWidth="1dp"
+                app:view_borderColor="@color/color_white"
                 app:imageUrl="@{user.avatar}" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding"
+                android:layout_marginTop="@dimen/padding"
                 android:text="@{user.name}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 

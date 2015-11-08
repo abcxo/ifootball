@@ -5,9 +5,8 @@ package com.abcxo.android.ifootball.models;
  */
 public enum GenderType {
 
-    UNKNOWN(0),
-    MALE(1),
-    FEMALE(2);
+    MALE(0),
+    FEMALE(1);
     private int index;
 
     GenderType(int index) {

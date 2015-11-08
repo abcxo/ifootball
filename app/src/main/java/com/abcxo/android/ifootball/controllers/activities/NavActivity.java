@@ -26,7 +26,7 @@ import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 
 public class NavActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, NavFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
     private static final int DELAY_NAV_ITEM = 300;
 
 
@@ -151,7 +151,9 @@ public class NavActivity extends AppCompatActivity
 
     private void toNav(Fragment fg) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         if (!fg.isAdded()) {
             transaction.add(R.id.content, fg);
         } else {
@@ -173,8 +175,4 @@ public class NavActivity extends AppCompatActivity
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }

@@ -14,6 +14,7 @@ import com.abcxo.android.ifootball.controllers.adapters.UserAdapter;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.views.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,8 @@ public class UserFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-
+        recyclerView.addItemDecoration(new DividerItemDecoration(
+                getActivity(), DividerItemDecoration.VERTICAL));
         adapter = new UserAdapter(list);
         recyclerView.setAdapter(adapter);
 

@@ -6,15 +6,23 @@
     <data>
 
         <import type="com.abcxo.android.ifootball.models.Tweet" />
+        <import type="com.abcxo.android.ifootball.models.TweetDetailType" />
+
+        <import type="com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment.Handler" />
 
         <variable
             name="tweet"
             type="Tweet" />
+
+        <variable
+            name="handler"
+            type="Handler" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{tweet.detailType == TweetDetailType.TWEET ? handler.onClickTweet:handler.onClickNews}"
         android:padding="@dimen/padding">
 
         <ImageView
@@ -32,9 +40,9 @@
             android:layout_marginLeft="@dimen/padding"
             android:layout_toRightOf="@id/icon"
             android:singleLine="true"
+            android:text="@{tweet.name}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
-            android:text="@{tweet.name}"
             tools:text="咸蛋超人" />
 
         <TextView
@@ -42,9 +50,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:text="@{tweet.time}"
             android:textColor="@color/color_text_append"
             android:textSize="12dp"
-            android:text="@{tweet.time}"
             tools:text="3小时" />
 
         <TextView
@@ -80,9 +88,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:layout_weight="1">
+                android:padding="@dimen/padding">
 
                 <ImageView
                     android:layout_width="18dp"
@@ -94,9 +102,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_small"
+                    android:text="@{tweet.commentCount}"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
-                    android:text="@{tweet.commentCount}"
                     tools:text="307" />
             </LinearLayout>
 
@@ -104,9 +112,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:layout_weight="1">
+                android:padding="@dimen/padding">
 
                 <ImageView
                     android:layout_width="18dp"
@@ -118,9 +126,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_small"
+                    android:text="@{tweet.repeatCount}"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
-                    android:text="@{tweet.repeatCount}"
                     tools:text="284" />
             </LinearLayout>
 
@@ -128,9 +136,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:layout_weight="1">
+                android:padding="@dimen/padding">
 
                 <ImageView
                     android:layout_width="18dp"
@@ -142,9 +150,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_small"
+                    android:text="@{tweet.starCount}"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
-                    android:text="@{tweet.starCount}"
                     tools:text="97" />
             </LinearLayout>
         </LinearLayout>

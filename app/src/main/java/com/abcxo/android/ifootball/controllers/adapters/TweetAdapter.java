@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment.Handler;
 import com.abcxo.android.ifootball.models.Tweet;
 
 import java.util.List;
@@ -23,18 +24,23 @@ import static com.abcxo.android.ifootball.models.TweetMainType.TEAM;
  */
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.BindingHolder> {
 
-    public List<Tweet> tweets;
+    private List<Tweet> tweets;
+    private Handler handler;
 
-    public TweetAdapter(List<Tweet> tweets) {
+
+    public TweetAdapter(List<Tweet> tweets, Handler handler) {
         this.tweets = tweets;
+        this.handler = handler;
     }
 
     public static class BindingHolder extends RecyclerView.ViewHolder {
         public ViewDataBinding binding;
+        public View view;
 
         public BindingHolder(View rowView) {
             super(rowView);
             binding = DataBindingUtil.bind(rowView);
+            view = rowView;
         }
     }
 
@@ -54,7 +60,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.BindingHolde
         } else if (type == NEWS.getIndex()) {
             return LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_tweet_news, parent, false);
-        }else if (type == SPECIAL.getIndex()) {
+        } else if (type == SPECIAL.getIndex()) {
             return LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_tweet_special, parent, false);
         }
@@ -66,7 +72,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.BindingHolde
     public void onBindViewHolder(BindingHolder holder, int position) {
         final Tweet tweet = tweets.get(position);
         holder.binding.setVariable(BR.tweet, tweet);
-
+        holder.binding.setVariable(BR.handler, handler);
+        holder.view.setTag(tweet);
     }
 
 

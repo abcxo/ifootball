@@ -1,48 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     tools:context=".controllers.activities.SignActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_sign_complete" />
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:padding="@dimen/padding">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/bg_sign_login" />
+            <com.alexzh.circleimageview.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="104dp"
+                android:layout_height="104dp"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/test0" />
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/nick_layout"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/avatar"
+                android:layout_marginTop="@dimen/padding"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextInputLayout">
 
-            <RelativeLayout
+                <EditText
+                    android:id="@+id/nick"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_login_name_hint"
+                    android:inputType="textEmailAddress"
+                    android:paddingTop="@dimen/padding"
+                    android:singleLine="true"
+                    android:textColor="@color/color_text_highlight"
+                    android:textSize="@dimen/text_input" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/sign_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:padding="@dimen/padding">
-                <TextView
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nick_layout"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextInputLayout">
+
+                <EditText
+                    android:id="@+id/sign"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sign_login_password_hint"
+                    android:inputType="textPassword"
+                    android:paddingTop="@dimen/padding"
+                    android:singleLine="true"
+                    android:textColor="@color/color_text_highlight"
+                    android:textSize="@dimen/text_input" />
+            </android.support.design.widget.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/gender_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sign_layout"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="wefwefwefwef"/>
-            </RelativeLayout>
+                    android:buttonTint="@color/color_male"
+                    android:checked="true" />
 
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+                <TextView style="@style/Male" />
 
-</android.support.design.widget.CoordinatorLayout>
+                <RadioButton
+                    android:id="@+id/female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_max"
+                    android:buttonTint="@color/color_female" />
+
+                <TextView style="@style/Female" />
+            </RadioGroup>
+
+            <Button
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gender_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/padding"
+                android:backgroundTint="@color/color_button_minor"
+                android:text="@string/sign_complete_complete_text"
+                android:textColor="@color/color_text_highlight" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</FrameLayout>

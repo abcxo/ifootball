@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.controllers.fragments.main.DiscoverUserFragment;
@@ -64,6 +65,7 @@ public class MainAdapter extends FragmentPagerAdapter {
         }
         return null;
     }
+
 
     @Override
     public CharSequence getPageTitle(int position) {

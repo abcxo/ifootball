@@ -14,6 +14,7 @@ import com.abcxo.android.ifootball.controllers.adapters.MessageAdapter;
 import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.MessageRestful;
+import com.abcxo.android.ifootball.views.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,8 @@ public class MessageFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-
+        recyclerView.addItemDecoration(new DividerItemDecoration(
+                getActivity(), DividerItemDecoration.VERTICAL));
         adapter = new MessageAdapter(list);
         recyclerView.setAdapter(adapter);
 

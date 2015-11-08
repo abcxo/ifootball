@@ -13,9 +13,7 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding">
+        style="@style/Item">
 
         <ImageView
             android:id="@+id/item_icon"

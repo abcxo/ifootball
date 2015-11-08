@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.abcxo.android.ifootball.models.Content" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="content"
+            type="Content" />
+    </data>
+
+    <RelativeLayout
+        android:background="@drawable/bg_content"
+        style="@style/Item"
+        android:paddingLeft="@dimen/padding_small"
+        android:paddingRight="@dimen/padding_small"
+        android:visibility="@{content !=null? View.VISIBLE : View.GONE}">
+
+        <ImageView
+            android:id="@+id/cover"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{content.cover}"
+            tools:src="@mipmap/test2" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_toRightOf="@id/cover"
+            android:singleLine="true"
+            android:text="@{content.title}"
+            android:textColor="@color/color_text_title"
+            android:textSize="16dp"
+            tools:text="咸蛋超人" />
+
+        <TextView
+            android:id="@+id/summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/title"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="@dimen/padding_min"
+            android:text="@{content.summary}"
+            android:textColor="@color/color_text_content"
+            android:textSize="@dimen/text_content"
+            android:maxLines="2"
+            tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
+
+
+    </RelativeLayout>
+</layout>

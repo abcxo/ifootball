@@ -52,6 +52,7 @@
         <item name="android:text">@string/gender_male_text</item>
         <item name="android:background">@drawable/bg_male</item>
         <item name="android:drawableLeft">@drawable/ic_male</item>
+        <item name="android:drawablePadding">2dp</item>
     </style>
 
     <style name="Female" parent="Gender">

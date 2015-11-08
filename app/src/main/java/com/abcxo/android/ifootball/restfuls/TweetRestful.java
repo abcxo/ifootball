@@ -62,6 +62,7 @@ public class TweetRestful {
 
 
         tweet.content = content;
+        tweet.repeatContent =content;
         if (getsType == GetsType.TEAM) {
             tweet.mainType = TweetMainType.TEAM;
             tweet.detailType = TweetDetailType.TWEET;

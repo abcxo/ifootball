@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by SHARON on 15/10/29.
  */
-public class Tweet implements Parcelable{
+public class Tweet implements Parcelable {
     public String id = "";
     public String uid = "";
     public String icon = "";
@@ -20,13 +20,15 @@ public class Tweet implements Parcelable{
     public String repeatCount = "";
     public String starCount = "";
     public Content content = new Content();
+    public Content repeatContent = new Content();
     public TweetMainType mainType = TweetMainType.NORMAL;
     public TweetDetailType detailType = TweetDetailType.TWEET;
     public Map<String, String> extras = new HashMap<>();
 
-    public Tweet(){
+    public Tweet() {
         super();
     }
+
 
     protected Tweet(Parcel in) {
         id = in.readString();
@@ -38,6 +40,8 @@ public class Tweet implements Parcelable{
         commentCount = in.readString();
         repeatCount = in.readString();
         starCount = in.readString();
+        content = in.readParcelable(Content.class.getClassLoader());
+        repeatContent = in.readParcelable(Content.class.getClassLoader());
     }
 
     public static final Creator<Tweet> CREATOR = new Creator<Tweet>() {
@@ -68,5 +72,9 @@ public class Tweet implements Parcelable{
         dest.writeString(commentCount);
         dest.writeString(repeatCount);
         dest.writeString(starCount);
+        dest.writeParcelable(content, flags);
+        dest.writeParcelable(repeatContent, flags);
     }
+
+
 }

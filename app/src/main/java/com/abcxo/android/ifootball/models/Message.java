@@ -24,6 +24,7 @@ public class Message implements Parcelable{
         super();
     }
 
+
     protected Message(Parcel in) {
         id = in.readString();
         uid = in.readString();
@@ -31,6 +32,7 @@ public class Message implements Parcelable{
         name = in.readString();
         time = in.readString();
         count = in.readString();
+        content = in.readParcelable(Content.class.getClassLoader());
     }
 
     public static final Creator<Message> CREATOR = new Creator<Message>() {
@@ -58,5 +60,6 @@ public class Message implements Parcelable{
         dest.writeString(name);
         dest.writeString(time);
         dest.writeString(count);
+        dest.writeParcelable(content, flags);
     }
 }

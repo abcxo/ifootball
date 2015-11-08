@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="com.abcxo.android.ifootball.models.Tweet" />
+
         <import type="com.abcxo.android.ifootball.models.TweetDetailType" />
 
         <import type="com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment.Handler" />
@@ -20,10 +22,9 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/Item"
         android:onClick="@{tweet.detailType == TweetDetailType.TWEET ? handler.onClickTweet:handler.onClickNews}"
-        android:padding="@dimen/padding">
+        >
 
         <ImageView
             android:id="@+id/icon"
@@ -74,13 +75,23 @@
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/summary"
             android:layout_marginTop="@dimen/padding"
-            android:background="@mipmap/test0"></com.abcxo.android.ifootball.views.ImagesLayout>
+            android:background="@mipmap/test0" />
+
+        <include
+            android:id="@+id/repeat_content"
+            layout="@layout/content_tweet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/name"
+            android:layout_below="@id/images"
+            android:layout_marginTop="@dimen/padding"
+            bind:content="@{tweet.content}" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
-            android:layout_below="@+id/images"
+            android:layout_below="@+id/repeat_content"
             android:layout_marginTop="@dimen/padding"
             android:gravity="center_vertical"
             android:orientation="horizontal">

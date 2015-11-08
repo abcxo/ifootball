@@ -25,12 +25,12 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true">
 
-            <com.alexzh.circleimageview.CircleImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/avatar"
                 android:layout_width="104dp"
                 android:layout_height="104dp"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/test0" />
+                android:src="@mipmap/ic_photo_add" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/nick_layout"
@@ -45,7 +45,7 @@
                     android:id="@+id/nick"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/sign_login_name_hint"
+                    android:hint="@string/sign_complete_nick_text"
                     android:inputType="textEmailAddress"
                     android:paddingTop="@dimen/padding"
                     android:singleLine="true"
@@ -65,7 +65,7 @@
                     android:id="@+id/sign"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/sign_login_password_hint"
+                    android:hint="@string/sign_complete_sign_text"
                     android:inputType="textPassword"
                     android:paddingTop="@dimen/padding"
                     android:singleLine="true"

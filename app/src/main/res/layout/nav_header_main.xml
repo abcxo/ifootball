@@ -31,13 +31,13 @@
             android:padding="@dimen/padding"
             android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-            <com.alexzh.circleimageview.CircleImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageView"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="@dimen/padding"
-                app:view_borderWidth="1dp"
-                app:view_borderColor="@color/color_white"
+                app:civ_border_width="1dp"
+                app:civ_border_color="@color/color_white"
                 app:imageUrl="@{user.avatar}" />
 
             <TextView

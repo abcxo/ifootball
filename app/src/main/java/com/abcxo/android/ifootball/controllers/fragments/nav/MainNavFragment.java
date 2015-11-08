@@ -1,27 +1,20 @@
 package com.abcxo.android.ifootball.controllers.fragments.nav;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 
 import com.abcxo.android.ifootball.R;
-import com.abcxo.android.ifootball.controllers.activities.AddTeamActivity;
-import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
+import com.abcxo.android.ifootball.controllers.activities.TweetAddActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
 import com.abcxo.android.ifootball.controllers.adapters.MainAdapter;
 
-import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.*;
 import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.DISCOVER;
 import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.HOME;
 import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.NEWS;
@@ -115,7 +108,7 @@ public class MainNavFragment extends NavFragment {
             @Override
             public void onClick(View v) {
                 if (currentIndex == HOME.getIndex()) {
-                    startActivity(new Intent(getActivity(), AddTweetActivity.class));
+                    startActivity(new Intent(getActivity(), TweetAddActivity.class));
                 } else if (currentIndex == TEAM.getIndex()) {
                     startActivity(new Intent(getActivity(), SignActivity.class));
                 } else if (currentIndex == NEWS.getIndex()) {

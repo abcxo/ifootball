@@ -7,7 +7,7 @@
     android:background="@color/color_white"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".controllers.activities.AddTweetActivity">
+    tools:context=".controllers.activities.TweetAddActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

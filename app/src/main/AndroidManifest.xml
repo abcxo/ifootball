@@ -47,13 +47,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".controllers.activities.AddTweetActivity"
+            android:name=".controllers.activities.TweetAddActivity"
             android:label="@string/activity_add_tweet"
             android:theme="@style/AppTheme.NoActionBar.NoStatusBar"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
 
         <activity
-            android:name=".controllers.activities.AddTeamActivity"
+            android:name=".controllers.activities.TeamAddActivity"
             android:label="@string/activity_add_team"
             android:theme="@style/AppTheme.NoActionBar" />
 

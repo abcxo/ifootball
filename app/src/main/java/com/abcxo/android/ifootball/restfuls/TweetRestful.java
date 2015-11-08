@@ -31,7 +31,7 @@ public class TweetRestful {
         new Handler().postDelayed(runnable, 2000);
     }
 
-    private Tweet testTweet() {
+    private Tweet testTweet(GetsType getsType) {
 
         Tweet tweet = new Tweet();
         tweet.id = "1";
@@ -62,16 +62,25 @@ public class TweetRestful {
 
 
         tweet.content = content;
-        tweet.mainType = TweetMainType.NORMAL;
-        tweet.detailType = TweetDetailType.TWEET;
+        if (getsType == GetsType.TEAM) {
+            tweet.mainType = TweetMainType.TEAM;
+            tweet.detailType = TweetDetailType.TWEET;
+        } else if (getsType == GetsType.NEWS) {
+            tweet.mainType = TweetMainType.NEWS;
+            tweet.detailType = TweetDetailType.NEWS;
+        } else {
+            tweet.mainType = TweetMainType.NORMAL;
+            tweet.detailType = TweetDetailType.TWEET;
+        }
+
 
         return tweet;
     }
 
-    public List<Tweet> testTweets() {
+    public List<Tweet> testTweets(GetsType getsType) {
         List<Tweet> tweets = new ArrayList<>();
         for (int i = 0; i < RestfulConstants.PAGE_SIZE; i++) {
-            tweets.add(testTweet());
+            tweets.add(testTweet(getsType));
         }
         return tweets;
     }
@@ -115,7 +124,7 @@ public class TweetRestful {
         post(new Runnable() {
             @Override
             public void run() {
-                onGet.onSuccess(testTweet());
+                onGet.onSuccess(testTweet(GetsType.TWEET));
                 onGet.onFinish();
             }
         });
@@ -138,11 +147,11 @@ public class TweetRestful {
         getTweets(UserRestful.INSTANCE.uid, getsType, pageIndex, onList);
     }
 
-    public void getTweets(String uid, GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
+    public void getTweets(String uid, final GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
         post(new Runnable() {
             @Override
             public void run() {
-                onList.onSuccess(testTweets());
+                onList.onSuccess(testTweets(getsType));
                 onList.onFinish();
             }
         });
@@ -153,7 +162,7 @@ public class TweetRestful {
         post(new Runnable() {
             @Override
             public void run() {
-                onList.onSuccess(testTweets());
+                onList.onSuccess(testTweets(GetsType.TWEET));
                 onList.onFinish();
             }
         });

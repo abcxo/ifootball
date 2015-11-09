@@ -14,11 +14,12 @@
 
     <RelativeLayout style="@style/Item">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon"
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:scaleType="centerCrop"
+            app:riv_corner_radius="@dimen/icon_radius"
             app:imageUrl="@{tweet.user.avatar}"
             tools:src="@mipmap/test2" />
 

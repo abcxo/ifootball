@@ -45,4 +45,11 @@
 
     <dimen name="icon_gender_height">16dp</dimen>
 
+    
+    <dimen name="icon_radius_small">2dp</dimen>
+    <dimen name="icon_radius">4dp</dimen>
+    <dimen name="icon_radius_mid">6dp</dimen>
+    <dimen name="icon_radius_max">8dp</dimen>
+    
+
 </resources>

@@ -30,7 +30,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:scaleType="centerCrop"
-            app:riv_corner_radius="2dp"
+            app:riv_corner_radius="@dimen/icon_radius"
             android:onClick="@{handler.onClickUser}"
             app:imageUrl="@{tweet.user.avatar}"
             tools:src="@mipmap/test2" />

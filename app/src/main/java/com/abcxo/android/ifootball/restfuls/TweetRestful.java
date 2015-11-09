@@ -3,7 +3,7 @@ package com.abcxo.android.ifootball.restfuls;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
-import com.abcxo.android.ifootball.constants.RestfulConstants;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Content;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.models.TweetDetailType;
@@ -33,11 +33,17 @@ public class TweetRestful {
 
     private Tweet testTweet(GetsType getsType) {
 
+        Tweet tweet = testTweetContent(getsType);
+        tweet.originTweet = testTweetContent(getsType);
+        return tweet;
+    }
+
+
+    private Tweet testTweetContent(GetsType getsType) {
+
         Tweet tweet = new Tweet();
         tweet.id = "1";
-        tweet.uid = "1";
-        tweet.icon = "http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg";
-        tweet.name = "咸蛋超人";
+        tweet.user=UserRestful.INSTANCE.me();
         tweet.source = "新浪微博";
         tweet.time = "3小时前";
         tweet.commentCount = "381";
@@ -62,7 +68,7 @@ public class TweetRestful {
 
 
         tweet.content = content;
-        tweet.repeatContent =content;
+
         if (getsType == GetsType.TEAM) {
             tweet.mainType = TweetMainType.TEAM;
             tweet.detailType = TweetDetailType.TWEET;
@@ -73,14 +79,13 @@ public class TweetRestful {
             tweet.mainType = TweetMainType.NORMAL;
             tweet.detailType = TweetDetailType.TWEET;
         }
-
-
         return tweet;
     }
 
+
     public List<Tweet> testTweets(GetsType getsType) {
         List<Tweet> tweets = new ArrayList<>();
-        for (int i = 0; i < RestfulConstants.PAGE_SIZE; i++) {
+        for (int i = 0; i < Constants.PAGE_SIZE; i++) {
             tweets.add(testTweet(getsType));
         }
         return tweets;

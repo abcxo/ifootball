@@ -23,15 +23,16 @@
 
     <RelativeLayout
         style="@style/Item"
-        android:onClick="@{tweet.detailType == TweetDetailType.TWEET ? handler.onClickTweet:handler.onClickNews}"
-        >
+        android:onClick="@{tweet.detailType == TweetDetailType.TWEET ? handler.onClickTweet:handler.onClickNews}">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:scaleType="centerCrop"
-            app:imageUrl="@{tweet.icon}"
+            app:riv_corner_radius="2dp"
+            android:onClick="@{handler.onClickUser}"
+            app:imageUrl="@{tweet.user.avatar}"
             tools:src="@mipmap/test2" />
 
         <TextView
@@ -41,7 +42,7 @@
             android:layout_marginLeft="@dimen/padding"
             android:layout_toRightOf="@id/icon"
             android:singleLine="true"
-            android:text="@{tweet.name}"
+            android:text="@{tweet.user.name}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
             tools:text="咸蛋超人" />
@@ -85,7 +86,7 @@
             android:layout_alignLeft="@+id/name"
             android:layout_below="@id/images"
             android:layout_marginTop="@dimen/padding"
-            bind:content="@{tweet.content}" />
+            bind:tweet="@{tweet.originTweet}" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.activities.NewsDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity;
+import com.abcxo.android.ifootball.controllers.activities.UserDetailActivity;
 import com.abcxo.android.ifootball.controllers.adapters.TweetAdapter;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
@@ -105,11 +107,9 @@ public class TweetFragment extends Fragment {
     }
 
 
-
-    protected TweetRestful.GetsType getGetsType(){
+    protected TweetRestful.GetsType getGetsType() {
         return TweetRestful.GetsType.TWEET;
     }
-
 
 
     protected void refreshTweets(List<Tweet> tweets) {
@@ -126,6 +126,18 @@ public class TweetFragment extends Fragment {
 
 
     public class Handler {
+
+        public void onClickUser(View view) {
+            ViewDataBinding binding = DataBindingUtil.findBinding(view);
+            Tweet tweet = (Tweet) binding.getRoot().getTag();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(Constants.KEY_USER, tweet.user);
+            Intent intent = new Intent(getActivity(), UserDetailActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+
+
         public void onClickTweet(View view) {
             onClickItem(view, TweetDetailActivity.class);
         }
@@ -139,7 +151,7 @@ public class TweetFragment extends Fragment {
             ViewDataBinding binding = DataBindingUtil.getBinding(view);
             Tweet tweet = (Tweet) binding.getRoot().getTag();
             Bundle bundle = new Bundle();
-            bundle.putParcelable("tweet", tweet);
+            bundle.putParcelable(Constants.KEY_TWEET, tweet);
             Intent intent = new Intent(getActivity(), activity);
             intent.putExtras(bundle);
             startActivity(intent);

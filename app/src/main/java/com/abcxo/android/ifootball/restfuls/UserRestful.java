@@ -3,7 +3,7 @@ package com.abcxo.android.ifootball.restfuls;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
-import com.abcxo.android.ifootball.constants.RestfulConstants;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.GenderType;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.models.UserType;
@@ -55,7 +55,7 @@ public class UserRestful {
 
     private List<User> testUsers() {
         List<User> users = new ArrayList<>();
-        for (int i = 0; i < RestfulConstants.PAGE_SIZE; i++) {
+        for (int i = 0; i < Constants.PAGE_SIZE; i++) {
             users.add(testUser());
         }
         return users;

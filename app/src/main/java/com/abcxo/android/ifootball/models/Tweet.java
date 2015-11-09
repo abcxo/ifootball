@@ -3,27 +3,21 @@ package com.abcxo.android.ifootball.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by SHARON on 15/10/29.
  */
 public class Tweet implements Parcelable {
-    public String id = "";
-    public String uid = "";
-    public String icon = "";
-    public String name = "";
-    public String source = "";
-    public String time = "";
-    public String commentCount = "";
-    public String repeatCount = "";
-    public String starCount = "";
-    public Content content = new Content();
-    public Content repeatContent = new Content();
+    public String id;
+    public User user;
+    public String source;
+    public String time;
+    public String commentCount;
+    public String repeatCount;
+    public String starCount;
+    public Content content;
+    public Tweet originTweet;
     public TweetMainType mainType = TweetMainType.NORMAL;
     public TweetDetailType detailType = TweetDetailType.TWEET;
-    public Map<String, String> extras = new HashMap<>();
 
     public Tweet() {
         super();
@@ -32,16 +26,14 @@ public class Tweet implements Parcelable {
 
     protected Tweet(Parcel in) {
         id = in.readString();
-        uid = in.readString();
-        icon = in.readString();
-        name = in.readString();
+        user = in.readParcelable(User.class.getClassLoader());
         source = in.readString();
         time = in.readString();
         commentCount = in.readString();
         repeatCount = in.readString();
         starCount = in.readString();
         content = in.readParcelable(Content.class.getClassLoader());
-        repeatContent = in.readParcelable(Content.class.getClassLoader());
+        originTweet = in.readParcelable(Tweet.class.getClassLoader());
     }
 
     public static final Creator<Tweet> CREATOR = new Creator<Tweet>() {
@@ -64,17 +56,13 @@ public class Tweet implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
-        dest.writeString(uid);
-        dest.writeString(icon);
-        dest.writeString(name);
+        dest.writeParcelable(user, flags);
         dest.writeString(source);
         dest.writeString(time);
         dest.writeString(commentCount);
         dest.writeString(repeatCount);
         dest.writeString(starCount);
         dest.writeParcelable(content, flags);
-        dest.writeParcelable(repeatContent, flags);
+        dest.writeParcelable(originTweet, flags);
     }
-
-
 }

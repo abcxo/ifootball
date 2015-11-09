@@ -3,10 +3,11 @@ package com.abcxo.android.ifootball.restfuls;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
-import com.abcxo.android.ifootball.constants.RestfulConstants;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Content;
 import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.models.MessageType;
+import com.abcxo.android.ifootball.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,7 @@ public class MessageRestful {
     private Message testMessage() {
         Message message = new Message();
         message.id = "1";
-        message.uid = "1";
-        message.icon = "http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg";
-        message.name = "咸蛋超人";
+        message.user = UserRestful.INSTANCE.me();
         message.time = "3小时前";
         message.count = "2";
 
@@ -62,7 +61,7 @@ public class MessageRestful {
 
     public List<Message> testMesages() {
         List<Message> messages = new ArrayList<>();
-        for (int i = 0; i < RestfulConstants.PAGE_SIZE; i++) {
+        for (int i = 0; i < Constants.PAGE_SIZE; i++) {
             messages.add(testMessage());
         }
         return messages;

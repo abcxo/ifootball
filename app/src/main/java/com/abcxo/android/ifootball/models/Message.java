@@ -9,27 +9,22 @@ import java.util.Map;
 /**
  * Created by SHARON on 15/10/29.
  */
-public class Message implements Parcelable{
-    public String id = "";
-    public String uid = "";
-    public String icon = "";
-    public String name = "";
-    public String time = "";
-    public String count = "";
-    public Content content = new Content();
+public class Message implements Parcelable {
+    public String id;
+    public User user;
+    public String time;
+    public String count;
+    public Content content;
     public MessageType type = MessageType.NORMAL;
-    public Map<String, String> extras = new HashMap<>();
 
-    public Message(){
+    public Message() {
         super();
     }
 
 
     protected Message(Parcel in) {
         id = in.readString();
-        uid = in.readString();
-        icon = in.readString();
-        name = in.readString();
+        user = in.readParcelable(User.class.getClassLoader());
         time = in.readString();
         count = in.readString();
         content = in.readParcelable(Content.class.getClassLoader());
@@ -55,9 +50,7 @@ public class Message implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
-        dest.writeString(uid);
-        dest.writeString(icon);
-        dest.writeString(name);
+        dest.writeParcelable(user, flags);
         dest.writeString(time);
         dest.writeString(count);
         dest.writeParcelable(content, flags);

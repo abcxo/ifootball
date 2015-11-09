@@ -11,19 +11,18 @@ import java.util.Map;
 /**
  * Created by shadow on 15/10/31.
  */
-public class Content implements Parcelable{
-    public String id = "";
-    public String title = "";
-    public String summary = "";
-    public String text = "";
-    public String cover = "";
-    public String url = "";
-    public String lon = "";
-    public String lat = "";
+public class Content implements Parcelable {
+    public String id;
+    public String title;
+    public String summary;
+    public String text;
+    public String cover;
+    public String url;
+    public String lon;
+    public String lat;
     public List<String> images = new ArrayList<>();
-    public Map<String, String> extras = new HashMap<>();
 
-    public Content(){
+    public Content() {
         super();
     }
 

@@ -5,13 +5,13 @@
 
     <data>
 
-        <import type="com.abcxo.android.ifootball.models.Content" />
+        <import type="com.abcxo.android.ifootball.models.Tweet" />
 
         <import type="android.view.View" />
 
         <variable
-            name="content"
-            type="Content" />
+            name="tweet"
+            type="Tweet" />
     </data>
 
     <RelativeLayout
@@ -19,14 +19,14 @@
         style="@style/Item"
         android:paddingLeft="@dimen/padding_small"
         android:paddingRight="@dimen/padding_small"
-        android:visibility="@{content !=null? View.VISIBLE : View.GONE}">
+        android:visibility="@{tweet !=null? View.VISIBLE : View.GONE}">
 
         <ImageView
             android:id="@+id/cover"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:scaleType="centerCrop"
-            app:imageUrl="@{content.cover}"
+            app:imageUrl="@{tweet.content.cover}"
             tools:src="@mipmap/test2" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_marginLeft="@dimen/padding_small"
             android:layout_toRightOf="@id/cover"
             android:singleLine="true"
-            android:text="@{content.title}"
+            android:text="@{tweet.content.title}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
             tools:text="咸蛋超人" />
@@ -48,7 +48,7 @@
             android:layout_alignLeft="@+id/title"
             android:layout_below="@+id/title"
             android:layout_marginTop="@dimen/padding_min"
-            android:text="@{content.summary}"
+            android:text="@{tweet.content.summary}"
             android:textColor="@color/color_text_content"
             android:textSize="@dimen/text_content"
             android:maxLines="2"

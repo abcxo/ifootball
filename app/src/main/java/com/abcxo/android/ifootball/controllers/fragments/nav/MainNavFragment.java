@@ -56,7 +56,6 @@ public class MainNavFragment extends NavFragment {
 
 
         viewPager.setAdapter(new MainAdapter(getChildFragmentManager(), getActivity()));
-
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

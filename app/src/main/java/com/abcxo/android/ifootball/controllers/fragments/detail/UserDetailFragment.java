@@ -12,9 +12,7 @@ import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.databinding.FragmentDetailTweetBinding;
 import com.abcxo.android.ifootball.databinding.FragmentDetailUserBinding;
-import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.models.User;
 
 /**

@@ -35,6 +35,7 @@
     </style>
 
 
+
     <style name="Gender" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/icon_gender_height</item>

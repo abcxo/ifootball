@@ -43,7 +43,7 @@ public class TweetRestful {
 
         Tweet tweet = new Tweet();
         tweet.id = "1";
-        tweet.user=UserRestful.INSTANCE.me();
+        tweet.user = UserRestful.INSTANCE.me();
         tweet.source = "新浪微博";
         tweet.time = "3小时前";
         tweet.commentCount = "381";
@@ -145,12 +145,12 @@ public class TweetRestful {
     }
 
     public void getMainTweets(GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
-        getTweets(UserRestful.INSTANCE.uid, getsType, pageIndex, onList);
+        getTweets(UserRestful.INSTANCE.meId(), getsType, pageIndex, onList);
     }
 
     //获取推文列表
     public void getTweets(GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
-        getTweets(UserRestful.INSTANCE.uid, getsType, pageIndex, onList);
+        getTweets(UserRestful.INSTANCE.meId(), getsType, pageIndex, onList);
     }
 
     public void getTweets(String uid, final GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {

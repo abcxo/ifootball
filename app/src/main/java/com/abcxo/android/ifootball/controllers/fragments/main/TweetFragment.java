@@ -1,7 +1,6 @@
 package com.abcxo.android.ifootball.controllers.fragments.main;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -14,14 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
-import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.activities.NewsDetailActivity;
-import com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity;
-import com.abcxo.android.ifootball.controllers.activities.UserDetailActivity;
 import com.abcxo.android.ifootball.controllers.adapters.TweetAdapter;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
+import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -67,7 +63,7 @@ public class TweetFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.VERTICAL));
 
-        adapter = new TweetAdapter(list, new Handler());
+        adapter = new TweetAdapter(list, new BindingHandler());
         recyclerView.setAdapter(adapter);
 
         refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
@@ -124,39 +120,34 @@ public class TweetFragment extends Fragment {
         adapter.notifyItemRangeInserted(bCount, tweets.size());
     }
 
+    public class BindingHandler {
 
-    public class Handler {
+        public void onClickSign(View view) {
+            NavUtils.toSign(view.getContext());
+        }
 
         public void onClickUser(View view) {
             ViewDataBinding binding = DataBindingUtil.findBinding(view);
             Tweet tweet = (Tweet) binding.getRoot().getTag();
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(Constants.KEY_USER, tweet.user);
-            Intent intent = new Intent(getActivity(), UserDetailActivity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            NavUtils.toUserDetail(view.getContext(), tweet.user);
         }
 
-
         public void onClickTweet(View view) {
-            onClickItem(view, TweetDetailActivity.class);
+            ViewDataBinding binding = DataBindingUtil.getBinding(view);
+            Tweet tweet = (Tweet) binding.getRoot().getTag();
+            NavUtils.toTweetDetail(view.getContext(), tweet);
         }
 
         public void onClickNews(View view) {
-
-            onClickItem(view, NewsDetailActivity.class);
-        }
-
-        public void onClickItem(View view, Class<? extends Activity> activity) {
             ViewDataBinding binding = DataBindingUtil.getBinding(view);
             Tweet tweet = (Tweet) binding.getRoot().getTag();
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(Constants.KEY_TWEET, tweet);
-            Intent intent = new Intent(getActivity(), activity);
-            intent.putExtras(bundle);
-            startActivity(intent);
+            NavUtils.toNewsDetail(view.getContext(), tweet);
         }
 
+        private void onClickItem(View view, Class<? extends Activity> activity) {
+
+        }
     }
+
 
 }

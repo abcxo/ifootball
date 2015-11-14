@@ -12,6 +12,7 @@ import java.util.Map;
 public class User implements Parcelable {
     public String id;
     public String username;
+    public String email;
     public String name;
     public String sign;
     public String pwd;
@@ -33,6 +34,7 @@ public class User implements Parcelable {
     protected User(Parcel in) {
         id = in.readString();
         username = in.readString();
+        email = in.readString();
         name = in.readString();
         sign = in.readString();
         pwd = in.readString();
@@ -65,6 +67,7 @@ public class User implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(username);
+        dest.writeString(email);
         dest.writeString(name);
         dest.writeString(sign);
         dest.writeString(pwd);

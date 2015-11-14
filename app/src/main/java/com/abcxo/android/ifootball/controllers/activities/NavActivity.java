@@ -1,14 +1,15 @@
 package com.abcxo.android.ifootball.controllers.activities;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,8 @@ import com.abcxo.android.ifootball.controllers.fragments.nav.SearchNavFragment;
 import com.abcxo.android.ifootball.databinding.NavHeaderMainBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.NavUtils;
+import com.abcxo.android.ifootball.utils.Utils;
 
 public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +40,9 @@ public class NavActivity extends AppCompatActivity
 
     private Fragment currentFg;
 
+
+    private NavHeaderMainBinding navHeaderMainBinding;
+
     private int selectedItemId;
 
 
@@ -48,12 +54,36 @@ public class NavActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         toMain();
 
+        registerLogin();
+        registerLogout();
+
         //设置Nav页面
         View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        NavHeaderMainBinding binding = DataBindingUtil.bind(navHeaderView);
+        navHeaderMainBinding = DataBindingUtil.bind(navHeaderView);
+        navHeaderMainBinding.setHandler(new BindingHandler());
         User user = UserRestful.INSTANCE.me();
-        binding.setUser(user);
+        navHeaderMainBinding.setUser(user);
+    }
 
+
+    private void registerLogin() {
+        Utils.registerLogin(this, new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                User user = UserRestful.INSTANCE.me();
+                navHeaderMainBinding.setUser(user);
+            }
+        });
+    }
+
+    private void registerLogout() {
+        Utils.registerLogout(this, new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                User user = UserRestful.INSTANCE.me();
+                navHeaderMainBinding.setUser(user);
+            }
+        });
     }
 
 
@@ -108,7 +138,6 @@ public class NavActivity extends AppCompatActivity
 
 
         }
-
 
         return true;
     }
@@ -174,5 +203,19 @@ public class NavActivity extends AppCompatActivity
         startActivity(intent);
 
     }
+
+    public class BindingHandler {
+
+        public void onClickSign(View view) {
+            NavUtils.toSign(view.getContext());
+        }
+
+        public void onClickUser(View view) {
+            NavUtils.toUserDetail(view.getContext(), UserRestful.INSTANCE.me());
+        }
+
+
+    }
+
 
 }

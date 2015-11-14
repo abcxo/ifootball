@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
-import com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment.Handler;
+import com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment.BindingHandler;
 import com.abcxo.android.ifootball.models.Tweet;
 
 import java.util.List;
@@ -25,10 +25,10 @@ import static com.abcxo.android.ifootball.models.TweetMainType.TEAM;
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.BindingHolder> {
 
     private List<Tweet> tweets;
-    private Handler handler;
 
+    private BindingHandler handler;
 
-    public TweetAdapter(List<Tweet> tweets, Handler handler) {
+    public TweetAdapter(List<Tweet> tweets, BindingHandler handler) {
         this.tweets = tweets;
         this.handler = handler;
     }

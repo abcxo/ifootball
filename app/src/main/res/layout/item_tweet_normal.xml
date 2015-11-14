@@ -10,7 +10,7 @@
 
         <import type="com.abcxo.android.ifootball.models.TweetDetailType" />
 
-        <import type="com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment.Handler" />
+        <import type="com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment.BindingHandler" />
 
         <variable
             name="tweet"
@@ -18,7 +18,7 @@
 
         <variable
             name="handler"
-            type="Handler" />
+            type="BindingHandler" />
     </data>
 
     <RelativeLayout

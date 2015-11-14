@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="error_unknown">未知错误</string>
+
     <string name="app_name">爱足球吧</string>
 
     <string name="activity_nav">爱足球吧</string>
@@ -60,19 +63,29 @@
     <string name="menu_item_about">关于爱足球吧</string>
 
 
-    <string name="sign_login_name_hint">邮箱</string>
+    <string name="empty">""</string>
 
+    <string name="nav_header_name">立即登录</string>
+    <string name="nav_header_sign"></string>
+
+    <string name="sign_login_email_hint">邮箱</string>
+    <string name="sign_login_email_error">请输入有效的邮箱地址</string>
     <string name="sign_login_password_hint">密码</string>
+    <string name="sign_login_password_error">请输入6-10位的字母或者数字</string>
 
     <string name="sign_login_login_text">登录</string>
     <string name="sign_login_register_text">注册</string>
     <string name="sign_login_forget_password_text">忘记密码了？</string>
 
 
-    <string name="sign_complete_nick_text">昵称</string>
+    <string name="sign_complete_name_text">昵称</string>
 
     <string name="sign_complete_sign_text">签名（选填）</string>
     <string name="sign_complete_complete_text">完成</string>
+
+    <string name="sign_login_name_error">请输入小于20位的昵称</string>
+
+    <string name="sign_login_sign_error">请输入小于40位的签名</string>
 
 
     <string name="gender_male_text">男</string>

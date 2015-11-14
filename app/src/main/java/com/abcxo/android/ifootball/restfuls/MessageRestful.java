@@ -93,7 +93,7 @@ public class MessageRestful {
 
     //获取推文列表
     public void getMessages(GetsType getsType, int pageIndex, @NonNull final OnMessageRestfulList onList) {
-        getTweets(UserRestful.INSTANCE.uid, getsType, pageIndex, onList);
+        getTweets(UserRestful.INSTANCE.meId(), getsType, pageIndex, onList);
     }
 
     public void getTweets(String uid, GetsType getsType, int pageIndex, @NonNull final OnMessageRestfulList onList) {

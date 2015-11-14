@@ -34,8 +34,8 @@ public class FloatingActionButtonScrollBehavior extends FloatingActionButton.Beh
                                View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed,
                 dyUnconsumed);
-        if (child.getVisibility() == View.VISIBLE&&child.getScaleX()>0) {
-            int offset = ViewUtils.dp2px(child.getContext(), 20);
+        if (child.getVisibility() == View.VISIBLE && child.getScaleX() > 0) {
+            int offset = ViewUtils.dp2px(20);
             ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) child.getLayoutParams();
             if (dyConsumed > offset) {
                 child.animate().translationY(child.getHeight() + lp.topMargin + lp.bottomMargin).setInterpolator(new AccelerateInterpolator(2)).start();

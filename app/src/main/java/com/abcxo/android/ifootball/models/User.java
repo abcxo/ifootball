@@ -3,13 +3,14 @@ package com.abcxo.android.ifootball.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by SHARON on 15/10/29.
  */
-public class User implements Parcelable {
+public class User implements Parcelable,Serializable {
     public String id;
     public String username;
     public String email;

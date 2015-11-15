@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.controllers.fragments.sign.CompleteSignFragment;
 import com.abcxo.android.ifootball.controllers.fragments.sign.LoginSignFragment;
 
 /**
@@ -14,8 +15,8 @@ public class SignActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content, LoginSignFragment.newInstance()).commit();
-//        getSupportFragmentManager().beginTransaction().replace(R.id.content, CompleteSignFragment.newInstance()).commit();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.content, LoginSignFragment.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, CompleteSignFragment.newInstance()).commit();
     }
 
 }

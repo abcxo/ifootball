@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
@@ -83,7 +84,7 @@ public class Utils {
     }
 
 
-    public static boolean set(String key, Object object) {
+    public static boolean set(String key, Serializable object) {
         try {
             FileOutputStream fos = Application.INSTANCE.openFileOutput(key, Context.MODE_PRIVATE);
             ObjectOutputStream os = new ObjectOutputStream(fos);
@@ -97,11 +98,11 @@ public class Utils {
         return true;
     }
 
-    public static Object get(String key) {
+    public static Serializable get(String key) {
         try {
             FileInputStream fis = Application.INSTANCE.openFileInput(key);
             ObjectInputStream is = new ObjectInputStream(fis);
-            Object object = is.readObject();
+            Serializable object = (Serializable) is.readObject();
             is.close();
             fis.close();
             return object;

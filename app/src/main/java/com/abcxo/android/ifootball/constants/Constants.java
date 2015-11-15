@@ -7,6 +7,9 @@ public final class Constants {
 
     public static final String PREFERENCE_ID = "ifootball";
 
+
+    public static final int REQUEST_CAMERA = 1000;
+
     public static final String ACTION_LOGIN = "login";
     public static final String ACTION_LOGOUT = "logout";
 

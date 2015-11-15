@@ -66,7 +66,7 @@ public class MessageFragment extends Fragment {
         final SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                MessageRestful.INSTNCE.getMessages(MessageRestful.GetsType.ALL, 0, new MessageRestful.OnMessageRestfulList() {
+                MessageRestful.INSTANCE.getMessages(MessageRestful.GetsType.ALL, 0, new MessageRestful.OnMessageRestfulList() {
                     @Override
                     public void onSuccess(List<Message> messages) {
                         refreshMessages(messages);

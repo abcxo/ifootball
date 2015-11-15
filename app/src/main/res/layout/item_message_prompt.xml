@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/item_count"
                 android:layout_marginRight="@dimen/padding"
-                android:text="@{message.content.summary}"
+                android:text="@{message.summary}"
                 android:textColor="@color/color_text_content"
                 android:textSize="14dp"
                 tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />

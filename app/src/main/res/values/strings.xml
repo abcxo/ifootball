@@ -1,6 +1,7 @@
 <resources>
 
     <string name="error_unknown">未知错误</string>
+    <string name="error_camera">请打开相机的授权</string>
 
     <string name="app_name">爱足球吧</string>
 
@@ -49,6 +50,11 @@
         <item>推文</item>
     </string-array>
 
+    <string-array name="image_list">
+        <item>拍照</item>
+        <item>相册</item>
+    </string-array>
+
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -94,6 +100,7 @@
 
     <string name="add_tweet_text_hint">有趣的事情呢？</string>
     <string name="add_tweet_send_text">推文</string>
+    <string name="add_tweet_send_error">请写些内容</string>
 
 
 

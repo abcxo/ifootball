@@ -1,27 +1,38 @@
 package com.abcxo.android.ifootball.restfuls;
 
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.models.Content;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.models.TweetDetailType;
 import com.abcxo.android.ifootball.models.TweetMainType;
+import com.squareup.okhttp.Headers;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
+import com.squareup.okhttp.RequestBody;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Call;
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
+import retrofit.http.Body;
+import retrofit.http.GET;
+import retrofit.http.Multipart;
+import retrofit.http.POST;
+import retrofit.http.Part;
+import retrofit.http.Query;
 
 /**
  * Created by shadow on 15/11/1.
  */
 public class TweetRestful {
 
-
-    public static TweetRestful INSTNCE = new TweetRestful();
-
-    private TweetRestful() {
-    }
 
     /**
      * 测试
@@ -50,24 +61,19 @@ public class TweetRestful {
         tweet.repeatCount = "274";
         tweet.starCount = "96";
 
-        Content content = new Content();
-        content.id = "1";
-        content.title = "恒大中超称霸五个连冠";
-        content.summary = "里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。";
-        content.text = content.summary;
-        content.cover = "http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg";
-        content.url = "http://www.baidu.com";
-        content.lon = "0";
-        content.lat = "0";
+        tweet.title = "恒大中超称霸五个连冠";
+        tweet.summary = "里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。";
+        tweet.text = tweet.summary;
+        tweet.cover = "http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg";
+        tweet.url = "http://www.baidu.com";
+        tweet.lon = "0";
+        tweet.lat = "0";
         List<String> images = new ArrayList<>();
         images.add("http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg");
         images.add("http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg");
         images.add("http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg");
         images.add("http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg");
-        content.images = images;
-
-
-        tweet.content = content;
+        tweet.images = TextUtils.join(";", images);
 
         if (getsType == GetsType.TEAM) {
             tweet.mainType = TweetMainType.TEAM;
@@ -94,6 +100,44 @@ public class TweetRestful {
     /**
      * 测试
      */
+
+
+    public static TweetRestful INSTANCE = new TweetRestful();
+
+    private TweetService tweetService;
+
+    private TweetRestful() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.HOST)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        tweetService = retrofit.create(TweetService.class);
+    }
+
+
+    public interface TweetService {
+
+        @POST("/tweet")
+        Call<Tweet> add(@Query("uid") String uid, @Body Tweet tweet);
+
+        @Multipart
+        @POST("/tweet/photo")
+        Call<Tweet> photo(@Query("tid") String tid,
+                          @Part("image\"; filename=\"image.jpg\" ") RequestBody image0,
+                          @Part("image\"; filename=\"image.jpg\" ") RequestBody image1,
+                          @Part("image\"; filename=\"image.jpg\" ") RequestBody image2,
+                          @Part("image\"; filename=\"image.jpg\" ") RequestBody image3,
+                          @Part("image\"; filename=\"image.jpg\" ") RequestBody image4,
+                          @Part("image\"; filename=\"image.jpg\" ") RequestBody image5,
+                          @Part("image\"; filename=\"image.jpg\" ") RequestBody image6,
+                          @Part("image\"; filename=\"image.jpg\" ") RequestBody image7,
+                          @Part("image\"; filename=\"image.jpg\" ") RequestBody image8
+        );
+
+        @GET("/tweet")
+        Call<List<Tweet>> gets(@Query("uid") String uid, @Query("type") int type, @Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
+    }
+
 
     //获取单条微博
     public interface OnTweetRestfulGet {
@@ -125,39 +169,133 @@ public class TweetRestful {
 
     }
 
-    //获取单条推文
-    public void getTweet(String tid, @NonNull final OnTweetRestfulGet onGet) {
-        post(new Runnable() {
+
+    //添加推文
+    public void add(Tweet tweet, final List<Bitmap> images, @NonNull final OnTweetRestfulGet onGet) {
+        Call<Tweet> call = tweetService.add(UserRestful.INSTANCE.meId(), tweet);
+        call.enqueue(new OnRestful<Tweet>() {
             @Override
-            public void run() {
-                onGet.onSuccess(testTweet(GetsType.TWEET));
+            void onSuccess(final Tweet tweet) {
+                if (images.size() > 0) {
+                    List<RequestBody> requestBodies = new ArrayList<RequestBody>();
+                    for (Bitmap image : images) {
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), byteArrayOutputStream.toByteArray());
+                        requestBodies.add(requestBody);
+                    }
+
+                    Call<Tweet> callPhoto ;
+                    switch (requestBodies.size()) {
+                        case 1:
+                            callPhoto = tweetService.photo(tweet.id, requestBodies.get(0), null, null, null, null, null, null, null, null);
+                            break;
+                        case 2:
+                            callPhoto = tweetService.photo(tweet.id, requestBodies.get(0), requestBodies.get(1), null, null, null, null, null, null, null);
+                            break;
+                        case 3:
+                            callPhoto = tweetService.photo(tweet.id, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), null, null, null, null, null, null);
+                            break;
+                        case 4:
+                            callPhoto = tweetService.photo(tweet.id, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), null, null, null, null, null);
+                            break;
+                        case 5:
+                            callPhoto = tweetService.photo(tweet.id, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), null, null, null, null);
+                            break;
+                        case 6:
+                            callPhoto = tweetService.photo(tweet.id, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), null, null, null);
+                            break;
+                        case 7:
+                            callPhoto = tweetService.photo(tweet.id, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), requestBodies.get(6), null, null);
+                            break;
+                        case 8:
+                            callPhoto = tweetService.photo(tweet.id, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), requestBodies.get(6), requestBodies.get(7), null);
+                            break;
+                        case 9:
+                            callPhoto = tweetService.photo(tweet.id, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), requestBodies.get(6), requestBodies.get(7), requestBodies.get(8));
+                            break;
+                        default:
+                            callPhoto = tweetService.photo(tweet.id, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), requestBodies.get(6), requestBodies.get(7), requestBodies.get(8));
+                            break;
+                    }
+
+                    callPhoto.enqueue(new OnRestful<Tweet>() {
+                        @Override
+                        void onSuccess(Tweet tweet) {
+                            onGet.onSuccess(tweet);
+                        }
+
+                        @Override
+                        void onError(RestfulError error) {
+                            //照片上传失败也当成是成功
+                            onGet.onSuccess(tweet);
+                        }
+
+                        @Override
+                        void onFinish() {
+                            onGet.onFinish();
+                        }
+                    });
+                } else {
+                    onGet.onSuccess(tweet);
+                    onGet.onFinish();
+                }
+
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onGet.onError(error);
                 onGet.onFinish();
+            }
+
+            @Override
+            void onFinish() {
             }
         });
     }
 
 
-    //获取Main列表
     public enum GetsType {
-        TWEET,
-        TEAM,
-        NEWS,
+        TWEET(0),
+        TEAM(1),
+        NEWS(2);
+        private int index;
+
+        GetsType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return GetsType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
     }
 
-    public void getMainTweets(GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
-        getTweets(UserRestful.INSTANCE.meId(), getsType, pageIndex, onList);
-    }
 
     //获取推文列表
-    public void getTweets(GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
-        getTweets(UserRestful.INSTANCE.meId(), getsType, pageIndex, onList);
+    public void gets(GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
+        gets(UserRestful.INSTANCE.meId(), getsType, pageIndex, onList);
     }
 
-    public void getTweets(String uid, final GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
-        post(new Runnable() {
+    public void gets(String uid, final GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
+        Call<List<Tweet>> call = tweetService.gets(uid, getsType.getIndex(), pageIndex, Constants.PAGE_SIZE);
+        call.enqueue(new OnRestful<List<Tweet>>() {
             @Override
-            public void run() {
-                onList.onSuccess(testTweets(getsType));
+            void onSuccess(List<Tweet> tweets) {
+                onList.onSuccess(tweets);
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onList.onError(error);
+            }
+
+            @Override
+            void onFinish() {
                 onList.onFinish();
             }
         });

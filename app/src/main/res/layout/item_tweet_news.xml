@@ -19,7 +19,7 @@
             android:layout_width="72dp"
             android:layout_height="64dp"
             android:scaleType="centerCrop"
-            app:imageUrl="@{tweet.content.cover}"
+            app:imageUrl="@{tweet.cover}"
             tools:src="@mipmap/test2" />
 
 
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/padding"
             android:layout_toRightOf="@id/cover"
-            android:text="@{tweet.content.title}"
+            android:text="@{tweet.title}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
             tools:text="恒大队的外援威震中超" />
@@ -43,7 +43,7 @@
             android:layout_below="@+id/title"
             android:layout_marginTop="@dimen/padding_small"
             android:maxLines="2"
-            android:text="@{tweet.content.summary}"
+            android:text="@{tweet.summary}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
             tools:text="在那一年被贴在那一年占了恒大队全队进球的七成。" />

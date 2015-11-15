@@ -29,7 +29,7 @@ public abstract class OnRestful<T> implements retrofit.Callback<T> {
             try {
                 error = (Error) retrofit.responseConverter(Error.class, Error.class.getAnnotations()).convert(response.errorBody());
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 error.code = RestfulError.ERROR_CODE_UNKNOWN;
                 error.message = ViewUtils.getString(R.string.error_unknown);

@@ -1,10 +1,14 @@
 package com.abcxo.android.ifootball.restfuls;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.content.LocalBroadcastManager;
 
+import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.GenderType;
 import com.abcxo.android.ifootball.models.User;
@@ -13,6 +17,8 @@ import com.abcxo.android.ifootball.utils.Utils;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +60,7 @@ public class UserRestful {
         user.email = "abcxo@qq.com";
         user.name = "咸蛋超人";
         user.sign = "西甲一个人过21个人的那个门将就是我...";
-        user.pwd = "111";
+        user.password = "111";
         user.avatar = "http://img1.imgtn.bdimg.com/it/u=1252800744,57876037&fm=23&gp=0.jpg";
         user.cover = "http://img3.imgtn.bdimg.com/it/u=2254914422,1826964007&fm=21&gp=0.jpg";
         user.distance = "300m";
@@ -98,22 +104,22 @@ public class UserRestful {
 
     public interface UserService {
         @GET("/user")
-        Call<User> login(@Query("email") String email, @Query("password") String pwd);
+        Call<User> login(@Query("email") String email, @Query("password") String password);
 
         @POST("/user")
-        Call<User> register(@Query("email") String email, @Query("password") String pwd);
+        Call<User> register(@Query("email") String email, @Query("password") String password);
 
 
         @PUT("/user")
         Call<User> edit(@Body User user);
 
         @Multipart
-        @PUT("/user/avatar")
-        Call<User> avatar(@Query("id") String id, @Part("image") RequestBody image);
+        @POST("/user/avatar")
+        Call<User> avatar(@Query("uid") String id, @Part("image\"; filename=\"avatar.jpg\" ") RequestBody image);
 
         @Multipart
-        @PUT("/user/cover")
-        Call<User> cover(@Query("id") String id, @Part("image") RequestBody image);
+        @POST("/user/cover")
+        Call<User> cover(@Query("uid") String id, @Part("image\"; filename=\"cover.jpg\" ") RequestBody image);
 
 
     }
@@ -130,6 +136,7 @@ public class UserRestful {
 
     //注册，登录，修改信息
     public interface OnUserRestfulGet {
+
         void onSuccess(User user);
 
         void onError(RestfulError error);
@@ -179,9 +186,17 @@ public class UserRestful {
     }
 
 
+    //退出
+    public boolean logout() {
+        user = null;
+        boolean isLogout = Utils.delete(Constants.KEY_USER);
+        LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_LOGOUT));
+        return isLogout;
+    }
+
     //注册
-    public void register(String email, String pwd, @NonNull final OnUserRestfulGet onGet) {
-        Call<User> call = userService.register(email, pwd);
+    public void register(String email, String password, @NonNull final OnUserRestfulGet onGet) {
+        Call<User> call = userService.register(email, password);
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {
@@ -202,8 +217,8 @@ public class UserRestful {
     }
 
     //登录
-    public void login(String email, String pwd, @NonNull final OnUserRestfulGet onGet) {
-        Call<User> call = userService.login(email, pwd);
+    public void login(String email, String password, @NonNull final OnUserRestfulGet onGet) {
+        Call<User> call = userService.login(email, password);
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {
@@ -225,6 +240,7 @@ public class UserRestful {
 
     //修改
     public void edit(User user, @NonNull final OnUserRestfulGet onGet) {
+
         Call<User> call = userService.edit(user);
         call.enqueue(new OnRestful<User>() {
             @Override
@@ -253,35 +269,28 @@ public class UserRestful {
 
 
     //上传头像
-    public void avatar(Image image, @NonNull final OnUserRestfulGet onGet) {
-//        Call<User> call = userService.avatar(meId(), new RequestBody() {
-//            @Override
-//            public MediaType contentType() {
-//                return medi;
-//            }
-//
-//            @Override
-//            public void writeTo(BufferedSink sink) throws IOException {
-//
-//            }
-//        });
-//        call.enqueue(new OnRestful<User>() {
-//            @Override
-//            void onSuccess(User user) {
-//                UserRestful.this.user = user;
-//                onGet.onSuccess(user);
-//            }
-//
-//            @Override
-//            void onError(RestfulError error) {
-//                onGet.onError(error);
-//            }
-//
-//            @Override
-//            void onFinish() {
-//                onGet.onFinish();
-//            }
-//        });
+    public void avatar(Bitmap image, @NonNull final OnUserRestfulGet onGet) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), baos.toByteArray());
+        Call<User> call = userService.avatar(meId(), requestBody);
+        call.enqueue(new OnRestful<User>() {
+            @Override
+            void onSuccess(User user) {
+                updateMe(user);
+                onGet.onSuccess(user);
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onGet.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onGet.onFinish();
+            }
+        });
     }
 
 

@@ -64,19 +64,21 @@
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/name"
             android:layout_marginTop="@dimen/padding_small"
-            android:text="@{tweet.content.summary}"
+            android:text="@{tweet.summary}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
             tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
 
-        <com.abcxo.android.ifootball.views.ImagesLayout
+        <ImageView
             android:id="@+id/images"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/summary"
             android:layout_marginTop="@dimen/padding"
-            android:background="@mipmap/test0" />
+            android:scaleType="centerCrop"
+            app:imageUrl ="@{tweet.imageList[0]}"
+            android:src="@mipmap/test0" />
 
         <include
             android:id="@+id/repeat_content"

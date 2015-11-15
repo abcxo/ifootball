@@ -16,7 +16,7 @@ public class User implements Parcelable,Serializable {
     public String email;
     public String name;
     public String sign;
-    public String pwd;
+    public String password;
     public String avatar;
     public String cover;
     public String distance;
@@ -38,7 +38,7 @@ public class User implements Parcelable,Serializable {
         email = in.readString();
         name = in.readString();
         sign = in.readString();
-        pwd = in.readString();
+        password = in.readString();
         avatar = in.readString();
         cover = in.readString();
         distance = in.readString();
@@ -71,7 +71,7 @@ public class User implements Parcelable,Serializable {
         dest.writeString(email);
         dest.writeString(name);
         dest.writeString(sign);
-        dest.writeString(pwd);
+        dest.writeString(password);
         dest.writeString(avatar);
         dest.writeString(cover);
         dest.writeString(distance);

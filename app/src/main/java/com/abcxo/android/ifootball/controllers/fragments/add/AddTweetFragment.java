@@ -1,15 +1,37 @@
 package com.abcxo.android.ifootball.controllers.fragments.add;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.databinding.FragmentAddTweetBinding;
+import com.abcxo.android.ifootball.models.Tweet;
+import com.abcxo.android.ifootball.models.User;
+import com.abcxo.android.ifootball.restfuls.RestfulError;
+import com.abcxo.android.ifootball.restfuls.TweetRestful;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.ViewUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by shadow on 15/11/4.
@@ -25,6 +47,10 @@ public class AddTweetFragment extends Fragment {
         return fragment;
     }
 
+    private EditText inputET;
+    private ImageView photoList;
+    private Bitmap image;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,6 +60,9 @@ public class AddTweetFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FragmentAddTweetBinding binding = DataBindingUtil.bind(view);
+        binding.setHandler(new BindingHandler());
+
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
@@ -46,5 +75,92 @@ public class AddTweetFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+        inputET = (EditText) view.findViewById(R.id.input);
+        photoList = (ImageView) view.findViewById(R.id.photo_list);
+    }
+
+
+    public class BindingHandler {
+
+        public void onClickCamera(final View view) {
+            ViewUtils.camera(AddTweetFragment.this);
+        }
+
+        public void onClickPhoto(final View view) {
+            ViewUtils.photo(AddTweetFragment.this);
+        }
+
+        public void onClickSend(final View view) {
+
+            if (TextUtils.isEmpty(inputET.getText().toString())) {
+                ViewUtils.toast(R.string.add_tweet_send_error);
+            } else {
+                Tweet tweet = new Tweet();
+                tweet.user = UserRestful.INSTANCE.me();
+                tweet.title = tweet.user.name;
+                tweet.text = inputET.getText().toString();
+                tweet.summary = tweet.text;
+
+                List<Bitmap> images = new ArrayList<>();
+                if (image!=null){
+                    images.add(image);
+                }
+                ViewUtils.loading(getActivity());
+                TweetRestful.INSTANCE.add(tweet, images, new TweetRestful.OnTweetRestfulGet() {
+                    @Override
+                    public void onSuccess(Tweet tweet) {
+                        getActivity().finish();
+                    }
+
+                    @Override
+                    public void onError(RestfulError error) {
+                        ViewUtils.toast(error.msg);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        ViewUtils.dismiss();
+                    }
+                });
+
+            }
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK && data != null) {
+            String sdState = Environment.getExternalStorageState();
+            if (!sdState.equals(Environment.MEDIA_MOUNTED)) {
+                return;
+            }
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            photoList.setImageBitmap(bitmap);
+            image = bitmap;
+
+        } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
+            try {
+                Uri selectedImage = data.getData();
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                photoList.setImageBitmap(bitmap);
+                image = bitmap;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Constants.REQUEST_PERMISSION_CAMERA) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, Constants.REQUEST_CAMERA);
+        }
     }
 }
+

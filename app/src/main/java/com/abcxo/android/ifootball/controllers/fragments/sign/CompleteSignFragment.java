@@ -1,26 +1,37 @@
 package com.abcxo.android.ifootball.controllers.fragments.sign;
 
-import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioGroup;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.databinding.FragmentSignCompleteBinding;
+import com.abcxo.android.ifootball.models.GenderType;
 import com.abcxo.android.ifootball.models.User;
+import com.abcxo.android.ifootball.restfuls.RestfulError;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
+
+import java.io.IOException;
 
 
 /**
@@ -32,6 +43,10 @@ public class CompleteSignFragment extends Fragment {
 
     private EditText nameET;
     private EditText signET;
+    private ImageView avatarIV;
+    private RadioGroup genderRG;
+
+    private Bitmap image;
 
     public static CompleteSignFragment newInstance() {
         return newInstance(null);
@@ -63,45 +78,17 @@ public class CompleteSignFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FragmentSignCompleteBinding binding = DataBindingUtil.bind(view);
         binding.setHandler(new BindingHandler());
+        avatarIV = (ImageView) view.findViewById(R.id.avatar);
         nameET = (EditText) view.findViewById(R.id.name);
         signET = (EditText) view.findViewById(R.id.sign);
-
+        genderRG = (RadioGroup) view.findViewById(R.id.gender_layout);
 
     }
 
     public class BindingHandler {
 
         public void onClickAvatar(final View view) {
-            // Here, thisActivity is the current activity
-            if (ContextCompat.checkSelfPermission(getContext(),
-                    Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                // Should we show an explanation?
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                        Manifest.permission.CAMERA)) {
-
-                    // Show an expanation to the user *asynchronously* -- don't block
-                    // this thread waiting for the user's response! After the user
-                    // sees the explanation, try again to request the permission.
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, Constants.REQUEST_CAMERA);
-
-                } else {
-
-                    // No explanation needed, we can request the permission.
-
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.READ_CONTACTS},
-                            Constants.REQUEST_CAMERA);
-
-                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                    // app-defined int constant. The callback method gets the
-                    // result of the request.
-                }
-            }
-
-
+            ViewUtils.image(CompleteSignFragment.this);
         }
 
         public void onClickComplete(final View view) {
@@ -112,7 +99,50 @@ public class CompleteSignFragment extends Fragment {
             } else if (!isSign) {
                 ViewUtils.toast(R.string.sign_login_sign_error);
             } else {
+                user.name = nameET.getText().toString();
+                user.sign = signET.getText().toString();
+                user.gender = genderRG.getCheckedRadioButtonId() == R.id.male ? GenderType.MALE : GenderType.FEMALE;
+                ViewUtils.loading(getActivity());
+                UserRestful.INSTANCE.edit(user, new UserRestful.OnUserRestfulGet() {
+                    @Override
+                    public void onSuccess(User user) {
+                        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
+                        if (image != null) {
+                            UserRestful.INSTANCE.avatar(image, new UserRestful.OnUserRestfulGet() {
+                                @Override
+                                public void onSuccess(User user) {
+                                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
+                                    getActivity().finish();
+                                }
 
+                                @Override
+                                public void onError(RestfulError error) {
+                                    ViewUtils.toast(error.msg);
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    ViewUtils.dismiss();
+                                }
+                            });
+                        } else {
+                            getActivity().finish();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(RestfulError error) {
+                        ViewUtils.toast(error.msg);
+                        ViewUtils.dismiss();
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+                });
 
             }
         }
@@ -122,6 +152,34 @@ public class CompleteSignFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK && data != null) {
+            String sdState = Environment.getExternalStorageState();
+            if (!sdState.equals(Environment.MEDIA_MOUNTED)) {
+                return;
+            }
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            avatarIV.setImageBitmap(bitmap);
+            image = bitmap;
 
+        } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
+            try {
+                Uri selectedImage = data.getData();
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),selectedImage);
+                avatarIV.setImageBitmap(bitmap);
+                image = bitmap;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Constants.REQUEST_PERMISSION_CAMERA) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, Constants.REQUEST_CAMERA);
+        }
     }
 }

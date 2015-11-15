@@ -3,7 +3,9 @@ package com.abcxo.android.ifootball.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,8 +16,16 @@ public class Message implements Parcelable {
     public User user;
     public String time;
     public String count;
-    public Content content;
     public MessageType type = MessageType.NORMAL;
+
+    public String title;
+    public String summary;
+    public String text;
+    public String cover;
+    public String url;
+    public String lon;
+    public String lat;
+    public String images;
 
     public Message() {
         super();
@@ -27,7 +37,14 @@ public class Message implements Parcelable {
         user = in.readParcelable(User.class.getClassLoader());
         time = in.readString();
         count = in.readString();
-        content = in.readParcelable(Content.class.getClassLoader());
+        title = in.readString();
+        summary = in.readString();
+        text = in.readString();
+        cover = in.readString();
+        url = in.readString();
+        lon = in.readString();
+        lat = in.readString();
+        images = in.readString();
     }
 
     public static final Creator<Message> CREATOR = new Creator<Message>() {
@@ -53,6 +70,13 @@ public class Message implements Parcelable {
         dest.writeParcelable(user, flags);
         dest.writeString(time);
         dest.writeString(count);
-        dest.writeParcelable(content, flags);
+        dest.writeString(title);
+        dest.writeString(summary);
+        dest.writeString(text);
+        dest.writeString(cover);
+        dest.writeString(url);
+        dest.writeString(lon);
+        dest.writeString(lat);
+        dest.writeString(images);
     }
 }

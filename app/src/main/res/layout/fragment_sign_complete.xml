@@ -42,6 +42,7 @@
                     android:layout_width="104dp"
                     android:layout_height="104dp"
                     android:layout_centerHorizontal="true"
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/ic_photo_add"
                     android:onClick="@{handler.onClickAvatar}"
                     app:riv_oval="true" />

@@ -71,7 +71,7 @@ public class TweetFragment extends Fragment {
         final SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                TweetRestful.INSTNCE.getMainTweets(getGetsType(), 0, new TweetRestful.OnTweetRestfulList() {
+                TweetRestful.INSTANCE.gets(getGetsType(), 0, new TweetRestful.OnTweetRestfulList() {
                     @Override
                     public void onSuccess(List<Tweet> tweets) {
                         refreshTweets(tweets);

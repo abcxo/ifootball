@@ -9,6 +9,8 @@ public final class Constants {
 
 
     public static final int REQUEST_CAMERA = 1000;
+    public static final int REQUEST_PHOTO = 1001;
+    public static final int REQUEST_PERMISSION_CAMERA = 1;
 
     public static final String ACTION_LOGIN = "login";
     public static final String ACTION_LOGOUT = "logout";

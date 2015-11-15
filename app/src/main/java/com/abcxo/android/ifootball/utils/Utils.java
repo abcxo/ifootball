@@ -23,13 +23,13 @@ import java.util.regex.Pattern;
  */
 public class Utils {
 
-    public static void registerLogin(Context context, BroadcastReceiver receiver) {
-        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);
+    public static void registerLogin(BroadcastReceiver receiver) {
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
         localBroadcastManager.registerReceiver(receiver, new IntentFilter(Constants.ACTION_LOGIN));
     }
 
-    public static void registerLogout(Context context, BroadcastReceiver receiver) {
-        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(context);
+    public static void registerLogout(BroadcastReceiver receiver) {
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
         localBroadcastManager.registerReceiver(receiver, new IntentFilter(Constants.ACTION_LOGOUT));
     }
 
@@ -42,20 +42,20 @@ public class Utils {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    public static boolean isPassword(String pwd) {
+    public static boolean isPassword(String password) {
         Pattern pattern = Pattern.compile("[a-zA-Z0-9]{6,10}");
-        return pattern.matcher(pwd).matches();
+        return pattern.matcher(password).matches();
     }
 
 
     public static boolean isName(String name) {
-        Pattern pattern = Pattern.compile("w{0,20}");
+        Pattern pattern = Pattern.compile(".{4,20}");
         return pattern.matcher(name).matches();
     }
 
 
     public static boolean isSign(String sign) {
-        Pattern pattern = Pattern.compile("w{0,40}");
+        Pattern pattern = Pattern.compile(".{0,40}");
         return pattern.matcher(sign).matches();
     }
 
@@ -111,6 +111,11 @@ public class Utils {
 
         }
         return null;
+
+    }
+
+    public static boolean delete(String key) {
+        return Application.INSTANCE.deleteFile(key);
 
     }
 

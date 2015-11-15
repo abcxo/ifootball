@@ -2,6 +2,9 @@ package com.abcxo.android.ifootball.controllers.fragments.sign;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,7 +33,7 @@ import com.abcxo.android.ifootball.utils.ViewUtils;
 public class LoginSignFragment extends Fragment {
 
     public EditText emailET;
-    public EditText pwdET;
+    public EditText passwordET;
 
     public static LoginSignFragment newInstance() {
         return newInstance(null);
@@ -66,7 +69,7 @@ public class LoginSignFragment extends Fragment {
         });
 
         emailET = (EditText) view.findViewById(R.id.email);
-        pwdET = (EditText) view.findViewById(R.id.password);
+        passwordET = (EditText) view.findViewById(R.id.password);
 
 
     }
@@ -74,16 +77,17 @@ public class LoginSignFragment extends Fragment {
     public class BindingHandler {
         public void onClickLogin(final View view) {
             boolean isEmail = Utils.isEmail(emailET.getText().toString());
-            boolean isPassword = Utils.isPassword(pwdET.getText().toString());
+            boolean isPassword = Utils.isPassword(passwordET.getText().toString());
             if (!isEmail) {
                 ViewUtils.toast(R.string.sign_login_email_error);
             } else if (!isPassword) {
                 ViewUtils.toast(R.string.sign_login_password_error);
             } else {
-                UserRestful.INSTANCE.login(emailET.getText().toString(), Utils.md52(pwdET.getText().toString()), new UserRestful.OnUserRestfulGet() {
+                ViewUtils.loading(getActivity());
+                UserRestful.INSTANCE.login(emailET.getText().toString(), Utils.md52(passwordET.getText().toString()), new UserRestful.OnUserRestfulGet() {
                     @Override
                     public void onSuccess(User user) {
-                        LocalBroadcastManager.getInstance(view.getContext()).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
+                        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
                         getActivity().finish();
                     }
 
@@ -94,7 +98,7 @@ public class LoginSignFragment extends Fragment {
 
                     @Override
                     public void onFinish() {
-
+                        ViewUtils.dismiss();
                     }
                 });
 
@@ -103,13 +107,14 @@ public class LoginSignFragment extends Fragment {
 
         public void onClickRegister(final View view) {
             boolean isEmail = Utils.isEmail(emailET.getText().toString());
-            boolean isPassword = Utils.isPassword(pwdET.getText().toString());
+            boolean isPassword = Utils.isPassword(passwordET.getText().toString());
             if (!isEmail) {
                 ViewUtils.toast(R.string.sign_login_email_error);
             } else if (!isPassword) {
                 ViewUtils.toast(R.string.sign_login_password_error);
             } else {
-                UserRestful.INSTANCE.register(emailET.getText().toString(), Utils.md52(pwdET.getText().toString()), new UserRestful.OnUserRestfulGet() {
+                ViewUtils.loading(getActivity());
+                UserRestful.INSTANCE.register(emailET.getText().toString(), Utils.md52(passwordET.getText().toString()), new UserRestful.OnUserRestfulGet() {
                     @Override
                     public void onSuccess(User user) {
                         Bundle bundle = new Bundle();
@@ -120,7 +125,7 @@ public class LoginSignFragment extends Fragment {
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                                 .commit();
-                        LocalBroadcastManager.getInstance(view.getContext()).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
+                        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
                     }
 
                     @Override
@@ -130,26 +135,26 @@ public class LoginSignFragment extends Fragment {
 
                     @Override
                     public void onFinish() {
-
+                        ViewUtils.dismiss();
                     }
                 });
             }
         }
 
         public void onClickQQ(View view) {
-            Toast.makeText(view.getContext(), "暂时不支持", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "暂时不支持", Toast.LENGTH_SHORT).show();
         }
 
         public void onClickWechat(View view) {
-            Toast.makeText(view.getContext(), "暂时不支持", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "暂时不支持", Toast.LENGTH_SHORT).show();
         }
 
         public void onClickWeibo(View view) {
-            Toast.makeText(view.getContext(), "暂时不支持", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "暂时不支持", Toast.LENGTH_SHORT).show();
         }
 
         public void onClickForgetPassword(View view) {
-            Toast.makeText(view.getContext(), "暂时不支持", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "暂时不支持", Toast.LENGTH_SHORT).show();
         }
 
     }

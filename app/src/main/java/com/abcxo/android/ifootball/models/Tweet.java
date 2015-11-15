@@ -2,6 +2,11 @@ package com.abcxo.android.ifootball.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by SHARON on 15/10/29.
@@ -14,10 +19,28 @@ public class Tweet implements Parcelable {
     public String commentCount;
     public String repeatCount;
     public String starCount;
-    public Content content;
-    public Tweet originTweet;
+
+    public String title;
+    public String summary;
+    public String text;
+    public String cover;
+    public String url;
+    public String lon;
+    public String lat;
+    public String images;
+
     public TweetMainType mainType = TweetMainType.NORMAL;
     public TweetDetailType detailType = TweetDetailType.TWEET;
+
+    public Tweet originTweet;
+
+
+    public List<String> imageList() {
+        if (!TextUtils.isEmpty(images)) {
+            return Arrays.asList(images.split(";"));
+        }
+        return null;
+    }
 
     public Tweet() {
         super();
@@ -32,7 +55,14 @@ public class Tweet implements Parcelable {
         commentCount = in.readString();
         repeatCount = in.readString();
         starCount = in.readString();
-        content = in.readParcelable(Content.class.getClassLoader());
+        title = in.readString();
+        summary = in.readString();
+        text = in.readString();
+        cover = in.readString();
+        url = in.readString();
+        lon = in.readString();
+        lat = in.readString();
+        images = in.readString();
         originTweet = in.readParcelable(Tweet.class.getClassLoader());
     }
 
@@ -62,7 +92,14 @@ public class Tweet implements Parcelable {
         dest.writeString(commentCount);
         dest.writeString(repeatCount);
         dest.writeString(starCount);
-        dest.writeParcelable(content, flags);
+        dest.writeString(title);
+        dest.writeString(summary);
+        dest.writeString(text);
+        dest.writeString(cover);
+        dest.writeString(url);
+        dest.writeString(lon);
+        dest.writeString(lat);
+        dest.writeString(images);
         dest.writeParcelable(originTweet, flags);
     }
 }

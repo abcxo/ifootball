@@ -21,4 +21,5 @@ public class NewsTweetFragment extends TweetFragment {
         return TweetRestful.GetsType.NEWS;
     }
 
+
 }

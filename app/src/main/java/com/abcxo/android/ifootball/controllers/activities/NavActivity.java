@@ -67,7 +67,7 @@ public class NavActivity extends AppCompatActivity
 
 
     private void registerLogin() {
-        Utils.registerLogin(this, new BroadcastReceiver() {
+        Utils.registerLogin(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 User user = UserRestful.INSTANCE.me();
@@ -77,7 +77,7 @@ public class NavActivity extends AppCompatActivity
     }
 
     private void registerLogout() {
-        Utils.registerLogout(this, new BroadcastReceiver() {
+        Utils.registerLogout(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 User user = UserRestful.INSTANCE.me();
@@ -121,20 +121,20 @@ public class NavActivity extends AppCompatActivity
             }
 
         } else if (groupId == R.id.nav_group_append) {
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (id == R.id.nav_item_setting) {
-                        toAppend(SettingActivity.class);
-                    } else if (id == R.id.nav_item_help) {
-                        toAppend(HelpActivity.class);
-                    } else if (id == R.id.nav_item_about) {
-                        toAppend(AboutActivity.class);
-                    }
-
-                }
-            }, DELAY_NAV_ITEM);
+            UserRestful.INSTANCE.logout();
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (id == R.id.nav_item_setting) {
+//                        toAppend(SettingActivity.class);
+//                    } else if (id == R.id.nav_item_help) {
+//                        toAppend(HelpActivity.class);
+//                    } else if (id == R.id.nav_item_about) {
+//                        toAppend(AboutActivity.class);
+//                    }
+//
+//                }
+//            }, DELAY_NAV_ITEM);
 
 
         }

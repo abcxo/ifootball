@@ -106,11 +106,14 @@ public class UserRestful {
 
         @Multipart
         @POST("/user/avatar")
-        Call<User> avatar(@Query("uid") long id, @Part("image\"; filename=\"avatar.jpg\" ") RequestBody image);
+        Call<User> avatar(@Query("uid") long uid, @Part("image\"; filename=\"avatar.jpg\" ") RequestBody image);
 
         @Multipart
         @POST("/user/cover")
-        Call<User> cover(@Query("uid") long id, @Part("image\"; filename=\"cover.jpg\" ") RequestBody image);
+        Call<User> cover(@Query("uid") long uid, @Part("image\"; filename=\"cover.jpg\" ") RequestBody image);
+
+        @GET("/user")
+        Call<User> get(@Query("uid") long uid);
 
 
     }
@@ -290,13 +293,22 @@ public class UserRestful {
 
 
     //获取单个用户
-    public void getUser(String uid, @NonNull final OnUserRestfulGet onGet) {
-        post(new Runnable() {
+    public void getUser(long uid, @NonNull final OnUserRestfulGet onGet) {
+        Call<User> call = userService.get(uid);
+        call.enqueue(new OnRestful<User>() {
             @Override
-            public void run() {
-                onGet.onSuccess(testUser());
-                onGet.onFinish();
+            void onSuccess(User user) {
+                onGet.onSuccess(user);
+            }
 
+            @Override
+            void onError(RestfulError error) {
+                onGet.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onGet.onFinish();
             }
         });
     }

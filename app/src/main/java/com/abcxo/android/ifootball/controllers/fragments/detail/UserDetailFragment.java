@@ -14,12 +14,17 @@ import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.databinding.FragmentDetailUserBinding;
 import com.abcxo.android.ifootball.models.User;
+import com.abcxo.android.ifootball.restfuls.RestfulError;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.ViewUtils;
 
 /**
  * Created by shadow on 15/11/4.
  */
 public class UserDetailFragment extends Fragment {
     private User user;
+    private long uid;
+    private FragmentDetailUserBinding binding;
 
     public static UserDetailFragment newInstance() {
         return newInstance(null);
@@ -37,9 +42,7 @@ public class UserDetailFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             user = (User) getArguments().get(Constants.KEY_USER);
-            if (user == null) {
-                long uid = getArguments().getLong(Constants.KEY_UID);
-            }
+            uid = getArguments().getLong(Constants.KEY_UID);
         }
     }
 
@@ -48,6 +51,7 @@ public class UserDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_detail_user, container, false);
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -64,8 +68,30 @@ public class UserDetailFragment extends Fragment {
             }
         });
 
+        binding = DataBindingUtil.bind(view);
+        if (user != null) {
+            binding.setUser(user);
+        } else {
+            ViewUtils.loading(getActivity());
+            UserRestful.INSTANCE.getUser(uid, new UserRestful.OnUserRestfulGet() {
+                @Override
+                public void onSuccess(User user) {
+                    UserDetailFragment.this.user = user;
+                    binding.setUser(user);
+                }
 
-        FragmentDetailUserBinding binding = DataBindingUtil.bind(view);
-        binding.setUser(user);
+                @Override
+                public void onError(RestfulError error) {
+                    ViewUtils.toast(error.msg);
+                }
+
+                @Override
+                public void onFinish() {
+                    ViewUtils.dismiss();
+                }
+            });
+        }
+
     }
+
 }

@@ -63,15 +63,6 @@
                     android:textSize="16dp"
                     tools:text="咸蛋超人" />
 
-                <TextView
-                    android:id="@+id/time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="@{tweet.time}"
-                    android:textColor="@color/color_text_append"
-                    android:textSize="12dp"
-                    tools:text="2015-11-11 20:00" />
 
                 <TextView
                     android:id="@+id/content"
@@ -92,20 +83,81 @@
                     android:layout_marginTop="@dimen/padding"
                     android:background="@mipmap/test0" />
 
-                <include
-                    android:id="@+id/repeat_content"
-                    layout="@layout/content_tweet"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/images"
+                    android:layout_below="@+id/images"
                     android:layout_marginTop="@dimen/padding"
-                    bind:tweet="@{tweet.originTweet}" />
+                    android:text="@{tweet.time}"
+                    android:textColor="@color/color_text_append"
+                    android:textSize="12dp"
+                    tools:text="2015-11-11 20:00" />
+
+                <View
+                    android:id="@+id/divider"
+                    style="@style/Divider"
+                    android:layout_below="@+id/time"
+                    android:layout_marginTop="@dimen/padding" />
+
+                <TextView
+                    android:id="@+id/repeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/divider"
+                    android:layout_marginTop="@dimen/padding"
+                    android:text="@{tweet.repeatCount}"
+                    android:textColor="@color/color_text_content"
+                    android:textSize="12dp"
+                    tools:text="284" />
+
+                <TextView
+                    android:id="@+id/unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/repeat"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:layout_toRightOf="@id/repeat"
+                    android:text="转推"
+                    android:textColor="@color/color_text_append"
+                    android:textSize="12dp"
+                    tools:text="转推" />
+
+                <TextView
+                    android:id="@+id/star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/unit"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:layout_toRightOf="@id/unit"
+                    android:text="@{tweet.starCount}"
+                    android:textColor="@color/color_text_content"
+                    android:textSize="12dp"
+                    tools:text="17" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/repeat"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:layout_toRightOf="@id/star"
+                    android:text="个赞"
+                    android:textColor="@color/color_text_append"
+                    android:textSize="12dp"
+                    tools:text="个赞" />
+
+                <View
+                    android:id="@+id/divider2"
+                    style="@style/Divider"
+                    android:layout_below="@+id/repeat"
+                    android:layout_marginTop="@dimen/padding" />
+
 
                 <LinearLayout
+                    android:id="@+id/action_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/repeat_content"
-                    android:layout_marginTop="@dimen/padding"
+                    android:layout_below="@+id/divider2"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -122,14 +174,6 @@
                             android:src="@drawable/ic_comment"
                             android:tint="@color/color_icon_light" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/padding_small"
-                            android:text="@{tweet.commentCount}"
-                            android:textColor="@color/color_text_append"
-                            android:textSize="12dp"
-                            tools:text="307" />
                     </LinearLayout>
 
 
@@ -146,14 +190,6 @@
                             android:src="@drawable/ic_repeat"
                             android:tint="@color/color_icon_light" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/padding_small"
-                            android:text="@{tweet.repeatCount}"
-                            android:textColor="@color/color_text_append"
-                            android:textSize="12dp"
-                            tools:text="284" />
                     </LinearLayout>
 
 
@@ -170,22 +206,44 @@
                             android:src="@drawable/ic_star"
                             android:tint="@color/color_icon_light" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/padding_small"
-                            android:text="@{tweet.starCount}"
-                            android:textColor="@color/color_text_append"
-                            android:textSize="12dp"
-                            tools:text="97" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="@dimen/padding">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_star"
+                            android:tint="@color/color_icon_light" />
+
                     </LinearLayout>
                 </LinearLayout>
 
+                <View
+                    android:id="@+id/divider3"
+                    style="@style/Divider"
+                    android:layout_below="@id/action_layout"/>
+
+                <include
+                    android:id="@+id/repeat_content"
+                    layout="@layout/content_tweet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/divider3"
+                    android:layout_marginTop="@dimen/padding"
+                    bind:tweet="@{tweet.originTweet}" />
+
+
             </RelativeLayout>
-        </ScrollView>
-    </android.support.design.widget.CoordinatorLayout>
+    </ScrollView>
+</android.support.design.widget.CoordinatorLayout>
 
 
-</layout>
+    </layout>
 
 

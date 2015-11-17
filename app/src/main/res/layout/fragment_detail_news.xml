@@ -43,32 +43,21 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding">
 
-                <ImageView
-                    android:id="@+id/icon"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:scaleType="centerCrop"
-                    app:imageUrl="@{tweet.user.avatar}"
-                    tools:src="@mipmap/test2" />
-
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding"
-                    android:layout_toRightOf="@id/icon"
                     android:singleLine="true"
-                    android:text="@{tweet.user.name}"
                     android:textColor="@color/color_text_title"
                     android:textSize="16dp"
-                    tools:text="咸蛋超人" />
+                    tools:text="爆皇马可能1月本泽马解约" />
 
                 <TextView
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="@{tweet.time}"
+                    android:layout_below="@id/title"
+                    android:layout_marginTop="@dimen/padding_small"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
                     tools:text="2015-11-11 20:00" />
@@ -77,9 +66,8 @@
                     android:id="@+id/content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/icon"
+                    android:layout_below="@id/time"
                     android:layout_marginTop="@dimen/padding_small"
-                    android:text="@{tweet.text}"
                     android:textColor="@color/color_text_content"
                     android:textSize="14dp"
                     tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />

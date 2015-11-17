@@ -33,7 +33,7 @@
             app:riv_corner_radius="@dimen/icon_radius"
             android:onClick="@{handler.onClickUser}"
             app:imageUrl="@{tweet.user.avatar}"
-            tools:src="@mipmap/test2" />
+            tools:src="@drawable/test2" />
 
         <TextView
             android:id="@+id/name"
@@ -78,7 +78,7 @@
             android:layout_marginTop="@dimen/padding"
             android:scaleType="centerCrop"
             app:imageUrl ="@{tweet.imageList[0]}"
-            android:src="@mipmap/test0" />
+            android:src="@drawable/test0" />
 
         <include
             android:id="@+id/repeat_content"

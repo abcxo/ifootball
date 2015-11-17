@@ -49,7 +49,7 @@
                     android:layout_height="48dp"
                     android:scaleType="centerCrop"
                     app:imageUrl="@{tweet.user.avatar}"
-                    tools:src="@mipmap/test2" />
+                    tools:src="@drawable/test2" />
 
                 <TextView
                     android:id="@+id/name"
@@ -90,7 +90,7 @@
                     android:layout_height="200dp"
                     android:layout_below="@+id/content"
                     android:layout_marginTop="@dimen/padding"
-                    android:background="@mipmap/test0" />
+                    android:background="@drawable/test0" />
 
                 <include
                     android:id="@+id/repeat_content"

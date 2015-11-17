@@ -44,7 +44,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/test0"
+                    android:src="@drawable/test0"
                     app:imageUrl="@{user.avatar}"
                     app:riv_corner_radius="@dimen/icon_radius_small" />
 

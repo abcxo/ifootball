@@ -175,7 +175,7 @@ public class TweetRestful {
 
     //添加推文
     public void add(Tweet tweet, final List<Image> images, @NonNull final OnTweetRestfulGet onGet) {
-        Call<Tweet> call = tweetService.add(UserRestful.INSTANCE.meId(), null, 0, tweet);
+        Call<Tweet> call = tweetService.add(UserRestful.INSTANCE.meId(), "", 0, tweet);
         call.enqueue(new OnRestful<Tweet>() {
             @Override
             void onSuccess(final Tweet tweet) {

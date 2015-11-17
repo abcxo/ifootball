@@ -21,7 +21,7 @@
             android:layout_height="48dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{message.user.avatar}"
-            tools:src="@mipmap/test2" />
+            tools:src="@drawable/test2" />
 
         <TextView
             android:id="@+id/item_name"

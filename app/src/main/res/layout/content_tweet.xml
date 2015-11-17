@@ -27,7 +27,7 @@
             android:layout_height="60dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{tweet.cover}"
-            tools:src="@mipmap/test2" />
+            tools:src="@drawable/test2" />
 
         <TextView
             android:id="@+id/title"

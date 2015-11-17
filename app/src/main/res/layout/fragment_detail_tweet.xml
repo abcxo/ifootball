@@ -43,11 +43,12 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding">
 
-                <ImageView
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:scaleType="centerCrop"
+                    app:riv_corner_radius="@dimen/icon_radius"
                     app:imageUrl="@{tweet.icon}"
                     tools:src="@drawable/test2" />
 
@@ -70,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/icon"
                     android:layout_marginTop="@dimen/padding_small"
-                    android:text="@{tweet.text}"
+                    android:text="@{tweet.content}"
                     android:textColor="@color/color_text_content"
                     android:textSize="14dp"
                     tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
@@ -81,6 +82,7 @@
                     android:layout_height="200dp"
                     android:layout_below="@+id/content"
                     android:layout_marginTop="@dimen/padding"
+                    app:imageUrl ="@{tweet.imageList[0]}"
                     android:background="@drawable/test0" />
 
                 <TextView
@@ -118,7 +120,7 @@
                     android:layout_alignBaseline="@id/repeat"
                     android:layout_marginLeft="@dimen/padding_small"
                     android:layout_toRightOf="@id/repeat"
-                    android:text="转推"
+                    android:text="@string/repeat_text"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
                     tools:text="转推" />
@@ -141,7 +143,7 @@
                     android:layout_alignBaseline="@id/repeat"
                     android:layout_marginLeft="@dimen/padding_small"
                     android:layout_toRightOf="@id/star"
-                    android:text="个赞"
+                    android:text="@string/star_text"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
                     tools:text="个赞" />

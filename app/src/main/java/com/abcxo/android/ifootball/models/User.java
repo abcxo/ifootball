@@ -23,6 +23,8 @@ public class User implements Parcelable, Serializable {
     public String time;
     public String lon;
     public String lat;
+    public int focusCount;
+    public int fansCount;
     public GenderType gender = GenderType.MALE;
     public UserType userType = UserType.NORMAL;
     public UserMainType mainType = UserMainType.NORMAL;
@@ -32,6 +34,7 @@ public class User implements Parcelable, Serializable {
     }
 
     protected User(Parcel in) {
+        id = in.readLong();
         username = in.readString();
         email = in.readString();
         name = in.readString();
@@ -43,6 +46,8 @@ public class User implements Parcelable, Serializable {
         time = in.readString();
         lon = in.readString();
         lat = in.readString();
+        focusCount = in.readInt();
+        fansCount = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -64,6 +69,7 @@ public class User implements Parcelable, Serializable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
         dest.writeString(username);
         dest.writeString(email);
         dest.writeString(name);
@@ -75,6 +81,8 @@ public class User implements Parcelable, Serializable {
         dest.writeString(time);
         dest.writeString(lon);
         dest.writeString(lat);
+        dest.writeInt(focusCount);
+        dest.writeInt(fansCount);
     }
 
 

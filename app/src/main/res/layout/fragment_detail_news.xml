@@ -49,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:textColor="@color/color_text_title"
+                    android:text="@{tweet.title}"
                     android:textSize="16dp"
                     tools:text="爆皇马可能1月本泽马解约" />
 
@@ -59,6 +60,7 @@
                     android:layout_below="@id/title"
                     android:layout_marginTop="@dimen/padding_small"
                     android:textColor="@color/color_text_append"
+                    android:text="@{tweet.time}"
                     android:textSize="12dp"
                     tools:text="2015-11-11 20:00" />
 
@@ -69,6 +71,7 @@
                     android:layout_below="@id/time"
                     android:layout_marginTop="@dimen/padding_small"
                     android:textColor="@color/color_text_content"
+                    android:text="@{tweet.content}"
                     android:textSize="14dp"
                     tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
 
@@ -78,6 +81,7 @@
                     android:layout_height="200dp"
                     android:layout_below="@+id/content"
                     android:layout_marginTop="@dimen/padding"
+                    app:imageUrl ="@{tweet.imageList[0]}"
                     android:background="@drawable/test0" />
 
                 <include

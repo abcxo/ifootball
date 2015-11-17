@@ -61,11 +61,12 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding">
 
-                <ImageView
-                    android:id="@+id/icon"
+                 <com.makeramen.roundedimageview.RoundedImageView    android:id="@+id/icon"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="centerCrop"
+                    app:riv_corner_radius="@dimen/icon_radius_max"
+                    app:imageUrl="@{user.icon}"
                     tools:src="@drawable/test2" />
 
                 <TextView
@@ -73,20 +74,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding"
+                    android:layout_marginTop="@dimen/padding"
                     android:layout_below="@id/icon"
                     android:singleLine="true"
                     android:textColor="@color/color_text_title"
+                    android:text="@{user.name}"
                     android:textSize="16dp"
                     tools:text="咸蛋超人" />
 
 
                 <TextView
-                    android:id="@+id/introduction"
+                    android:id="@+id/sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/name"
                     android:layout_marginTop="@dimen/padding_small"
                     android:textColor="@color/color_text_content"
+                    android:text="@{user.sign}"
                     android:textSize="14dp"
                     tools:text="娱乐圈有很多的明星都有同班同学，有的大红大紫成为一线，有的则籍籍无名十八线，还有的还在跑龙套，地位和身价天壤之别，令人感叹“同班不同命”。下面小编就为大家盘点一下北电96级12大美女的发展现状。" />
 
@@ -94,11 +98,12 @@
 
 
                 <TextView
-                    android:id="@+id/repeat"
+                    android:id="@+id/focus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/introduction"
+                    android:layout_below="@id/sign"
                     android:layout_marginTop="@dimen/padding"
+                    android:text="@{String.valueOf(user.focusCount)}"
                     android:textColor="@color/color_text_content"
                     android:textSize="12dp"
                     tools:text="284" />
@@ -107,41 +112,42 @@
                     android:id="@+id/unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@id/repeat"
+                    android:layout_alignBaseline="@id/focus"
                     android:layout_marginLeft="@dimen/padding_small"
-                    android:layout_toRightOf="@id/repeat"
-                    android:text="转推"
+                    android:layout_toRightOf="@id/focus"
+                    android:text="@string/focus_text"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
-                    tools:text="转推" />
+                    tools:text="关注" />
 
                 <TextView
-                    android:id="@+id/star"
+                    android:id="@+id/fans"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@id/unit"
                     android:layout_marginLeft="@dimen/padding"
                     android:layout_toRightOf="@id/unit"
                     android:textColor="@color/color_text_content"
+                    android:text="@{String.valueOf(user.fansCount)}"
                     android:textSize="12dp"
                     tools:text="17" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@id/repeat"
+                    android:layout_alignBaseline="@id/fans"
                     android:layout_marginLeft="@dimen/padding_small"
-                    android:layout_toRightOf="@id/star"
-                    android:text="个赞"
+                    android:layout_toRightOf="@id/fans"
+                    android:text="@string/fans_text"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
-                    tools:text="个赞" />
+                    tools:text="粉丝" />
 
 
                 <View
                     android:id="@+id/divider"
                     style="@style/Divider"
-                    android:layout_below="@id/repeat"
+                    android:layout_below="@id/fans"
                     android:layout_marginTop="@dimen/padding"/>
 
                 <!--<include-->

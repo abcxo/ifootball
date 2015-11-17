@@ -2,6 +2,7 @@ package com.abcxo.android.ifootball.restfuls;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
@@ -14,6 +15,7 @@ import com.squareup.okhttp.RequestBody;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +55,8 @@ public class TweetRestful {
     private Tweet testTweetContent(GetsType getsType) {
 
         Tweet tweet = new Tweet();
-        tweet.id = 1L;
-        tweet.user = UserRestful.INSTANCE.me();
+        tweet.id = 1;
+        tweet.uid = 1;
         tweet.source = "新浪微博";
         tweet.time = "3小时前";
         tweet.commentCount = 381;
@@ -183,8 +185,12 @@ public class TweetRestful {
                     List<RequestBody> requestBodies = new ArrayList<RequestBody>();
                     try {
                         for (Image image : images) {
+                            File file = new File(image.url);
+                            byte[] bytes = new byte[(int) file.length()];
                             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                            byteArrayOutputStream.writeTo(new FileOutputStream(image.url));
+                            FileInputStream fileInputStream = new FileInputStream(file);
+                            fileInputStream.read(bytes);
+                            fileInputStream.close();
                             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), byteArrayOutputStream.toByteArray());
                             requestBodies.add(requestBody);
                         }

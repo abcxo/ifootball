@@ -31,6 +31,14 @@ public class NavUtils {
         context.startActivity(intent);
     }
 
+    public static void toUserDetail(Context context, long uid) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(Constants.KEY_UID,uid);
+        Intent intent = new Intent(context, UserDetailActivity.class);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
     public static void toTweetDetail(Context context, Tweet tweet) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_TWEET, tweet);

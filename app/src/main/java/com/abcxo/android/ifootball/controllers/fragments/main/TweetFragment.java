@@ -131,7 +131,7 @@ public class TweetFragment extends Fragment {
         public void onClickUser(View view) {
             ViewDataBinding binding = DataBindingUtil.findBinding(view);
             Tweet tweet = (Tweet) binding.getRoot().getTag();
-            NavUtils.toUserDetail(view.getContext(), tweet.user);
+            NavUtils.toUserDetail(view.getContext(), tweet.uid);
         }
 
         public void onClickTweet(View view) {

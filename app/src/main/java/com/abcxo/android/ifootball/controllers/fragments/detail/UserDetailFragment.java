@@ -18,8 +18,9 @@ import com.abcxo.android.ifootball.models.User;
 /**
  * Created by shadow on 15/11/4.
  */
-public class UserDetailFragment extends Fragment{
+public class UserDetailFragment extends Fragment {
     private User user;
+
     public static UserDetailFragment newInstance() {
         return newInstance(null);
     }
@@ -36,6 +37,9 @@ public class UserDetailFragment extends Fragment{
         Bundle args = getArguments();
         if (args != null) {
             user = (User) getArguments().get(Constants.KEY_USER);
+            if (user == null) {
+                long uid = getArguments().getLong(Constants.KEY_UID);
+            }
         }
     }
 

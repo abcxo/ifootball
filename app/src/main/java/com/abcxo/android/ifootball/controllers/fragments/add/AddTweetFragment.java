@@ -118,11 +118,10 @@ public class AddTweetFragment extends Fragment {
                 ViewUtils.toast(R.string.add_tweet_send_error);
             } else {
                 Tweet tweet = new Tweet();
-                tweet.user = UserRestful.INSTANCE.me();
+                tweet.uid = UserRestful.INSTANCE.meId();
                 tweet.title = UserRestful.INSTANCE.me().name;
                 tweet.text = inputET.getText().toString();
                 tweet.summary = tweet.text;
-
 
                 ViewUtils.loading(getActivity());
                 TweetRestful.INSTANCE.add(tweet, adapter.images, new TweetRestful.OnTweetRestfulGet() {

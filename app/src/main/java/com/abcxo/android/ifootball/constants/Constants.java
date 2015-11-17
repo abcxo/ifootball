@@ -25,6 +25,7 @@ public final class Constants {
 
     public static String KEY_TWEET = "tweet";
     public static String KEY_USER = "user";
+    public static String KEY_UID = "uid";
     public static String KEY_MESSAGE = "message";
 
     public static String DIR = Application.INSTANCE.getFilesDir().getAbsolutePath();

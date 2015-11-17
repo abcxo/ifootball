@@ -7,7 +7,6 @@
 
         <import type="com.abcxo.android.ifootball.models.User" />
 
-        <import type="com.abcxo.android.ifootball.restfuls.UserRestful" />
 
         <import type="android.text.TextUtils" />
 
@@ -25,7 +24,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_header_height"
-        android:onClick="@{UserRestful.INSTANCE.isLogin() ?handler.onClickUser:handler.onClickSign}">
+        android:onClick="@{handler.onClickUser}">
 
         <ImageView
             android:layout_width="match_parent"

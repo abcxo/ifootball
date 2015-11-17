@@ -205,12 +205,13 @@ public class NavActivity extends AppCompatActivity
 
     public class BindingHandler {
 
-        public void onClickSign(View view) {
-            NavUtils.toSign(view.getContext());
-        }
-
         public void onClickUser(View view) {
-            NavUtils.toUserDetail(view.getContext(), UserRestful.INSTANCE.me());
+            if (UserRestful.INSTANCE.isLogin()) {
+                NavUtils.toUserDetail(view.getContext(), UserRestful.INSTANCE.me());
+            } else {
+                NavUtils.toSign(view.getContext());
+            }
+
         }
 
 

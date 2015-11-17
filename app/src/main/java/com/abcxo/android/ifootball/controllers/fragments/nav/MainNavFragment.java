@@ -115,19 +115,20 @@ public class MainNavFragment extends NavFragment {
 
     public class BindingHandler {
 
-        public void onClickSign(View view) {
-            NavUtils.toSign(view.getContext());
-        }
-
         public void onClickFab(View view) {
-            if (currentIndex == HOME.getIndex()) {
-                startActivity(new Intent(getActivity(), TweetAddActivity.class));
-            } else if (currentIndex == TEAM.getIndex()) {
-                startActivity(new Intent(getActivity(), SignActivity.class));
-            } else if (currentIndex == NEWS.getIndex()) {
-            } else if (currentIndex == DISCOVER.getIndex()) {
+            if (UserRestful.INSTANCE.isLogin()) {
+                if (currentIndex == HOME.getIndex()) {
+                    startActivity(new Intent(getActivity(), TweetAddActivity.class));
+                } else if (currentIndex == TEAM.getIndex()) {
+                    startActivity(new Intent(getActivity(), SignActivity.class));
+                } else if (currentIndex == NEWS.getIndex()) {
+                } else if (currentIndex == DISCOVER.getIndex()) {
 
+                }
+            } else {
+                NavUtils.toSign(view.getContext());
             }
+
         }
 
 

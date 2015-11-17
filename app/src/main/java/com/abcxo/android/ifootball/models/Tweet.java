@@ -13,14 +13,17 @@ import java.util.List;
  */
 public class Tweet implements Parcelable {
     public long id;
-    public User user;
-    public String source;
-    public String time;
+    public long uid;
+
+
     public int commentCount;
     public int repeatCount;
     public int starCount;
 
+
+    public String icon;
     public String title;
+    public String source;
     public String summary;
     public String text;
     public String cover;
@@ -28,6 +31,7 @@ public class Tweet implements Parcelable {
     public String lon;
     public String lat;
     public String images;
+    public String time;
 
     public TweetMainType mainType = TweetMainType.NORMAL;
     public TweetDetailType detailType = TweetDetailType.TWEET;
@@ -39,22 +43,15 @@ public class Tweet implements Parcelable {
         super();
     }
 
-    public List<String> imageList() {
-        if (!TextUtils.isEmpty(images)) {
-            return Arrays.asList(images.split(";"));
-        }
-        return null;
-    }
-
-
     protected Tweet(Parcel in) {
         id = in.readLong();
-        user = in.readParcelable(User.class.getClassLoader());
+        uid = in.readLong();
         source = in.readString();
         time = in.readString();
         commentCount = in.readInt();
         repeatCount = in.readInt();
         starCount = in.readInt();
+        icon = in.readString();
         title = in.readString();
         summary = in.readString();
         text = in.readString();
@@ -78,6 +75,13 @@ public class Tweet implements Parcelable {
         }
     };
 
+    public List<String> imageList() {
+        if (!TextUtils.isEmpty(images)) {
+            return Arrays.asList(images.split(";"));
+        }
+        return null;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -86,12 +90,13 @@ public class Tweet implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
-        dest.writeParcelable(user, flags);
+        dest.writeLong(uid);
         dest.writeString(source);
         dest.writeString(time);
         dest.writeInt(commentCount);
         dest.writeInt(repeatCount);
         dest.writeInt(starCount);
+        dest.writeString(icon);
         dest.writeString(title);
         dest.writeString(summary);
         dest.writeString(text);

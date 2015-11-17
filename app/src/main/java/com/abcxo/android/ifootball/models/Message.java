@@ -13,11 +13,9 @@ import java.util.Map;
  */
 public class Message implements Parcelable {
     public long id;
-    public User user;
-    public String time;
-    public String count;
-    public MessageType messageType = MessageType.NORMAL;
+    public long uid;
 
+    public String icon;
     public String title;
     public String summary;
     public String text;
@@ -26,15 +24,18 @@ public class Message implements Parcelable {
     public String lon;
     public String lat;
     public String images;
+    public String time;
+
+    public MessageType messageType = MessageType.NORMAL;
 
     public Message() {
         super();
     }
 
     protected Message(Parcel in) {
-        user = in.readParcelable(User.class.getClassLoader());
-        time = in.readString();
-        count = in.readString();
+        id = in.readLong();
+        uid = in.readLong();
+        icon = in.readString();
         title = in.readString();
         summary = in.readString();
         text = in.readString();
@@ -43,6 +44,7 @@ public class Message implements Parcelable {
         lon = in.readString();
         lat = in.readString();
         images = in.readString();
+        time = in.readString();
     }
 
     public static final Creator<Message> CREATOR = new Creator<Message>() {
@@ -64,9 +66,9 @@ public class Message implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(user, flags);
-        dest.writeString(time);
-        dest.writeString(count);
+        dest.writeLong(id);
+        dest.writeLong(uid);
+        dest.writeString(icon);
         dest.writeString(title);
         dest.writeString(summary);
         dest.writeString(text);
@@ -75,7 +77,9 @@ public class Message implements Parcelable {
         dest.writeString(lon);
         dest.writeString(lat);
         dest.writeString(images);
+        dest.writeString(time);
     }
+
 
 
     public enum MessageType {

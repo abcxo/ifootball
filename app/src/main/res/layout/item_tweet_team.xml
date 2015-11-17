@@ -20,7 +20,7 @@
             android:layout_height="34dp"
             android:scaleType="centerCrop"
             app:riv_corner_radius="@dimen/icon_radius"
-            app:imageUrl="@{tweet.user.avatar}"
+            app:imageUrl="@{tweet.icon}"
             tools:src="@drawable/test2" />
 
         <TextView

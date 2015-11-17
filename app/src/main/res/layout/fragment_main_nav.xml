@@ -7,8 +7,6 @@
 
         <import type="com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.BindingHandler" />
 
-        <import type="com.abcxo.android.ifootball.restfuls.UserRestful" />
-
         <variable
             name="handler"
             type="BindingHandler" />
@@ -64,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/padding"
-            android:onClick="@{UserRestful.INSTANCE.isLogin() ?handler.onClickFab:handler.onClickSign}"
+            android:onClick="@{handler.onClickFab}"
             android:src="@drawable/ic_add"
             android:tint="@color/color_icon_highlight"
             app:backgroundTint="@color/color_accent_text"

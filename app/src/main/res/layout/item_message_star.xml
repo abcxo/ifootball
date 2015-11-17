@@ -20,7 +20,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:scaleType="centerCrop"
-            app:imageUrl="@{message.user.avatar}"
+            app:imageUrl="@{message.icon}"
             tools:src="@drawable/test2" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_marginLeft="@dimen/padding"
             android:layout_toRightOf="@id/item_icon"
             android:singleLine="true"
-            android:text="@{message.user.name}"
+            android:text="@{message.title}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
             tools:text="咸蛋超人" />
@@ -75,7 +75,7 @@
                 android:padding="@dimen/padding_min"
                 android:textColor="@color/color_text_highlight"
                 android:textSize="8dp"
-                android:text="@{message.count}"
+
                 tools:text="2" />
         </RelativeLayout>
 

@@ -27,6 +27,7 @@ import com.abcxo.android.ifootball.controllers.adapters.AddTweetImageAdapter;
 import com.abcxo.android.ifootball.databinding.FragmentAddTweetBinding;
 import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
+import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
@@ -119,9 +120,11 @@ public class AddTweetFragment extends Fragment {
             } else {
                 Tweet tweet = new Tweet();
                 tweet.uid = UserRestful.INSTANCE.meId();
-                tweet.title = UserRestful.INSTANCE.me().name;
-                tweet.text = inputET.getText().toString();
-                tweet.summary = tweet.text;
+                tweet.icon = UserRestful.INSTANCE.me().avatar;
+                tweet.name = UserRestful.INSTANCE.me().name;
+                tweet.title = tweet.name;
+                tweet.content = inputET.getText().toString();
+                tweet.summary = tweet.content;
 
                 ViewUtils.loading(getActivity());
                 TweetRestful.INSTANCE.add(tweet, adapter.images, new TweetRestful.OnTweetRestfulGet() {

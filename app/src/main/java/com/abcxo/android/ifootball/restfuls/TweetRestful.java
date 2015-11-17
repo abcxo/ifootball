@@ -65,7 +65,7 @@ public class TweetRestful {
 
         tweet.title = "恒大中超称霸五个连冠";
         tweet.summary = "里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。";
-        tweet.text = tweet.summary;
+        tweet.content = tweet.summary;
         tweet.cover = "http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg";
         tweet.url = "http://www.baidu.com";
         tweet.lon = "0";
@@ -120,7 +120,7 @@ public class TweetRestful {
     public interface TweetService {
 
         @POST("/tweet")
-        Call<Tweet> add(@Query("uid") long uid, @Query("prompt") String prompt, @Query("originTid") long originTid, @Body Tweet tweet);
+        Call<Tweet> add(@Query("prompt") String prompt, @Query("originTid") long originTid, @Body Tweet tweet);
 
         @Multipart
         @POST("/tweet/photo")
@@ -177,7 +177,7 @@ public class TweetRestful {
 
     //添加推文
     public void add(Tweet tweet, final List<Image> images, @NonNull final OnTweetRestfulGet onGet) {
-        Call<Tweet> call = tweetService.add(UserRestful.INSTANCE.meId(), "", 0, tweet);
+        Call<Tweet> call = tweetService.add("", 0, tweet);
         call.enqueue(new OnRestful<Tweet>() {
             @Override
             void onSuccess(final Tweet tweet) {
@@ -187,11 +187,10 @@ public class TweetRestful {
                         for (Image image : images) {
                             File file = new File(image.url);
                             byte[] bytes = new byte[(int) file.length()];
-                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                             FileInputStream fileInputStream = new FileInputStream(file);
                             fileInputStream.read(bytes);
                             fileInputStream.close();
-                            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), byteArrayOutputStream.toByteArray());
+                            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), bytes);
                             requestBodies.add(requestBody);
                         }
                     } catch (Exception e) {

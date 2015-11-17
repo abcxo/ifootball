@@ -26,7 +26,7 @@ public class Tweet implements Parcelable {
     public String title;
     public String source;
     public String summary;
-    public String text;
+    public String content;
     public String cover;
     public String url;
     public String lon;
@@ -56,7 +56,7 @@ public class Tweet implements Parcelable {
         title = in.readString();
         source = in.readString();
         summary = in.readString();
-        text = in.readString();
+        content = in.readString();
         cover = in.readString();
         url = in.readString();
         lon = in.readString();
@@ -102,7 +102,7 @@ public class Tweet implements Parcelable {
         dest.writeString(title);
         dest.writeString(source);
         dest.writeString(summary);
-        dest.writeString(text);
+        dest.writeString(content);
         dest.writeString(cover);
         dest.writeString(url);
         dest.writeString(lon);

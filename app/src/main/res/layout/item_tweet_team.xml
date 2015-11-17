@@ -30,7 +30,7 @@
             android:layout_marginLeft="@dimen/padding"
             android:layout_toRightOf="@id/icon"
             android:singleLine="true"
-            android:text="@{tweet.title}"
+            android:text="@{tweet.name}"
             android:textColor="@color/color_text_title"
             android:textSize="14dp"
             tools:text="咸蛋超人" />

@@ -22,6 +22,7 @@ public class Tweet implements Parcelable {
 
 
     public String icon;
+    public String name;
     public String title;
     public String source;
     public String summary;
@@ -43,16 +44,17 @@ public class Tweet implements Parcelable {
         super();
     }
 
+
     protected Tweet(Parcel in) {
         id = in.readLong();
         uid = in.readLong();
-        source = in.readString();
-        time = in.readString();
         commentCount = in.readInt();
         repeatCount = in.readInt();
         starCount = in.readInt();
         icon = in.readString();
+        name = in.readString();
         title = in.readString();
+        source = in.readString();
         summary = in.readString();
         text = in.readString();
         cover = in.readString();
@@ -60,6 +62,7 @@ public class Tweet implements Parcelable {
         lon = in.readString();
         lat = in.readString();
         images = in.readString();
+        time = in.readString();
         originTweet = in.readParcelable(Tweet.class.getClassLoader());
     }
 
@@ -91,13 +94,13 @@ public class Tweet implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeLong(uid);
-        dest.writeString(source);
-        dest.writeString(time);
         dest.writeInt(commentCount);
         dest.writeInt(repeatCount);
         dest.writeInt(starCount);
         dest.writeString(icon);
+        dest.writeString(name);
         dest.writeString(title);
+        dest.writeString(source);
         dest.writeString(summary);
         dest.writeString(text);
         dest.writeString(cover);
@@ -105,6 +108,7 @@ public class Tweet implements Parcelable {
         dest.writeString(lon);
         dest.writeString(lat);
         dest.writeString(images);
+        dest.writeString(time);
         dest.writeParcelable(originTweet, flags);
     }
 

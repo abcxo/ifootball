@@ -10,8 +10,8 @@ import java.util.Map;
 /**
  * Created by SHARON on 15/10/29.
  */
-public class User implements Parcelable,Serializable {
-    public String id;
+public class User implements Parcelable, Serializable {
+    public long id;
     public String username;
     public String email;
     public String name;
@@ -24,16 +24,14 @@ public class User implements Parcelable,Serializable {
     public String lon;
     public String lat;
     public GenderType gender = GenderType.MALE;
-    public UserType type = UserType.NORMAL;
+    public UserType userType = UserType.NORMAL;
     public UserMainType mainType = UserMainType.NORMAL;
 
     public User() {
         super();
     }
 
-
     protected User(Parcel in) {
-        id = in.readString();
         username = in.readString();
         email = in.readString();
         name = in.readString();
@@ -66,7 +64,6 @@ public class User implements Parcelable,Serializable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
         dest.writeString(username);
         dest.writeString(email);
         dest.writeString(name);
@@ -79,4 +76,69 @@ public class User implements Parcelable,Serializable {
         dest.writeString(lon);
         dest.writeString(lat);
     }
+
+
+    public enum GenderType {
+
+        MALE(0),
+        FEMALE(1);
+        private int index;
+
+        GenderType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return GenderType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
+
+    public enum UserType {
+
+        NORMAL(0),
+        TEAM(1),
+        VIP(2),
+        SUPER(3);
+        private int index;
+
+        UserType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return UserType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
+    public enum UserMainType {
+
+        NORMAL(0),
+        CONTACT(1),
+        DISCOVER(2),
+        SPECIAL(3);
+        private int index;
+
+        UserMainType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return UserMainType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
+
 }

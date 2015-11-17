@@ -8,7 +8,7 @@
 
         <import type="com.abcxo.android.ifootball.models.Tweet" />
 
-        <import type="com.abcxo.android.ifootball.models.TweetDetailType" />
+        <import type="com.abcxo.android.ifootball.models.Tweet.TweetDetailType" />
 
         <import type="com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment.BindingHandler" />
 

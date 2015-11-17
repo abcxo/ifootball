@@ -6,15 +6,15 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
-import com.abcxo.android.ifootball.models.TweetDetailType;
-import com.abcxo.android.ifootball.models.TweetMainType;
-import com.squareup.okhttp.Headers;
+import com.google.repacked.apache.commons.io.FileUtils;
 import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.RequestBody;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class TweetRestful {
     private Tweet testTweetContent(GetsType getsType) {
 
         Tweet tweet = new Tweet();
-        tweet.id = "1";
+        tweet.id = 1L;
         tweet.user = UserRestful.INSTANCE.me();
         tweet.source = "新浪微博";
         tweet.time = "3小时前";
@@ -76,14 +76,14 @@ public class TweetRestful {
         tweet.images = TextUtils.join(";", images);
 
         if (getsType == GetsType.TEAM) {
-            tweet.mainType = TweetMainType.TEAM;
-            tweet.detailType = TweetDetailType.TWEET;
+            tweet.mainType = Tweet.TweetMainType.TEAM;
+            tweet.detailType = Tweet.TweetDetailType.TWEET;
         } else if (getsType == GetsType.NEWS) {
-            tweet.mainType = TweetMainType.NEWS;
-            tweet.detailType = TweetDetailType.NEWS;
+            tweet.mainType = Tweet.TweetMainType.NEWS;
+            tweet.detailType = Tweet.TweetDetailType.NEWS;
         } else {
-            tweet.mainType = TweetMainType.NORMAL;
-            tweet.detailType = TweetDetailType.TWEET;
+            tweet.mainType = Tweet.TweetMainType.NORMAL;
+            tweet.detailType = Tweet.TweetDetailType.TWEET;
         }
         return tweet;
     }
@@ -118,11 +118,11 @@ public class TweetRestful {
     public interface TweetService {
 
         @POST("/tweet")
-        Call<Tweet> add(@Query("uid") String uid, @Body Tweet tweet);
+        Call<Tweet> add(@Query("uid") long uid, @Query("prompt") String prompt, @Query("originTid") long originTid, @Body Tweet tweet);
 
         @Multipart
         @POST("/tweet/photo")
-        Call<Tweet> photo(@Query("tid") String tid,
+        Call<Tweet> photo(@Query("tid") long tid,
                           @Part("image\"; filename=\"image.jpg\" ") RequestBody image0,
                           @Part("image\"; filename=\"image.jpg\" ") RequestBody image1,
                           @Part("image\"; filename=\"image.jpg\" ") RequestBody image2,
@@ -135,7 +135,10 @@ public class TweetRestful {
         );
 
         @GET("/tweet")
-        Call<List<Tweet>> gets(@Query("uid") String uid, @Query("type") int type, @Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
+        Call<List<Tweet>> gets(@Query("uid") long uid,
+                               @Query("getsType") GetsType type,
+                               @Query("pageIndex") int pageIndex,
+                               @Query("pageSize") int pageSize);
     }
 
 
@@ -171,21 +174,24 @@ public class TweetRestful {
 
 
     //添加推文
-    public void add(Tweet tweet, final List<Bitmap> images, @NonNull final OnTweetRestfulGet onGet) {
-        Call<Tweet> call = tweetService.add(UserRestful.INSTANCE.meId(), tweet);
+    public void add(Tweet tweet, final List<Image> images, @NonNull final OnTweetRestfulGet onGet) {
+        Call<Tweet> call = tweetService.add(UserRestful.INSTANCE.meId(), null, 0, tweet);
         call.enqueue(new OnRestful<Tweet>() {
             @Override
             void onSuccess(final Tweet tweet) {
                 if (images.size() > 0) {
                     List<RequestBody> requestBodies = new ArrayList<RequestBody>();
-                    for (Bitmap image : images) {
-                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                        image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-                        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), byteArrayOutputStream.toByteArray());
-                        requestBodies.add(requestBody);
+                    try {
+                        for (Image image : images) {
+                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                            byteArrayOutputStream.writeTo(new FileOutputStream(image.url));
+                            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), byteArrayOutputStream.toByteArray());
+                            requestBodies.add(requestBody);
+                        }
+                    } catch (Exception e) {
                     }
 
-                    Call<Tweet> callPhoto ;
+                    Call<Tweet> callPhoto;
                     switch (requestBodies.size()) {
                         case 1:
                             callPhoto = tweetService.photo(tweet.id, requestBodies.get(0), null, null, null, null, null, null, null, null);
@@ -257,9 +263,10 @@ public class TweetRestful {
 
 
     public enum GetsType {
-        TWEET(0),
+        HOME(0),
         TEAM(1),
-        NEWS(2);
+        NEWS(2),
+        TWEET(3);
         private int index;
 
         GetsType(int index) {
@@ -281,8 +288,8 @@ public class TweetRestful {
         gets(UserRestful.INSTANCE.meId(), getsType, pageIndex, onList);
     }
 
-    public void gets(String uid, final GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
-        Call<List<Tweet>> call = tweetService.gets(uid, getsType.getIndex(), pageIndex, Constants.PAGE_SIZE);
+    public void gets(long uid, final GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
+        Call<List<Tweet>> call = tweetService.gets(uid, getsType, pageIndex, Constants.PAGE_SIZE);
         call.enqueue(new OnRestful<List<Tweet>>() {
             @Override
             void onSuccess(List<Tweet> tweets) {

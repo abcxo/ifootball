@@ -1,34 +1,26 @@
 package com.abcxo.android.ifootball.restfuls;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.models.GenderType;
 import com.abcxo.android.ifootball.models.User;
-import com.abcxo.android.ifootball.models.UserType;
+import com.abcxo.android.ifootball.models.User.GenderType;
+import com.abcxo.android.ifootball.utils.FileUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import okio.BufferedSink;
 import retrofit.Call;
-import retrofit.Callback;
 import retrofit.GsonConverterFactory;
-import retrofit.Response;
 import retrofit.Retrofit;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -37,7 +29,6 @@ import retrofit.http.POST;
 import retrofit.http.PUT;
 import retrofit.http.Part;
 import retrofit.http.Query;
-import retrofit.http.QueryMap;
 
 /**
  * Created by shadow on 15/11/1.
@@ -55,7 +46,7 @@ public class UserRestful {
 
     private User testUser() {
         User user = new User();
-        user.id = "1";
+        user.id = 1L;
         user.username = "abcxo";
         user.email = "abcxo@qq.com";
         user.name = "咸蛋超人";
@@ -68,7 +59,7 @@ public class UserRestful {
         user.lon = "0";
         user.lat = "0";
         user.gender = GenderType.MALE;
-        user.type = UserType.NORMAL;
+        user.userType = User.UserType.NORMAL;
         return user;
     }
 
@@ -103,10 +94,10 @@ public class UserRestful {
     private UserService userService;
 
     public interface UserService {
-        @GET("/user")
+        @GET("/user/login")
         Call<User> login(@Query("email") String email, @Query("password") String password);
 
-        @POST("/user")
+        @POST("/user/register")
         Call<User> register(@Query("email") String email, @Query("password") String password);
 
 
@@ -115,11 +106,11 @@ public class UserRestful {
 
         @Multipart
         @POST("/user/avatar")
-        Call<User> avatar(@Query("uid") String id, @Part("image\"; filename=\"avatar.jpg\" ") RequestBody image);
+        Call<User> avatar(@Query("uid") long id, @Part("image\"; filename=\"avatar.jpg\" ") RequestBody image);
 
         @Multipart
         @POST("/user/cover")
-        Call<User> cover(@Query("uid") String id, @Part("image\"; filename=\"cover.jpg\" ") RequestBody image);
+        Call<User> cover(@Query("uid") long id, @Part("image\"; filename=\"cover.jpg\" ") RequestBody image);
 
 
     }
@@ -130,7 +121,7 @@ public class UserRestful {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         userService = retrofit.create(UserService.class);
-        user = (User) Utils.get(Constants.KEY_USER);
+        user = (User) FileUtils.getObject(Constants.KEY_USER);
     }
 
 
@@ -181,15 +172,19 @@ public class UserRestful {
         return user;
     }
 
-    public String meId() {
-        return user != null ? user.id : null;
+    public long meId() {
+        return user != null ? user.id : 0;
+    }
+
+    public boolean isLogin() {
+        return me() != null;
     }
 
 
     //退出
     public boolean logout() {
         user = null;
-        boolean isLogout = Utils.delete(Constants.KEY_USER);
+        boolean isLogout = FileUtils.deleteObject(Constants.KEY_USER);
         LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_LOGOUT));
         return isLogout;
     }
@@ -264,14 +259,14 @@ public class UserRestful {
 
     private void updateMe(User user) {
         UserRestful.this.user = user;
-        Utils.set(Constants.KEY_USER, UserRestful.this.user);
+        FileUtils.setObject(Constants.KEY_USER, UserRestful.this.user);
     }
 
 
     //上传头像
     public void avatar(Bitmap image, @NonNull final OnUserRestfulGet onGet) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        image.compress(Bitmap.CompressFormat.JPEG, 50, baos);
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), baos.toByteArray());
         Call<User> call = userService.avatar(meId(), requestBody);
         call.enqueue(new OnRestful<User>() {
@@ -309,17 +304,32 @@ public class UserRestful {
 
     //获取用户列表
     public enum GetsType {
-        DISCOVER,
-        FRIEND,
-        FOCUS,
-        FANS,
+
+        FRIEND(0),
+        FOCUS(1),
+        FANS(2),
+        DISCOVER(3);
+
+        private int index;
+
+        GetsType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return GetsType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
     }
 
     public void getUsers(GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
         getUsers(meId(), getsType, pageIndex, onList);
     }
 
-    public void getUsers(String uid, GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
+    public void getUsers(long uid, GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
         post(new Runnable() {
             @Override
             public void run() {

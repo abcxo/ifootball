@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.controllers.adapters.TweetAdapter;
@@ -18,6 +19,7 @@ import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
+import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -79,7 +81,7 @@ public class TweetFragment extends Fragment {
 
                     @Override
                     public void onError(RestfulError error) {
-
+                        ViewUtils.toast(error.msg);
                     }
 
                     @Override

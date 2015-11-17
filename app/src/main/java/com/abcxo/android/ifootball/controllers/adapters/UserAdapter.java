@@ -13,10 +13,10 @@ import com.abcxo.android.ifootball.models.User;
 
 import java.util.List;
 
-import static com.abcxo.android.ifootball.models.UserMainType.CONTACT;
-import static com.abcxo.android.ifootball.models.UserMainType.DISCOVER;
-import static com.abcxo.android.ifootball.models.UserMainType.NORMAL;
-import static com.abcxo.android.ifootball.models.UserMainType.SPECIAL;
+import static com.abcxo.android.ifootball.models.User.UserMainType.CONTACT;
+import static com.abcxo.android.ifootball.models.User.UserMainType.DISCOVER;
+import static com.abcxo.android.ifootball.models.User.UserMainType.NORMAL;
+import static com.abcxo.android.ifootball.models.User.UserMainType.SPECIAL;
 
 /**
  * Created by shadow on 15/11/4.

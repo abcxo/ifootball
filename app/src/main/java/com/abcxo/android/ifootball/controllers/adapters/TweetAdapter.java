@@ -14,10 +14,10 @@ import com.abcxo.android.ifootball.models.Tweet;
 
 import java.util.List;
 
-import static com.abcxo.android.ifootball.models.TweetMainType.NEWS;
-import static com.abcxo.android.ifootball.models.TweetMainType.NORMAL;
-import static com.abcxo.android.ifootball.models.TweetMainType.SPECIAL;
-import static com.abcxo.android.ifootball.models.TweetMainType.TEAM;
+import static com.abcxo.android.ifootball.models.Tweet.TweetMainType.NEWS;
+import static com.abcxo.android.ifootball.models.Tweet.TweetMainType.NORMAL;
+import static com.abcxo.android.ifootball.models.Tweet.TweetMainType.SPECIAL;
+import static com.abcxo.android.ifootball.models.Tweet.TweetMainType.TEAM;
 
 /**
  * Created by shadow on 15/11/4.

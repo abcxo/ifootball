@@ -2,11 +2,9 @@ package com.abcxo.android.ifootball.controllers.fragments.sign;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,14 +22,12 @@ import android.widget.RadioGroup;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.databinding.FragmentSignCompleteBinding;
-import com.abcxo.android.ifootball.models.GenderType;
 import com.abcxo.android.ifootball.models.User;
+import com.abcxo.android.ifootball.models.User.GenderType;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
-
-import java.io.IOException;
 
 
 /**
@@ -164,7 +160,7 @@ public class CompleteSignFragment extends Fragment {
         } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
             try {
                 Uri selectedImage = data.getData();
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),selectedImage);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
                 avatarIV.setImageBitmap(bitmap);
                 image = bitmap;
             } catch (Exception e) {
@@ -177,7 +173,7 @@ public class CompleteSignFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == Constants.REQUEST_PERMISSION_CAMERA) {
+        if (requestCode == Constants.REQUEST_PERMISSION_CAMERA && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, Constants.REQUEST_CAMERA);
         }

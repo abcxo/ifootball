@@ -13,13 +13,13 @@ import com.abcxo.android.ifootball.models.Message;
 
 import java.util.List;
 
-import static com.abcxo.android.ifootball.models.MessageType.CHAT;
-import static com.abcxo.android.ifootball.models.MessageType.COMMENT;
-import static com.abcxo.android.ifootball.models.MessageType.FOCUS;
-import static com.abcxo.android.ifootball.models.MessageType.NORMAL;
-import static com.abcxo.android.ifootball.models.MessageType.PROMPT;
-import static com.abcxo.android.ifootball.models.MessageType.SPECIAL;
-import static com.abcxo.android.ifootball.models.MessageType.STAR;
+import static com.abcxo.android.ifootball.models.Message.MessageType.CHAT;
+import static com.abcxo.android.ifootball.models.Message.MessageType.COMMENT;
+import static com.abcxo.android.ifootball.models.Message.MessageType.FOCUS;
+import static com.abcxo.android.ifootball.models.Message.MessageType.NORMAL;
+import static com.abcxo.android.ifootball.models.Message.MessageType.PROMPT;
+import static com.abcxo.android.ifootball.models.Message.MessageType.SPECIAL;
+import static com.abcxo.android.ifootball.models.Message.MessageType.STAR;
 
 /**
  * Created by shadow on 15/11/4.
@@ -85,7 +85,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.BindingH
     @Override
     public int getItemViewType(int position) {
         Message message = messages.get(position);
-        return message.type.getIndex();
+        return message.messageType.getIndex();
     }
 
     @Override

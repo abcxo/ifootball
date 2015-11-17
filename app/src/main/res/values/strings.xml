@@ -101,6 +101,8 @@
     <string name="add_tweet_text_hint">有趣的事情呢？</string>
     <string name="add_tweet_send_text">推文</string>
     <string name="add_tweet_send_error">请写些内容</string>
+    <string name="add_tweet_send_image_error">添加图片出错</string>
+    <string name="add_tweet_send_image_max_error">最多添加9张图片</string>
 
 
 

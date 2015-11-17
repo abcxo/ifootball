@@ -2,6 +2,7 @@ package com.abcxo.android.ifootball.controllers.fragments.add;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -10,28 +11,29 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.adapters.AddTweetImageAdapter;
 import com.abcxo.android.ifootball.databinding.FragmentAddTweetBinding;
+import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
-import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.FileUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by shadow on 15/11/4.
@@ -48,8 +50,8 @@ public class AddTweetFragment extends Fragment {
     }
 
     private EditText inputET;
-    private ImageView photoList;
-    private Bitmap image;
+    private RecyclerView recyclerView;
+    private AddTweetImageAdapter adapter;
 
     @Nullable
     @Override
@@ -62,6 +64,7 @@ public class AddTweetFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         FragmentAddTweetBinding binding = DataBindingUtil.bind(view);
         binding.setHandler(new BindingHandler());
+        binding.setUser(UserRestful.INSTANCE.me());
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -77,11 +80,29 @@ public class AddTweetFragment extends Fragment {
         });
 
         inputET = (EditText) view.findViewById(R.id.input);
-        photoList = (ImageView) view.findViewById(R.id.photo_list);
+        recyclerView = (RecyclerView) view.findViewById(R.id.image_recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new AddTweetImageAdapter(new ArrayList<Image>(), new BindingHandler());
+        recyclerView.setAdapter(adapter);
     }
 
 
     public class BindingHandler {
+
+        public void onClickImage(final View view) {
+        }
+
+        public void onClickAddImage(final View view) {
+            if (adapter.images.size() < Constants.MAX_ADD_TWEET_IMAGE) {
+                ViewUtils.image(AddTweetFragment.this);
+            } else {
+                ViewUtils.toast(R.string.add_tweet_send_image_max_error);
+            }
+
+        }
 
         public void onClickCamera(final View view) {
             ViewUtils.camera(AddTweetFragment.this);
@@ -102,14 +123,12 @@ public class AddTweetFragment extends Fragment {
                 tweet.text = inputET.getText().toString();
                 tweet.summary = tweet.text;
 
-                List<Bitmap> images = new ArrayList<>();
-                if (image!=null){
-                    images.add(image);
-                }
+
                 ViewUtils.loading(getActivity());
-                TweetRestful.INSTANCE.add(tweet, images, new TweetRestful.OnTweetRestfulGet() {
+                TweetRestful.INSTANCE.add(tweet, adapter.images, new TweetRestful.OnTweetRestfulGet() {
                     @Override
                     public void onSuccess(Tweet tweet) {
+                        FileUtils.delete(Constants.DIR_ADD_TWEET);
                         getActivity().finish();
                     }
 
@@ -138,17 +157,15 @@ public class AddTweetFragment extends Fragment {
                 return;
             }
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            photoList.setImageBitmap(bitmap);
-            image = bitmap;
+            adapter.addImage(bitmap);
 
         } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
             try {
                 Uri selectedImage = data.getData();
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                photoList.setImageBitmap(bitmap);
-                image = bitmap;
+                adapter.addImage(bitmap);
             } catch (Exception e) {
-                e.printStackTrace();
+                ViewUtils.toast(R.string.add_tweet_send_image_error);
             }
 
         }
@@ -157,7 +174,7 @@ public class AddTweetFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == Constants.REQUEST_PERMISSION_CAMERA) {
+        if (requestCode == Constants.REQUEST_PERMISSION_CAMERA && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, Constants.REQUEST_CAMERA);
         }

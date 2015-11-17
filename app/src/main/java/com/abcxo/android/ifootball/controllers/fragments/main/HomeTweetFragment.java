@@ -17,7 +17,7 @@ public class HomeTweetFragment extends TweetFragment {
 
     @Override
     protected TweetRestful.GetsType getGetsType(){
-        return TweetRestful.GetsType.TWEET;
+        return TweetRestful.GetsType.HOME;
     }
 
 }

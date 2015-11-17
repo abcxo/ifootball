@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_small"
-                    android:text="@{tweet.commentCount}"
+                    android:text="@{String.valueOf(tweet.commentCount)}"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
                     tools:text="307" />
@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_small"
-                    android:text="@{tweet.repeatCount}"
+                    android:text="@{String.valueOf(tweet.repeatCount)}"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
                     tools:text="284" />
@@ -164,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_small"
-                    android:text="@{tweet.starCount}"
+                    android:text="@{String.valueOf(tweet.starCount)}"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
                     tools:text="97" />

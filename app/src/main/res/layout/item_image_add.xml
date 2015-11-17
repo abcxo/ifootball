@@ -29,7 +29,7 @@
             android:background="@drawable/bg_image"
             android:onClick="@{handler.onClickAddImage}"
             android:scaleType="center"
-            android:src="@drawable/ic_photo_add"
+            android:src="@drawable/ic_avatar_add"
             android:tint="@color/color_icon_light" />
     </FrameLayout>
 </layout>

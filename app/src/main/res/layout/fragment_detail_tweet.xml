@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/divider"
                     android:layout_marginTop="@dimen/padding"
-                    android:text="@{tweet.repeatCount}"
+                    android:text="@{String.valueOf(tweet.repeatCount)}"
                     android:textColor="@color/color_text_content"
                     android:textSize="12dp"
                     tools:text="284" />
@@ -130,7 +130,7 @@
                     android:layout_alignBaseline="@id/unit"
                     android:layout_marginLeft="@dimen/padding"
                     android:layout_toRightOf="@id/unit"
-                    android:text="@{tweet.starCount}"
+                    android:text="@{String.valueOf(tweet.starCount)}"
                     android:textColor="@color/color_text_content"
                     android:textSize="12dp"
                     tools:text="17" />

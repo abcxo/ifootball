@@ -57,9 +57,9 @@ public class TweetRestful {
         tweet.user = UserRestful.INSTANCE.me();
         tweet.source = "新浪微博";
         tweet.time = "3小时前";
-        tweet.commentCount = "381";
-        tweet.repeatCount = "274";
-        tweet.starCount = "96";
+        tweet.commentCount = 381;
+        tweet.repeatCount = 274;
+        tweet.starCount = 96;
 
         tweet.title = "恒大中超称霸五个连冠";
         tweet.summary = "里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。";

@@ -56,7 +56,6 @@ public class NavActivity extends AppCompatActivity
 
         registerLogin();
         registerLogout();
-
         //设置Nav页面
         View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         navHeaderMainBinding = DataBindingUtil.bind(navHeaderView);

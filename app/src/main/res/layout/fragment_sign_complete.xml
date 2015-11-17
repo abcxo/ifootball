@@ -43,7 +43,7 @@
                     android:layout_height="104dp"
                     android:layout_centerHorizontal="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_photo_add"
+                    android:src="@drawable/ic_avatar_add"
                     android:onClick="@{handler.onClickAvatar}"
                     app:riv_oval="true" />
 

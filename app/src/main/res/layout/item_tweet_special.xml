@@ -94,7 +94,7 @@
                     android:layout_marginLeft="@dimen/padding_small"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
-                    android:text="@{tweet.commentCount}"
+                    android:text="@{String.valueOf(tweet.commentCount)}"
                     tools:text="307" />
             </LinearLayout>
 
@@ -118,7 +118,7 @@
                     android:layout_marginLeft="@dimen/padding_small"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
-                    android:text="@{tweet.repeatCount}"
+                    android:text="@{String.valueOf(tweet.repeatCount)}"
                     tools:text="284" />
             </LinearLayout>
 
@@ -142,7 +142,7 @@
                     android:layout_marginLeft="@dimen/padding_small"
                     android:textColor="@color/color_text_append"
                     android:textSize="12dp"
-                    android:text="@{tweet.starCount}"
+                    android:text="@{String.valueOf(tweet.starCount)}"
                     tools:text="97" />
             </LinearLayout>
         </LinearLayout>

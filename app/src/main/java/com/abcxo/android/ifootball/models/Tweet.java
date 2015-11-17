@@ -16,9 +16,9 @@ public class Tweet implements Parcelable {
     public User user;
     public String source;
     public String time;
-    public String commentCount;
-    public String repeatCount;
-    public String starCount;
+    public int commentCount;
+    public int repeatCount;
+    public int starCount;
 
     public String title;
     public String summary;
@@ -35,13 +35,26 @@ public class Tweet implements Parcelable {
     public Tweet originTweet;
 
 
+    public Tweet() {
+        super();
+    }
+
+    public List<String> imageList() {
+        if (!TextUtils.isEmpty(images)) {
+            return Arrays.asList(images.split(";"));
+        }
+        return null;
+    }
+
+
     protected Tweet(Parcel in) {
+        id = in.readLong();
         user = in.readParcelable(User.class.getClassLoader());
         source = in.readString();
         time = in.readString();
-        commentCount = in.readString();
-        repeatCount = in.readString();
-        starCount = in.readString();
+        commentCount = in.readInt();
+        repeatCount = in.readInt();
+        starCount = in.readInt();
         title = in.readString();
         summary = in.readString();
         text = in.readString();
@@ -65,17 +78,6 @@ public class Tweet implements Parcelable {
         }
     };
 
-    public List<String> imageList() {
-        if (!TextUtils.isEmpty(images)) {
-            return Arrays.asList(images.split(";"));
-        }
-        return null;
-    }
-
-    public Tweet() {
-        super();
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -83,12 +85,13 @@ public class Tweet implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
         dest.writeParcelable(user, flags);
         dest.writeString(source);
         dest.writeString(time);
-        dest.writeString(commentCount);
-        dest.writeString(repeatCount);
-        dest.writeString(starCount);
+        dest.writeInt(commentCount);
+        dest.writeInt(repeatCount);
+        dest.writeInt(starCount);
         dest.writeString(title);
         dest.writeString(summary);
         dest.writeString(text);

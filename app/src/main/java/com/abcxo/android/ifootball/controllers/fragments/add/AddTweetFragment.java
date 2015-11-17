@@ -119,7 +119,7 @@ public class AddTweetFragment extends Fragment {
             } else {
                 Tweet tweet = new Tweet();
                 tweet.user = UserRestful.INSTANCE.me();
-                tweet.title = tweet.user.name;
+                tweet.title = UserRestful.INSTANCE.me().name;
                 tweet.text = inputET.getText().toString();
                 tweet.summary = tweet.text;
 
@@ -128,8 +128,7 @@ public class AddTweetFragment extends Fragment {
                 TweetRestful.INSTANCE.add(tweet, adapter.images, new TweetRestful.OnTweetRestfulGet() {
                     @Override
                     public void onSuccess(Tweet tweet) {
-                        FileUtils.delete(Constants.DIR_ADD_TWEET);
-                        getActivity().finish();
+                        finish();
                     }
 
                     @Override
@@ -178,6 +177,11 @@ public class AddTweetFragment extends Fragment {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, Constants.REQUEST_CAMERA);
         }
+    }
+
+    private void finish() {
+        FileUtils.delete(Constants.DIR_ADD_TWEET);
+        getActivity().finish();
     }
 }
 

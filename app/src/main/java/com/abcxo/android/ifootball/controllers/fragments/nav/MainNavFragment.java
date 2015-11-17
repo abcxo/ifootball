@@ -1,6 +1,7 @@
 package com.abcxo.android.ifootball.controllers.fragments.nav;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -14,6 +15,10 @@ import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.controllers.activities.TweetAddActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
 import com.abcxo.android.ifootball.controllers.adapters.MainAdapter;
+import com.abcxo.android.ifootball.databinding.FragmentMainNavBinding;
+import com.abcxo.android.ifootball.models.User;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.NavUtils;
 
 import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.DISCOVER;
 import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.HOME;
@@ -48,6 +53,8 @@ public class MainNavFragment extends NavFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FragmentMainNavBinding binding = DataBindingUtil.bind(view);
+        binding.setHandler(new BindingHandler());
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -103,19 +110,26 @@ public class MainNavFragment extends NavFragment {
         });
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentIndex == HOME.getIndex()) {
-                    startActivity(new Intent(getActivity(), TweetAddActivity.class));
-                } else if (currentIndex == TEAM.getIndex()) {
-                    startActivity(new Intent(getActivity(), SignActivity.class));
-                } else if (currentIndex == NEWS.getIndex()) {
-                } else if (currentIndex == DISCOVER.getIndex()) {
+    }
 
-                }
+
+    public class BindingHandler {
+
+        public void onClickSign(View view) {
+            NavUtils.toSign(view.getContext());
+        }
+
+        public void onClickFab(View view) {
+            if (currentIndex == HOME.getIndex()) {
+                startActivity(new Intent(getActivity(), TweetAddActivity.class));
+            } else if (currentIndex == TEAM.getIndex()) {
+                startActivity(new Intent(getActivity(), SignActivity.class));
+            } else if (currentIndex == NEWS.getIndex()) {
+            } else if (currentIndex == DISCOVER.getIndex()) {
+
             }
-        });
+        }
+
 
     }
 

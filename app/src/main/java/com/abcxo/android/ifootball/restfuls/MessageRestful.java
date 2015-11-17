@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Message;
-import com.abcxo.android.ifootball.models.MessageType;
 import com.google.repacked.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class MessageRestful {
 
     private Message testMessage() {
         Message message = new Message();
-        message.id = "1";
+        message.id = 1L;
         message.user = UserRestful.INSTANCE.me();
         message.time = "3小时前";
         message.count = "2";
@@ -49,7 +48,7 @@ public class MessageRestful {
         images.add("http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg");
         message.images = StringUtils.join(images, ";");
 
-        message.type = MessageType.NORMAL;
+        message.messageType = Message.MessageType.NORMAL;
 
         return message;
     }
@@ -88,17 +87,9 @@ public class MessageRestful {
 
     //获取推文列表
     public void getMessages(GetsType getsType, int pageIndex, @NonNull final OnMessageRestfulList onList) {
-        getTweets(UserRestful.INSTANCE.meId(), getsType, pageIndex, onList);
+
     }
 
-    public void getTweets(String uid, GetsType getsType, int pageIndex, @NonNull final OnMessageRestfulList onList) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                onList.onSuccess(testMesages());
-                onList.onFinish();
-            }
-        });
-    }
+
 
 }

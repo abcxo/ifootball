@@ -8,6 +8,12 @@
 
         <import type="com.abcxo.android.ifootball.controllers.fragments.add.AddTweetFragment.BindingHandler" />
 
+        <import type="com.abcxo.android.ifootball.models.User" />
+
+        <variable
+            name="user"
+            type="User" />
+
         <variable
             name="handler"
             type="BindingHandler" />
@@ -34,11 +40,13 @@
                 android:gravity="center_vertical|end"
                 android:paddingRight="@dimen/padding">
 
-                <ImageView
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/test0" />
+                    android:src="@drawable/test0"
+                    app:imageUrl="@{user.avatar}"
+                    app:riv_corner_radius="@dimen/icon_radius_small" />
 
             </LinearLayout>
 
@@ -118,20 +126,19 @@
                 android:layout_above="@id/action_layout"
                 android:background="@color/color_divider" />
 
-
-            <ImageView
-                android:id="@+id/photo_list"
-                android:layout_width="60dp"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/image_recyclerView"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@color/color_icon_yellow"
                 android:layout_above="@id/action_divider"
-                android:scaleType="centerCrop" />
+                android:layout_marginBottom="@dimen/padding_small" />
+
 
             <EditText
                 android:id="@+id/input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/photo_list"
+                android:layout_above="@id/image_recyclerView"
                 android:layout_alignParentTop="true"
                 android:background="@null"
                 android:gravity="start|top"

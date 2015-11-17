@@ -16,6 +16,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 /**
@@ -83,40 +84,16 @@ public class Utils {
         return buf.toString().substring(8, 24);
     }
 
-
-    public static boolean set(String key, Serializable object) {
-        try {
-            FileOutputStream fos = Application.INSTANCE.openFileOutput(key, Context.MODE_PRIVATE);
-            ObjectOutputStream os = new ObjectOutputStream(fos);
-            os.writeObject(object);
-            os.close();
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+    public static String randomString() {
+        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < 10; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
         }
-        return true;
+        return sb.toString();
     }
 
-    public static Serializable get(String key) {
-        try {
-            FileInputStream fis = Application.INSTANCE.openFileInput(key);
-            ObjectInputStream is = new ObjectInputStream(fis);
-            Serializable object = (Serializable) is.readObject();
-            is.close();
-            fis.close();
-            return object;
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        return null;
-
-    }
-
-    public static boolean delete(String key) {
-        return Application.INSTANCE.deleteFile(key);
-
-    }
 
 }

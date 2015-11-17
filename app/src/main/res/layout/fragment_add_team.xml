@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@mipmap/bg_sign_login" />
+        android:src="@drawable/bg_sign_login" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -125,21 +125,21 @@
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:padding="@dimen/padding"
-                    android:src="@mipmap/test2" />
+                    android:src="@drawable/test2" />
 
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:padding="@dimen/padding"
-                    android:src="@mipmap/test2" />
+                    android:src="@drawable/test2" />
 
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:padding="@dimen/padding"
-                    android:src="@mipmap/test2" />
+                    android:src="@drawable/test2" />
             </LinearLayout>
 
 

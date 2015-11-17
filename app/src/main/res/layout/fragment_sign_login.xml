@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/bg_sign_login" />
+            android:src="@drawable/bg_sign_login" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -143,21 +143,21 @@
                         android:layout_height="68dp"
                         android:layout_weight="1"
                         android:onClick="@{handler.onClickQQ}"
-                        android:src="@mipmap/ic_qq" />
+                        android:src="@drawable/ic_qq" />
 
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="68dp"
                         android:layout_weight="1"
                         android:onClick="@{handler.onClickWechat}"
-                        android:src="@mipmap/ic_wechat" />
+                        android:src="@drawable/ic_wechat" />
 
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="68dp"
                         android:layout_weight="1"
                         android:onClick="@{handler.onClickWeibo}"
-                        android:src="@mipmap/ic_weibo" />
+                        android:src="@drawable/ic_weibo" />
                 </LinearLayout>
 
 

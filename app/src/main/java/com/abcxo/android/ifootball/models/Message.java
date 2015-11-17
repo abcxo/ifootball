@@ -12,11 +12,11 @@ import java.util.Map;
  * Created by SHARON on 15/10/29.
  */
 public class Message implements Parcelable {
-    public String id;
+    public long id;
     public User user;
     public String time;
     public String count;
-    public MessageType type = MessageType.NORMAL;
+    public MessageType messageType = MessageType.NORMAL;
 
     public String title;
     public String summary;
@@ -31,9 +31,7 @@ public class Message implements Parcelable {
         super();
     }
 
-
     protected Message(Parcel in) {
-        id = in.readString();
         user = in.readParcelable(User.class.getClassLoader());
         time = in.readString();
         count = in.readString();
@@ -66,7 +64,6 @@ public class Message implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
         dest.writeParcelable(user, flags);
         dest.writeString(time);
         dest.writeString(count);
@@ -79,4 +76,31 @@ public class Message implements Parcelable {
         dest.writeString(lat);
         dest.writeString(images);
     }
+
+
+    public enum MessageType {
+
+        NORMAL(0),
+        FOCUS(1),
+        COMMENT(2),
+        PROMPT(3),
+        STAR(4),
+        CHAT(5),
+        SPECIAL(6);
+
+        private int index;
+
+        MessageType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return MessageType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
 }

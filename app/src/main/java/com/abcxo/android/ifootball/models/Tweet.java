@@ -12,7 +12,7 @@ import java.util.List;
  * Created by SHARON on 15/10/29.
  */
 public class Tweet implements Parcelable {
-    public String id;
+    public long id;
     public User user;
     public String source;
     public String time;
@@ -35,20 +35,7 @@ public class Tweet implements Parcelable {
     public Tweet originTweet;
 
 
-    public List<String> imageList() {
-        if (!TextUtils.isEmpty(images)) {
-            return Arrays.asList(images.split(";"));
-        }
-        return null;
-    }
-
-    public Tweet() {
-        super();
-    }
-
-
     protected Tweet(Parcel in) {
-        id = in.readString();
         user = in.readParcelable(User.class.getClassLoader());
         source = in.readString();
         time = in.readString();
@@ -78,6 +65,17 @@ public class Tweet implements Parcelable {
         }
     };
 
+    public List<String> imageList() {
+        if (!TextUtils.isEmpty(images)) {
+            return Arrays.asList(images.split(";"));
+        }
+        return null;
+    }
+
+    public Tweet() {
+        super();
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -85,7 +83,6 @@ public class Tweet implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
         dest.writeParcelable(user, flags);
         dest.writeString(source);
         dest.writeString(time);
@@ -101,5 +98,46 @@ public class Tweet implements Parcelable {
         dest.writeString(lat);
         dest.writeString(images);
         dest.writeParcelable(originTweet, flags);
+    }
+
+
+    public enum TweetMainType {
+
+        NORMAL(0),
+        TEAM(1),
+        NEWS(2),
+        SPECIAL(3);
+        private int index;
+
+        TweetMainType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return TweetMainType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
+    public enum TweetDetailType {
+
+        TWEET(0),
+        NEWS(1);
+        private int index;
+
+        TweetDetailType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return TweetDetailType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
     }
 }

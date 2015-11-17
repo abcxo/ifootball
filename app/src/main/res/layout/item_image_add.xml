@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.abcxo.android.ifootball.models.Image" />
+
+        <import type="com.abcxo.android.ifootball.controllers.fragments.add.AddTweetFragment.BindingHandler" />
+
+        <variable
+            name="image"
+            type="Image" />
+
+        <variable
+            name="handler"
+            type="BindingHandler" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="@dimen/padding_min"
+            android:layout_marginRight="@dimen/padding_min"
+            android:background="@drawable/bg_image"
+            android:onClick="@{handler.onClickAddImage}"
+            android:scaleType="center"
+            android:src="@drawable/ic_photo_add"
+            android:tint="@color/color_icon_light" />
+    </FrameLayout>
+</layout>

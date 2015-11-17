@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/bg_sign_complete" />
+            android:src="@drawable/bg_sign_complete" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:layout_height="104dp"
                     android:layout_centerHorizontal="true"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_photo_add"
+                    android:src="@drawable/ic_photo_add"
                     android:onClick="@{handler.onClickAvatar}"
                     app:riv_oval="true" />
 

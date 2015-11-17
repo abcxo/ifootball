@@ -1,5 +1,7 @@
 package com.abcxo.android.ifootball.constants;
 
+import com.abcxo.android.ifootball.Application;
+
 /**
  * Created by shadow on 15/11/3.
  */
@@ -24,6 +26,12 @@ public final class Constants {
     public static String KEY_TWEET = "tweet";
     public static String KEY_USER = "user";
     public static String KEY_MESSAGE = "message";
+
+    public static String DIR = Application.INSTANCE.getFilesDir().getAbsolutePath();
+
+    public static String DIR_ADD_TWEET = DIR + "/addtweet/";
+
+    public static int MAX_ADD_TWEET_IMAGE = 9;
 
 
 }

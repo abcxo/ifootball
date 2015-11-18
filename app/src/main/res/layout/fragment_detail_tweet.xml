@@ -32,8 +32,7 @@
                 app:popupTheme="@style/AppTheme.PopupLight" />
 
         </android.support.design.widget.AppBarLayout>
-
-        <ScrollView
+            <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -241,8 +240,9 @@
                     bind:tweet="@{tweet.originTweet}" />
 
 
-            </RelativeLayout>
-    </ScrollView>
+                </RelativeLayout>
+            </ScrollView>
+
 </android.support.design.widget.CoordinatorLayout>
 
 

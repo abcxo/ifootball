@@ -12,11 +12,10 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 
 import com.abcxo.android.ifootball.R;
-import com.abcxo.android.ifootball.controllers.activities.TweetAddActivity;
+import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
 import com.abcxo.android.ifootball.controllers.adapters.MainAdapter;
 import com.abcxo.android.ifootball.databinding.FragmentMainNavBinding;
-import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 
@@ -118,7 +117,7 @@ public class MainNavFragment extends NavFragment {
         public void onClickFab(View view) {
             if (UserRestful.INSTANCE.isLogin()) {
                 if (currentIndex == HOME.getIndex()) {
-                    startActivity(new Intent(getActivity(), TweetAddActivity.class));
+                    startActivity(new Intent(getActivity(), AddTweetActivity.class));
                 } else if (currentIndex == TEAM.getIndex()) {
                     startActivity(new Intent(getActivity(), SignActivity.class));
                 } else if (currentIndex == NEWS.getIndex()) {

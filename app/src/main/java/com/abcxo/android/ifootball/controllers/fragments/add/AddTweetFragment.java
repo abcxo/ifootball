@@ -24,6 +24,7 @@ import android.widget.EditText;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.AddTweetImageAdapter;
+import com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment;
 import com.abcxo.android.ifootball.databinding.FragmentAddTweetBinding;
 import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
@@ -40,6 +41,8 @@ import java.util.ArrayList;
  * Created by shadow on 15/11/4.
  */
 public class AddTweetFragment extends Fragment {
+    public Tweet originTweet;
+
     public static AddTweetFragment newInstance() {
         return newInstance(null);
     }
@@ -54,6 +57,16 @@ public class AddTweetFragment extends Fragment {
     private RecyclerView recyclerView;
     private AddTweetImageAdapter adapter;
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            originTweet = (Tweet) getArguments().get(Constants.KEY_TWEET);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,8 +77,10 @@ public class AddTweetFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FragmentAddTweetBinding binding = DataBindingUtil.bind(view);
-        binding.setHandler(new BindingHandler());
+        AddTweetFragment.BindingHandler handler = new BindingHandler();
+        binding.setHandler(handler);
         binding.setUser(UserRestful.INSTANCE.me());
+        binding.setTweet(originTweet);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -79,19 +94,23 @@ public class AddTweetFragment extends Fragment {
                 getActivity().finish();
             }
         });
-
         inputET = (EditText) view.findViewById(R.id.input);
-        recyclerView = (RecyclerView) view.findViewById(R.id.image_recyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(layoutManager);
+        if (originTweet == null) {
+            recyclerView = (RecyclerView) view.findViewById(R.id.image_recyclerView);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new AddTweetImageAdapter(new ArrayList<Image>(), new BindingHandler());
-        recyclerView.setAdapter(adapter);
+            adapter = new AddTweetImageAdapter(new ArrayList<Image>(), handler);
+            recyclerView.setAdapter(adapter);
+
+        }
+
     }
 
 
     public class BindingHandler {
+
 
         public void onClickImage(final View view) {
         }
@@ -127,7 +146,7 @@ public class AddTweetFragment extends Fragment {
                 tweet.summary = tweet.content;
 
                 ViewUtils.loading(getActivity());
-                TweetRestful.INSTANCE.add(tweet, adapter.images, new TweetRestful.OnTweetRestfulGet() {
+                TweetRestful.INSTANCE.add(tweet, adapter.images, "", originTweet != null ? originTweet.id : 0, new TweetRestful.OnTweetRestfulGet() {
                     @Override
                     public void onSuccess(Tweet tweet) {
                         finish();

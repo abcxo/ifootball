@@ -12,6 +12,7 @@ import java.util.Map;
  */
 public class User implements Parcelable, Serializable {
     public long id;
+    public String index;
     public String username;
     public String email;
     public String name;
@@ -35,6 +36,7 @@ public class User implements Parcelable, Serializable {
 
     protected User(Parcel in) {
         id = in.readLong();
+        index = in.readString();
         username = in.readString();
         email = in.readString();
         name = in.readString();
@@ -70,6 +72,7 @@ public class User implements Parcelable, Serializable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
+        dest.writeString(index);
         dest.writeString(username);
         dest.writeString(email);
         dest.writeString(name);

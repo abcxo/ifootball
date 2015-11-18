@@ -29,10 +29,10 @@
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:scaleType="centerCrop"
-            app:riv_corner_radius="@dimen/icon_radius"
             android:onClick="@{handler.onClickUser}"
+            android:scaleType="centerCrop"
             app:imageUrl="@{tweet.icon}"
+            app:riv_corner_radius="@dimen/icon_radius"
             tools:src="@drawable/test2" />
 
         <TextView
@@ -77,8 +77,8 @@
             android:layout_below="@+id/summary"
             android:layout_marginTop="@dimen/padding"
             android:scaleType="centerCrop"
-            app:imageUrl ="@{tweet.imageList[0]}"
-            android:src="@drawable/test0" />
+            android:src="@drawable/test0"
+            app:imageUrl="@{tweet.imageList[0]}" />
 
         <include
             android:id="@+id/repeat_content"
@@ -128,6 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="@{handler.onClickRepeat}"
                 android:padding="@dimen/padding">
 
                 <ImageView
@@ -152,13 +153,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:onClick="@{handler.onClickStar}"
                 android:padding="@dimen/padding">
 
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_star"
-                    android:tint="@color/color_icon_light" />
+                    android:tint="@{tweet.isStar?@color/color_icon_yellow:@color/color_icon_red}"/>
 
                 <TextView
                     android:layout_width="wrap_content"

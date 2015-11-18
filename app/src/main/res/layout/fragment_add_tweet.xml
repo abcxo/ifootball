@@ -8,11 +8,19 @@
 
         <import type="com.abcxo.android.ifootball.controllers.fragments.add.AddTweetFragment.BindingHandler" />
 
+        <import type="android.view.View" />
+
         <import type="com.abcxo.android.ifootball.models.User" />
+
+        <import type="com.abcxo.android.ifootball.models.Tweet" />
 
         <variable
             name="user"
             type="User" />
+
+        <variable
+            name="tweet"
+            type="Tweet" />
 
         <variable
             name="handler"
@@ -73,7 +81,8 @@
                     android:layout_centerVertical="true"
                     android:onClick="@{handler.onClickCamera}"
                     android:src="@drawable/ic_camera"
-                    android:tint="@color/color_icon_light" />
+                    android:tint="@color/color_icon_light"
+                    android:visibility="@{tweet ==null? View.VISIBLE : View.GONE}" />
 
                 <ImageView
                     android:id="@+id/photo"
@@ -84,7 +93,8 @@
                     android:layout_toRightOf="@id/camera"
                     android:onClick="@{handler.onClickPhoto}"
                     android:src="@drawable/ic_photo"
-                    android:tint="@color/color_icon_light" />
+                    android:tint="@color/color_icon_light"
+                    android:visibility="@{tweet ==null? View.VISIBLE : View.GONE}" />
 
                 <ImageView
                     android:id="@+id/location"
@@ -94,7 +104,8 @@
                     android:layout_marginLeft="@dimen/padding"
                     android:layout_toRightOf="@id/photo"
                     android:src="@drawable/ic_location"
-                    android:tint="@color/color_icon_light" />
+                    android:tint="@color/color_icon_light"
+                    android:visibility="@{tweet ==null? View.VISIBLE : View.GONE}" />
 
                 <ImageView
                     android:id="@+id/face"
@@ -131,8 +142,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_above="@id/action_divider"
-                android:layout_marginBottom="@dimen/padding_small" />
+                android:layout_marginBottom="@dimen/padding_small"
+                android:visibility="@{tweet ==null? View.VISIBLE : View.GONE}" />
 
+
+            <include
+                android:id="@+id/repeat_content"
+                layout="@layout/content_tweet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/action_divider"
+                android:layout_marginBottom="@dimen/padding_small"
+                bind:tweet="@{tweet}" />
 
             <EditText
                 android:id="@+id/input"

@@ -7,6 +7,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
 import com.abcxo.android.ifootball.controllers.activities.NewsDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
 import com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity;
@@ -23,6 +24,15 @@ public class NavUtils {
         context.startActivity(intent);
     }
 
+
+    public static void toAddTweet(Context context, Tweet tweet) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.KEY_TWEET, tweet);
+        Intent intent = new Intent(context, AddTweetActivity.class);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
     public static void toUserDetail(Context context, User user) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_USER, user);
@@ -33,7 +43,7 @@ public class NavUtils {
 
     public static void toUserDetail(Context context, long uid) {
         Bundle bundle = new Bundle();
-        bundle.putLong(Constants.KEY_UID,uid);
+        bundle.putLong(Constants.KEY_UID, uid);
         Intent intent = new Intent(context, UserDetailActivity.class);
         intent.putExtras(bundle);
         context.startActivity(intent);

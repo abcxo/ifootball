@@ -1,5 +1,7 @@
 package com.abcxo.android.ifootball.controllers.adapters;
 
+import android.databinding.BindingConversion;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.widget.ImageView;
@@ -33,6 +35,12 @@ public class BindingAdapter {
             }
         }
 
+    }
+
+
+    @BindingConversion
+    public static ColorDrawable convertColorToDrawable(int color) {
+        return new ColorDrawable(color);
     }
 
 }

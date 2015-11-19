@@ -72,12 +72,22 @@
                     app:riv_corner_radius="@dimen/icon_radius_max"
                     tools:src="@drawable/test2" />
 
+                <Button
+                    android:id="@+id/focus_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/color_button_accent"
+                    android:layout_alignParentRight="true"
+                    android:onClick="@{handler.onClickRegister}"
+                    android:text="@string/focus_text"
+                    android:textColor="@color/color_text_highlight" />
+
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/icon"
-                    android:layout_marginLeft="@dimen/padding"
                     android:layout_marginTop="@dimen/padding"
                     android:singleLine="true"
                     android:text="@{user.name}"

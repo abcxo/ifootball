@@ -56,7 +56,7 @@ public class ViewUtils {
     }
 
     public static void dismiss() {
-        if (progressDialog != null) {
+        if (progressDialog != null&&progressDialog.getContext()!=null) {
             progressDialog.dismiss();
         }
     }

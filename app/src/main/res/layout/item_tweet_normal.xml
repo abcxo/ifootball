@@ -8,6 +8,8 @@
 
         <import type="com.abcxo.android.ifootball.models.Tweet" />
 
+        <import type="android.view.View" />
+
         <import type="com.abcxo.android.ifootball.models.Tweet.TweetDetailType" />
 
         <import type="com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment.BindingHandler" />
@@ -31,9 +33,9 @@
             android:layout_height="48dp"
             android:onClick="@{handler.onClickUser}"
             android:scaleType="centerCrop"
+            app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{tweet.icon}"
-            app:riv_corner_radius="@dimen/icon_radius"
-            tools:src="@drawable/test2" />
+            app:riv_corner_radius="@dimen/icon_radius" />
 
         <TextView
             android:id="@+id/name"
@@ -76,8 +78,10 @@
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/summary"
             android:layout_marginTop="@dimen/padding"
+            android:background="@color/color_bg"
             android:scaleType="centerCrop"
             android:src="@drawable/test0"
+            android:visibility="@{tweet.imageList!=null?View.VISIBLE:View.GONE}"
             app:imageUrl="@{tweet.imageList[0]}" />
 
         <include
@@ -160,7 +164,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_star"
-                    android:tint="@{tweet.isStar?@color/color_icon_yellow:@color/color_icon_red}"/>
+                    android:tint="@{tweet.isStar?@color/color_icon_yellow:@color/color_icon_red}" />
 
                 <TextView
                     android:layout_width="wrap_content"

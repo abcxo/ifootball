@@ -8,6 +8,8 @@
 
         <import type="com.abcxo.android.ifootball.models.Tweet" />
 
+        <import type="android.view.View" />
+
         <variable
             name="tweet"
             type="Tweet" />
@@ -47,9 +49,10 @@
                     android:id="@+id/icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
+                    app:error="@{@drawable/ic_avatar}"
                     android:scaleType="centerCrop"
-                    app:riv_corner_radius="@dimen/icon_radius"
                     app:imageUrl="@{tweet.icon}"
+                    app:riv_corner_radius="@dimen/icon_radius"
                     tools:src="@drawable/test2" />
 
                 <TextView
@@ -82,8 +85,10 @@
                     android:layout_height="200dp"
                     android:layout_below="@+id/content"
                     android:layout_marginTop="@dimen/padding"
-                    app:imageUrl ="@{tweet.imageList[0]}"
-                    android:background="@drawable/test0" />
+                    android:background="@drawable/test0"
+                    android:scaleType="centerCrop"
+                    android:visibility="@{tweet.imageList!=null?View.VISIBLE:View.GONE}"
+                    app:imageUrl="@{tweet.imageList[0]}" />
 
                 <TextView
                     android:id="@+id/time"
@@ -229,7 +234,7 @@
                 <View
                     android:id="@+id/divider3"
                     style="@style/Divider"
-                    android:layout_below="@id/action_layout"/>
+                    android:layout_below="@id/action_layout" />
 
                 <include
                     android:id="@+id/repeat_content"
@@ -242,10 +247,10 @@
 
 
             </RelativeLayout>
-    </ScrollView>
-</android.support.design.widget.CoordinatorLayout>
+        </ScrollView>
+    </android.support.design.widget.CoordinatorLayout>
 
 
-    </layout>
+</layout>
 
 

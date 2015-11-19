@@ -22,6 +22,7 @@
         android:visibility="@{tweet !=null? View.VISIBLE : View.GONE}">
 
         <ImageView
+            android:background="@color/color_bg"
             android:id="@+id/cover"
             android:layout_width="60dp"
             android:layout_height="60dp"

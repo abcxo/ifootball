@@ -66,6 +66,7 @@
                     android:id="@+id/icon"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    app:error="@{@drawable/ic_avatar}"
                     android:scaleType="centerCrop"
                     app:imageUrl="@{user.avatar}"
                     app:riv_corner_radius="@dimen/icon_radius_max"

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.views.IconFontVIew;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -17,30 +18,25 @@ import java.io.File;
 public class BindingAdapter {
 
     @android.databinding.BindingAdapter({"bind:imageUrl", "bind:error"})
-    public static void loadImage(ImageView imageView, String url, Drawable error) {
-        if (url.contains("http")) {
-            Picasso.with(imageView.getContext()).load(url).placeholder(error).into(imageView);
+    public static void loadImage(ImageView imageView, String url, Drawable errorDrawable) {
+        if (!TextUtils.isEmpty(url)) {
+            if (url.contains("http")) {
+                Picasso.with(imageView.getContext()).load(url).placeholder(errorDrawable).into(imageView);
+            } else {
+                Picasso.with(imageView.getContext()).load(new File(url)).placeholder(errorDrawable).into(imageView);
+            }
         } else {
-            Picasso.with(imageView.getContext()).load(new File(url)).placeholder(error).into(imageView);
+            imageView.setImageDrawable(errorDrawable);
         }
+
+
     }
 
     @android.databinding.BindingAdapter({"bind:imageUrl"})
     public static void loadImage(ImageView imageView, String url) {
-        if (!TextUtils.isEmpty(url)) {
-            if (url.contains("http")) {
-                Picasso.with(imageView.getContext()).load(url).into(imageView);
-            } else {
-                Picasso.with(imageView.getContext()).load(new File(url)).into(imageView);
-            }
-        }
+        loadImage(imageView, url, null);
 
     }
 
-
-    @BindingConversion
-    public static ColorDrawable convertColorToDrawable(int color) {
-        return new ColorDrawable(color);
-    }
 
 }

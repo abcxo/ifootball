@@ -146,7 +146,7 @@ public class AddTweetFragment extends Fragment {
                 tweet.summary = tweet.content;
 
                 ViewUtils.loading(getActivity());
-                TweetRestful.INSTANCE.add(tweet, adapter.images, "", originTweet != null ? originTweet.id : 0, new TweetRestful.OnTweetRestfulGet() {
+                TweetRestful.INSTANCE.add(tweet, hasImage() ? adapter.images : null, null, originTweet != null ? originTweet.id : 0, new TweetRestful.OnTweetRestfulGet() {
                     @Override
                     public void onSuccess(Tweet tweet) {
                         finish();
@@ -166,6 +166,10 @@ public class AddTweetFragment extends Fragment {
             }
         }
 
+    }
+
+    private boolean hasImage() {
+        return adapter != null && adapter.images.size() > 0;
     }
 
     @Override

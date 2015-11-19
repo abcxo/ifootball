@@ -187,11 +187,11 @@ public class TweetRestful {
 
     //添加推文
     public void add(Tweet tweet, final List<Image> images, String prompt, long originTid, @NonNull final OnTweetRestfulGet onGet) {
-        Call<Tweet> call = tweetService.add(prompt, originTid, tweet);
+        Call<Tweet> call = tweetService.add(prompt != null ? prompt : "", originTid, tweet);
         call.enqueue(new OnRestful<Tweet>() {
             @Override
             void onSuccess(final Tweet tweet) {
-                if (images.size() > 0) {
+                if (images != null && images.size() > 0) {
                     List<RequestBody> requestBodies = new ArrayList<RequestBody>();
                     try {
                         for (Image image : images) {

@@ -134,13 +134,18 @@ public class TweetFragment extends Fragment {
         public void onClickTweet(View view) {
             ViewDataBinding binding = DataBindingUtil.findBinding(view);
             Tweet tweet = (Tweet) binding.getRoot().getTag();
-            NavUtils.toTweetDetail(getActivity(), tweet);
+            if (tweet.detailType == Tweet.TweetDetailType.TWEET){
+                NavUtils.toTweetDetail(getActivity(), tweet);
+            }else if(tweet.detailType ==Tweet.TweetDetailType.NEWS){
+                NavUtils.toNewsDetail(getActivity(), tweet);
+            }
+
         }
 
         public void onClickNews(View view) {
             ViewDataBinding binding = DataBindingUtil.findBinding(view);
             Tweet tweet = (Tweet) binding.getRoot().getTag();
-            NavUtils.toNewsDetail(getActivity(), tweet);
+
         }
 
 

@@ -1,6 +1,7 @@
 package com.abcxo.android.ifootball.controllers.fragments.detail;
 
 import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,9 +14,11 @@ import android.view.ViewGroup;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.databinding.FragmentDetailUserBinding;
+import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
 /**
@@ -69,29 +72,43 @@ public class UserDetailFragment extends Fragment {
         });
 
         binding = DataBindingUtil.bind(view);
+        binding.setHandler(new BindingHandler());
         if (user != null) {
             binding.setUser(user);
         } else {
-            ViewUtils.loading(getActivity());
-            UserRestful.INSTANCE.getUser(uid, new UserRestful.OnUserRestfulGet() {
-                @Override
-                public void onSuccess(User user) {
-                    UserDetailFragment.this.user = user;
-                    binding.setUser(user);
-                }
+            if (uid == UserRestful.INSTANCE.meId()) {
+                user = UserRestful.INSTANCE.me();
+                binding.setUser(user);
+            } else {
+                ViewUtils.loading(getActivity());
+                UserRestful.INSTANCE.getUser(uid, new UserRestful.OnUserRestfulGet() {
+                    @Override
+                    public void onSuccess(User user) {
+                        UserDetailFragment.this.user = user;
+                        binding.setUser(user);
+                    }
 
-                @Override
-                public void onError(RestfulError error) {
-                    ViewUtils.toast(error.msg);
-                }
+                    @Override
+                    public void onError(RestfulError error) {
+                        ViewUtils.toast(error.msg);
+                    }
 
-                @Override
-                public void onFinish() {
-                    ViewUtils.dismiss();
-                }
-            });
+                    @Override
+                    public void onFinish() {
+                        ViewUtils.dismiss();
+                    }
+                });
+            }
+
         }
 
+    }
+
+    public class BindingHandler {
+
+        public void onClickFocus(View view) {
+
+        }
     }
 
 }

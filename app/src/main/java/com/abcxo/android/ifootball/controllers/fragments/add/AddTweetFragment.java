@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.FileUtils;
+import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
 import java.util.ArrayList;
@@ -111,6 +113,9 @@ public class AddTweetFragment extends Fragment {
 
     public class BindingHandler {
 
+        public void onClickUser(View view) {
+            NavUtils.toUserDetail(getActivity(), UserRestful.INSTANCE.meId());
+        }
 
         public void onClickImage(final View view) {
         }

@@ -25,7 +25,7 @@
 
     <RelativeLayout
         style="@style/Item"
-        android:onClick="@{tweet.detailType == TweetDetailType.TWEET ? handler.onClickTweet:handler.onClickNews}">
+        android:onClick="@{handler.onClickTweet}">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon"

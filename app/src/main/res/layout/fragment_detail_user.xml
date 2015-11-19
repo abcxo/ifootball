@@ -8,6 +8,13 @@
 
         <import type="com.abcxo.android.ifootball.models.User" />
 
+        <import type="com.abcxo.android.ifootball.controllers.fragments.detail.UserDetailFragment.BindingHandler" />
+
+
+        <variable
+            name="handler"
+            type="BindingHandler" />
+
         <variable
             name="user"
             type="User" />
@@ -66,8 +73,8 @@
                     android:id="@+id/icon"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:error="@{@drawable/ic_avatar}"
                     android:scaleType="centerCrop"
+                    app:error="@{@drawable/ic_avatar}"
                     app:imageUrl="@{user.avatar}"
                     app:riv_corner_radius="@dimen/icon_radius_max"
                     tools:src="@drawable/test2" />
@@ -76,10 +83,10 @@
                     android:id="@+id/focus_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_weight="1"
                     android:backgroundTint="@color/color_button_accent"
-                    android:layout_alignParentRight="true"
-                    android:onClick="@{handler.onClickRegister}"
+                    android:onClick="@{handler.onClickFocus}"
                     android:text="@string/focus_text"
                     android:textColor="@color/color_text_highlight" />
 

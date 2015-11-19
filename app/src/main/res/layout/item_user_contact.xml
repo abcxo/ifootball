@@ -12,8 +12,10 @@
             type="User" />
     </data>
 
-    <RelativeLayout
-        style="@style/Item">
+    <LinearLayout
+        style="@style/Item"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/index"
@@ -21,7 +23,6 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:text="@{user.index}"
-            android:layout_centerVertical="true"
             android:textColor="@color/color_primary"
             android:textSize="24dp"
             tools:text="A" />
@@ -30,12 +31,11 @@
             android:id="@+id/icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:scaleType="centerCrop"
-            app:riv_corner_radius="@dimen/icon_radius"
             android:layout_marginLeft="@dimen/padding_big"
-            android:layout_toRightOf="@id/index"
-            android:layout_centerVertical="true"
-            app:imageUrl="@{user.icon}"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{user.avatar}"
+            app:error="@{@drawable/ic_avatar}"
+            app:riv_corner_radius="@dimen/icon_radius"
             tools:src="@drawable/test2" />
 
         <TextView
@@ -43,25 +43,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/padding"
-            android:layout_toRightOf="@id/icon"
             android:singleLine="true"
             android:text="@{user.name}"
-            android:layout_centerVertical="true"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
             tools:text="咸蛋超人" />
 
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/name"
-            android:layout_below="@+id/name"
-            android:layout_marginTop="@dimen/padding_small">
-
-
-        </RelativeLayout>
-
-
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

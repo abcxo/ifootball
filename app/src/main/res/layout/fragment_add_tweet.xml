@@ -51,6 +51,7 @@
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    android:onClick="@{handler.onClickUser}"
                     android:scaleType="centerCrop"
                     android:src="@drawable/test0"
                     app:error="@{@drawable/ic_avatar}"
@@ -153,8 +154,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/action_divider"
-                android:layout_marginBottom="@dimen/padding_small"
-                bind:tweet="@{tweet}" />
+                bind:tweet="@{tweet}"
+                android:layout_marginBottom="@dimen/padding_small" />
 
             <EditText
                 android:id="@+id/input"

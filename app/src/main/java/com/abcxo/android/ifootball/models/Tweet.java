@@ -1,8 +1,14 @@
 package com.abcxo.android.ifootball.models;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.view.View;
+
+import com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment;
+import com.abcxo.android.ifootball.utils.NavUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +45,13 @@ public class Tweet implements Parcelable {
 
     public Tweet originTweet;
 
+    public BindingHandler handler = new BindingHandler();
+
+
+    public Tweet() {
+        super();
+    }
+
 
     protected Tweet(Parcel in) {
         id = in.readLong();
@@ -60,15 +73,6 @@ public class Tweet implements Parcelable {
         images = in.readString();
         time = in.readString();
         originTweet = in.readParcelable(Tweet.class.getClassLoader());
-    }
-
-
-    public boolean getT(){
-        return true;
-    }
-
-    public Tweet() {
-        super();
     }
 
     public static final Creator<Tweet> CREATOR = new Creator<Tweet>() {
@@ -156,6 +160,18 @@ public class Tweet implements Parcelable {
 
         public int getIndex() {
             return index;
+        }
+    }
+
+
+    public class BindingHandler {
+        public void onClickTweet(View view) {
+            if (detailType == Tweet.TweetDetailType.TWEET) {
+                NavUtils.toTweetDetail(view.getContext(), Tweet.this);
+            } else if (detailType == Tweet.TweetDetailType.NEWS) {
+                NavUtils.toNewsDetail(view.getContext(), Tweet.this);
+            }
+
         }
     }
 }

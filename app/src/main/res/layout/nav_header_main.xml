@@ -7,9 +7,6 @@
 
         <import type="com.abcxo.android.ifootball.models.User" />
 
-
-        <import type="android.text.TextUtils" />
-
         <variable
             name="user"
             type="User" />
@@ -31,7 +28,7 @@
             android:layout_height="match_parent"
             android:background="@color/color_bg"
             android:scaleType="centerCrop"
-            app:imageUrl="@{TextUtils.isEmpty(user.cover)? @string/empty : user.cover}" />
+            app:imageUrl="@{user.cover}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,14 +55,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding"
-                android:text="@{TextUtils.isEmpty(user.name)? @string/nav_header_name : user.name }"
+                android:text="@{user!=null? @string/nav_header_name : user.name }"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{TextUtils.isEmpty(user.sign)? @string/nav_header_sign : user.sign }" />
+                android:text="@{user!=null? @string/nav_header_sign : user.sign }" />
 
         </LinearLayout>
 

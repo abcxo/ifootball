@@ -163,6 +163,8 @@
                 android:layout_above="@id/image_recyclerView"
                 android:layout_alignParentTop="true"
                 android:background="@null"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:gravity="start|top"
                 android:hint="@string/add_tweet_text_hint"
                 android:textColor="@color/color_text_input"

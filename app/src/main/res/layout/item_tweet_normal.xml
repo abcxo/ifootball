@@ -164,7 +164,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_star"
-                    android:tint="@{tweet.isStar?@color/color_icon_yellow:@color/color_icon_red}" />
+                    android:tint="@{tweet.isStar?@color/color_icon_yellow:@color/color_icon_light}" />
 
                 <TextView
                     android:layout_width="wrap_content"

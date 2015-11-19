@@ -18,6 +18,7 @@ public class Tweet implements Parcelable {
     public int commentCount;
     public int repeatCount;
     public int starCount;
+    public boolean isStar;
 
 
     public String icon;
@@ -39,17 +40,13 @@ public class Tweet implements Parcelable {
     public Tweet originTweet;
 
 
-    public Tweet() {
-        super();
-    }
-
-
     protected Tweet(Parcel in) {
         id = in.readLong();
         uid = in.readLong();
         commentCount = in.readInt();
         repeatCount = in.readInt();
         starCount = in.readInt();
+        isStar = in.readByte() != 0;
         icon = in.readString();
         name = in.readString();
         title = in.readString();
@@ -63,6 +60,15 @@ public class Tweet implements Parcelable {
         images = in.readString();
         time = in.readString();
         originTweet = in.readParcelable(Tweet.class.getClassLoader());
+    }
+
+
+    public boolean getT(){
+        return true;
+    }
+
+    public Tweet() {
+        super();
     }
 
     public static final Creator<Tweet> CREATOR = new Creator<Tweet>() {
@@ -96,6 +102,7 @@ public class Tweet implements Parcelable {
         dest.writeInt(commentCount);
         dest.writeInt(repeatCount);
         dest.writeInt(starCount);
+        dest.writeByte((byte) (isStar ? 1 : 0));
         dest.writeString(icon);
         dest.writeString(name);
         dest.writeString(title);

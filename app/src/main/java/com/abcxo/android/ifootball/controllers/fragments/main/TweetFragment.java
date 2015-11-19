@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
+import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.controllers.adapters.TweetAdapter;
 import com.abcxo.android.ifootball.models.Tweet;
@@ -124,31 +125,59 @@ public class TweetFragment extends Fragment {
 
     public class BindingHandler {
 
-        public void onClickSign(View view) {
-            NavUtils.toSign(view.getContext());
-        }
-
         public void onClickUser(View view) {
             ViewDataBinding binding = DataBindingUtil.findBinding(view);
             Tweet tweet = (Tweet) binding.getRoot().getTag();
-            NavUtils.toUserDetail(view.getContext(), tweet.uid);
+            NavUtils.toUserDetail(getActivity(), tweet.uid);
         }
 
         public void onClickTweet(View view) {
-            ViewDataBinding binding = DataBindingUtil.getBinding(view);
+            ViewDataBinding binding = DataBindingUtil.findBinding(view);
             Tweet tweet = (Tweet) binding.getRoot().getTag();
-            NavUtils.toTweetDetail(view.getContext(), tweet);
+            NavUtils.toTweetDetail(getActivity(), tweet);
         }
 
         public void onClickNews(View view) {
-            ViewDataBinding binding = DataBindingUtil.getBinding(view);
+            ViewDataBinding binding = DataBindingUtil.findBinding(view);
             Tweet tweet = (Tweet) binding.getRoot().getTag();
-            NavUtils.toNewsDetail(view.getContext(), tweet);
+            NavUtils.toNewsDetail(getActivity(), tweet);
         }
 
-        private void onClickItem(View view, Class<? extends Activity> activity) {
 
+        public void onClickRepeat(View view) {
+            ViewDataBinding binding = DataBindingUtil.findBinding(view);
+            Tweet tweet = (Tweet) binding.getRoot().getTag();
+            NavUtils.toAddTweet(getActivity(), tweet);
         }
+
+        public void onClickStar(final View view) {
+            ViewDataBinding binding = DataBindingUtil.findBinding(view);
+            Tweet tweet = (Tweet) binding.getRoot().getTag();
+            tweet.isStar = !tweet.isStar;
+            if (tweet.isStar) {
+                tweet.starCount++;
+            } else {
+                tweet.starCount--;
+            }
+            binding.setVariable(BR.tweet, tweet);
+            TweetRestful.INSTANCE.star(tweet.id, tweet.isStar, new TweetRestful.OnTweetRestfulDo() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(RestfulError error) {
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
+        }
+
+
     }
 
 

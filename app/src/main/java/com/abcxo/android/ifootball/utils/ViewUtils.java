@@ -52,7 +52,7 @@ public class ViewUtils {
 
     public static void loading(Context context) {
         dismiss();
-        progressDialog = ProgressDialog.show(context,null,null);
+        progressDialog = ProgressDialog.show(context, null, null);
     }
 
     public static void dismiss() {
@@ -63,6 +63,7 @@ public class ViewUtils {
 
 
     public static void camera(Fragment fragment) {
+
         if (ActivityCompat.checkSelfPermission(fragment.getActivity(),
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -78,11 +79,18 @@ public class ViewUtils {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             fragment.startActivityForResult(intent, Constants.REQUEST_CAMERA);
         }
+
+
     }
 
     public static void photo(Fragment fragment) {
-        Intent picture = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        fragment.startActivityForResult(picture, Constants.REQUEST_PHOTO);
+        try {
+            Intent picture = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            fragment.startActivityForResult(picture, Constants.REQUEST_PHOTO);
+        } catch (Exception e) {
+            ViewUtils.toast(R.string.error_photo);
+        }
+
     }
 
     public static void image(final Fragment fragment) {

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
+import com.abcxo.android.ifootball.models.User;
 import com.google.repacked.apache.commons.io.FileUtils;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
@@ -24,9 +25,11 @@ import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.http.Body;
+import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Part;
 import retrofit.http.Query;
 
@@ -141,6 +144,13 @@ public class TweetRestful {
                                @Query("getsType") GetsType type,
                                @Query("pageIndex") int pageIndex,
                                @Query("pageSize") int pageSize);
+
+
+        @PUT("/tweet")
+        Call<Object> star(@Query("uid") long uid, @Query("tid") long tid, @Query("isStar") boolean isStar);
+
+        @DELETE("/tweet")
+        Call<Object> delete(@Query("tid") long tid);
     }
 
 
@@ -176,8 +186,8 @@ public class TweetRestful {
 
 
     //添加推文
-    public void add(Tweet tweet, final List<Image> images, @NonNull final OnTweetRestfulGet onGet) {
-        Call<Tweet> call = tweetService.add("", 0, tweet);
+    public void add(Tweet tweet, final List<Image> images, String prompt, long originTid, @NonNull final OnTweetRestfulGet onGet) {
+        Call<Tweet> call = tweetService.add(prompt, originTid, tweet);
         call.enqueue(new OnRestful<Tweet>() {
             @Override
             void onSuccess(final Tweet tweet) {
@@ -322,6 +332,28 @@ public class TweetRestful {
                 onList.onFinish();
             }
         });
+    }
+
+
+    public void star(long tid, boolean isStar, @NonNull final OnTweetRestfulDo onDo) {
+        Call<Object> call = tweetService.star(UserRestful.INSTANCE.meId(), tid, isStar);
+        call.enqueue(new OnRestful<Object>() {
+            @Override
+            void onSuccess(Object o) {
+                onDo.onSuccess();
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onDo.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onDo.onFinish();
+            }
+        });
+
     }
 
 

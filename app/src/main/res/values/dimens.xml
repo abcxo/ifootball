@@ -42,6 +42,7 @@
 
 
     <dimen name="text_button">14dp</dimen>
+    <dimen name="text_button_small">12dp</dimen>
 
     <dimen name="icon_gender_height">16dp</dimen>
 

@@ -113,6 +113,9 @@
     <string name="gender_female_text">女</string>
 
 
+    <string name="detail_tweet_text_hint">评论一下？</string>
+    <string name="detail_tweet_send_text">回复</string>
+
     <string name="add_tweet_text_hint">有趣的事情呢？</string>
     <string name="add_tweet_send_text">推文</string>
     <string name="add_tweet_send_error">请写些内容</string>

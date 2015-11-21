@@ -103,5 +103,8 @@ public class TweetDetailFragment extends DetailFragment {
         public void onClickComment(View view){
 
         }
+        public void onClickSend(View view){
+
+        }
     }
 }

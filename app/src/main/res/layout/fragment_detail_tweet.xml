@@ -299,9 +299,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/color_gray"
+            android:background="@color/color_gray_light"
             android:gravity="center_vertical"
-            android:padding="@dimen/padding_small"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_min"
+            android:paddingBottom="@dimen/padding_min"
+            android:paddingRight="@dimen/padding_small"
             android:orientation="horizontal">
 
             <EditText
@@ -309,10 +312,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="start|top"
-                android:hint="@string/add_tweet_text_hint"
+                android:hint="@string/detail_tweet_text_hint"
                 android:textColor="@color/color_text_input"
                 android:textColorHint="@color/color_text_append"
                 android:layout_weight="1"
@@ -320,11 +320,12 @@
 
             <Button
                 android:id="@+id/send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
                 android:backgroundTint="@color/color_button_minor"
                 android:onClick="@{handler.onClickSend}"
-                android:text="@string/add_tweet_send_text"
+                android:textSize="@dimen/text_button_small"
+                android:text="@string/detail_tweet_send_text"
                 android:textColor="@color/color_text_highlight" />
         </LinearLayout>
 

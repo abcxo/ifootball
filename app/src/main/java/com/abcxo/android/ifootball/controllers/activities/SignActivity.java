@@ -16,6 +16,5 @@ public class SignActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
         getSupportFragmentManager().beginTransaction().replace(R.id.content, LoginSignFragment.newInstance()).commit();
-//        getSupportFragmentManager().beginTransaction().replace(R.id.content, CompleteSignFragment.newInstance()).commit();
     }
 }

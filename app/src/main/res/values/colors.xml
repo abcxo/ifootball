@@ -27,6 +27,7 @@
     <color name="color_icon_highlight">#FFFFFF</color>
     <!--明亮图标-->
     <color name="color_icon_light">#B2FFFFFF</color>
+    <color name="color_icon_light_o">#C5C5C5</color>
     <!--暗黑图标-->
     <color name="color_icon_dark">#DD000000</color>
     <!--默认图标-->
@@ -53,6 +54,8 @@
     <color name="color_text_input">#B2000000</color>
     <!--内容-->
     <color name="color_text_content">#89000000</color>
+    <!--标明-->
+    <color name="color_text_indicate">#DD000000</color>
     <!--特殊颜色-->
     <color name="color_text_special">#F5A623</color>
     <!--附加-->

@@ -7,21 +7,17 @@
 
         <import type="com.abcxo.android.ifootball.models.User" />
 
+        <import type="com.abcxo.android.ifootball.utils.NavUtils" />
+
         <variable
             name="user"
             type="User" />
-
-        <import type="com.abcxo.android.ifootball.controllers.activities.NavActivity.BindingHandler" />
-
-        <variable
-            name="handler"
-            type="BindingHandler" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_header_height"
-        android:onClick="@{handler.onClickUser}">
+        android:onClick="@{user!=null?user.handler.onClickUser:NavUtils.toSign}">
 
         <ImageView
             android:layout_width="match_parent"
@@ -47,22 +43,22 @@
                 android:src="@drawable/ic_avatar"
                 app:error="@{@drawable/ic_avatar}"
                 app:imageUrl="@{user.avatar}"
+                app:riv_corner_radius="@dimen/icon_radius_mid"
                 app:riv_border_color="@color/color_white"
-                app:riv_border_width="1dp"
-                app:riv_oval="true" />
+                app:riv_border_width="1dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding"
-                android:text="@{user!=null? @string/nav_header_name : user.name }"
+                android:text="@{user!=null? user.name:@string/nav_header_name }"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{user!=null? @string/nav_header_sign : user.sign }" />
+                android:text="@{user!=null? user.sign: @string/nav_header_sign  }" />
 
         </LinearLayout>
 

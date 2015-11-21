@@ -12,26 +12,22 @@
 
         <import type="com.abcxo.android.ifootball.models.Tweet.TweetDetailType" />
 
-        <import type="com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment.BindingHandler" />
 
         <variable
             name="tweet"
             type="Tweet" />
 
-        <variable
-            name="handler"
-            type="BindingHandler" />
     </data>
 
     <RelativeLayout
         style="@style/Item"
-        android:onClick="@{handler.onClickTweet}">
+        android:onClick="@{tweet.handler.onClickTweet}">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:onClick="@{handler.onClickUser}"
+            android:onClick="@{tweet.handler.onClickUser}"
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{tweet.icon}"
@@ -81,8 +77,9 @@
             android:background="@color/color_bg"
             android:scaleType="centerCrop"
             android:src="@drawable/test0"
-            android:visibility="@{tweet.imageList!=null?View.VISIBLE:View.GONE}"
-            app:imageUrl="@{tweet.imageList[0]}" />
+            android:onClick="@{tweet.handler.onClickImage}"
+            android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
+            app:imageUrl="@{tweet.cover}" />
 
         <include
             android:id="@+id/repeat_content"
@@ -132,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{handler.onClickRepeat}"
+                android:onClick="@{tweet.handler.onClickRepeat}"
                 android:padding="@dimen/padding">
 
                 <ImageView
@@ -157,14 +154,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{handler.onClickStar}"
+                android:onClick="@{tweet.handler.onClickStar}"
                 android:padding="@dimen/padding">
 
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:src="@drawable/ic_star"
-                    android:tint="@{tweet.isStar?@color/color_icon_yellow:@color/color_icon_light}" />
+                    android:tint="@{tweet.star?@color/color_icon_yellow:@color/color_icon_light_o}" />
 
                 <TextView
                     android:layout_width="wrap_content"

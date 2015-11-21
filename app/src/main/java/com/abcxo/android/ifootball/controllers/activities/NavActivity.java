@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -25,7 +24,6 @@ import com.abcxo.android.ifootball.controllers.fragments.nav.SearchNavFragment;
 import com.abcxo.android.ifootball.databinding.NavHeaderMainBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
-import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 
 public class NavActivity extends AppCompatActivity
@@ -59,7 +57,6 @@ public class NavActivity extends AppCompatActivity
         //设置Nav页面
         View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         navHeaderMainBinding = DataBindingUtil.bind(navHeaderView);
-        navHeaderMainBinding.setHandler(new BindingHandler());
         User user = UserRestful.INSTANCE.me();
         navHeaderMainBinding.setUser(user);
     }
@@ -203,19 +200,7 @@ public class NavActivity extends AppCompatActivity
 
     }
 
-    public class BindingHandler {
 
-        public void onClickUser(View view) {
-            if (UserRestful.INSTANCE.isLogin()) {
-                NavUtils.toUserDetail(view.getContext(), UserRestful.INSTANCE.me());
-            } else {
-                NavUtils.toSign(view.getContext());
-            }
-
-        }
-
-
-    }
 
 
 }

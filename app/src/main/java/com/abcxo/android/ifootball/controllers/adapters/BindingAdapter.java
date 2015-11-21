@@ -29,6 +29,18 @@ public class BindingAdapter {
             imageView.setImageDrawable(errorDrawable);
         }
 
+    }
+
+    public static void loadImage(ImageView imageView, String url, int resId) {
+        if (!TextUtils.isEmpty(url)) {
+            if (url.contains("http")) {
+                Picasso.with(imageView.getContext()).load(url).placeholder(resId).into(imageView);
+            } else {
+                Picasso.with(imageView.getContext()).load(new File(url)).placeholder(resId).into(imageView);
+            }
+        } else {
+            imageView.setImageResource(resId);
+        }
 
     }
 

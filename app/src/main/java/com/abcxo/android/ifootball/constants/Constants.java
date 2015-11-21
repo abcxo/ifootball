@@ -28,6 +28,9 @@ public final class Constants {
     public static String KEY_UID = "uid";
     public static String KEY_MESSAGE = "message";
 
+    public static String KEY_IMAGES = "images";
+    public static String KEY_IMAGES_INDEX = "images_index";
+
     public static String DIR = Application.INSTANCE.getFilesDir().getAbsolutePath();
 
     public static String DIR_ADD_TWEET = DIR + "/addtweet/";

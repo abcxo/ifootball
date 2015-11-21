@@ -39,6 +39,7 @@ public class AddTweetImageAdapter extends RecyclerView.Adapter<AddTweetImageAdap
         if (!TextUtils.isEmpty(url)) {
             Image image = new Image();
             image.url = url;
+            image.imageType = Image.ImageType.DELETE;
             images.add(image);
             notifyItemInserted(images.size());
         } else {

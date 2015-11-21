@@ -66,8 +66,9 @@ public class TweetFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.VERTICAL));
 
-        adapter = new TweetAdapter(list, new BindingHandler());
+        adapter = new TweetAdapter(list);
         recyclerView.setAdapter(adapter);
+
 
         refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
 
@@ -121,68 +122,6 @@ public class TweetFragment extends Fragment {
         int bCount = list.size();
         list.addAll(tweets);
         adapter.notifyItemRangeInserted(bCount, tweets.size());
-    }
-
-    public class BindingHandler {
-
-        public void onClickUser(View view) {
-            ViewDataBinding binding = DataBindingUtil.findBinding(view);
-            Tweet tweet = (Tweet) binding.getRoot().getTag();
-            NavUtils.toUserDetail(getActivity(), tweet.uid);
-        }
-
-        public void onClickTweet(View view) {
-            ViewDataBinding binding = DataBindingUtil.findBinding(view);
-            Tweet tweet = (Tweet) binding.getRoot().getTag();
-            if (tweet.detailType == Tweet.TweetDetailType.TWEET){
-                NavUtils.toTweetDetail(getActivity(), tweet);
-            }else if(tweet.detailType ==Tweet.TweetDetailType.NEWS){
-                NavUtils.toNewsDetail(getActivity(), tweet);
-            }
-
-        }
-
-        public void onClickNews(View view) {
-            ViewDataBinding binding = DataBindingUtil.findBinding(view);
-            Tweet tweet = (Tweet) binding.getRoot().getTag();
-
-        }
-
-
-        public void onClickRepeat(View view) {
-            ViewDataBinding binding = DataBindingUtil.findBinding(view);
-            Tweet tweet = (Tweet) binding.getRoot().getTag();
-            NavUtils.toAddTweet(getActivity(), tweet);
-        }
-
-        public void onClickStar(final View view) {
-            ViewDataBinding binding = DataBindingUtil.findBinding(view);
-            Tweet tweet = (Tweet) binding.getRoot().getTag();
-            tweet.isStar = !tweet.isStar;
-            if (tweet.isStar) {
-                tweet.starCount++;
-            } else {
-                tweet.starCount--;
-            }
-            binding.setVariable(BR.tweet, tweet);
-            TweetRestful.INSTANCE.star(tweet.id, tweet.isStar, new TweetRestful.OnTweetRestfulDo() {
-                @Override
-                public void onSuccess() {
-
-                }
-
-                @Override
-                public void onError(RestfulError error) {
-                }
-
-                @Override
-                public void onFinish() {
-
-                }
-            });
-        }
-
-
     }
 
 

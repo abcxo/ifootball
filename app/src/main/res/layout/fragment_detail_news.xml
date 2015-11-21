@@ -81,7 +81,7 @@
                     android:layout_height="200dp"
                     android:layout_below="@+id/content"
                     android:layout_marginTop="@dimen/padding"
-                    app:imageUrl ="@{tweet.imageList[0]}"
+                    app:imageUrl ="@{tweet.cover}"
                     android:background="@drawable/test0" />
 
                 <include

@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignRight="@id/item_name"
-                android:text="@{message.star}"
+                android:text="@string/message_star"
                 android:textColor="@color/color_text_content"
                 android:textSize="14dp"
                 tools:text="点赞了你" />

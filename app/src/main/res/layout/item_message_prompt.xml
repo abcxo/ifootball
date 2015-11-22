@@ -12,15 +12,14 @@
             type="Message" />
     </data>
 
-    <RelativeLayout
-        style="@style/Item">
+    <RelativeLayout style="@style/Item">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
             android:layout_weight="1"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/padding_small">
+            android:gravity="center">
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/item_icon"
@@ -48,10 +47,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignRight="@id/item_name"
-                android:text="@{message.prompt}"
+                android:text="@string/message_prompt"
                 android:textColor="@color/color_text_content"
-                android:textSize="14dp"
-                tools:text="prompt了你" />
+                android:textSize="14dp" />
         </LinearLayout>
 
         <TextView

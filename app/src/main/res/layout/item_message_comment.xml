@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignRight="@id/item_name"
-                android:text="@{message.comment}"
+                android:text="@string/message_comment"
                 android:textColor="@color/color_text_content"
                 android:textSize="14dp"
                 tools:text="评论了你" />

@@ -90,8 +90,10 @@
                         android:layout_height="200dp"
                         android:layout_below="@+id/content"
                         android:layout_marginTop="@dimen/padding"
-                        android:background="@drawable/test0"
+                        android:background="@color/color_bg"
                         android:scaleType="centerCrop"
+                        tools:src="@drawable/test0"
+                        android:onClick="@{tweet.handler.onClickImage}"
                         android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
                         app:imageUrl="@{tweet.cover}" />
 

@@ -84,9 +84,7 @@ public class MainNavFragment extends NavFragment {
                     fab.setScaleY(positionOffset);
                     int translationX = (int) ((-(width - lp.leftMargin - lp.rightMargin - fab.getWidth()) / 2f) * (1 - positionOffset));
                     fab.setTranslationX(translationX);
-
                 }
-
 
             }
 

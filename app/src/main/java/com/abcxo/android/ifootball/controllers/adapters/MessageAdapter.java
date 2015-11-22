@@ -10,16 +10,20 @@ import android.view.ViewGroup;
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.models.Message;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
 
 import java.util.List;
 
-import static com.abcxo.android.ifootball.models.Message.MessageType.CHAT;
-import static com.abcxo.android.ifootball.models.Message.MessageType.COMMENT;
-import static com.abcxo.android.ifootball.models.Message.MessageType.FOCUS;
-import static com.abcxo.android.ifootball.models.Message.MessageType.NORMAL;
-import static com.abcxo.android.ifootball.models.Message.MessageType.PROMPT;
-import static com.abcxo.android.ifootball.models.Message.MessageType.SPECIAL;
-import static com.abcxo.android.ifootball.models.Message.MessageType.STAR;
+import static com.abcxo.android.ifootball.models.Message.MessageMainType.CHAT;
+import static com.abcxo.android.ifootball.models.Message.MessageMainType.CHAT_ME;
+import static com.abcxo.android.ifootball.models.Message.MessageMainType.CHAT_USER;
+import static com.abcxo.android.ifootball.models.Message.MessageMainType.COMMENT;
+import static com.abcxo.android.ifootball.models.Message.MessageMainType.COMMENT_TWEET;
+import static com.abcxo.android.ifootball.models.Message.MessageMainType.FOCUS;
+import static com.abcxo.android.ifootball.models.Message.MessageMainType.NORMAL;
+import static com.abcxo.android.ifootball.models.Message.MessageMainType.PROMPT;
+import static com.abcxo.android.ifootball.models.Message.MessageMainType.SPECIAL;
+import static com.abcxo.android.ifootball.models.Message.MessageMainType.STAR;
 
 /**
  * Created by shadow on 15/11/4.
@@ -70,6 +74,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.BindingH
         } else if (type == SPECIAL.getIndex()) {
             return LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_message_special, parent, false);
+        } else if (type == COMMENT_TWEET.getIndex()) {
+            return LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_message_comment_tweet, parent, false);
+        } else if (type == CHAT_USER.getIndex()) {
+            return LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_message_chat_user, parent, false);
+        } else if (type == CHAT_ME.getIndex()) {
+            return LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_message_chat_me, parent, false);
         }
         return null;
     }
@@ -85,7 +98,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.BindingH
     @Override
     public int getItemViewType(int position) {
         Message message = messages.get(position);
-        return message.messageType.getIndex();
+        Message.MessageMainType type = message.mainType;
+        if (type == Message.MessageMainType.CHAT_USER && message.uid == UserRestful.INSTANCE.meId()) {
+            type = Message.MessageMainType.CHAT_ME;
+        }
+
+        return type.getIndex();
+
+
     }
 
     @Override

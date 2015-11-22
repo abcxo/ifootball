@@ -102,12 +102,12 @@ public class CompleteSignFragment extends Fragment {
                 UserRestful.INSTANCE.edit(user, new UserRestful.OnUserRestfulGet() {
                     @Override
                     public void onSuccess(User user) {
-                        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
+                        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_EDIT));
                         if (image != null) {
                             UserRestful.INSTANCE.avatar(image, new UserRestful.OnUserRestfulGet() {
                                 @Override
                                 public void onSuccess(User user) {
-                                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
+                                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_EDIT));
                                     getActivity().finish();
                                 }
 

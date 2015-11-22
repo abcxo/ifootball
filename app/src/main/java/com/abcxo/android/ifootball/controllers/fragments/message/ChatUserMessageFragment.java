@@ -7,19 +7,21 @@ import com.abcxo.android.ifootball.restfuls.MessageRestful;
 /**
  * Created by shadow on 15/11/5.
  */
-public class PromptMessageFragment extends MessageFragment{
-    public static PromptMessageFragment newInstance() {
+public class ChatUserMessageFragment extends MessageFragment{
+    public static ChatUserMessageFragment newInstance() {
         return newInstance(null);
     }
 
-    public static PromptMessageFragment newInstance(Bundle args) {
-        PromptMessageFragment fragment = new PromptMessageFragment();
+    public static ChatUserMessageFragment newInstance(Bundle args) {
+        ChatUserMessageFragment fragment = new ChatUserMessageFragment();
         if (args != null) fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     protected MessageRestful.GetsType getGetsType() {
-        return MessageRestful.GetsType.PROMPT;
+        return MessageRestful.GetsType.CHAT_USER;
     }
+
+
 }

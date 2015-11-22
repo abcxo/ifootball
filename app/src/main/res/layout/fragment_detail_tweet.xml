@@ -25,6 +25,7 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_white"
         android:fitsSystemWindows="true"
         tools:context=".controllers.activities.TweetDetailActivity">
 
@@ -37,15 +38,16 @@
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="?attr/actionBarSize"
                     android:background="@color/color_white"
-                    android:padding="@dimen/padding"
-                    app:layout_scrollFlags="scroll|enterAlways">
+                    android:paddingLeft="@dimen/padding"
+                    android:paddingRight="@dimen/padding"
+                    android:paddingTop="@dimen/padding">
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/icon"
@@ -93,11 +95,20 @@
                         android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
                         app:imageUrl="@{tweet.cover}" />
 
+                    <include
+                        android:id="@+id/repeat_content"
+                        layout="@layout/content_tweet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/images"
+                        android:layout_marginTop="@dimen/padding"
+                        bind:tweet="@{tweet.originTweet}" />
+
                     <TextView
                         android:id="@+id/time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/images"
+                        android:layout_below="@+id/repeat_content"
                         android:layout_marginTop="@dimen/padding"
                         android:text="@{tweet.time}"
                         android:textColor="@color/color_text_append"
@@ -163,96 +174,6 @@
                         android:layout_marginTop="@dimen/padding" />
 
 
-                    <LinearLayout
-                        android:id="@+id/action_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/divider2"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:onClick="@{handler.onClickComment}"
-                            android:padding="@dimen/padding">
-
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@drawable/ic_comment"
-                                android:tint="@color/color_icon_light" />
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:onClick="@{tweet.handler.onClickRepeat}"
-                            android:padding="@dimen/padding">
-
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@drawable/ic_repeat"
-                                android:tint="@color/color_icon_light" />
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:onClick="@{tweet.handler.onClickStar}"
-                            android:padding="@dimen/padding">
-
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@drawable/ic_star"
-                                android:tint="@{tweet.star?@color/color_icon_yellow:@color/color_icon_light_o}" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:onClick="@{tweet.handler.onClickShare}"
-                            android:padding="@dimen/padding">
-
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@drawable/ic_star"
-                                android:tint="@color/color_icon_light" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <View
-                        android:id="@+id/divider3"
-                        style="@style/Divider"
-                        android:layout_below="@id/action_layout" />
-
-                    <include
-                        android:id="@+id/repeat_content"
-                        layout="@layout/content_tweet"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/divider3"
-                        android:layout_marginTop="@dimen/padding"
-                        bind:tweet="@{tweet.originTweet}" />
-
-
                 </RelativeLayout>
 
                 <android.support.v7.widget.Toolbar
@@ -267,17 +188,97 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        <android.support.design.widget.CoordinatorLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="48dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:id="@+id/action_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{handler.onClickComment}"
+                    android:padding="@dimen/padding">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_comment"
+                        android:tint="@color/color_icon_light" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{tweet.handler.onClickRepeat}"
+                    android:padding="@dimen/padding">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_repeat"
+                        android:tint="@color/color_icon_light" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{tweet.handler.onClickStar}"
+                    android:padding="@dimen/padding">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_star"
+                        android:tint="@{tweet.star?@color/color_icon_yellow:@color/color_icon_light_o}" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{tweet.handler.onClickShare}"
+                    android:padding="@dimen/padding">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_share"
+                        android:tint="@color/color_icon_light" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider3"
+                style="@style/Divider"
+                android:layout_below="@id/action_layout" />
 
             <FrameLayout
                 android:id="@+id/comment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </android.support.design.widget.CoordinatorLayout>
+                android:layout_height="match_parent"
+                android:layout_below="@id/divider3" />
+        </RelativeLayout>
 
 
         <LinearLayout
@@ -286,21 +287,21 @@
             android:layout_gravity="bottom"
             android:background="@color/color_gray_light"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/padding_small"
-            android:paddingTop="@dimen/padding_min"
+            android:orientation="horizontal"
             android:paddingBottom="@dimen/padding_min"
+            android:paddingLeft="@dimen/padding_small"
             android:paddingRight="@dimen/padding_small"
-            android:orientation="horizontal">
+            android:paddingTop="@dimen/padding_min">
 
             <EditText
                 android:id="@+id/input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="@null"
                 android:hint="@string/detail_tweet_text_hint"
                 android:textColor="@color/color_text_input"
                 android:textColorHint="@color/color_text_append"
-                android:layout_weight="1"
                 android:textSize="@dimen/text_input" />
 
             <Button
@@ -309,9 +310,9 @@
                 android:layout_height="40dp"
                 android:backgroundTint="@color/color_button_minor"
                 android:onClick="@{handler.onClickSend}"
-                android:textSize="@dimen/text_button_small"
                 android:text="@string/detail_tweet_send_text"
-                android:textColor="@color/color_text_highlight" />
+                android:textColor="@color/color_text_highlight"
+                android:textSize="@dimen/text_button_small" />
         </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>

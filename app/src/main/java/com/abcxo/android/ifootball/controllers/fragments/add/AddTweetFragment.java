@@ -138,8 +138,6 @@ public class AddTweetFragment extends Fragment {
                 tweet.name = UserRestful.INSTANCE.me().name;
                 tweet.title = tweet.name;
                 tweet.content = inputET.getText().toString();
-                tweet.summary = tweet.content;
-
                 ViewUtils.loading(getActivity());
                 TweetRestful.INSTANCE.add(tweet, adapter.images, null, originTweet != null ? originTweet.id : 0, new TweetRestful.OnTweetRestfulGet() {
                     @Override

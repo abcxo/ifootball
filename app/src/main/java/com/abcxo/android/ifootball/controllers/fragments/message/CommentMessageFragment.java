@@ -20,6 +20,6 @@ public class CommentMessageFragment extends MessageFragment {
 
     @Override
     protected MessageRestful.GetsType getGetsType() {
-        return MessageRestful.GetsType.COMMENT_TWEET;
+        return MessageRestful.GetsType.COMMENT;
     }
 }

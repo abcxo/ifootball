@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
+import com.abcxo.android.ifootball.controllers.activities.ChatDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.ImageActivity;
 import com.abcxo.android.ifootball.controllers.activities.NewsDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
@@ -56,6 +57,23 @@ public class NavUtils {
         Bundle bundle = new Bundle();
         bundle.putLong(Constants.KEY_UID, uid);
         Intent intent = new Intent(context, UserDetailActivity.class);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public static void toChatDetail(Context context,long uid,long uid2) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(Constants.KEY_UID, uid);
+        bundle.putLong(Constants.KEY_UID2, uid2);
+        Intent intent = new Intent(context, ChatDetailActivity.class);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public static void toTweetDetail(Context context, long tid) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(Constants.KEY_TID, tid);
+        Intent intent = new Intent(context, TweetDetailActivity.class);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }

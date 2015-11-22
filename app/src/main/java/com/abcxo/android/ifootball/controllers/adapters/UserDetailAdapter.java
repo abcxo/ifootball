@@ -8,23 +8,23 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.fragments.search.SearchTweetFragment;
-import com.abcxo.android.ifootball.controllers.fragments.search.SearchUserFragment;
-import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.controllers.fragments.detail.UserImageFragment;
+import com.abcxo.android.ifootball.controllers.fragments.detail.UserTweetFragment;
 
-import static com.abcxo.android.ifootball.controllers.adapters.SearchAdapter.PageType.TWEET;
-import static com.abcxo.android.ifootball.controllers.adapters.SearchAdapter.PageType.USER;
+import static com.abcxo.android.ifootball.controllers.adapters.UserDetailAdapter.PageType.IMAGE;
+import static com.abcxo.android.ifootball.controllers.adapters.UserDetailAdapter.PageType.TWEET;
 
 /**
  * Created by shadow on 15/11/1.
  */
-public class SearchAdapter extends FragmentPagerAdapter {
+public class UserDetailAdapter extends FragmentPagerAdapter {
+
+    private long uid;
 
     //获取用户列表
     public enum PageType {
-
-        USER(0),
-        TWEET(1);
+        TWEET(0),
+        IMAGE(1);
         private int index;
 
         PageType(int index) {
@@ -43,19 +43,20 @@ public class SearchAdapter extends FragmentPagerAdapter {
 
     private String[] titles;
 
-    public SearchAdapter(FragmentManager fm, Context context) {
+    public UserDetailAdapter(FragmentManager fm, Context context, long uid) {
         super(fm);
-        titles = context.getResources().getStringArray(R.array.search_page_list);
+        this.uid = uid;
+        titles = context.getResources().getStringArray(R.array.user_detail_page_list);
     }
 
     @Override
     public Fragment getItem(int position) {
         Bundle bundle = new Bundle();
-        bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
-        if (position == USER.getIndex()) {
-            return SearchUserFragment.newInstance(bundle);
-        } else if (position == TWEET.getIndex()) {
-            return SearchTweetFragment.newInstance(bundle);
+        bundle.putLong(Constants.KEY_UID,uid);
+        if (position == TWEET.getIndex()) {
+            return UserTweetFragment.newInstance(bundle);
+        } else if (position == IMAGE.getIndex()) {
+            return UserImageFragment.newInstance(bundle);
         }
         return null;
     }

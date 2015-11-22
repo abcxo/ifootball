@@ -8,14 +8,18 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.fragments.nav.ContactNavFragment;
 import com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment;
 import com.abcxo.android.ifootball.controllers.fragments.nav.MessageNavFragment;
@@ -29,6 +33,10 @@ import com.abcxo.android.ifootball.utils.Utils;
 public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final int DELAY_NAV_ITEM = 300;
+
+    private BroadcastReceiver loginReceiver;
+    private BroadcastReceiver editReceiver;
+    private BroadcastReceiver logoutReceiver;
 
 
     private NavFragment mainFg;
@@ -44,42 +52,87 @@ public class NavActivity extends AppCompatActivity
     private int selectedItemId;
 
 
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.activity_navigationview);
+        navigationView = (NavigationView) findViewById(R.id.activity_navigationview);
         navigationView.setNavigationItemSelectedListener(this);
-        toMain();
 
-        registerLogin();
-        registerLogout();
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
+
+        registerBroadcastReceiver();
         //设置Nav页面
         View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         navHeaderMainBinding = DataBindingUtil.bind(navHeaderView);
         User user = UserRestful.INSTANCE.me();
         navHeaderMainBinding.setUser(user);
+
+
     }
 
 
-    private void registerLogin() {
-        Utils.registerLogin(new BroadcastReceiver() {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Utils.unregisterBroadcastReceiver(loginReceiver);
+        Utils.unregisterBroadcastReceiver(editReceiver);
+        Utils.unregisterBroadcastReceiver(logoutReceiver);
+    }
+
+    private void registerBroadcastReceiver() {
+        Utils.registerBroadcastReceiver(loginReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                User user = UserRestful.INSTANCE.me();
+                navHeaderMainBinding.setUser(user);
+                reset();
+            }
+        }, Constants.ACTION_LOGIN);
+
+
+        Utils.registerBroadcastReceiver(editReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 User user = UserRestful.INSTANCE.me();
                 navHeaderMainBinding.setUser(user);
             }
-        });
-    }
+        }, Constants.ACTION_EDIT);
 
-    private void registerLogout() {
-        Utils.registerLogout(new BroadcastReceiver() {
+        Utils.registerBroadcastReceiver(logoutReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 User user = UserRestful.INSTANCE.me();
                 navHeaderMainBinding.setUser(user);
+                reset();
             }
-        });
+        }, Constants.ACTION_LOGOUT);
+    }
+
+
+    private void reset() {
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        if (mainFg != null) {
+            fragmentManager.beginTransaction().remove(mainFg).commitAllowingStateLoss();
+            mainFg = null;
+        }
+        if (contactFg != null) {
+            fragmentManager.beginTransaction().remove(contactFg).commitAllowingStateLoss();
+            contactFg = null;
+        }
+        if (messageFg != null) {
+            fragmentManager.beginTransaction().remove(messageFg).commitAllowingStateLoss();
+            messageFg = null;
+        }
+        if (searchFg != null) {
+            fragmentManager.beginTransaction().remove(searchFg).commitAllowingStateLoss();
+            searchFg = null;
+        }
+
+        selectedItemId = 0;
+        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
     }
 
 
@@ -187,7 +240,7 @@ public class NavActivity extends AppCompatActivity
         if (currentFg != null) {
             transaction.hide(currentFg);
         }
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
         currentFg = fg;
 
 
@@ -199,8 +252,6 @@ public class NavActivity extends AppCompatActivity
         startActivity(intent);
 
     }
-
-
 
 
 }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.UserAdapter;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
@@ -30,6 +31,8 @@ public class UserFragment extends Fragment {
     protected RecyclerView recyclerView;
     protected UserAdapter adapter;
 
+    protected long uid;
+
     public static UserFragment newInstance() {
         return newInstance(null);
     }
@@ -40,6 +43,14 @@ public class UserFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            uid = args.getLong(Constants.KEY_UID);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,7 +79,7 @@ public class UserFragment extends Fragment {
         final SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                UserRestful.INSTANCE.gets(getGetsType(), 0, new UserRestful.OnUserRestfulList() {
+                UserRestful.INSTANCE.gets(uid,getGetsType(), 0, new UserRestful.OnUserRestfulList() {
                     @Override
                     public void onSuccess(List<User> users) {
                         refreshUsers(users);

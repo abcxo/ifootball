@@ -12,7 +12,9 @@
             type="Message" />
     </data>
 
-    <RelativeLayout style="@style/Item">
+    <RelativeLayout style="@style/Item"
+        android:onClick="@{message.handler.onClickMessage}"
+        >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -22,17 +24,18 @@
             android:gravity="center">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/item_icon"
+                android:onClick="@{message.handler.onClickUser}"
+                android:id="@+id/icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{message.icon}"
                 app:riv_corner_radius="@dimen/icon_radius"
+                app:imageUrl="@{message.icon}"
+                app:error="@{@drawable/ic_avatar}"
                 tools:src="@drawable/test2" />
 
-
             <TextView
-                android:id="@+id/item_name"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding"
@@ -43,17 +46,17 @@
                 tools:text="咸蛋超人" />
 
             <TextView
-                android:id="@+id/item_prompt"
+                android:id="@+id/prompt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignRight="@id/item_name"
+                android:layout_alignRight="@id/name"
                 android:text="@string/message_prompt"
                 android:textColor="@color/color_text_content"
                 android:textSize="14dp" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/item_time"
+            android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

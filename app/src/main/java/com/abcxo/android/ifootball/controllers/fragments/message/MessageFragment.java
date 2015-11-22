@@ -20,6 +20,7 @@ import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.MessageRestful;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
+import com.abcxo.android.ifootball.views.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +33,20 @@ public class MessageFragment extends Fragment {
     protected SwipeRefreshLayout refreshLayout;
     protected RecyclerView recyclerView;
     protected MessageAdapter adapter;
-
+    private Listener listener;
 
     protected long uid;
     protected long uid2;
     protected long tid;
+
+
+    public Listener getListener() {
+        return listener;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
 
     public static MessageFragment newInstance() {
         return newInstance(null);
@@ -81,6 +91,17 @@ public class MessageFragment extends Fragment {
                 getActivity(), DividerItemDecoration.VERTICAL));
         adapter = new MessageAdapter(list);
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        if (listener != null) {
+                            listener.onItemClick(view,list.get(position),position);
+                        }
+                    }
+                })
+        );
 
         refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
 
@@ -129,11 +150,14 @@ public class MessageFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    protected void addMessages(List<Message> messages) {
+    public void addMessages(List<Message> messages) {
         int bCount = list.size();
         list.addAll(messages);
         adapter.notifyItemRangeInserted(bCount, messages.size());
     }
 
+    public interface Listener {
+        void onItemClick(View view, Message message,int position);
+    }
 
 }

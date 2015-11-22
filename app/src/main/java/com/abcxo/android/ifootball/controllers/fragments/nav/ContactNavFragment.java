@@ -10,11 +10,13 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.SpinnerAdapter;
 import com.abcxo.android.ifootball.controllers.fragments.contact.ContactUserFragment;
 import com.abcxo.android.ifootball.controllers.fragments.contact.FansContactFragment;
 import com.abcxo.android.ifootball.controllers.fragments.contact.FocusContactFragment;
 import com.abcxo.android.ifootball.controllers.fragments.contact.FriendContactFragment;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
 
 import static com.abcxo.android.ifootball.controllers.fragments.nav.ContactNavFragment.SpinnerType.FANS;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.ContactNavFragment.SpinnerType.FOCUS;
@@ -97,7 +99,9 @@ public class ContactNavFragment extends NavFragment {
 
     private void toFriend() {
         if (friendFg == null) {
-            friendFg = FriendContactFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            friendFg = FriendContactFragment.newInstance(bundle);
         }
         toContact(friendFg);
 
@@ -105,7 +109,9 @@ public class ContactNavFragment extends NavFragment {
 
     private void toFocus() {
         if (focusFg == null) {
-            focusFg = FocusContactFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            focusFg = FocusContactFragment.newInstance(bundle);
 
         }
         toContact(focusFg);
@@ -114,7 +120,9 @@ public class ContactNavFragment extends NavFragment {
 
     private void toFans() {
         if (fansFg == null) {
-            fansFg = FansContactFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            fansFg = FansContactFragment.newInstance(bundle);
         }
         toContact(fansFg);
 

@@ -122,7 +122,7 @@ public class UserRestful {
                               @Query("pageIndex") int pageIndex,
                               @Query("pageSize") int pageSize);
 
-        @PUT("/user")
+        @POST("/user/focus")
         Call<Object> focus(@Query("uid") long uid, @Query("uid2") long uid2, @Query("focus") boolean focus);
 
 
@@ -351,9 +351,6 @@ public class UserRestful {
         }
     }
 
-    public void gets(GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
-        gets(meId(), getsType, pageIndex, onList);
-    }
 
     public void gets(long uid, GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
         Call<List<User>> call = userService.gets(uid, getsType, pageIndex, Constants.PAGE_SIZE);

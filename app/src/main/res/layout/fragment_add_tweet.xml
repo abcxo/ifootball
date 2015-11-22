@@ -53,7 +53,7 @@
                     android:layout_height="32dp"
                     android:onClick="@{user.handler.onClickUser}"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/test0"
+                    tools:src="@drawable/test0"
                     app:error="@{@drawable/ic_avatar}"
                     app:imageUrl="@{user.avatar}"
                     app:riv_corner_radius="@dimen/icon_radius_small" />

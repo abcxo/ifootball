@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.SearchAdapter;
+import com.abcxo.android.ifootball.controllers.adapters.UserDetailAdapter;
 import com.abcxo.android.ifootball.databinding.FragmentDetailUserBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
@@ -80,32 +81,17 @@ public class UserDetailFragment extends Fragment {
         viewPager.setOffscreenPageLimit(2);
 
 
-        viewPager.setAdapter(new SearchAdapter(getChildFragmentManager(), getActivity()));
-
+        viewPager.setAdapter(new UserDetailAdapter(getChildFragmentManager(), getActivity(), user != null ? user.id : uid));
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
 
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
         if (user != null) {
             bindData();
         } else {
             if (uid == UserRestful.INSTANCE.meId()) {
                 user = UserRestful.INSTANCE.me();
-                binding.setUser(user);
+                bindData();
             } else {
                 ViewUtils.loading(getActivity());
                 UserRestful.INSTANCE.get(uid, new UserRestful.OnUserRestfulGet() {

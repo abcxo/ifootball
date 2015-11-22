@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.SpinnerAdapter;
 import com.abcxo.android.ifootball.controllers.fragments.message.ChatMessageFragment;
 import com.abcxo.android.ifootball.controllers.fragments.message.CommentMessageFragment;
@@ -18,6 +19,7 @@ import com.abcxo.android.ifootball.controllers.fragments.message.MessageFragment
 import com.abcxo.android.ifootball.controllers.fragments.message.OtherMessageFragment;
 import com.abcxo.android.ifootball.controllers.fragments.message.PromptMessageFragment;
 import com.abcxo.android.ifootball.controllers.fragments.message.StarMessageFragment;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
 
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MessageNavFragment.SpinnerType.ALL;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MessageNavFragment.SpinnerType.CHAT;
@@ -119,7 +121,9 @@ public class MessageNavFragment extends NavFragment {
 
     private void toAll() {
         if (allFg == null) {
-            allFg = MessageFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            allFg = MessageFragment.newInstance(bundle);
         }
         toMessage(allFg);
 
@@ -128,7 +132,9 @@ public class MessageNavFragment extends NavFragment {
 
     private void toChat() {
         if (chatFg == null) {
-            chatFg = ChatMessageFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            chatFg = ChatMessageFragment.newInstance(bundle);
         }
         toMessage(chatFg);
 
@@ -136,7 +142,9 @@ public class MessageNavFragment extends NavFragment {
 
     private void toComment() {
         if (commentFg == null) {
-            commentFg = CommentMessageFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            commentFg = CommentMessageFragment.newInstance(bundle);
         }
         toMessage(commentFg);
 
@@ -145,7 +153,9 @@ public class MessageNavFragment extends NavFragment {
 
     private void toPrompt() {
         if (promptFg == null) {
-            promptFg = PromptMessageFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            promptFg = PromptMessageFragment.newInstance(bundle);
         }
         toMessage(promptFg);
 
@@ -154,7 +164,9 @@ public class MessageNavFragment extends NavFragment {
 
     private void toFocus() {
         if (focusFg == null) {
-            focusFg = FocusMessageFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            focusFg = FocusMessageFragment.newInstance(bundle);
         }
         toMessage(focusFg);
 
@@ -163,7 +175,9 @@ public class MessageNavFragment extends NavFragment {
 
     private void toStar() {
         if (starFg == null) {
-            starFg = StarMessageFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            starFg = StarMessageFragment.newInstance(bundle);
         }
         toMessage(starFg);
 
@@ -171,7 +185,9 @@ public class MessageNavFragment extends NavFragment {
 
     private void toOther() {
         if (otherFg == null) {
-            otherFg = OtherMessageFragment.newInstance();
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            otherFg = OtherMessageFragment.newInstance(bundle);
         }
         toMessage(otherFg);
 

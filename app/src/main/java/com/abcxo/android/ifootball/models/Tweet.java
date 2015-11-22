@@ -8,13 +8,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import com.abcxo.android.ifootball.BR;
+import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
+import com.abcxo.android.ifootball.utils.ViewUtils;
+import com.abcxo.android.ifootball.views.ReverseInterpolator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +45,6 @@ public class Tweet extends BaseObservable implements Parcelable {
     public String name;
     public String title;
     public String source;
-    public String summary;
     public String content;
     public String cover;
     public String url;
@@ -72,7 +76,6 @@ public class Tweet extends BaseObservable implements Parcelable {
         name = in.readString();
         title = in.readString();
         source = in.readString();
-        summary = in.readString();
         content = in.readString();
         cover = in.readString();
         url = in.readString();
@@ -125,7 +128,6 @@ public class Tweet extends BaseObservable implements Parcelable {
         dest.writeString(name);
         dest.writeString(title);
         dest.writeString(source);
-        dest.writeString(summary);
         dest.writeString(content);
         dest.writeString(cover);
         dest.writeString(url);
@@ -215,6 +217,7 @@ public class Tweet extends BaseObservable implements Parcelable {
                 }
                 notifyPropertyChanged(BR.star);
                 notifyPropertyChanged(BR.starCount);
+                view.animate().scaleX(2).scaleY(2).setInterpolator(new ReverseInterpolator(new LinearInterpolator())).start();
                 TweetRestful.INSTANCE.star(id, star, new TweetRestful.OnTweetRestfulDo() {
                     @Override
                     public void onSuccess() {

@@ -179,8 +179,23 @@ public class User extends BaseObservable implements Parcelable, Serializable {
     }
 
     public class BindingHandler {
+        public void onClickAvatar(View view) {
+            Image image = new Image();
+            image.url = avatar;
+            image.handler.onClickImage(view);
+        }
+
         public void onClickUser(View view) {
             NavUtils.toUserDetail(view.getContext(), User.this);
+        }
+
+        public void onClickChat(View view) {
+            if (UserRestful.INSTANCE.isLogin()) {
+                NavUtils.toChatDetail(view.getContext(), UserRestful.INSTANCE.meId(), id);
+            } else {
+                NavUtils.toSign(view.getContext());
+            }
+
         }
 
         public void onClickFocus(View view) {

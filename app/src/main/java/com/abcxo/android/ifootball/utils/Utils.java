@@ -16,7 +16,12 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
+import java.util.SimpleTimeZone;
 import java.util.regex.Pattern;
 
 /**
@@ -24,14 +29,14 @@ import java.util.regex.Pattern;
  */
 public class Utils {
 
-    public static void registerLogin(BroadcastReceiver receiver) {
+    public static void registerBroadcastReceiver(BroadcastReceiver receiver, String action) {
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
-        localBroadcastManager.registerReceiver(receiver, new IntentFilter(Constants.ACTION_LOGIN));
+        localBroadcastManager.registerReceiver(receiver, new IntentFilter(action));
     }
 
-    public static void registerLogout(BroadcastReceiver receiver) {
+    public static void unregisterBroadcastReceiver(BroadcastReceiver broadcastReceiver) {
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
-        localBroadcastManager.registerReceiver(receiver, new IntentFilter(Constants.ACTION_LOGOUT));
+        localBroadcastManager.unregisterReceiver(broadcastReceiver);
     }
 
 
@@ -93,6 +98,12 @@ public class Utils {
             sb.append(base.charAt(number));
         }
         return sb.toString();
+    }
+
+    public static String time() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM月dd日 HH时mm分");//设置日期格式
+        return dateFormat.format(new Date());
+
     }
 
 

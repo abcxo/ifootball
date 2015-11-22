@@ -1,5 +1,6 @@
 package com.abcxo.android.ifootball.controllers.adapters;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
@@ -7,10 +8,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.fragments.main.DiscoverUserFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.NewsTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.TeamTweetFragment;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
 
 import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.DISCOVER;
 import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.HOME;
@@ -54,14 +57,16 @@ public class MainAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
         if (position == HOME.getIndex()) {
-            return HomeTweetFragment.newInstance();
+            return HomeTweetFragment.newInstance(bundle);
         } else if (position == TEAM.getIndex()) {
-            return TeamTweetFragment.newInstance();
+            return TeamTweetFragment.newInstance(bundle);
         } else if (position == NEWS.getIndex()) {
-            return NewsTweetFragment.newInstance();
+            return NewsTweetFragment.newInstance(bundle);
         } else if (position == DISCOVER.getIndex()) {
-            return DiscoverUserFragment.newInstance();
+            return DiscoverUserFragment.newInstance(bundle);
         }
         return null;
     }

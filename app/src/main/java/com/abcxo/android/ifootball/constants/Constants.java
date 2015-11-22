@@ -15,6 +15,7 @@ public final class Constants {
     public static final int REQUEST_PERMISSION_CAMERA = 1;
 
     public static final String ACTION_LOGIN = "login";
+    public static final String ACTION_EDIT = "edit";
     public static final String ACTION_LOGOUT = "logout";
 
 

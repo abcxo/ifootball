@@ -46,8 +46,7 @@ public class MessageRestful {
         message.time = "3小时前";
 
         message.title = "恒大中超称霸五个连冠";
-        message.summary = "里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。";
-        message.text = message.summary;
+        message.text = "里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。";
         message.cover = "http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg";
         message.url = "http://www.baidu.com";
         message.lon = "0";
@@ -84,6 +83,8 @@ public class MessageRestful {
                                  @Query("pageIndex") int pageIndex,
                                  @Query("pageSize") int pageSize);
 
+        @POST("/message/chat")
+        Call<Object> chat(@Body Message message);
 
     }
 
@@ -101,6 +102,16 @@ public class MessageRestful {
     //主页，球队，新闻，其他用户
     public interface OnMessageRestfulList {
         void onSuccess(List<Message> messages);
+
+        void onError(RestfulError error);
+
+        void onFinish();
+
+    }
+
+    //评论，转发，收藏，删除
+    public interface OnMessageRestfulDo {
+        void onSuccess();
 
         void onError(RestfulError error);
 
@@ -158,6 +169,27 @@ public class MessageRestful {
             }
         });
 
+    }
+
+
+    public void chat(Message message, @NonNull final OnMessageRestfulDo onDo) {
+        Call<Object> call = messageService.chat(message);
+        call.enqueue(new OnRestful<Object>() {
+            @Override
+            void onSuccess(Object o) {
+                onDo.onSuccess();
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onDo.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onDo.onFinish();
+            }
+        });
     }
 
 

@@ -1,23 +1,18 @@
 package com.abcxo.android.ifootball.restfuls;
 
-import android.graphics.Bitmap;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Image;
+import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.models.Tweet;
-import com.abcxo.android.ifootball.models.User;
-import com.google.repacked.apache.commons.io.FileUtils;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +24,6 @@ import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
-import retrofit.http.PUT;
 import retrofit.http.Part;
 import retrofit.http.Query;
 
@@ -67,8 +61,7 @@ public class TweetRestful {
         tweet.starCount = 96;
 
         tweet.title = "恒大中超称霸五个连冠";
-        tweet.summary = "里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。";
-        tweet.content = tweet.summary;
+        tweet.content = "里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。";
         tweet.cover = "http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg";
         tweet.url = "http://www.baidu.com";
         tweet.lon = "0";
@@ -145,9 +138,15 @@ public class TweetRestful {
                                @Query("pageIndex") int pageIndex,
                                @Query("pageSize") int pageSize);
 
+        @GET("/tweet")
+        Call<Tweet> get(@Query("uid") long uid, @Query("tid") long tid);
 
-        @PUT("/tweet")
-        Call<Object> star(@Query("uid") long uid, @Query("tid") long tid, @Query("isStar") boolean isStar);
+
+        @POST("/tweet/star")
+        Call<Object> star(@Query("uid") long uid, @Query("tid") long tid, @Query("star") boolean star);
+
+        @POST("/tweet/comment")
+        Call<Object> comment(@Body Message message);
 
         @DELETE("/tweet")
         Call<Object> delete(@Query("tid") long tid);
@@ -277,11 +276,32 @@ public class TweetRestful {
     }
 
 
+    //获取单个用户
+    public void get(long tid, @NonNull final OnTweetRestfulGet onGet) {
+        Call<Tweet> call = tweetService.get(UserRestful.INSTANCE.meId(), tid);
+        call.enqueue(new OnRestful<Tweet>() {
+            @Override
+            void onSuccess(Tweet tweet) {
+                onGet.onSuccess(tweet);
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onGet.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onGet.onFinish();
+            }
+        });
+    }
+
     public enum GetsType {
         HOME(0),
         TEAM(1),
         NEWS(2),
-        TWEET(3);
+        USER(3);
         private int index;
 
         GetsType(int index) {
@@ -297,11 +317,6 @@ public class TweetRestful {
         }
     }
 
-
-    //获取推文列表
-    public void gets(GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
-        gets(UserRestful.INSTANCE.meId(), getsType, pageIndex, onList);
-    }
 
     public void gets(long uid, final GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
         Call<List<Tweet>> call = tweetService.gets(uid, getsType, pageIndex, Constants.PAGE_SIZE);
@@ -323,12 +338,13 @@ public class TweetRestful {
         });
     }
 
+
     //搜索推文列表
     public void searchTweets(String keyword, int pageIndex, @NonNull final OnTweetRestfulList onList) {
         post(new Runnable() {
             @Override
             public void run() {
-                onList.onSuccess(testTweets(GetsType.TWEET));
+                onList.onSuccess(testTweets(GetsType.USER));
                 onList.onFinish();
             }
         });
@@ -356,5 +372,25 @@ public class TweetRestful {
 
     }
 
+
+    public void comment(Message message, @NonNull final OnTweetRestfulDo onDo) {
+        Call<Object> call = tweetService.comment(message);
+        call.enqueue(new OnRestful<Object>() {
+            @Override
+            void onSuccess(Object o) {
+                onDo.onSuccess();
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onDo.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onDo.onFinish();
+            }
+        });
+    }
 
 }

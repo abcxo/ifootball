@@ -6,6 +6,10 @@
     <string name="repeat_text">转推</string>
     <string name="star_text">个赞</string>
 
+    <string name="message_focus">关注了你</string>
+    <string name="message_star">点赞了你</string>
+    <string name="message_comment">评论了你</string>
+    <string name="message_prompt">&#064;了你</string>
 
     <string name="error_unknown">未知错误</string>
     <string name="error_camera">请打开相机的授权</string>

@@ -1,9 +1,16 @@
 package com.abcxo.android.ifootball.models;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
+import com.abcxo.android.ifootball.BR;
+import com.abcxo.android.ifootball.restfuls.RestfulError;
+import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 
@@ -14,7 +21,7 @@ import java.util.Map;
 /**
  * Created by SHARON on 15/10/29.
  */
-public class User implements Parcelable, Serializable {
+public class User extends BaseObservable implements Parcelable, Serializable {
     public long id = 0;
     public String index;
     public String username;
@@ -34,14 +41,18 @@ public class User implements Parcelable, Serializable {
     public UserType userType = UserType.NORMAL;
     public UserMainType mainType = UserMainType.NORMAL;
 
+    @Bindable
+    public boolean focus;
+
     public transient BindingHandler handler = new BindingHandler();
 
     public User() {
         super();
 
     }
-    public void init(){
-        handler = new BindingHandler();
+
+    public boolean isMe() {
+        return id == UserRestful.INSTANCE.meId();
     }
 
     protected User(Parcel in) {
@@ -60,6 +71,7 @@ public class User implements Parcelable, Serializable {
         lat = in.readString();
         focusCount = in.readInt();
         fansCount = in.readInt();
+        focus = in.readByte() != 0;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -73,6 +85,10 @@ public class User implements Parcelable, Serializable {
             return new User[size];
         }
     };
+
+    public void init() {
+        handler = new BindingHandler();
+    }
 
     @Override
     public int describeContents() {
@@ -96,6 +112,7 @@ public class User implements Parcelable, Serializable {
         dest.writeString(lat);
         dest.writeInt(focusCount);
         dest.writeInt(fansCount);
+        dest.writeByte((byte) (focus ? 1 : 0));
     }
 
 
@@ -168,7 +185,23 @@ public class User implements Parcelable, Serializable {
 
         public void onClickFocus(View view) {
             if (UserRestful.INSTANCE.isLogin()) {
+                focus = !focus;
+                notifyPropertyChanged(BR.focus);
+                UserRestful.INSTANCE.focus(id, focus, new UserRestful.OnUserRestfulDo() {
+                    @Override
+                    public void onSuccess() {
 
+                    }
+
+                    @Override
+                    public void onError(RestfulError error) {
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+                });
             } else {
                 NavUtils.toSign(view.getContext());
             }

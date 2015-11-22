@@ -5,10 +5,24 @@ import android.support.annotation.NonNull;
 
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Message;
+import com.abcxo.android.ifootball.models.User;
+import com.abcxo.android.ifootball.utils.FileUtils;
 import com.google.repacked.apache.commons.lang3.StringUtils;
+import com.squareup.okhttp.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Call;
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
+import retrofit.http.Body;
+import retrofit.http.GET;
+import retrofit.http.Multipart;
+import retrofit.http.POST;
+import retrofit.http.PUT;
+import retrofit.http.Part;
+import retrofit.http.Query;
 
 /**
  * Created by shadow on 15/11/1.
@@ -16,8 +30,6 @@ import java.util.List;
 public class MessageRestful {
     public static MessageRestful INSTANCE = new MessageRestful();
 
-    private MessageRestful() {
-    }
 
     /**
      * 测试
@@ -61,6 +73,31 @@ public class MessageRestful {
     }
 
 
+    private MessageService messageService;
+
+    public interface MessageService {
+        @GET("/message/list")
+        Call<List<Message>> gets(@Query("uid") long uid,
+                                 @Query("uid2") long uid2,
+                                 @Query("tid") long tid,
+                                 @Query("getsType") GetsType type,
+                                 @Query("pageIndex") int pageIndex,
+                                 @Query("pageSize") int pageSize);
+
+
+    }
+
+
+    private MessageRestful() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.HOST)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        messageService = retrofit.create(MessageService.class);
+    }
+
+
     //主页，球队，新闻，其他用户
     public interface OnMessageRestfulList {
         void onSuccess(List<Message> messages);
@@ -74,21 +111,54 @@ public class MessageRestful {
 
     //获取Main列表
     public enum GetsType {
-        ALL,
-        CHAT,
-        COMMENT,
-        PROMPT,
-        FOCUS,
-        STAR,
-        OTHER,
+        ALL(0),
+        CHAT(1),
+        CHAT_USER(2),
+        COMMENT(3),
+        COMMENT_TWEET(4),
+        PROMPT(5),
+        FOCUS(6),
+        STAR(7),
+        OTHER(8);
+
+        private int index;
+
+        GetsType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return GetsType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
     }
 
 
     //获取推文列表
-    public void getMessages(GetsType getsType, int pageIndex, @NonNull final OnMessageRestfulList onList) {
+    public void gets(long uid, long uid2, long tid, GetsType getsType, int pageIndex, @NonNull final OnMessageRestfulList onList) {
+        Call<List<Message>> call = messageService.gets(uid, uid2, tid, getsType, pageIndex, Constants.PAGE_SIZE);
+        call.enqueue(new OnRestful<List<Message>>() {
+            @Override
+            void onSuccess(List<Message> messages) {
+                onList.onSuccess(messages);
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onList.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onList.onFinish();
+            }
+        });
 
     }
-
 
 
 }

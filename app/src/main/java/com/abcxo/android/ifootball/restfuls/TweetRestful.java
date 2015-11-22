@@ -139,7 +139,7 @@ public class TweetRestful {
                           @Part("image\"; filename=\"image.jpg\" ") RequestBody image8
         );
 
-        @GET("/tweet")
+        @GET("/tweet/list")
         Call<List<Tweet>> gets(@Query("uid") long uid,
                                @Query("getsType") GetsType type,
                                @Query("pageIndex") int pageIndex,

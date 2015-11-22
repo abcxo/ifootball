@@ -1,6 +1,7 @@
 package com.abcxo.android.ifootball.controllers.fragments.message;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,10 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.MessageAdapter;
 import com.abcxo.android.ifootball.models.Message;
+import com.abcxo.android.ifootball.models.Tweet;
+import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.MessageRestful;
+import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -28,6 +33,11 @@ public class MessageFragment extends Fragment {
     protected RecyclerView recyclerView;
     protected MessageAdapter adapter;
 
+
+    protected long uid;
+    protected long uid2;
+    protected long tid;
+
     public static MessageFragment newInstance() {
         return newInstance(null);
     }
@@ -38,6 +48,17 @@ public class MessageFragment extends Fragment {
         return fragment;
     }
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            uid = args.getLong(Constants.KEY_UID);
+            uid2 = args.getLong(Constants.KEY_UID2);
+            tid = args.getLong(Constants.KEY_TID);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +87,7 @@ public class MessageFragment extends Fragment {
         final SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                MessageRestful.INSTANCE.getMessages(MessageRestful.GetsType.ALL, 0, new MessageRestful.OnMessageRestfulList() {
+                MessageRestful.INSTANCE.gets(uid, uid2, tid, getGetsType(), 0, new MessageRestful.OnMessageRestfulList() {
                     @Override
                     public void onSuccess(List<Message> messages) {
                         refreshMessages(messages);
@@ -97,6 +118,10 @@ public class MessageFragment extends Fragment {
 
     }
 
+
+    protected MessageRestful.GetsType getGetsType() {
+        return MessageRestful.GetsType.ALL;
+    }
 
     protected void refreshMessages(List<Message> messages) {
         list.clear();

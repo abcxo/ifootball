@@ -2,6 +2,7 @@
 
     <string name="fans_text">粉丝</string>
     <string name="focus_text">关注</string>
+    <string name="unfocus_text">取消关注</string>
     <string name="repeat_text">转推</string>
     <string name="star_text">个赞</string>
 

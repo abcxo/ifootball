@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.SearchAdapter;
+import com.abcxo.android.ifootball.controllers.fragments.add.AddTweetFragment;
+import com.abcxo.android.ifootball.controllers.fragments.message.CommentTweetMessageFragment;
 import com.abcxo.android.ifootball.databinding.FragmentDetailTweetBinding;
 import com.abcxo.android.ifootball.models.Tweet;
 
@@ -23,8 +25,6 @@ import com.abcxo.android.ifootball.models.Tweet;
 public class TweetDetailFragment extends DetailFragment {
 
     private Tweet tweet;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
 
     public static TweetDetailFragment newInstance() {
         return newInstance(null);
@@ -71,39 +71,21 @@ public class TweetDetailFragment extends DetailFragment {
             }
         });
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        viewPager.setOffscreenPageLimit(2);
 
-
-        viewPager.setAdapter(new SearchAdapter(getChildFragmentManager(), getActivity()));
-
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        Bundle bundle = new Bundle();
+        bundle.putLong(Constants.KEY_UID, tweet.uid);
+        bundle.putLong(Constants.KEY_TWEET, tweet.id);
+        getChildFragmentManager().beginTransaction().replace(R.id.comment, CommentTweetMessageFragment.newInstance(bundle)).commit();
 
     }
 
 
-    public class BindingHandler{
-        public void onClickComment(View view){
+    public class BindingHandler {
+        public void onClickComment(View view) {
 
         }
-        public void onClickSend(View view){
+
+        public void onClickSend(View view) {
 
         }
     }

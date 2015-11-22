@@ -13,7 +13,9 @@ import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.controllers.adapters.UserAdapter;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
+import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class UserFragment extends Fragment {
         final SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                UserRestful.INSTANCE.getUsers(UserRestful.GetsType.DISCOVER, 0, new UserRestful.OnUserRestfulList() {
+                UserRestful.INSTANCE.gets(getGetsType(), 0, new UserRestful.OnUserRestfulList() {
                     @Override
                     public void onSuccess(List<User> users) {
                         refreshUsers(users);
@@ -74,7 +76,7 @@ public class UserFragment extends Fragment {
 
                     @Override
                     public void onError(RestfulError error) {
-
+                        ViewUtils.toast(error.msg);
                     }
 
                     @Override
@@ -112,5 +114,8 @@ public class UserFragment extends Fragment {
         adapter.notifyItemRangeInserted(bCount, tweets.size());
     }
 
+    protected UserRestful.GetsType getGetsType() {
+        return UserRestful.GetsType.DISCOVER;
+    }
 
 }

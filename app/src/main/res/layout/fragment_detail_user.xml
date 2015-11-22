@@ -75,12 +75,13 @@
 
                         <Button
                             android:id="@+id/focus_btn"
+                            android:visibility="@{user.isMe()?View.INVISIBLE:View.VISIBLE}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:backgroundTint="@color/color_button_accent"
+                            android:backgroundTint="@{user.focus?@color/color_icon_red:@color/color_button_minor}"
                             android:onClick="@{user.handler.onClickFocus}"
-                            android:text="@string/focus_text"
+                            android:text="@{user.focus?@string/unfocus_text:@string/focus_text}"
                             android:textColor="@color/color_text_highlight" />
 
 

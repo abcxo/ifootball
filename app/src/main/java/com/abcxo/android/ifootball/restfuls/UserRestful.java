@@ -8,6 +8,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.models.User.GenderType;
 import com.abcxo.android.ifootball.utils.FileUtils;
@@ -113,7 +114,16 @@ public class UserRestful {
         Call<User> cover(@Query("uid") long uid, @Part("image\"; filename=\"cover.jpg\" ") RequestBody image);
 
         @GET("/user")
-        Call<User> get(@Query("uid") long uid);
+        Call<User> get(@Query("uid") long uid, @Query("uid2") long uid2);
+
+        @GET("/user/list")
+        Call<List<User>> gets(@Query("uid") long uid,
+                              @Query("getsType") GetsType type,
+                              @Query("pageIndex") int pageIndex,
+                              @Query("pageSize") int pageSize);
+
+        @PUT("/user")
+        Call<Object> focus(@Query("uid") long uid, @Query("uid2") long uid2, @Query("focus") boolean focus);
 
 
     }
@@ -125,7 +135,7 @@ public class UserRestful {
                 .build();
         userService = retrofit.create(UserService.class);
         user = (User) FileUtils.getObject(Constants.KEY_USER);
-        if (user!=null){
+        if (user != null) {
             user.init();
         }
 
@@ -297,8 +307,8 @@ public class UserRestful {
 
 
     //获取单个用户
-    public void getUser(long uid, @NonNull final OnUserRestfulGet onGet) {
-        Call<User> call = userService.get(uid);
+    public void get(long uid, @NonNull final OnUserRestfulGet onGet) {
+        Call<User> call = userService.get(meId(), uid);
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {
@@ -341,17 +351,26 @@ public class UserRestful {
         }
     }
 
-    public void getUsers(GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
-        getUsers(meId(), getsType, pageIndex, onList);
+    public void gets(GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
+        gets(meId(), getsType, pageIndex, onList);
     }
 
-    public void getUsers(long uid, GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
-        post(new Runnable() {
+    public void gets(long uid, GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
+        Call<List<User>> call = userService.gets(uid, getsType, pageIndex, Constants.PAGE_SIZE);
+        call.enqueue(new OnRestful<List<User>>() {
             @Override
-            public void run() {
-                onList.onSuccess(testUsers());
-                onList.onFinish();
+            void onSuccess(List<User> users) {
+                onList.onSuccess(users);
+            }
 
+            @Override
+            void onError(RestfulError error) {
+                onList.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onList.onFinish();
             }
         });
     }
@@ -382,25 +401,25 @@ public class UserRestful {
 
 
     //关注
-    public void focus(String uid, @NonNull final OnUserRestfulDo onDo) {
-        post(new Runnable() {
+    public void focus(long uid, boolean focus, @NonNull final OnUserRestfulDo onDo) {
+        Call<Object> call = userService.focus(meId(), uid, focus);
+        call.enqueue(new OnRestful<Object>() {
             @Override
-            public void run() {
+            void onSuccess(Object o) {
                 onDo.onSuccess();
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onDo.onError(error);
+            }
+
+            @Override
+            void onFinish() {
                 onDo.onFinish();
             }
         });
     }
 
-    //取消关注
-    public void cancelFocus(String uid, @NonNull final OnUserRestfulDo onDo) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                onDo.onSuccess();
-                onDo.onFinish();
-            }
-        });
-    }
 
 }

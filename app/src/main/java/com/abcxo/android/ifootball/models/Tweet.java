@@ -13,6 +13,7 @@ import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 
 import java.util.ArrayList;
@@ -196,7 +197,7 @@ public class Tweet extends BaseObservable implements Parcelable {
         }
 
 
-        public void onClickShare(View view){
+        public void onClickShare(View view) {
 
         }
 
@@ -205,31 +206,33 @@ public class Tweet extends BaseObservable implements Parcelable {
         }
 
         public void onClickStar(final View view) {
-            ViewDataBinding binding = DataBindingUtil.findBinding(view);
-            star = !star;
-            if (star) {
-                starCount++;
+            if (UserRestful.INSTANCE.isLogin()) {
+                star = !star;
+                if (star) {
+                    starCount++;
+                } else {
+                    starCount--;
+                }
+                notifyPropertyChanged(BR.star);
+                notifyPropertyChanged(BR.starCount);
+                TweetRestful.INSTANCE.star(id, star, new TweetRestful.OnTweetRestfulDo() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError(RestfulError error) {
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+                });
             } else {
-                starCount--;
+                NavUtils.toSign(view.getContext());
             }
-//            binding.setVariable(BR.tweet, Tweet.this);
-            notifyPropertyChanged(BR.star);
-            notifyPropertyChanged(BR.starCount);
-            TweetRestful.INSTANCE.star(id, star, new TweetRestful.OnTweetRestfulDo() {
-                @Override
-                public void onSuccess() {
-
-                }
-
-                @Override
-                public void onError(RestfulError error) {
-                }
-
-                @Override
-                public void onFinish() {
-
-                }
-            });
         }
     }
 }

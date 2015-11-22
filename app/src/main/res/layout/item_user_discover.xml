@@ -12,7 +12,8 @@
             type="User" />
     </data>
 
-    <RelativeLayout style="@style/Item">
+    <RelativeLayout style="@style/Item"
+        android:onClick="@{user.handler.onClickUser}">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/avatar"

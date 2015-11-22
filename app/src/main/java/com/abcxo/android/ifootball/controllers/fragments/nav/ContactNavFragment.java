@@ -14,6 +14,7 @@ import com.abcxo.android.ifootball.controllers.adapters.SpinnerAdapter;
 import com.abcxo.android.ifootball.controllers.fragments.contact.ContactUserFragment;
 import com.abcxo.android.ifootball.controllers.fragments.contact.FansContactFragment;
 import com.abcxo.android.ifootball.controllers.fragments.contact.FocusContactFragment;
+import com.abcxo.android.ifootball.controllers.fragments.contact.FriendContactFragment;
 
 import static com.abcxo.android.ifootball.controllers.fragments.nav.ContactNavFragment.SpinnerType.FANS;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.ContactNavFragment.SpinnerType.FOCUS;
@@ -96,7 +97,7 @@ public class ContactNavFragment extends NavFragment {
 
     private void toFriend() {
         if (friendFg == null) {
-            friendFg = friendFg.newInstance();
+            friendFg = FriendContactFragment.newInstance();
         }
         toContact(friendFg);
 

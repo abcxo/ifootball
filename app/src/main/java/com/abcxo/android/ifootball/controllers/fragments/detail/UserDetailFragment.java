@@ -108,7 +108,7 @@ public class UserDetailFragment extends Fragment {
                 binding.setUser(user);
             } else {
                 ViewUtils.loading(getActivity());
-                UserRestful.INSTANCE.getUser(uid, new UserRestful.OnUserRestfulGet() {
+                UserRestful.INSTANCE.get(uid, new UserRestful.OnUserRestfulGet() {
                     @Override
                     public void onSuccess(User user) {
                         UserDetailFragment.this.user = user;

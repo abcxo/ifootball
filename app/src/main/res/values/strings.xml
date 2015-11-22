@@ -15,6 +15,11 @@
     <string name="error_photo">请安装相册应用</string>
     <string name="error_star">点赞失败</string>
 
+
+    <string name="menu_item_delete">删除图片</string>
+    <string name="menu_item_save">保存图片</string>
+    <string name="menu_item_share">分享图片</string>
+
     <string name="app_name">爱足球吧</string>
 
     <string name="activity_nav">爱足球吧</string>
@@ -26,6 +31,8 @@
     <string name="activity_add_tweet">写推文</string>
     <string name="activity_add_team">添加球队</string>
 
+
+    <string name="activity_image">图片</string>
     <string name="activity_sign">登录/注册</string>
     <string name="activity_setting">设置</string>
     <string name="activity_help">帮助&#038;反馈</string>
@@ -109,6 +116,9 @@
     <string name="gender_male_text">男</string>
     <string name="gender_female_text">女</string>
 
+
+    <string name="detail_tweet_text_hint">评论一下？</string>
+    <string name="detail_tweet_send_text">回复</string>
 
     <string name="add_tweet_text_hint">有趣的事情呢？</string>
     <string name="add_tweet_send_text">推文</string>

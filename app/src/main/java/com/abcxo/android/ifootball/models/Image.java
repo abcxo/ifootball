@@ -1,6 +1,5 @@
 package com.abcxo.android.ifootball.models;
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,6 +8,7 @@ import android.os.Parcelable;
  */
 public class Image implements Parcelable {
     public String url;
+    public ImageType imageType = ImageType.SAVE_SHARE;
 
     public Image() {
         super();
@@ -38,5 +38,26 @@ public class Image implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(url);
+    }
+
+
+    public enum ImageType {
+
+        SAVE_SHARE(0),
+        DELETE(1);
+
+        private int index;
+
+        ImageType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return ImageType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
     }
 }

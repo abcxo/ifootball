@@ -51,7 +51,7 @@
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:onClick="@{handler.onClickUser}"
+                    android:onClick="@{user.handler.onClickUser}"
                     android:scaleType="centerCrop"
                     android:src="@drawable/test0"
                     app:error="@{@drawable/ic_avatar}"

@@ -1,10 +1,11 @@
 package com.abcxo.android.ifootball.controllers.fragments.detail;
 
 import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -13,12 +14,11 @@ import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.adapters.SearchAdapter;
 import com.abcxo.android.ifootball.databinding.FragmentDetailUserBinding;
-import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
-import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
 /**
@@ -28,6 +28,8 @@ public class UserDetailFragment extends Fragment {
     private User user;
     private long uid;
     private FragmentDetailUserBinding binding;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     public static UserDetailFragment newInstance() {
         return newInstance(null);
@@ -44,8 +46,8 @@ public class UserDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         if (args != null) {
-            user = (User) getArguments().get(Constants.KEY_USER);
-            uid = getArguments().getLong(Constants.KEY_UID);
+            user = (User) args.get(Constants.KEY_USER);
+            uid = args.getLong(Constants.KEY_UID);
         }
     }
 
@@ -59,6 +61,7 @@ public class UserDetailFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding = DataBindingUtil.bind(view);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
@@ -71,10 +74,34 @@ public class UserDetailFragment extends Fragment {
             }
         });
 
-        binding = DataBindingUtil.bind(view);
-        binding.setHandler(new BindingHandler());
+
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(2);
+
+
+        viewPager.setAdapter(new SearchAdapter(getChildFragmentManager(), getActivity()));
+
+        tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         if (user != null) {
-            binding.setUser(user);
+            bindData();
         } else {
             if (uid == UserRestful.INSTANCE.meId()) {
                 user = UserRestful.INSTANCE.me();
@@ -85,7 +112,7 @@ public class UserDetailFragment extends Fragment {
                     @Override
                     public void onSuccess(User user) {
                         UserDetailFragment.this.user = user;
-                        binding.setUser(user);
+                        bindData();
                     }
 
                     @Override
@@ -104,11 +131,10 @@ public class UserDetailFragment extends Fragment {
 
     }
 
-    public class BindingHandler {
+    public void bindData() {
+        binding.setUser(user);
 
-        public void onClickFocus(View view) {
-
-        }
     }
+
 
 }

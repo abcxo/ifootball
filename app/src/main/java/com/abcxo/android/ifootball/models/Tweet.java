@@ -1,5 +1,7 @@
 package com.abcxo.android.ifootball.models;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Parcel;
@@ -7,24 +9,30 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment;
+import com.abcxo.android.ifootball.restfuls.RestfulError;
+import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by SHARON on 15/10/29.
  */
-public class Tweet implements Parcelable {
+public class Tweet extends BaseObservable implements Parcelable {
     public long id;
     public long uid;
 
 
     public int commentCount;
     public int repeatCount;
+    @Bindable
     public int starCount;
-    public boolean isStar;
+    @Bindable
+    public boolean star;
 
 
     public String icon;
@@ -45,13 +53,12 @@ public class Tweet implements Parcelable {
 
     public Tweet originTweet;
 
-    public BindingHandler handler = new BindingHandler();
+    public transient BindingHandler handler = new BindingHandler();
 
 
     public Tweet() {
         super();
     }
-
 
     protected Tweet(Parcel in) {
         id = in.readLong();
@@ -59,7 +66,7 @@ public class Tweet implements Parcelable {
         commentCount = in.readInt();
         repeatCount = in.readInt();
         starCount = in.readInt();
-        isStar = in.readByte() != 0;
+        star = in.readByte() != 0;
         icon = in.readString();
         name = in.readString();
         title = in.readString();
@@ -87,11 +94,17 @@ public class Tweet implements Parcelable {
         }
     };
 
-    public List<String> imageList() {
+    public List<Image> imageList() {
+        List<Image> imageList = new ArrayList<>();
         if (!TextUtils.isEmpty(images)) {
-            return Arrays.asList(images.split(";"));
+            List<String> list = Arrays.asList(images.split(";"));
+            for (String url : list) {
+                Image image = new Image();
+                image.url = url;
+                imageList.add(image);
+            }
         }
-        return null;
+        return imageList;
     }
 
     @Override
@@ -106,7 +119,7 @@ public class Tweet implements Parcelable {
         dest.writeInt(commentCount);
         dest.writeInt(repeatCount);
         dest.writeInt(starCount);
-        dest.writeByte((byte) (isStar ? 1 : 0));
+        dest.writeByte((byte) (star ? 1 : 0));
         dest.writeString(icon);
         dest.writeString(name);
         dest.writeString(title);
@@ -165,6 +178,10 @@ public class Tweet implements Parcelable {
 
 
     public class BindingHandler {
+        public void onClickImage(View view) {
+            NavUtils.toImage(view.getContext(), (ArrayList<Image>) imageList());
+        }
+
         public void onClickTweet(View view) {
             if (detailType == Tweet.TweetDetailType.TWEET) {
                 NavUtils.toTweetDetail(view.getContext(), Tweet.this);
@@ -172,6 +189,47 @@ public class Tweet implements Parcelable {
                 NavUtils.toNewsDetail(view.getContext(), Tweet.this);
             }
 
+        }
+
+        public void onClickUser(View view) {
+            NavUtils.toUserDetail(view.getContext(), uid);
+        }
+
+
+        public void onClickShare(View view){
+
+        }
+
+        public void onClickRepeat(View view) {
+            NavUtils.toAddTweet(view.getContext(), Tweet.this);
+        }
+
+        public void onClickStar(final View view) {
+            ViewDataBinding binding = DataBindingUtil.findBinding(view);
+            star = !star;
+            if (star) {
+                starCount++;
+            } else {
+                starCount--;
+            }
+//            binding.setVariable(BR.tweet, Tweet.this);
+            notifyPropertyChanged(BR.star);
+            notifyPropertyChanged(BR.starCount);
+            TweetRestful.INSTANCE.star(id, star, new TweetRestful.OnTweetRestfulDo() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(RestfulError error) {
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
         }
     }
 }

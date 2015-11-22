@@ -6,10 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -24,6 +27,35 @@ import com.abcxo.android.ifootball.controllers.fragments.sign.CompleteSignFragme
 public class ViewUtils {
 
     private static ProgressDialog progressDialog;
+
+    public static int screenWidth() {
+        Context context = Application.INSTANCE;
+        if (context == null) {
+            return 0;
+        }
+        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+        Configuration configuration = context.getResources().getConfiguration();
+        return configuration.orientation == Configuration.ORIENTATION_PORTRAIT ? dm.widthPixels : dm.heightPixels;
+    }
+
+    public static int screenHeight() {
+        Context context = Application.INSTANCE;
+        if (context == null) {
+            return 0;
+        }
+        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+        Configuration configuration = context.getResources().getConfiguration();
+        return configuration.orientation == Configuration.ORIENTATION_PORTRAIT ? dm.heightPixels : dm.widthPixels;
+    }
+
+    public static int screenDensity() {
+        Context context = Application.INSTANCE;
+        if (context == null) {
+            return 0;
+        }
+        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+        return (int) dm.density;
+    }
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
@@ -56,7 +88,7 @@ public class ViewUtils {
     }
 
     public static void dismiss() {
-        if (progressDialog != null&&progressDialog.getContext()!=null) {
+        if (progressDialog != null && progressDialog.getContext() != null) {
             progressDialog.dismiss();
         }
     }

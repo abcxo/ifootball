@@ -2,6 +2,10 @@ package com.abcxo.android.ifootball.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
+
+import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.NavUtils;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -11,7 +15,7 @@ import java.util.Map;
  * Created by SHARON on 15/10/29.
  */
 public class User implements Parcelable, Serializable {
-    public long id;
+    public long id = 0;
     public String index;
     public String username;
     public String email;
@@ -30,8 +34,14 @@ public class User implements Parcelable, Serializable {
     public UserType userType = UserType.NORMAL;
     public UserMainType mainType = UserMainType.NORMAL;
 
+    public transient BindingHandler handler = new BindingHandler();
+
     public User() {
         super();
+
+    }
+    public void init(){
+        handler = new BindingHandler();
     }
 
     protected User(Parcel in) {
@@ -151,5 +161,20 @@ public class User implements Parcelable, Serializable {
         }
     }
 
+    public class BindingHandler {
+        public void onClickUser(View view) {
+            NavUtils.toUserDetail(view.getContext(), User.this);
+        }
+
+        public void onClickFocus(View view) {
+            if (UserRestful.INSTANCE.isLogin()) {
+
+            } else {
+                NavUtils.toSign(view.getContext());
+            }
+        }
+
+
+    }
 
 }

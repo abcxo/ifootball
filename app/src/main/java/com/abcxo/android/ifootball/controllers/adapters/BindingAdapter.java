@@ -1,13 +1,9 @@
 package com.abcxo.android.ifootball.controllers.adapters;
 
-import android.databinding.BindingConversion;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.abcxo.android.ifootball.R;
-import com.abcxo.android.ifootball.views.IconFontVIew;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;

@@ -33,8 +33,8 @@ public class User extends BaseObservable implements Parcelable, Serializable {
     public String cover;
     public String distance;
     public String time;
-    public String lon;
-    public String lat;
+    public double lon;
+    public double lat;
     public int focusCount;
     public int fansCount;
     public GenderType gender = GenderType.MALE;
@@ -67,8 +67,8 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         cover = in.readString();
         distance = in.readString();
         time = in.readString();
-        lon = in.readString();
-        lat = in.readString();
+        lon = in.readDouble();
+        lat = in.readDouble();
         focusCount = in.readInt();
         fansCount = in.readInt();
         focus = in.readByte() != 0;
@@ -108,8 +108,8 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         dest.writeString(cover);
         dest.writeString(distance);
         dest.writeString(time);
-        dest.writeString(lon);
-        dest.writeString(lat);
+        dest.writeDouble(lon);
+        dest.writeDouble(lat);
         dest.writeInt(focusCount);
         dest.writeInt(fansCount);
         dest.writeByte((byte) (focus ? 1 : 0));

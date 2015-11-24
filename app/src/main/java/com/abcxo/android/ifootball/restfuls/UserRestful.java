@@ -57,8 +57,6 @@ public class UserRestful {
         user.cover = "http://img3.imgtn.bdimg.com/it/u=2254914422,1826964007&fm=21&gp=0.jpg";
         user.distance = "300m";
         user.time = "7分钟前";
-        user.lon = "0";
-        user.lat = "0";
         user.gender = GenderType.MALE;
         user.userType = User.UserType.NORMAL;
         return user;
@@ -274,7 +272,7 @@ public class UserRestful {
     }
 
 
-    private void updateMe(User user) {
+    public void updateMe(User user) {
         UserRestful.this.user = user;
         FileUtils.setObject(Constants.KEY_USER, UserRestful.this.user);
     }

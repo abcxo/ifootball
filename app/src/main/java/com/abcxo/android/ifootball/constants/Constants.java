@@ -7,19 +7,15 @@ import com.abcxo.android.ifootball.Application;
  */
 public final class Constants {
 
-    public static final String PREFERENCE_ID = "ifootball";
-
-
     public static final int REQUEST_CAMERA = 1000;
     public static final int REQUEST_PHOTO = 1001;
-    public static final int REQUEST_PERMISSION_CAMERA = 1;
 
     public static final String ACTION_LOGIN = "login";
     public static final String ACTION_EDIT = "edit";
     public static final String ACTION_LOGOUT = "logout";
 
 
-    public static final String HOST = "http://localhost:8080";
+    public static final String HOST = "http://123.56.119.95:8080";
     public static final int PAGE_INDEX = 0;
     public static final int PAGE_SIZE = 30;
 

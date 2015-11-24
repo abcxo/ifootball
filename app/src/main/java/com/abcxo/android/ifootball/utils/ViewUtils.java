@@ -98,24 +98,12 @@ public class ViewUtils {
 
 
     public static void camera(Fragment fragment) {
-
-        if (ActivityCompat.checkSelfPermission(fragment.getActivity(),
-                Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (fragment.shouldShowRequestPermissionRationale(
-                    Manifest.permission.CAMERA)) {
-                ViewUtils.toast(R.string.error_camera);
-            } else {
-                fragment.requestPermissions(
-                        new String[]{Manifest.permission.CAMERA},
-                        Constants.REQUEST_PERMISSION_CAMERA);
-            }
-        } else {
+        try {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             fragment.startActivityForResult(intent, Constants.REQUEST_CAMERA);
+        } catch (Exception e) {
+            ViewUtils.toast(R.string.error_camera);
         }
-
-
     }
 
     public static void photo(Fragment fragment) {
@@ -150,10 +138,10 @@ public class ViewUtils {
 
     }
 
-    public static void openKeyboard(Activity context,EditText editText) {
+    public static void openKeyboard(Activity context, EditText editText) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         editText.requestFocus();
-        imm.showSoftInput(editText,0);
+        imm.showSoftInput(editText, 0);
     }
 
     public static String getString(int resId) {

@@ -17,6 +17,7 @@ import com.abcxo.android.ifootball.controllers.activities.SignActivity;
 import com.abcxo.android.ifootball.controllers.adapters.MainAdapter;
 import com.abcxo.android.ifootball.databinding.FragmentMainNavBinding;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
 
 import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.DISCOVER;

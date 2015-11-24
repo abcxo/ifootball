@@ -257,10 +257,11 @@ public class Tweet extends BaseObservable implements Parcelable {
 
 
         public void onClickShare(final View view) {
+            ViewUtils.loading(view.getContext());
             Picasso.with(Application.INSTANCE).load(cover).into(new Target() {
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                    String url = FileUtils.saveImage(bitmap, Constants.DIR_TWEET_SHARE, Utils.md5(cover));
+                    String path = FileUtils.saveImage(bitmap, Constants.DIR_TWEET_SHARE, Utils.md5(cover));
                     OnekeyShare oks = new OnekeyShare();
                     //关闭sso授权
                     oks.disableSSOWhenAuthorize();
@@ -273,7 +274,7 @@ public class Tweet extends BaseObservable implements Parcelable {
                     // text是分享文本，所有平台都需要这个字段
                     oks.setText(content);
                     // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-                    oks.setImagePath(url);//确保SDcard下面存在此张图片
+                    oks.setImagePath(path);//确保SDcard下面存在此张图片
                     // url仅在微信（包括好友和朋友圈）中使用
                     oks.setUrl(Constants.SITE);
                     // comment是我对这条分享的评论，仅在人人网和QQ空间使用
@@ -285,16 +286,16 @@ public class Tweet extends BaseObservable implements Parcelable {
                     oks.setImageUrl(cover);
 // 启动分享GUI
                     oks.show(view.getContext());
+                    ViewUtils.dismiss();
                 }
 
                 @Override
                 public void onBitmapFailed(Drawable errorDrawable) {
-
+                    ViewUtils.dismiss();
                 }
 
                 @Override
                 public void onPrepareLoad(Drawable placeHolderDrawable) {
-
                 }
             });
 

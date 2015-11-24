@@ -35,7 +35,7 @@ public class AddTweetImageAdapter extends RecyclerView.Adapter<AddTweetImageAdap
     }
 
     public void addImage(Bitmap bitmap) {
-        String url = FileUtils.saveImage(bitmap, Constants.DIR_ADD_TWEET, Utils.randomString());
+        String url = FileUtils.saveImage(bitmap, Constants.DIR_TWEET_ADD, Utils.randomString());
         if (!TextUtils.isEmpty(url)) {
             Image image = new Image();
             image.url = url;

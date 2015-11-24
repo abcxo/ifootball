@@ -2,7 +2,6 @@ package com.abcxo.android.ifootball.controllers.fragments.add;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -187,7 +186,7 @@ public class AddTweetFragment extends Fragment {
 
 
     private void finish() {
-        FileUtils.delete(Constants.DIR_ADD_TWEET);
+        FileUtils.delete(Constants.DIR_TWEET_ADD);
         getActivity().finish();
     }
 }

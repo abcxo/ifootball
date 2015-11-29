@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.constants.Constants;
@@ -120,6 +121,15 @@ public class UserRestful {
                               @Query("pageIndex") int pageIndex,
                               @Query("pageSize") int pageSize);
 
+        @GET("/user/team/list")
+        Call<List<User>> getTeams(@Query("uid") long uid,
+                                  @Query("groupName") String name);
+
+
+        @POST("/user/team/focus")
+        Call<Object> focusTeams(@Query("uid") long uid, @Query("uid2s") String uid2s);
+
+
         @POST("/user/focus")
         Call<Object> focus(@Query("uid") long uid, @Query("uid2") long uid2, @Query("focus") boolean focus);
 
@@ -171,16 +181,6 @@ public class UserRestful {
 
     }
 
-
-    //获取球队列表
-    public interface OnUserRestfulTeams {
-        void onSuccess(List<List<User>> users);
-
-        void onError(RestfulError error);
-
-        void onFinish();
-
-    }
 
     //当前用户
     public User me() {
@@ -383,21 +383,56 @@ public class UserRestful {
 
 
     //获取球队
-    public void getTeams(@NonNull final OnUserRestfulTeams onTeams) {
-        post(new Runnable() {
+    public void getTeams(String name, @NonNull final OnUserRestfulList onList) {
+        Call<List<User>> call = userService.getTeams(UserRestful.INSTANCE.meId(), name);
+        call.enqueue(new OnRestful<List<User>>() {
             @Override
-            public void run() {
-                onTeams.onSuccess(testTeamUsers());
-                onTeams.onFinish();
+            void onSuccess(List<User> users) {
+                onList.onSuccess(users);
+            }
 
+            @Override
+            void onError(RestfulError error) {
+                onList.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onList.onFinish();
             }
         });
     }
-
+    
 
     //关注
     public void focus(long uid, boolean focus, @NonNull final OnUserRestfulDo onDo) {
         Call<Object> call = userService.focus(meId(), uid, focus);
+        call.enqueue(new OnRestful<Object>() {
+            @Override
+            void onSuccess(Object o) {
+                onDo.onSuccess();
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onDo.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onDo.onFinish();
+            }
+        });
+    }
+
+    //关注
+    public void focusTeams(List<User> users, @NonNull final OnUserRestfulDo onDo) {
+        List<Long> uids = new ArrayList<>();
+        for (User user : users) {
+            uids.add(user.id);
+        }
+        String teamUids = TextUtils.join(";", uids);
+        Call<Object> call = userService.focusTeams(meId(), teamUids);
         call.enqueue(new OnRestful<Object>() {
             @Override
             void onSuccess(Object o) {

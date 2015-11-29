@@ -292,6 +292,7 @@ public class Tweet extends BaseObservable implements Parcelable {
                 @Override
                 public void onBitmapFailed(Drawable errorDrawable) {
                     ViewUtils.dismiss();
+                    ViewUtils.toast(R.string.error_share);
                 }
 
                 @Override

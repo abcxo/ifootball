@@ -30,6 +30,7 @@ public final class Constants {
     public static String KEY_UID = "uid";
     public static String KEY_UID2 = "uid2";
     public static String KEY_TID = "tid";
+    public static String KEY_NAME = "name";
     public static String KEY_MESSAGE = "message";
 
     public static String KEY_IMAGES = "images";

@@ -25,7 +25,6 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_white"
         android:fitsSystemWindows="true"
         tools:context=".controllers.activities.TweetDetailActivity">
 
@@ -34,253 +33,240 @@
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarDark">
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="?attr/actionBarSize"
-                    android:background="@color/color_white"
-                    android:paddingLeft="@dimen/padding"
-                    android:paddingRight="@dimen/padding"
-                    android:paddingTop="@dimen/padding">
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/icon"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:onClick="@{tweet.handler.onClickUser}"
-                        android:scaleType="centerCrop"
-                        app:error="@{@drawable/ic_avatar}"
-                        app:imageUrl="@{tweet.icon}"
-                        app:riv_corner_radius="@dimen/icon_radius"
-                        tools:src="@drawable/test2" />
-
-                    <TextView
-                        android:id="@+id/name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/padding"
-                        android:layout_toRightOf="@id/icon"
-                        android:singleLine="true"
-                        android:text="@{tweet.title}"
-                        android:textColor="@color/color_text_title"
-                        android:textSize="16dp"
-                        tools:text="咸蛋超人" />
-
-
-                    <TextView
-                        android:id="@+id/content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/icon"
-                        android:layout_marginTop="@dimen/padding_small"
-                        android:text="@{tweet.content}"
-                        android:textColor="@color/color_text_content"
-                        android:textSize="14dp"
-                        tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
-
-                    <ImageView
-                        android:id="@+id/images"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_below="@+id/content"
-                        android:layout_marginTop="@dimen/padding"
-                        android:background="@color/color_bg"
-                        android:scaleType="centerCrop"
-                        tools:src="@drawable/test0"
-                        android:onClick="@{tweet.handler.onClickImage}"
-                        android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
-                        app:imageUrl="@{tweet.cover}" />
-
-                    <include
-                        android:id="@+id/repeat_content"
-                        layout="@layout/content_tweet"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/images"
-                        android:layout_marginTop="@dimen/padding"
-                        bind:tweet="@{tweet.originTweet}" />
-
-                    <TextView
-                        android:id="@+id/time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/repeat_content"
-                        android:layout_marginTop="@dimen/padding"
-                        android:text="@{tweet.time}"
-                        android:textColor="@color/color_text_append"
-                        android:textSize="12dp"
-                        tools:text="2015-11-11 20:00" />
-
-                    <View
-                        android:id="@+id/divider"
-                        style="@style/Divider"
-                        android:layout_below="@+id/time"
-                        android:layout_marginTop="@dimen/padding" />
-
-                    <TextView
-                        android:id="@+id/repeat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/divider"
-                        android:layout_marginTop="@dimen/padding"
-                        android:text="@{String.valueOf(tweet.repeatCount)}"
-                        android:textColor="@color/color_text_content"
-                        android:textSize="12dp"
-                        tools:text="284" />
-
-                    <TextView
-                        android:id="@+id/unit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@id/repeat"
-                        android:layout_marginLeft="@dimen/padding_small"
-                        android:layout_toRightOf="@id/repeat"
-                        android:text="@string/repeat_text"
-                        android:textColor="@color/color_text_append"
-                        android:textSize="12dp"
-                        tools:text="转推" />
-
-                    <TextView
-                        android:id="@+id/star"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@id/unit"
-                        android:layout_marginLeft="@dimen/padding"
-                        android:layout_toRightOf="@id/unit"
-                        android:text="@{String.valueOf(tweet.starCount)}"
-                        android:textColor="@color/color_text_content"
-                        android:textSize="12dp"
-                        tools:text="17" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@id/repeat"
-                        android:layout_marginLeft="@dimen/padding_small"
-                        android:layout_toRightOf="@id/star"
-                        android:text="@string/star_text"
-                        android:textColor="@color/color_text_append"
-                        android:textSize="12dp"
-                        tools:text="个赞" />
-
-                    <View
-                        android:id="@+id/divider2"
-                        style="@style/Divider"
-                        android:layout_below="@+id/repeat"
-                        android:layout_marginTop="@dimen/padding" />
-
-
-                </RelativeLayout>
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary" />
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-
-
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"/>
         </android.support.design.widget.AppBarLayout>
 
 
-        <RelativeLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="48dp"
+            android:paddingBottom="?attr/actionBarSize"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
-                android:id="@+id/action_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:onClick="@{handler.onClickComment}"
-                    android:padding="@dimen/padding">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_comment"
-                        android:tint="@color/color_icon_light" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:onClick="@{tweet.handler.onClickRepeat}"
-                    android:padding="@dimen/padding">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_repeat"
-                        android:tint="@color/color_icon_light" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:onClick="@{tweet.handler.onClickStar}"
-                    android:padding="@dimen/padding">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_star"
-                        android:tint="@{tweet.star?@color/color_icon_yellow:@color/color_icon_light_o}" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:onClick="@{tweet.handler.onClickShare}"
-                    android:padding="@dimen/padding">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/ic_share"
-                        android:tint="@color/color_icon_light" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:id="@+id/divider3"
-                style="@style/Divider"
-                android:layout_below="@id/action_layout" />
-
-            <FrameLayout
-                android:id="@+id/comment"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/divider3" />
-        </RelativeLayout>
+                android:background="@color/color_white"
+                android:paddingLeft="@dimen/padding"
+                android:paddingRight="@dimen/padding"
+                android:paddingTop="@dimen/padding">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:onClick="@{tweet.handler.onClickUser}"
+                    android:scaleType="centerCrop"
+                    app:error="@{@drawable/ic_avatar}"
+                    app:imageUrl="@{tweet.icon}"
+                    app:riv_corner_radius="@dimen/icon_radius"
+                    tools:src="@drawable/test2" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:layout_toRightOf="@id/icon"
+                    android:singleLine="true"
+                    android:text="@{tweet.title}"
+                    android:textColor="@color/color_text_title"
+                    android:textSize="16dp"
+                    tools:text="咸蛋超人" />
+
+
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/icon"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:text="@{tweet.content}"
+                    android:textColor="@color/color_text_content"
+                    android:textSize="14dp"
+                    tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
+
+
+                <WebView
+                    android:id="@+id/webview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/icon"
+                    android:layout_marginTop="@dimen/padding_small" />
+
+                <include
+                    android:id="@+id/repeat_content"
+                    layout="@layout/content_tweet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/webview"
+                    android:layout_marginTop="@dimen/padding"
+                    bind:tweet="@{tweet.originTweet}" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/repeat_content"
+                    android:layout_marginTop="@dimen/padding"
+                    android:text="@{tweet.time}"
+                    android:textColor="@color/color_text_append"
+                    android:textSize="12dp"
+                    tools:text="2015-11-11 20:00" />
+
+                <View
+                    android:id="@+id/divider"
+                    style="@style/Divider"
+                    android:layout_below="@+id/time"
+                    android:layout_marginTop="@dimen/padding" />
+
+                <TextView
+                    android:id="@+id/repeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/divider"
+                    android:layout_marginTop="@dimen/padding"
+                    android:text="@{String.valueOf(tweet.repeatCount)}"
+                    android:textColor="@color/color_text_content"
+                    android:textSize="12dp"
+                    tools:text="284" />
+
+                <TextView
+                    android:id="@+id/unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/repeat"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:layout_toRightOf="@id/repeat"
+                    android:text="@string/repeat_text"
+                    android:textColor="@color/color_text_append"
+                    android:textSize="12dp"
+                    tools:text="转推" />
+
+                <TextView
+                    android:id="@+id/star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/unit"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:layout_toRightOf="@id/unit"
+                    android:text="@{String.valueOf(tweet.starCount)}"
+                    android:textColor="@color/color_text_content"
+                    android:textSize="12dp"
+                    tools:text="17" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/repeat"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:layout_toRightOf="@id/star"
+                    android:text="@string/star_text"
+                    android:textColor="@color/color_text_append"
+                    android:textSize="12dp"
+                    tools:text="个赞" />
+
+                <View
+                    android:id="@+id/divider2"
+                    style="@style/Divider"
+                    android:layout_below="@+id/repeat"
+                    android:layout_marginTop="@dimen/padding" />
+
+                <LinearLayout
+                    android:id="@+id/action_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/divider2"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:onClick="@{handler.onClickComment}"
+                        android:padding="@dimen/padding">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_comment"
+                            android:tint="@color/color_icon_light" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:onClick="@{tweet.handler.onClickRepeat}"
+                        android:padding="@dimen/padding">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_repeat"
+                            android:tint="@color/color_icon_light" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:onClick="@{tweet.handler.onClickStar}"
+                        android:padding="@dimen/padding">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_star"
+                            android:tint="@{tweet.star?@color/color_icon_yellow:@color/color_icon_light_o}" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:onClick="@{tweet.handler.onClickShare}"
+                        android:padding="@dimen/padding">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_share"
+                            android:tint="@color/color_icon_light" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/divider3"
+                    style="@style/Divider"
+                    android:layout_below="@id/action_layout" />
+
+                <FrameLayout
+                    android:id="@+id/comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/divider3" />
+
+            </RelativeLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
 
         <LinearLayout

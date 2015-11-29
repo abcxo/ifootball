@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.abcxo.android.ifootball.models.User" />
+
+        <import type="com.abcxo.android.ifootball.controllers.fragments.add.TeamFragment.BindingHandler" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="user"
+            type="User" />
+
+        <variable
+            name="handler"
+            type="BindingHandler" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_min">
+
+        <com.abcxo.android.ifootball.views.SquareRelativeLayout
+            android:id="@+id/avatar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.percent.PercentFrameLayout
+                android:background="@drawable/bg_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:onClick="@{handler.onClickItem}"
+                    app:imageUrl="@{user.avatar}"
+                    app:layout_heightPercent="70%"
+                    app:layout_widthPercent="70%" />
+
+                <android.support.percent.PercentFrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_mask_dark"
+                    android:visibility="@{user.focus?View.VISIBLE:View.GONE}">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_done"
+                        android:tint="@color/color_icon_highlight"
+                        app:layout_heightPercent="50%"
+                        app:layout_widthPercent="50%" />
+                </android.support.percent.PercentFrameLayout>
+
+
+            </android.support.percent.PercentFrameLayout>
+
+
+        </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/avatar_layout"
+            android:layout_centerHorizontal="true"
+            android:text="@{user.name}" />
+
+
+    </RelativeLayout>
+
+</layout>

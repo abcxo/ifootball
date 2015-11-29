@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.abcxo.android.ifootball.models.User" />
+
+        <import type="com.abcxo.android.ifootball.controllers.fragments.add.AddTeamFragment.BindingHandler" />
+
+        <variable
+            name="user"
+            type="User" />
+
+        <variable
+            name="handler"
+            type="BindingHandler" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="@dimen/padding_min"
+            android:layout_marginRight="@dimen/padding_min"
+            android:background="@drawable/bg_image"
+            android:onClick="@{handler.onClickFocus}"
+            android:scaleType="fitCenter"
+            app:imageUrl="@{user.avatar}" />
+    </FrameLayout>
+</layout>

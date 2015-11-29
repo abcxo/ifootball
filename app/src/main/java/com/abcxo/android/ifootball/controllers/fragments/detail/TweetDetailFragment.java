@@ -16,7 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
@@ -49,6 +53,8 @@ public class TweetDetailFragment extends DetailFragment {
     private FragmentDetailTweetBinding binding;
 
     private EditText inputET;
+
+    private WebView webView;
     private CommentTweetMessageFragment commentTweetMessageFragment;
 
     private Message selectedMessage;
@@ -154,7 +160,11 @@ public class TweetDetailFragment extends DetailFragment {
             }
         });
 
+        webView = (WebView) view.findViewById(R.id.webview);
+        webView.loadUrl("file:///android_asset/aa.html");
+
     }
+
 
     public void bindData() {
         binding.setTweet(tweet);

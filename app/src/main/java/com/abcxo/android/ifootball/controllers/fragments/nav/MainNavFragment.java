@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.controllers.activities.AddTeamActivity;
 import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
 import com.abcxo.android.ifootball.controllers.adapters.MainAdapter;
@@ -118,7 +119,7 @@ public class MainNavFragment extends NavFragment {
                 if (currentIndex == HOME.getIndex()) {
                     startActivity(new Intent(getActivity(), AddTweetActivity.class));
                 } else if (currentIndex == TEAM.getIndex()) {
-                    startActivity(new Intent(getActivity(), SignActivity.class));
+                    startActivity(new Intent(getActivity(), AddTeamActivity.class));
                 } else if (currentIndex == NEWS.getIndex()) {
                 } else if (currentIndex == DISCOVER.getIndex()) {
 

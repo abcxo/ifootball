@@ -138,6 +138,7 @@ public class TweetRestful {
                                @Query("pageIndex") int pageIndex,
                                @Query("pageSize") int pageSize);
 
+
         @GET("/tweet")
         Call<Tweet> get(@Query("uid") long uid, @Query("tid") long tid);
 
@@ -337,6 +338,8 @@ public class TweetRestful {
             }
         });
     }
+
+
 
 
     //搜索推文列表

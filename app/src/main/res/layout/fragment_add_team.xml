@@ -1,41 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
-    tools:context=".controllers.activities.SignActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
+    <data>
+
+        <import type="com.abcxo.android.ifootball.models.User" />
+
+        <import type="com.abcxo.android.ifootball.controllers.fragments.add.AddTeamFragment.BindingHandler" />
+
+
+        <variable
+            name="handler"
+            type="BindingHandler" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_sign_login" />
+        tools:context=".controllers.activities.NavActivity">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:theme="@style/AppTheme.AppBarDark" />
-    </FrameLayout>
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarDark">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupLight">
+
+            </android.support.v7.widget.Toolbar>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="@color/color_icon_light"
+                app:tabSelectedTextColor="@color/color_text_highlight"
+                app:tabTextColor="@color/color_text_light" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <RelativeLayout
+                android:id="@+id/focus_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_gray_light"
+                android:padding="@dimen/padding">
+
+                <Button
+                    android:id="@+id/ok"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:backgroundTint="@color/color_button_minor"
+                    android:onClick="@{handler.onClickOk}"
+                    android:text="@string/add_team_ok_text"
+                    android:textColor="@color/color_text_highlight" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/ok" />
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true"
-        android:padding="@dimen/padding">
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/focus_layout" />
 
 
+        </RelativeLayout>
 
 
-    </RelativeLayout>
-
-</FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

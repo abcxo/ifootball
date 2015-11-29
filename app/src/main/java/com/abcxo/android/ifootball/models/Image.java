@@ -1,12 +1,16 @@
 package com.abcxo.android.ifootball.models;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.view.View;
 
 import com.abcxo.android.ifootball.Application;
+import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.utils.FileUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
@@ -15,6 +19,7 @@ import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,7 +91,27 @@ public class Image implements Parcelable {
             NavUtils.toImage(view.getContext(), (ArrayList<Image>) images);
         }
 
-        public void onClickSave(View view) {
+        public void onClickSave(final View view) {
+            Picasso.with(Application.INSTANCE).load(url).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    String path = MediaStore.Images.Media.insertImage(view.getContext().getContentResolver(), bitmap, null, null);
+                    view.getContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse(path)));
+                    ViewUtils.toast(R.string.success_image_save);
+
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+                    ViewUtils.dismiss();
+                    ViewUtils.toast(R.string.error_image_save);
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                }
+            });
+
         }
 
         public void onClickShare(final View view) {
@@ -125,6 +150,7 @@ public class Image implements Parcelable {
                 @Override
                 public void onBitmapFailed(Drawable errorDrawable) {
                     ViewUtils.dismiss();
+                    ViewUtils.toast(R.string.error_share);
                 }
 
                 @Override

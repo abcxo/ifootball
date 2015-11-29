@@ -14,6 +14,10 @@
     <string name="message_prompt">\&#064;了你</string>
 
 
+
+    <string name="success_image_save">保存成功</string>
+    <string name="error_share">分享失败</string>
+    <string name="error_image_save">保存失败</string>
     <string name="error_chat">请写些内容</string>
     <string name="error_unknown">未知错误</string>
     <string name="error_camera">打开相机失败</string>
@@ -75,6 +79,15 @@
     <string-array name="search_page_list">
         <item>用户</item>
         <item>推文</item>
+    </string-array>
+
+    <string-array name="team_page_list">
+        <item>英超</item>
+        <item>西甲</item>
+        <item>德甲</item>
+        <item>意甲</item>
+        <item>法甲</item>
+        <item>中超</item>
     </string-array>
 
     <string-array name="user_detail_page_list">
@@ -142,6 +155,6 @@
     <string name="add_tweet_send_image_error">添加图片出错</string>
     <string name="add_tweet_send_image_max_error">最多添加9张图片</string>
 
-
+    <string name="add_team_ok_text">确定</string>
 
 </resources>

@@ -33,6 +33,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:+'
     compile 'com.android.support:design:+'
     compile 'com.android.support:support-v4:+'
+    compile 'com.android.support:percent:+'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'

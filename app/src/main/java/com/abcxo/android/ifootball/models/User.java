@@ -46,6 +46,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
 
     public transient BindingHandler handler = new BindingHandler();
 
+
     public User() {
         super();
 

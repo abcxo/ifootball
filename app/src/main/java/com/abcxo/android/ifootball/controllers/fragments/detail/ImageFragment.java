@@ -33,6 +33,7 @@ public class ImageFragment extends Fragment {
 
     private List<Image> images = new ArrayList<>();
     private int currentIndex;
+    private ViewPager viewPager;
 
     public static ImageFragment newInstance() {
         return newInstance(null);
@@ -76,7 +77,7 @@ public class ImageFragment extends Fragment {
             }
         });
 
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(new ImageAdapter(images));
         viewPager.setCurrentItem(currentIndex);
 
@@ -118,29 +119,30 @@ public class ImageFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         String title = item.getTitle().toString();
+        Image image = images.get(currentIndex);
         if (title.equals(getString(R.string.menu_item_delete))) {
-            delete();
+            delete(image);
             return true;
         } else if (title.equals(getString(R.string.menu_item_save))) {
-            save();
+            save(image);
             return true;
         } else if (title.equals(getString(R.string.menu_item_share))) {
-            share();
+            share(image);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void delete() {
+    private void delete(Image image) {
 
     }
 
-    private void save() {
-
+    private void save(Image image) {
+        image.handler.onClickSave(viewPager);
     }
 
-    private void share() {
-
+    private void share(Image image) {
+        image.handler.onClickShare(viewPager);
     }
 
 

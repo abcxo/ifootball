@@ -108,11 +108,6 @@
             android:windowSoftInputMode="adjustUnspecified" />
 
         <activity
-            android:name=".controllers.activities.NewsDetailActivity"
-            android:label="@string/activity_detail_news"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
             android:name=".controllers.activities.ChatDetailActivity"
             android:label="@string/activity_detail_chat"
             android:theme="@style/AppTheme.NoActionBar" />

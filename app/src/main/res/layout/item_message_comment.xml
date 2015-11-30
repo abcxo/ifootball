@@ -77,7 +77,7 @@
             android:layout_marginTop="@dimen/padding"
             android:layout_marginLeft="@dimen/padding_small"
             android:maxLines="2"
-            android:text="@{message.text}"
+            android:text="@{message.content}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
             android:singleLine="true"

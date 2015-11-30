@@ -12,7 +12,8 @@
             type="Tweet" />
     </data>
 
-    <RelativeLayout style="@style/Item">
+    <RelativeLayout style="@style/Item"
+        android:onClick="@{tweet.handler.onClickTweet}">
 
         <ImageView
             android:id="@+id/cover"
@@ -43,7 +44,7 @@
             android:layout_below="@+id/title"
             android:layout_marginTop="@dimen/padding_small"
             android:maxLines="2"
-            android:text="@{tweet.content}"
+            android:text="@{tweet.summary}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
             tools:text="在那一年被贴在那一年占了恒大队全队进球的七成。" />

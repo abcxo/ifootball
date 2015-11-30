@@ -15,8 +15,6 @@ import java.util.List;
 
 import static com.abcxo.android.ifootball.models.User.UserMainType.CONTACT;
 import static com.abcxo.android.ifootball.models.User.UserMainType.DISCOVER;
-import static com.abcxo.android.ifootball.models.User.UserMainType.NORMAL;
-import static com.abcxo.android.ifootball.models.User.UserMainType.SPECIAL;
 
 /**
  * Created by shadow on 15/11/4.
@@ -45,21 +43,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.BindingHolder>
     }
 
     public View getItemLayoutView(ViewGroup parent, int type) {
-        if (type == NORMAL.getIndex()) {
-            return LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_user_normal, parent, false);
-        } else if (type == CONTACT.getIndex()) {
+        if (type == CONTACT.getIndex()) {
             return LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_user_contact, parent, false);
         } else if (type == DISCOVER.getIndex()) {
             return LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_user_discover, parent, false);
-        } else if (type == SPECIAL.getIndex()) {
+        } else {
             return LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_user_special, parent, false);
+                    .inflate(R.layout.item_user_normal, parent, false);
         }
 
-        return null;
     }
 
     @Override

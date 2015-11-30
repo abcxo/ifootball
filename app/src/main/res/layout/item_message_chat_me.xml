@@ -49,7 +49,7 @@
             android:layout_below="@+id/name"
             android:gravity="end"
             android:layout_marginTop="@dimen/padding"
-            android:text="@{message.text}"
+            android:text="@{message.content}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
             android:singleLine="true"

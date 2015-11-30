@@ -37,12 +37,12 @@ public class User extends BaseObservable implements Parcelable, Serializable {
     public int focusCount;
     public int fansCount;
 
-    private GenderType gender = GenderType.MALE;
-    private UserType userType = UserType.NORMAL;
+    public GenderType gender = GenderType.MALE;
+    public UserType userType = UserType.NORMAL;
 
     @Bindable
     public boolean focus;
-    private String distance;
+    public String distance;
 
     public UserMainType mainType = UserMainType.NORMAL;
 
@@ -163,8 +163,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
 
         NORMAL(0),
         CONTACT(1),
-        DISCOVER(2),
-        SPECIAL(3);
+        DISCOVER(2);
         private int index;
 
         UserMainType(int index) {

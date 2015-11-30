@@ -37,15 +37,6 @@
             android:textSize="16dp"
             tools:text="咸蛋超人" />
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@{user.time}"
-            android:textColor="@color/color_text_append"
-            android:textSize="12dp"
-            tools:text="3小时" />
 
 
         <RelativeLayout

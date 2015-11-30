@@ -40,15 +40,7 @@
         android:layout_marginLeft="@dimen/padding"
             android:layout_toRightOf="@id/name"/>
 
-        <TextView
-            android:id="@+id/distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@{user.distance}"
-            android:textColor="@color/color_text_append"
-            android:textSize="12dp"
-            tools:text="550m" />
+
 
 
         <RelativeLayout

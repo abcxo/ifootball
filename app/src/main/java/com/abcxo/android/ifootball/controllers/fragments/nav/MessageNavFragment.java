@@ -122,7 +122,7 @@ public class MessageNavFragment extends NavFragment {
     private void toAll() {
         if (allFg == null) {
             Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
             allFg = MessageFragment.newInstance(bundle);
         }
         toMessage(allFg);
@@ -133,7 +133,7 @@ public class MessageNavFragment extends NavFragment {
     private void toChat() {
         if (chatFg == null) {
             Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
             chatFg = ChatMessageFragment.newInstance(bundle);
         }
         toMessage(chatFg);
@@ -143,7 +143,7 @@ public class MessageNavFragment extends NavFragment {
     private void toComment() {
         if (commentFg == null) {
             Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
             commentFg = CommentMessageFragment.newInstance(bundle);
         }
         toMessage(commentFg);
@@ -154,7 +154,7 @@ public class MessageNavFragment extends NavFragment {
     private void toPrompt() {
         if (promptFg == null) {
             Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
             promptFg = PromptMessageFragment.newInstance(bundle);
         }
         toMessage(promptFg);
@@ -165,7 +165,7 @@ public class MessageNavFragment extends NavFragment {
     private void toFocus() {
         if (focusFg == null) {
             Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
             focusFg = FocusMessageFragment.newInstance(bundle);
         }
         toMessage(focusFg);
@@ -176,7 +176,7 @@ public class MessageNavFragment extends NavFragment {
     private void toStar() {
         if (starFg == null) {
             Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
             starFg = StarMessageFragment.newInstance(bundle);
         }
         toMessage(starFg);
@@ -186,7 +186,7 @@ public class MessageNavFragment extends NavFragment {
     private void toOther() {
         if (otherFg == null) {
             Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
             otherFg = OtherMessageFragment.newInstance(bundle);
         }
         toMessage(otherFg);

@@ -107,7 +107,7 @@ public class ChatDetailFragment extends DetailFragment {
                 message.uid2 = uid2;
                 message.title = UserRestful.INSTANCE.me().name;
                 message.icon = UserRestful.INSTANCE.me().avatar;
-                message.text = input;
+                message.content = input;
                 message.messageType = Message.MessageType.CHAT;
                 message.mainType = Message.MessageMainType.CHAT_ME;
                 message.detailType = Message.MessageDetailType.NONE;

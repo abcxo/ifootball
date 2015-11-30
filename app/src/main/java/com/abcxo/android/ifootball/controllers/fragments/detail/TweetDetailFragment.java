@@ -37,6 +37,7 @@ import com.abcxo.android.ifootball.restfuls.MessageRestful;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
@@ -165,7 +166,7 @@ public class TweetDetailFragment extends DetailFragment {
         });
 
         webView = (WebView) view.findViewById(R.id.webview);
-        webView.loadUrl("file:///android_asset/aa.html");
+        webView.loadUrl(tweet.content);
 
     }
 
@@ -182,43 +183,48 @@ public class TweetDetailFragment extends DetailFragment {
         }
 
         public void onClickSend(View view) {
-            String input = inputET.getText().toString();
-            if (TextUtils.isEmpty(input)) {
-                ViewUtils.toast(R.string.error_chat);
+            if (UserRestful.INSTANCE.isLogin()) {
+                String input = inputET.getText().toString();
+                if (TextUtils.isEmpty(input)) {
+                    ViewUtils.toast(R.string.error_chat);
+                } else {
+                    Message message = new Message();
+                    message.uid = UserRestful.INSTANCE.meId();
+                    message.uid2 = selectedMessage != null ? selectedMessage.uid : tweet.uid;
+                    message.tid = tweet.id;
+                    message.title = UserRestful.INSTANCE.me().name;
+                    message.icon = UserRestful.INSTANCE.me().avatar;
+                    message.content = selectedMessage != null ? "回复@" + selectedMessage.title + "：" + input : input;
+                    message.messageType = Message.MessageType.COMMENT;
+                    message.mainType = Message.MessageMainType.COMMENT_TWEET;
+                    message.detailType = Message.MessageDetailType.COMMENT;
+                    message.time = Utils.time();
+                    List<Message> messages = new ArrayList<>();
+                    messages.add(message);
+                    commentTweetMessageFragment.addMessages(messages);
+
+                    clearText(false, null);
+                    TweetRestful.INSTANCE.comment(message, new TweetRestful.OnTweetRestfulDo() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(RestfulError error) {
+
+                        }
+
+                        @Override
+                        public void onFinish() {
+
+                        }
+                    });
+                }
             } else {
-                Message message = new Message();
-                message.uid = UserRestful.INSTANCE.meId();
-                message.uid2 = selectedMessage != null ? selectedMessage.uid : tweet.uid;
-                message.tid = tweet.id;
-                message.title = UserRestful.INSTANCE.me().name;
-                message.icon = UserRestful.INSTANCE.me().avatar;
-                message.text = selectedMessage != null ? "回复@" + selectedMessage.title + "：" + input : input;
-                message.messageType = Message.MessageType.COMMENT;
-                message.mainType = Message.MessageMainType.COMMENT_TWEET;
-                message.detailType = Message.MessageDetailType.COMMENT;
-                message.time = Utils.time();
-                List<Message> messages = new ArrayList<>();
-                messages.add(message);
-                commentTweetMessageFragment.addMessages(messages);
-
-                clearText(false, null);
-                TweetRestful.INSTANCE.comment(message, new TweetRestful.OnTweetRestfulDo() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onError(RestfulError error) {
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-
-                    }
-                });
+                NavUtils.toSign(getActivity());
             }
+
         }
     }
 

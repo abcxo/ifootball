@@ -1,16 +1,10 @@
 package com.abcxo.android.ifootball.restfuls;
 
-import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Message;
-import com.abcxo.android.ifootball.models.User;
-import com.abcxo.android.ifootball.utils.FileUtils;
-import com.google.repacked.apache.commons.lang3.StringUtils;
-import com.squareup.okhttp.RequestBody;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Call;
@@ -18,10 +12,7 @@ import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.http.Body;
 import retrofit.http.GET;
-import retrofit.http.Multipart;
 import retrofit.http.POST;
-import retrofit.http.PUT;
-import retrofit.http.Part;
 import retrofit.http.Query;
 
 /**
@@ -29,49 +20,6 @@ import retrofit.http.Query;
  */
 public class MessageRestful {
     public static MessageRestful INSTANCE = new MessageRestful();
-
-
-    /**
-     * 测试
-     */
-
-    private void post(Runnable runnable) {
-        new Handler().postDelayed(runnable, 2000);
-    }
-
-    private Message testMessage() {
-        Message message = new Message();
-        message.id = 1L;
-        message.uid = 1;
-        message.time = "3小时前";
-
-        message.title = "恒大中超称霸五个连冠";
-        message.text = "里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。";
-        message.cover = "http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg";
-        message.url = "http://www.baidu.com";
-        message.lon = "0";
-        message.lat = "0";
-        List<String> images = new ArrayList<>();
-        images.add("http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg");
-        images.add("http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg");
-        images.add("http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg");
-        images.add("http://g.hiphotos.baidu.com/image/pic/item/79f0f736afc37931cc7d9ce9efc4b74542a911dc.jpg");
-        message.images = StringUtils.join(images, ";");
-
-        message.messageType = Message.MessageType.NORMAL;
-
-        return message;
-    }
-
-    public List<Message> testMesages() {
-        List<Message> messages = new ArrayList<>();
-        for (int i = 0; i < Constants.PAGE_SIZE; i++) {
-            messages.add(testMessage());
-        }
-        return messages;
-    }
-
-
     private MessageService messageService;
 
     public interface MessageService {
@@ -150,11 +98,36 @@ public class MessageRestful {
 
 
     //获取推文列表
-    public void gets(long uid, long uid2, long tid, GetsType getsType, int pageIndex, @NonNull final OnMessageRestfulList onList) {
+    public void gets(long uid, long uid2, long tid, final GetsType getsType, int pageIndex, @NonNull final OnMessageRestfulList onList) {
         Call<List<Message>> call = messageService.gets(uid, uid2, tid, getsType, pageIndex, Constants.PAGE_SIZE);
         call.enqueue(new OnRestful<List<Message>>() {
             @Override
             void onSuccess(List<Message> messages) {
+                if (messages != null) {
+                    for (Message message : messages) {
+                        if (getsType == GetsType.COMMENT_TWEET) {
+                            message.mainType = Message.MessageMainType.COMMENT_TWEET;
+                            message.detailType = Message.MessageDetailType.COMMENT;
+                        } else if (getsType == GetsType.CHAT_USER) {
+                            message.mainType = Message.MessageMainType.CHAT_USER;
+                            message.detailType = Message.MessageDetailType.NONE;
+                        } else {
+                            Message.MessageMainType mainType = Message.MessageMainType.valueOf(message.messageType.name());
+                            if (mainType == Message.MessageMainType.FOCUS ||
+                                    mainType == Message.MessageMainType.STAR) {
+                                message.detailType = Message.MessageDetailType.USER;
+                            } else if (mainType == Message.MessageMainType.COMMENT ||
+                                    mainType == Message.MessageMainType.PROMPT) {
+                                message.detailType = Message.MessageDetailType.TWEET;
+                            } else if (mainType == Message.MessageMainType.CHAT) {
+                                message.detailType = Message.MessageDetailType.CHAT;
+                            } else {
+                                message.detailType = Message.MessageDetailType.NORMAL;
+                            }
+                            message.mainType = mainType;
+                        }
+                    }
+                }
                 onList.onSuccess(messages);
             }
 

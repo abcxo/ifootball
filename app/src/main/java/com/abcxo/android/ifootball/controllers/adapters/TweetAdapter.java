@@ -13,10 +13,8 @@ import com.abcxo.android.ifootball.models.Tweet;
 
 import java.util.List;
 
-import static com.abcxo.android.ifootball.models.Tweet.TweetMainType.NEWS;
-import static com.abcxo.android.ifootball.models.Tweet.TweetMainType.NORMAL;
-import static com.abcxo.android.ifootball.models.Tweet.TweetMainType.SPECIAL;
-import static com.abcxo.android.ifootball.models.Tweet.TweetMainType.TEAM;
+import static com.abcxo.android.ifootball.models.Tweet.TweetType.NEWS;
+import static com.abcxo.android.ifootball.models.Tweet.TweetType.TEAM;
 
 /**
  * Created by shadow on 15/11/4.
@@ -48,20 +46,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.BindingHolde
     }
 
     public View getItemLayoutView(ViewGroup parent, int type) {
-        if (type == NORMAL.getIndex()) {
-            return LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_tweet_normal, parent, false);
-        } else if (type == TEAM.getIndex()) {
+        if (type == TEAM.getIndex()) {
             return LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_tweet_team, parent, false);
         } else if (type == NEWS.getIndex()) {
             return LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_tweet_news, parent, false);
-        } else if (type == SPECIAL.getIndex()) {
+        }else{
             return LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_tweet_special, parent, false);
+                    .inflate(R.layout.item_tweet_normal, parent, false);
         }
-        return null;
 
     }
 
@@ -75,7 +69,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.BindingHolde
     @Override
     public int getItemViewType(int position) {
         Tweet tweet = tweets.get(position);
-        return tweet.mainType.getIndex();
+        return tweet.tweetType.getIndex();
     }
 
     @Override

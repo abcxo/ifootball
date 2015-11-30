@@ -37,54 +37,6 @@ import retrofit.http.Query;
  */
 public class UserRestful {
 
-    /**
-     * 测试
-     */
-
-    private void post(Runnable runnable) {
-        new Handler().postDelayed(runnable, 2000);
-    }
-
-
-    private User testUser() {
-        User user = new User();
-        user.id = 1L;
-        user.username = "abcxo";
-        user.email = "abcxo@qq.com";
-        user.name = "咸蛋超人";
-        user.sign = "西甲一个人过21个人的那个门将就是我...";
-        user.password = "111";
-        user.avatar = "http://img1.imgtn.bdimg.com/it/u=1252800744,57876037&fm=23&gp=0.jpg";
-        user.cover = "http://img3.imgtn.bdimg.com/it/u=2254914422,1826964007&fm=21&gp=0.jpg";
-        user.distance = "300m";
-        user.time = "7分钟前";
-        user.gender = GenderType.MALE;
-        user.userType = User.UserType.NORMAL;
-        return user;
-    }
-
-
-    private List<User> testUsers() {
-        List<User> users = new ArrayList<>();
-        for (int i = 0; i < Constants.PAGE_SIZE; i++) {
-            users.add(testUser());
-        }
-        return users;
-    }
-
-    private List<List<User>> testTeamUsers() {
-        List<List<User>> users = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            users.add(testUsers());
-        }
-        return users;
-    }
-
-    /**
-     * 测试
-     */
-
-
     public static UserRestful INSTANCE = new UserRestful();
 
 
@@ -329,10 +281,11 @@ public class UserRestful {
     //获取用户列表
     public enum GetsType {
 
-        FRIEND(0),
-        FOCUS(1),
-        FANS(2),
-        DISCOVER(3);
+        NORMAL(0),
+        FRIEND(1),
+        FOCUS(2),
+        FANS(3),
+        DISCOVER(4);
 
         private int index;
 
@@ -350,11 +303,24 @@ public class UserRestful {
     }
 
 
-    public void gets(long uid, GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
+    public void gets(long uid, final GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
         Call<List<User>> call = userService.gets(uid, getsType, pageIndex, Constants.PAGE_SIZE);
         call.enqueue(new OnRestful<List<User>>() {
             @Override
             void onSuccess(List<User> users) {
+                if (users != null) {
+                    for (User user : users) {
+                        if (getsType == GetsType.NORMAL) {
+                            user.mainType = User.UserMainType.NORMAL;
+                        } else if (getsType == GetsType.DISCOVER) {
+                            user.mainType = User.UserMainType.DISCOVER;
+                        } else {
+                            user.mainType = User.UserMainType.CONTACT;
+                        }
+
+                    }
+                }
+
                 onList.onSuccess(users);
             }
 
@@ -371,14 +337,7 @@ public class UserRestful {
     }
 
     public void searchUsers(String keyword, int pageIndex, @NonNull final OnUserRestfulList onList) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                onList.onSuccess(testUsers());
-                onList.onFinish();
 
-            }
-        });
     }
 
 
@@ -402,7 +361,7 @@ public class UserRestful {
             }
         });
     }
-    
+
 
     //关注
     public void focus(long uid, boolean focus, @NonNull final OnUserRestfulDo onDo) {

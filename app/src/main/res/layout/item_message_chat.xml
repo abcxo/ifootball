@@ -57,7 +57,7 @@
             android:layout_below="@+id/name"
             android:layout_marginTop="@dimen/padding"
             android:maxLines="2"
-            android:text="@{message.text}"
+            android:text="@{message.content}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
             android:singleLine="true"

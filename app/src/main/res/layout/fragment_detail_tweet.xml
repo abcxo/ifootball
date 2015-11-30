@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"/>
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
         </android.support.design.widget.AppBarLayout>
 
 
@@ -56,47 +56,56 @@
                 android:paddingRight="@dimen/padding"
                 android:paddingTop="@dimen/padding">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/icon"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:onClick="@{tweet.handler.onClickUser}"
-                    android:scaleType="centerCrop"
-                    app:error="@{@drawable/ic_avatar}"
-                    app:imageUrl="@{tweet.icon}"
-                    app:riv_corner_radius="@dimen/icon_radius"
-                    tools:src="@drawable/test2" />
+
+                <LinearLayout
+                    android:id="@+id/title_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="@{tweet.tweetType == Tweet.TweetType.NORMAL||tweet.tweetType == Tweet.TweetType.PUBLIC?View.VISIBLE:View.GONE}">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/icon"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:onClick="@{tweet.handler.onClickUser}"
+                        android:scaleType="centerCrop"
+                        app:error="@{@drawable/ic_avatar}"
+                        app:imageUrl="@{tweet.icon}"
+                        app:riv_corner_radius="@dimen/icon_radius"
+                        tools:src="@drawable/test2" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding"
+                        android:layout_toRightOf="@id/icon"
+                        android:singleLine="true"
+                        android:text="@{tweet.name}"
+                        android:textColor="@color/color_text_title"
+                        android:textSize="16dp"
+                        tools:text="咸蛋超人" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding"
-                    android:layout_toRightOf="@id/icon"
+                    android:layout_below="@id/title_layout"
+                    android:layout_marginTop="@dimen/padding_small"
                     android:singleLine="true"
                     android:text="@{tweet.title}"
                     android:textColor="@color/color_text_title"
                     android:textSize="16dp"
-                    tools:text="咸蛋超人" />
-
-
-                <TextView
-                    android:id="@+id/content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/icon"
-                    android:layout_marginTop="@dimen/padding_small"
-                    android:text="@{tweet.content}"
-                    android:textColor="@color/color_text_content"
-                    android:textSize="14dp"
-                    tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
+                    tools:text="咸蛋超wefwefwef人" />
 
 
                 <WebView
                     android:id="@+id/webview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/icon"
+                    android:layout_below="@id/title"
                     android:layout_marginTop="@dimen/padding_small" />
 
                 <include

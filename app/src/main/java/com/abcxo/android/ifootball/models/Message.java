@@ -12,20 +12,15 @@ import com.abcxo.android.ifootball.utils.NavUtils;
 public class Message implements Parcelable {
     public long id;
 
+    //用户id
     public long uid;
     public long uid2;
     public long tid;
 
     public String icon;
     public String title;
-    public String text;
-    public String cover;
-    public String url;
-    public String lon;
-    public String lat;
-    public String images;
+    public String content;
     public String time;
-
     public MessageType messageType = MessageType.NORMAL;
 
     public MessageMainType mainType = MessageMainType.NORMAL;
@@ -44,12 +39,7 @@ public class Message implements Parcelable {
         tid = in.readLong();
         icon = in.readString();
         title = in.readString();
-        text = in.readString();
-        cover = in.readString();
-        url = in.readString();
-        lon = in.readString();
-        lat = in.readString();
-        images = in.readString();
+        content = in.readString();
         time = in.readString();
     }
 
@@ -78,12 +68,7 @@ public class Message implements Parcelable {
         dest.writeLong(tid);
         dest.writeString(icon);
         dest.writeString(title);
-        dest.writeString(text);
-        dest.writeString(cover);
-        dest.writeString(url);
-        dest.writeString(lon);
-        dest.writeString(lat);
-        dest.writeString(images);
+        dest.writeString(content);
         dest.writeString(time);
     }
 

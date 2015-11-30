@@ -1,28 +1,19 @@
 package com.abcxo.android.ifootball.models;
 
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.MediaStore;
-import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.fragments.main.TweetFragment;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
@@ -31,18 +22,13 @@ import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.ReverseInterpolator;
-import com.google.repacked.apache.commons.lang3.StringUtils;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**
@@ -50,33 +36,38 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  */
 public class Tweet extends BaseObservable implements Parcelable {
     public long id;
+    //用户
     public long uid;
+    public String icon;
+    public String name;
 
-
+    //操作
     public int commentCount;
     public int repeatCount;
     @Bindable
     public int starCount;
-    @Bindable
-    public boolean star;
 
 
-    public String icon;
-    public String name;
+    //推文内容
     public String title;
     public String source;
+    public String summary;
     public String content;
-    public String cover;
-    public String url;
-    public String lon;
-    public String lat;
+
+
     public String images;
     public String time;
 
-    public TweetMainType mainType = TweetMainType.NORMAL;
-    public TweetDetailType detailType = TweetDetailType.TWEET;
+    public double lon;
+    public double lat;
+
+    public TweetType tweetType;
 
     public Tweet originTweet;
+
+    @Bindable
+    public boolean star;
+
 
     public transient BindingHandler handler = new BindingHandler();
 
@@ -88,22 +79,21 @@ public class Tweet extends BaseObservable implements Parcelable {
     protected Tweet(Parcel in) {
         id = in.readLong();
         uid = in.readLong();
+        icon = in.readString();
+        name = in.readString();
         commentCount = in.readInt();
         repeatCount = in.readInt();
         starCount = in.readInt();
-        star = in.readByte() != 0;
-        icon = in.readString();
-        name = in.readString();
         title = in.readString();
         source = in.readString();
+        summary = in.readString();
         content = in.readString();
-        cover = in.readString();
-        url = in.readString();
-        lon = in.readString();
-        lat = in.readString();
         images = in.readString();
         time = in.readString();
+        lon = in.readDouble();
+        lat = in.readDouble();
         originTweet = in.readParcelable(Tweet.class.getClassLoader());
+        star = in.readByte() != 0;
     }
 
     public static final Creator<Tweet> CREATOR = new Creator<Tweet>() {
@@ -131,6 +121,14 @@ public class Tweet extends BaseObservable implements Parcelable {
         return imageList;
     }
 
+    public String cover() {
+        String cover = null;
+        if (!TextUtils.isEmpty(images)) {
+            List<String> list = Arrays.asList(images.split(";"));
+            cover = list.get(0);
+        }
+        return cover;
+    }
 
     @Override
     public int describeContents() {
@@ -141,22 +139,21 @@ public class Tweet extends BaseObservable implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeLong(uid);
+        dest.writeString(icon);
+        dest.writeString(name);
         dest.writeInt(commentCount);
         dest.writeInt(repeatCount);
         dest.writeInt(starCount);
-        dest.writeByte((byte) (star ? 1 : 0));
-        dest.writeString(icon);
-        dest.writeString(name);
         dest.writeString(title);
         dest.writeString(source);
+        dest.writeString(summary);
         dest.writeString(content);
-        dest.writeString(cover);
-        dest.writeString(url);
-        dest.writeString(lon);
-        dest.writeString(lat);
         dest.writeString(images);
         dest.writeString(time);
+        dest.writeDouble(lon);
+        dest.writeDouble(lat);
         dest.writeParcelable(originTweet, flags);
+        dest.writeByte((byte) (star ? 1 : 0));
     }
 
 
@@ -201,18 +198,35 @@ public class Tweet extends BaseObservable implements Parcelable {
     }
 
 
+    public enum TweetType {
+
+        NORMAL(0),
+        TEAM(1),
+        NEWS(2),
+        PUBLIC(3),
+        SPECIAL(4);
+        private int index;
+
+        TweetType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return TweetType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
     public class BindingHandler {
         public void onClickImage(View view) {
             NavUtils.toImage(view.getContext(), (ArrayList<Image>) imageList());
         }
 
         public void onClickTweet(View view) {
-            if (detailType == Tweet.TweetDetailType.TWEET) {
-                NavUtils.toTweetDetail(view.getContext(), Tweet.this);
-            } else if (detailType == Tweet.TweetDetailType.NEWS) {
-                NavUtils.toNewsDetail(view.getContext(), Tweet.this);
-            }
-
+            NavUtils.toTweetDetail(view.getContext(), Tweet.this);
         }
 
         public void onClickUser(View view) {
@@ -258,6 +272,7 @@ public class Tweet extends BaseObservable implements Parcelable {
 
         public void onClickShare(final View view) {
             ViewUtils.loading(view.getContext());
+            final String cover = cover();
             Picasso.with(Application.INSTANCE).load(cover).into(new Target() {
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {

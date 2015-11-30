@@ -22,57 +22,54 @@ import java.util.Map;
  * Created by SHARON on 15/10/29.
  */
 public class User extends BaseObservable implements Parcelable, Serializable {
-    public long id = 0;
+    public long id;
     public String index;
-    public String username;
+    public String groupName;
     public String email;
     public String name;
     public String sign;
     public String password;
     public String avatar;
     public String cover;
-    public String distance;
-    public String time;
+
     public double lon;
     public double lat;
     public int focusCount;
     public int fansCount;
-    public GenderType gender = GenderType.MALE;
-    public UserType userType = UserType.NORMAL;
-    public UserMainType mainType = UserMainType.NORMAL;
+
+    private GenderType gender = GenderType.MALE;
+    private UserType userType = UserType.NORMAL;
 
     @Bindable
     public boolean focus;
+    private String distance;
+
+    public UserMainType mainType = UserMainType.NORMAL;
+
 
     public transient BindingHandler handler = new BindingHandler();
 
 
     public User() {
         super();
-
-    }
-
-    public boolean isMe() {
-        return id == UserRestful.INSTANCE.meId();
     }
 
     protected User(Parcel in) {
         id = in.readLong();
         index = in.readString();
-        username = in.readString();
+        groupName = in.readString();
         email = in.readString();
         name = in.readString();
         sign = in.readString();
         password = in.readString();
         avatar = in.readString();
         cover = in.readString();
-        distance = in.readString();
-        time = in.readString();
         lon = in.readDouble();
         lat = in.readDouble();
         focusCount = in.readInt();
         fansCount = in.readInt();
         focus = in.readByte() != 0;
+        distance = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -91,6 +88,10 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         handler = new BindingHandler();
     }
 
+    public boolean isMe() {
+        return id == UserRestful.INSTANCE.meId();
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -100,20 +101,19 @@ public class User extends BaseObservable implements Parcelable, Serializable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeString(index);
-        dest.writeString(username);
+        dest.writeString(groupName);
         dest.writeString(email);
         dest.writeString(name);
         dest.writeString(sign);
         dest.writeString(password);
         dest.writeString(avatar);
         dest.writeString(cover);
-        dest.writeString(distance);
-        dest.writeString(time);
         dest.writeDouble(lon);
         dest.writeDouble(lat);
         dest.writeInt(focusCount);
         dest.writeInt(fansCount);
         dest.writeByte((byte) (focus ? 1 : 0));
+        dest.writeString(distance);
     }
 
 
@@ -141,8 +141,9 @@ public class User extends BaseObservable implements Parcelable, Serializable {
 
         NORMAL(0),
         TEAM(1),
-        VIP(2),
-        SUPER(3);
+        NEWS(2),
+        PUBLIC(3),
+        SPECIAL(4);
         private int index;
 
         UserType(int index) {

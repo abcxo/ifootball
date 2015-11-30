@@ -61,7 +61,7 @@ public class Tweet extends BaseObservable implements Parcelable {
     public double lon;
     public double lat;
 
-    public TweetType tweetType;
+    public TweetType tweetType = TweetType.NORMAL;
 
     public Tweet originTweet;
 

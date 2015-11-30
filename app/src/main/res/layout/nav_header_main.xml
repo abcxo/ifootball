@@ -52,13 +52,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding"
                 android:text="@{user!=null? user.name:@string/nav_header_name }"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                android:textColor="@color/color_text_highlight"
+                android:textSize="16dp"
+                tools:text="罗马里奥"/>
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{user!=null? user.sign: @string/nav_header_sign  }" />
+                android:layout_marginTop="@dimen/padding_min"
+                android:text="@{user!=null? user.sign: @string/nav_header_sign  }"
+                android:textColor="@color/color_text_light"
+                android:textSize="14dp"
+                android:lines="2"
+                tools:text="我必须接受这个事实，我不想再继续职业生涯了，我对退役的决定满意。"/>
 
         </LinearLayout>
 

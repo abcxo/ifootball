@@ -31,13 +31,14 @@
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{tweet.icon}"
-            app:riv_corner_radius="@dimen/icon_radius" />
+            app:riv_corner_radius="@dimen/icon_radius"
+            tools:src="@drawable/test2"/>
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginLeft="@dimen/padding_small"
             android:layout_toRightOf="@id/icon"
             android:singleLine="true"
             android:text="@{tweet.name}"
@@ -70,32 +71,31 @@
         <ImageView
             android:id="@+id/images"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="140dp"
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/text"
-            android:layout_marginTop="@dimen/padding"
+            android:layout_marginTop="@dimen/padding_small"
             android:background="@color/color_bg"
             android:scaleType="centerCrop"
             tools:src="@drawable/test0"
             android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
             app:imageUrl="@{tweet.cover}" />
 
-        <include
-            android:id="@+id/repeat_content"
-            layout="@layout/content_tweet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/name"
-            android:layout_below="@id/images"
-            android:layout_marginTop="@dimen/padding"
-            bind:tweet="@{tweet.originTweet}" />
+        <!--<include-->
+            <!--android:id="@+id/repeat_content"-->
+            <!--layout="@layout/content_tweet"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignLeft="@+id/name"-->
+            <!--android:layout_below="@id/images"-->
+            <!--android:layout_marginTop="@dimen/padding"-->
+            <!--bind:tweet="@{tweet.originTweet}" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
-            android:layout_below="@+id/repeat_content"
-            android:layout_marginTop="@dimen/padding"
+            android:layout_below="@+id/images"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

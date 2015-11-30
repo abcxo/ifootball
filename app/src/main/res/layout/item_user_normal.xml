@@ -15,11 +15,13 @@
     <RelativeLayout
         style="@style/Item">
 
-        <ImageView
+
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/avatar"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:scaleType="centerCrop"
+            app:riv_corner_radius="@dimen/icon_radius"
             app:imageUrl="@{user.avatar}"
             tools:src="@drawable/test2" />
 
@@ -27,7 +29,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginLeft="@dimen/padding_small"
             android:layout_toRightOf="@id/avatar"
             android:singleLine="true"
             android:text="@{user.name}"
@@ -61,6 +63,7 @@
                 android:text="@{user.sign}"
                 android:textColor="@color/color_text_content"
                 android:textSize="14dp"
+                android:singleLine="true"
                 tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
 
 

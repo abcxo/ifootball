@@ -39,7 +39,7 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding"
+                android:layout_marginLeft="@dimen/padding_small"
                 android:singleLine="true"
                 android:text="@{message.title}"
                 android:textColor="@color/color_text_title"
@@ -74,12 +74,13 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/title"
             android:layout_below="@+id/title"
-            android:layout_marginTop="@dimen/padding_small"
-            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginLeft="@dimen/padding_small"
             android:maxLines="2"
             android:text="@{message.text}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
+            android:singleLine="true"
             tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
 
 

@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginRight="@dimen/padding"
+            android:layout_marginRight="@dimen/padding_small"
             android:layout_toLeftOf="@id/icon"
             android:gravity="end"
             android:singleLine="true"
@@ -48,10 +48,11 @@
             android:layout_alignRight="@+id/name"
             android:layout_below="@+id/name"
             android:gravity="end"
-            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginTop="@dimen/padding"
             android:text="@{message.text}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
+            android:singleLine="true"
             tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
 
         <com.makeramen.roundedimageview.RoundedImageView

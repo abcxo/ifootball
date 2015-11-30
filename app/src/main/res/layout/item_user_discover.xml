@@ -62,7 +62,7 @@
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/padding"
+                android:layout_marginRight="@dimen/padding_small"
                 android:text="@{user.sign}"
                 android:singleLine="true"
                 android:textColor="@color/color_text_content"

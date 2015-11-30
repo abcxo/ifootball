@@ -19,7 +19,7 @@
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:scaleType="centerCrop"
-            app:riv_corner_radius="@dimen/icon_radius"
+            app:riv_corner_radius="@dimen/icon_radius_small"
             app:imageUrl="@{tweet.icon}"
             tools:src="@drawable/test2" />
 
@@ -27,7 +27,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginLeft="@dimen/padding_small"
             android:layout_toRightOf="@id/icon"
             android:singleLine="true"
             android:text="@{tweet.name}"
@@ -92,7 +92,7 @@
                 android:id="@+id/images"
                 android:layout_width="74dp"
                 android:layout_height="86dp"
-                android:layout_marginTop="@dimen/padding"
+                android:layout_marginTop="@dimen/padding_small"
                 android:background="@drawable/test0" />
 
             <LinearLayout

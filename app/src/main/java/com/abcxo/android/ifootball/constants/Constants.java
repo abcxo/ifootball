@@ -17,8 +17,8 @@ public final class Constants {
     public static final String ACTION_LOGOUT = "logout";
 
 
-    //    public static final String HOST = "http://123.56.119.95:8080";
-    public static final String HOST = "http://localhost:8080";
+        public static final String HOST = "http://123.56.119.95:8080";
+//    public static final String HOST = "http://localhost:8080";
     public static final String SITE = "http://www.baidu.com";
 
     public static final int PAGE_INDEX = 0;

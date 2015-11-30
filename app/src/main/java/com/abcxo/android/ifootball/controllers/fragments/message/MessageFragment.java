@@ -83,7 +83,6 @@ public class MessageFragment extends Fragment {
 
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshlayout);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);

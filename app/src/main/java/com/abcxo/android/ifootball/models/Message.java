@@ -41,6 +41,9 @@ public class Message implements Parcelable {
         title = in.readString();
         content = in.readString();
         time = in.readString();
+        messageType = MessageType.valueOf(in.readString());
+        mainType = MessageMainType.valueOf(in.readString());
+        detailType = MessageDetailType.valueOf(in.readString());
     }
 
     public static final Creator<Message> CREATOR = new Creator<Message>() {
@@ -70,6 +73,9 @@ public class Message implements Parcelable {
         dest.writeString(title);
         dest.writeString(content);
         dest.writeString(time);
+        dest.writeString(messageType.name());
+        dest.writeString(mainType.name());
+        dest.writeString(detailType.name());
     }
 
 

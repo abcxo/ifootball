@@ -57,12 +57,10 @@
                 android:paddingTop="@dimen/padding">
 
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/title_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="@{tweet.tweetType == Tweet.TweetType.NORMAL||tweet.tweetType == Tweet.TweetType.PUBLIC?View.VISIBLE:View.GONE}">
+                    android:layout_height="wrap_content">
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/icon"
@@ -86,7 +84,18 @@
                         android:textColor="@color/color_text_title"
                         android:textSize="16dp"
                         tools:text="咸蛋超人" />
-                </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/source"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/name"
+                        android:layout_below="@+id/name"
+                        android:text="@{tweet.source}"
+                        android:textColor="@color/color_text_special"
+                        android:textSize="14dp"
+                        tools:text="新浪微博" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/title"

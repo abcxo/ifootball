@@ -86,7 +86,6 @@ public class MessageFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.addItemDecoration(new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.VERTICAL));
         adapter = new MessageAdapter(list);

@@ -61,13 +61,11 @@ public class Tweet extends BaseObservable implements Parcelable {
     public double lon;
     public double lat;
 
-    public TweetType tweetType = TweetType.NORMAL;
-
     public Tweet originTweet;
 
     @Bindable
     public boolean star;
-
+    public TweetType tweetType = TweetType.NORMAL;
 
     public transient BindingHandler handler = new BindingHandler();
 
@@ -94,6 +92,7 @@ public class Tweet extends BaseObservable implements Parcelable {
         lat = in.readDouble();
         originTweet = in.readParcelable(Tweet.class.getClassLoader());
         star = in.readByte() != 0;
+        tweetType = TweetType.valueOf(in.readString());
     }
 
     public static final Creator<Tweet> CREATOR = new Creator<Tweet>() {
@@ -154,47 +153,7 @@ public class Tweet extends BaseObservable implements Parcelable {
         dest.writeDouble(lat);
         dest.writeParcelable(originTweet, flags);
         dest.writeByte((byte) (star ? 1 : 0));
-    }
-
-
-    public enum TweetMainType {
-
-        NORMAL(0),
-        TEAM(1),
-        NEWS(2),
-        SPECIAL(3);
-        private int index;
-
-        TweetMainType(int index) {
-            this.index = index;
-        }
-
-        public static int size() {
-            return TweetMainType.values().length;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-    }
-
-    public enum TweetDetailType {
-
-        TWEET(0),
-        NEWS(1);
-        private int index;
-
-        TweetDetailType(int index) {
-            this.index = index;
-        }
-
-        public static int size() {
-            return TweetDetailType.values().length;
-        }
-
-        public int getIndex() {
-            return index;
-        }
+        dest.writeString(tweetType.name());
     }
 
 

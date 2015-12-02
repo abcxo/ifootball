@@ -7,12 +7,17 @@
 
         <import type="com.abcxo.android.ifootball.models.Tweet" />
 
+        <import type="android.view.View" />
+
+
+
         <variable
             name="tweet"
             type="Tweet" />
     </data>
 
-    <RelativeLayout style="@style/Item">
+    <RelativeLayout style="@style/Item"
+        android:onClick="@{tweet.handler.onClickTweet}">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon"
@@ -88,12 +93,17 @@
             android:layout_alignLeft="@+id/title"
             android:layout_below="@+id/text">
 
-            <com.abcxo.android.ifootball.views.ImagesLayout
+            <ImageView
                 android:id="@+id/images"
                 android:layout_width="74dp"
                 android:layout_height="86dp"
                 android:layout_marginTop="@dimen/padding_small"
-                android:background="@drawable/test0" />
+                android:background="@color/color_bg"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/test0"
+                android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
+                app:imageUrl="@{tweet.cover}" />
+
 
             <LinearLayout
                 android:layout_width="wrap_content"

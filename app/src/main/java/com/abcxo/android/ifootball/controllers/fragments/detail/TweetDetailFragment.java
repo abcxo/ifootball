@@ -1,46 +1,38 @@
 package com.abcxo.android.ifootball.controllers.fragments.detail;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.webkit.JavascriptInterface;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.adapters.SearchAdapter;
-import com.abcxo.android.ifootball.controllers.fragments.add.AddTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.message.CommentTweetMessageFragment;
 import com.abcxo.android.ifootball.controllers.fragments.message.MessageFragment;
 import com.abcxo.android.ifootball.databinding.FragmentDetailTweetBinding;
-import com.abcxo.android.ifootball.databinding.FragmentDetailUserBinding;
 import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.models.Tweet;
-import com.abcxo.android.ifootball.models.User;
-import com.abcxo.android.ifootball.restfuls.MessageRestful;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,27 +137,34 @@ public class TweetDetailFragment extends DetailFragment {
                 if (message.uid != UserRestful.INSTANCE.meId()) {
                     clearText(true, message);
                 }
-
             }
         });
 
-        inputET.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         webView = (WebView) view.findViewById(R.id.webview);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                try {
+                    OkHttpClient mOkHttpClient = new OkHttpClient();
+                    final Request request = new Request.Builder()
+                            .url(url)
+                            .build();
+                    Call call = mOkHttpClient.newCall(request);
+                    Response response = call.execute();
+                    String contentType = response.header("Content-Type");
+                    String encodingType = "UTF-8";
+                    InputStream responseInputStream = response.body().byteStream();
+                    return new WebResourceResponse(contentType, encodingType, responseInputStream);
+
+                } catch (Exception e) {
+
+                }
+                return null;
+
+            }
+
+        });
         webView.loadUrl(tweet.content);
 
     }

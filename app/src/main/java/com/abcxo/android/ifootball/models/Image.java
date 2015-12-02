@@ -19,7 +19,6 @@ import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +38,8 @@ public class Image implements Parcelable {
 
     protected Image(Parcel in) {
         url = in.readString();
+        imageType = ImageType.valueOf(in.readString());
+
     }
 
     public static final Creator<Image> CREATOR = new Creator<Image>() {
@@ -61,6 +62,7 @@ public class Image implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(url);
+        dest.writeString(imageType.name());
     }
 
 

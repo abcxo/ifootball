@@ -2,21 +2,16 @@ package com.abcxo.android.ifootball.models;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
-import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by SHARON on 15/10/29.
@@ -37,13 +32,13 @@ public class User extends BaseObservable implements Parcelable, Serializable {
     public int focusCount;
     public int fansCount;
 
-    public GenderType gender = GenderType.MALE;
-    public UserType userType = UserType.NORMAL;
 
     @Bindable
     public boolean focus;
     public String distance;
 
+    public GenderType gender = GenderType.MALE;
+    public UserType userType = UserType.NORMAL;
     public UserMainType mainType = UserMainType.NORMAL;
 
 
@@ -70,6 +65,9 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         fansCount = in.readInt();
         focus = in.readByte() != 0;
         distance = in.readString();
+        gender = GenderType.valueOf(in.readString());
+        userType = UserType.valueOf(in.readString());
+        mainType = UserMainType.valueOf(in.readString());
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -114,6 +112,9 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         dest.writeInt(fansCount);
         dest.writeByte((byte) (focus ? 1 : 0));
         dest.writeString(distance);
+        dest.writeString(gender.name());
+        dest.writeString(userType.name());
+        dest.writeString(mainType.name());
     }
 
 

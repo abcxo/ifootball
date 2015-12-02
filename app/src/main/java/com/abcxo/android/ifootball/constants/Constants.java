@@ -41,5 +41,6 @@ public final class Constants {
 
     public static int MAX_ADD_TWEET_IMAGE = 9;
 
+    public static int MAX_LEFT_MORE = 5;
 
 }

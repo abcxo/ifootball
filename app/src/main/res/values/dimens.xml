@@ -18,6 +18,7 @@
     <dimen name="icon_2">80dp</dimen>
 
 
+    <dimen name="text_empty">40dp</dimen>
     <dimen name="text_max">20dp</dimen>
     <dimen name="text_big">18dp</dimen>
     <dimen name="text_mid">16dp</dimen>

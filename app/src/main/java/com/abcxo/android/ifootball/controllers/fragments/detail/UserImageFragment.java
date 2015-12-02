@@ -6,25 +6,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.adapters.TweetAdapter;
 import com.abcxo.android.ifootball.controllers.adapters.UserImageAdapter;
 import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
-import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
-import com.abcxo.android.ifootball.views.DividerItemDecoration;
+import com.malinskiy.superrecyclerview.OnMoreListener;
+import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +30,10 @@ public class UserImageFragment extends Fragment {
 
     protected long uid;
 
-    protected SwipeRefreshLayout refreshLayout;
-    protected RecyclerView recyclerView;
+    protected SuperRecyclerView recyclerView;
     protected UserImageAdapter adapter;
+
+    protected int pageIndex;
 
     public static UserImageFragment newInstance() {
         return newInstance(null);
@@ -68,23 +65,51 @@ public class UserImageFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshlayout);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        recyclerView = (SuperRecyclerView) view.findViewById(R.id.recyclerview);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),3);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
+        recyclerView.setLayoutManager(layoutManager);
         adapter = new UserImageAdapter(new ArrayList<Image>(), new BindingHandler());
         recyclerView.setAdapter(adapter);
 
-        refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
-
-        final SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
+        recyclerView.setNumberBeforeMoreIsCalled(Constants.MAX_LEFT_MORE);
+        recyclerView.setRefreshingColorResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
+        final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                TweetRestful.INSTANCE.gets(uid, getGetsType(), 0, new TweetRestful.OnTweetRestfulList() {
+                pageIndex = 0;
+                loadData(true);
+            }
+        };
+        recyclerView.setRefreshListener(onRefreshListener);
+
+        recyclerView.setupMoreListener(new OnMoreListener() {
+            @Override
+            public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
+                loadData(false);
+            }
+        }, Constants.MAX_LEFT_MORE);
+        recyclerView.getSwipeToRefresh().post(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.getSwipeToRefresh().setRefreshing(true);
+                onRefreshListener.onRefresh();
+            }
+        });
+    }
+
+
+    protected void loadData(final boolean first) {
+        TweetRestful.INSTANCE.gets(uid,
+                getGetsType(), pageIndex, new TweetRestful.OnTweetRestfulList() {
                     @Override
                     public void onSuccess(List<Tweet> tweets) {
-                        refreshImages(tweetsToImages(tweets));
+                        if (first) {
+                            refreshImages(tweetsToImages(tweets));
+                        } else {
+                            addImages(tweetsToImages(tweets));
+                        }
+
                     }
 
                     @Override
@@ -94,22 +119,13 @@ public class UserImageFragment extends Fragment {
 
                     @Override
                     public void onFinish() {
-                        refreshLayout.setRefreshing(false);
+                        if (first) {
+                            recyclerView.getSwipeToRefresh().setRefreshing(false);
+                        } else {
+                            recyclerView.hideMoreProgress();
+                        }
                     }
                 });
-            }
-        };
-        refreshLayout.setOnRefreshListener(listener);
-
-        refreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                refreshLayout.setRefreshing(true);
-                listener.onRefresh();
-            }
-        });
-
-
     }
 
 
@@ -127,15 +143,21 @@ public class UserImageFragment extends Fragment {
     }
 
     protected void refreshImages(List<Image> images) {
-        adapter.images.clear();
-        adapter.images.addAll(images);
-        adapter.notifyDataSetChanged();
+        if (images != null && images.size() > 0) {
+            adapter.images.clear();
+            adapter.images.addAll(images);
+            adapter.notifyDataSetChanged();
+            pageIndex++;
+        }
     }
 
     protected void addImages(List<Image> images) {
-        int bCount = adapter.images.size();
-        adapter.images.addAll(images);
-        adapter.notifyItemRangeInserted(bCount, images.size());
+        if (images != null && images.size() > 0) {
+            int bCount = adapter.images.size();
+            adapter.images.addAll(images);
+            adapter.notifyItemRangeInserted(bCount, images.size());
+            pageIndex++;
+        }
     }
 
 

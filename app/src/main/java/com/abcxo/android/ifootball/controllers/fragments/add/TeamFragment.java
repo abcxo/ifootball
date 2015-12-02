@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,12 @@ import android.view.ViewGroup;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.TeamAdapter;
-import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.ViewUtils;
+import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +28,8 @@ public class TeamFragment extends Fragment {
 
     protected String name;
 
-    protected SwipeRefreshLayout refreshLayout;
-    protected RecyclerView recyclerView;
+    protected SuperRecyclerView recyclerView;
+
     protected TeamAdapter adapter;
     private Listener listener;
 
@@ -73,51 +72,63 @@ public class TeamFragment extends Fragment {
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshlayout);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-
+        recyclerView = (SuperRecyclerView) view.findViewById(R.id.recyclerview);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
         recyclerView.setLayoutManager(gridLayoutManager);
         adapter = new TeamAdapter(new ArrayList<User>(), new BindingHandler());
         recyclerView.setAdapter(adapter);
 
-        refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
-
-        final SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
+        recyclerView.setRefreshingColorResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
+        final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                UserRestful.INSTANCE.getTeams(name, new UserRestful.OnUserRestfulList() {
-                    @Override
-                    public void onSuccess(List<User> users) {
-                        refreshUsers(users);
-                        if (TeamFragment.this.listener!=null){
-                            TeamFragment.this.listener.onLoaded(users);
-                        }
-                    }
-
-                    @Override
-                    public void onError(RestfulError error) {
-                        ViewUtils.toast(error.msg);
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        refreshLayout.setRefreshing(false);
-                        refreshLayout.setEnabled(false);
-                    }
-                });
+                loadData(true);
             }
         };
-        refreshLayout.setOnRefreshListener(listener);
+        recyclerView.setRefreshListener(onRefreshListener);
 
-        refreshLayout.post(new Runnable() {
+        recyclerView.getSwipeToRefresh().post(new Runnable() {
             @Override
             public void run() {
-                refreshLayout.setRefreshing(true);
-                listener.onRefresh();
+                recyclerView.getSwipeToRefresh().setRefreshing(true);
+                onRefreshListener.onRefresh();
             }
         });
 
+    }
+
+    protected void loadData(final boolean first) {
+        UserRestful.INSTANCE.getTeams(name, new UserRestful.OnUserRestfulList() {
+            @Override
+            public void onSuccess(List<User> users) {
+                if (first) {
+                    refreshUsers(users);
+                    if (TeamFragment.this.listener != null) {
+                        TeamFragment.this.listener.onLoaded(users);
+                    }
+                    recyclerView.getSwipeToRefresh().setEnabled(false);
+                } else {
+                    addUsers(users);
+                }
+
+            }
+
+            @Override
+            public void onError(RestfulError error) {
+                ViewUtils.toast(error.msg);
+            }
+
+            @Override
+            public void onFinish() {
+                if (first) {
+                    recyclerView.getSwipeToRefresh().setRefreshing(false);
+                } else {
+                    recyclerView.hideMoreProgress();
+                }
+
+
+            }
+        });
     }
 
 

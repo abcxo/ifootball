@@ -39,5 +39,6 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     compile 'com.commit451:PhotoView:1.2.4'
-    compile files('libs/AMap_Location_v2.0.0_20151117.jar')
+    compile 'com.malinskiy:superrecyclerview:1.1.1'
+
 }

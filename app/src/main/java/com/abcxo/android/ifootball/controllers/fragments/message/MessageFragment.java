@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,11 @@ import com.abcxo.android.ifootball.controllers.adapters.MessageAdapter;
 import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.restfuls.MessageRestful;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
+import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
 import com.abcxo.android.ifootball.views.RecyclerItemClickListener;
+import com.malinskiy.superrecyclerview.OnMoreListener;
+import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +29,10 @@ public class MessageFragment extends Fragment {
 
     protected List<Message> list = new ArrayList<>();
 
-    protected SwipeRefreshLayout refreshLayout;
-    protected RecyclerView recyclerView;
+
+    protected SuperRecyclerView recyclerView;
+    protected int pageIndex;
+
     protected MessageAdapter adapter;
     private Listener listener;
 
@@ -78,15 +82,41 @@ public class MessageFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshlayout);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+
+        recyclerView = (SuperRecyclerView) view.findViewById(R.id.recyclerview);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.VERTICAL));
+
         adapter = new MessageAdapter(list);
         recyclerView.setAdapter(adapter);
+
+        recyclerView.setRefreshingColorResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
+        final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pageIndex = 0;
+                loadData(true);
+            }
+        };
+        recyclerView.setRefreshListener(onRefreshListener);
+
+        recyclerView.setupMoreListener(new OnMoreListener() {
+            @Override
+            public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
+                loadData(false);
+            }
+        }, Constants.MAX_LEFT_MORE);
+        recyclerView.getSwipeToRefresh().post(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.getSwipeToRefresh().setRefreshing(true);
+                onRefreshListener.onRefresh();
+            }
+        });
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -99,40 +129,36 @@ public class MessageFragment extends Fragment {
                 })
         );
 
-        refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
+    }
 
-        final SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
+    protected void loadData(final boolean first) {
+        MessageRestful.INSTANCE.gets(uid, uid2, tid, getGetsType(), pageIndex, new MessageRestful.OnMessageRestfulList() {
             @Override
-            public void onRefresh() {
-                MessageRestful.INSTANCE.gets(uid, uid2, tid, getGetsType(), 0, new MessageRestful.OnMessageRestfulList() {
-                    @Override
-                    public void onSuccess(List<Message> messages) {
-                        refreshMessages(messages);
-                    }
+            public void onSuccess(List<Message> messages) {
+                if (first) {
+                    refreshMessages(messages);
+                } else {
+                    addMessages(messages);
+                }
 
-                    @Override
-                    public void onError(RestfulError error) {
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        refreshLayout.setRefreshing(false);
-                    }
-                });
             }
-        };
-        refreshLayout.setOnRefreshListener(listener);
 
-        refreshLayout.post(new Runnable() {
             @Override
-            public void run() {
-                refreshLayout.setRefreshing(true);
-                listener.onRefresh();
+            public void onError(RestfulError error) {
+                ViewUtils.toast(error.msg);
+            }
+
+            @Override
+            public void onFinish() {
+                if (first) {
+                    recyclerView.getSwipeToRefresh().setRefreshing(false);
+                } else {
+                    recyclerView.hideMoreProgress();
+                }
+
+
             }
         });
-
-
     }
 
 

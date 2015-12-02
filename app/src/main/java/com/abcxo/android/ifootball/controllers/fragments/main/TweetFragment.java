@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,10 @@ import com.abcxo.android.ifootball.controllers.adapters.TweetAdapter;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
-import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
+import com.malinskiy.superrecyclerview.OnMoreListener;
+import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +28,11 @@ public class TweetFragment extends Fragment {
     protected List<Tweet> list = new ArrayList<>();
     protected long uid;
 
-
-    protected SwipeRefreshLayout refreshLayout;
-    protected RecyclerView recyclerView;
+    protected SuperRecyclerView recyclerView;
     protected TweetAdapter adapter;
+
+
+    protected int pageIndex;
 
     public static TweetFragment newInstance() {
         return newInstance(null);
@@ -63,8 +64,7 @@ public class TweetFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshlayout);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        recyclerView = (SuperRecyclerView) view.findViewById(R.id.recyclerview);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -75,41 +75,61 @@ public class TweetFragment extends Fragment {
         adapter = new TweetAdapter(list);
         recyclerView.setAdapter(adapter);
 
-        refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
-
-        final SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
+        recyclerView.setRefreshingColorResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
+        final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                TweetRestful.INSTANCE.gets(uid,
-                        getGetsType(), 0, new TweetRestful.OnTweetRestfulList() {
-                            @Override
-                            public void onSuccess(List<Tweet> tweets) {
-                                refreshTweets(tweets);
-                            }
-
-                            @Override
-                            public void onError(RestfulError error) {
-                                ViewUtils.toast(error.msg);
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                refreshLayout.setRefreshing(false);
-                            }
-                        });
+                pageIndex = 0;
+                loadData(true);
             }
         };
-        refreshLayout.setOnRefreshListener(listener);
+        recyclerView.setRefreshListener(onRefreshListener);
 
-        refreshLayout.post(new Runnable() {
+        recyclerView.setupMoreListener(new OnMoreListener() {
+            @Override
+            public void onMoreAsked(int numberOfItems, int numberBeforeMore, int currentItemPos) {
+                loadData(false);
+            }
+        }, Constants.MAX_LEFT_MORE);
+        recyclerView.getSwipeToRefresh().post(new Runnable() {
             @Override
             public void run() {
-                refreshLayout.setRefreshing(true);
-                listener.onRefresh();
+                recyclerView.getSwipeToRefresh().setRefreshing(true);
+                onRefreshListener.onRefresh();
             }
         });
 
+    }
 
+    protected void loadData(final boolean first) {
+        TweetRestful.INSTANCE.gets(uid,
+                getGetsType(), pageIndex, new TweetRestful.OnTweetRestfulList() {
+                    @Override
+                    public void onSuccess(List<Tweet> tweets) {
+                        if (first) {
+                            refreshTweets(tweets);
+                        } else {
+                            addTweets(tweets);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(RestfulError error) {
+                        ViewUtils.toast(error.msg);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        if (first) {
+                            recyclerView.getSwipeToRefresh().setRefreshing(false);
+                        } else {
+                            recyclerView.hideMoreProgress();
+                        }
+
+
+                    }
+                });
     }
 
 
@@ -119,15 +139,21 @@ public class TweetFragment extends Fragment {
 
 
     protected void refreshTweets(List<Tweet> tweets) {
-        list.clear();
-        list.addAll(tweets);
-        adapter.notifyDataSetChanged();
+        if (tweets != null && tweets.size() > 0) {
+            list.clear();
+            list.addAll(tweets);
+            adapter.notifyDataSetChanged();
+            pageIndex++;
+        }
     }
 
     protected void addTweets(List<Tweet> tweets) {
-        int bCount = list.size();
-        list.addAll(tweets);
-        adapter.notifyItemRangeInserted(bCount, tweets.size());
+        if (tweets != null && tweets.size() > 0) {
+            int bCount = list.size();
+            list.addAll(tweets);
+            adapter.notifyItemRangeInserted(bCount, tweets.size());
+            pageIndex++;
+        }
     }
 
 

@@ -61,6 +61,8 @@
     <!--附加-->
     <color name="color_text_append">#60000000</color>
 
+    <color name="color_text_empty">#20000000</color>
+
 
     <color name="color_divider">#10000000</color>
 
@@ -79,7 +81,7 @@
     <color name="color_red">#F44336</color>
     <color name="color_dark">#000000</color>
 
-    <color name="color_bg">#FFBD52</color>
+    <color name="color_bg">#20000000</color>
 
 
 

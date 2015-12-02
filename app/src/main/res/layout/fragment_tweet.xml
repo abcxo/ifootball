@@ -6,18 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".controllers.activities.NavActivity">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refreshlayout"
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
+        android:layout_height="match_parent"
+        app:layout_empty="@layout/view_empty"
+        app:layout_moreProgress="@layout/view_loadmore" />
 
 </RelativeLayout>

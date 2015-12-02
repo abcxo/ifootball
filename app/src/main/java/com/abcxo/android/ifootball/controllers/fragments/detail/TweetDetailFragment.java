@@ -96,10 +96,10 @@ public class TweetDetailFragment extends DetailFragment {
                 getActivity().finish();
             }
         });
-        View comment = view.findViewById(R.id.comment);
-        ViewGroup.LayoutParams lp = comment.getLayoutParams();
-        lp.height = ViewUtils.screenHeight();
-        comment.setLayoutParams(lp);
+//        View comment = view.findViewById(R.id.comment);
+//        ViewGroup.LayoutParams lp = comment.getLayoutParams();
+//        lp.height = ViewUtils.screenHeight();
+//        comment.setLayoutParams(lp);
 
         if (tweet != null) {
             bindData();

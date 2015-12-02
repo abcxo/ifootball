@@ -14,11 +14,8 @@ import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.MessageAdapter;
 import com.abcxo.android.ifootball.models.Message;
-import com.abcxo.android.ifootball.models.Tweet;
-import com.abcxo.android.ifootball.models.User;
-import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.MessageRestful;
-import com.abcxo.android.ifootball.restfuls.TweetRestful;
+import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
 import com.abcxo.android.ifootball.views.RecyclerItemClickListener;
 
@@ -96,7 +93,7 @@ public class MessageFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         if (listener != null) {
-                            listener.onItemClick(view,list.get(position),position);
+                            listener.onItemClick(view, list.get(position), position);
                         }
                     }
                 })
@@ -156,7 +153,7 @@ public class MessageFragment extends Fragment {
     }
 
     public interface Listener {
-        void onItemClick(View view, Message message,int position);
+        void onItemClick(View view, Message message, int position);
     }
 
 }

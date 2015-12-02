@@ -10,9 +10,6 @@
 
         <import type="android.view.View" />
 
-        <import type="com.abcxo.android.ifootball.models.Tweet.TweetDetailType" />
-
-
         <variable
             name="tweet"
             type="Tweet" />
@@ -81,21 +78,21 @@
             android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
             app:imageUrl="@{tweet.cover}" />
 
-        <!--<include-->
-            <!--android:id="@+id/repeat_content"-->
-            <!--layout="@layout/content_tweet"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignLeft="@+id/name"-->
-            <!--android:layout_below="@id/images"-->
-            <!--android:layout_marginTop="@dimen/padding"-->
-            <!--bind:tweet="@{tweet.originTweet}" />-->
+        <include
+            android:id="@+id/repeat_content"
+            layout="@layout/content_tweet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/name"
+            android:layout_below="@id/images"
+            android:layout_marginTop="@dimen/padding"
+            bind:tweet="@{tweet.originTweet}" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
-            android:layout_below="@+id/images"
+            android:layout_below="@+id/repeat_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

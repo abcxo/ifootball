@@ -105,6 +105,7 @@
                     android:layout_marginTop="@dimen/padding_small"
                     android:singleLine="true"
                     android:text="@{tweet.title}"
+                    android:visibility="@{tweet.title!=null?View.VISIBLE:View.GONE}"
                     android:textColor="@color/color_text_title"
                     android:textSize="16dp"
                     tools:text="咸蛋超wefwefwef人" />

@@ -3,29 +3,20 @@ package com.abcxo.android.ifootball.controllers.fragments.detail;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.fragments.message.CommentTweetMessageFragment;
-import com.abcxo.android.ifootball.controllers.fragments.message.MessageFragment;
 import com.abcxo.android.ifootball.databinding.FragmentDetailTweetBinding;
-import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
-import com.abcxo.android.ifootball.restfuls.UserRestful;
-import com.abcxo.android.ifootball.utils.NavUtils;
-import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.OkHttpClient;
@@ -33,8 +24,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by shadow on 15/11/4.
@@ -44,13 +33,6 @@ public class TweetDetailFragment extends DetailFragment {
     private Tweet tweet;
     private long tid;
     private FragmentDetailTweetBinding binding;
-
-    private EditText inputET;
-
-    private WebView webView;
-    private CommentTweetMessageFragment commentTweetMessageFragment;
-
-    private Message selectedMessage;
 
     public static TweetDetailFragment newInstance() {
         return newInstance(null);
@@ -80,36 +62,18 @@ public class TweetDetailFragment extends DetailFragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = DataBindingUtil.bind(view);
-        binding.setHandler(new BindingHandler());
-
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
-//        View comment = view.findViewById(R.id.comment);
-//        ViewGroup.LayoutParams lp = comment.getLayoutParams();
-//        lp.height = ViewUtils.screenHeight();
-//        comment.setLayoutParams(lp);
-
         if (tweet != null) {
-            bindData();
+            bindData(view);
         } else {
             ViewUtils.loading(getActivity());
             TweetRestful.INSTANCE.get(tid, new TweetRestful.OnTweetRestfulGet() {
                 @Override
                 public void onSuccess(Tweet tweet) {
                     TweetDetailFragment.this.tweet = tweet;
-                    bindData();
+                    bindData(view);
                 }
 
                 @Override
@@ -125,23 +89,31 @@ public class TweetDetailFragment extends DetailFragment {
 
         }
 
-        inputET = (EditText) view.findViewById(R.id.input);
+    }
 
-        Bundle bundle = new Bundle();
-        bundle.putLong(Constants.KEY_TID, tweet != null ? tweet.id : tid);
-        commentTweetMessageFragment = CommentTweetMessageFragment.newInstance(bundle);
-        getChildFragmentManager().beginTransaction().replace(R.id.comment, commentTweetMessageFragment).commit();
-        commentTweetMessageFragment.setListener(new MessageFragment.Listener() {
+
+    public void bindData(View view) {
+        binding.setTweet(tweet);
+        final WebView webView = (WebView) view.findViewById(R.id.webview);
+        final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshlayout);
+        refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
+
+        final SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onItemClick(View view, Message message, int position) {
-                if (message.uid != UserRestful.INSTANCE.meId()) {
-                    clearText(true, message);
-                }
+            public void onRefresh() {
+                webView.loadUrl(tweet.content);
+            }
+        };
+        refreshLayout.setOnRefreshListener(listener);
+
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+                listener.onRefresh();
             }
         });
 
-
-        webView = (WebView) view.findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
@@ -164,78 +136,14 @@ public class TweetDetailFragment extends DetailFragment {
 
             }
 
-        });
-        webView.loadUrl(tweet.content);
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                refreshLayout.setRefreshing(false);
 
-    }
-
-
-    public void bindData() {
-        binding.setTweet(tweet);
-
-    }
-
-
-    public class BindingHandler {
-        public void onClickComment(View view) {
-            clearText(true, null);
-        }
-
-        public void onClickSend(View view) {
-            if (UserRestful.INSTANCE.isLogin()) {
-                String input = inputET.getText().toString();
-                if (TextUtils.isEmpty(input)) {
-                    ViewUtils.toast(R.string.error_chat);
-                } else {
-                    Message message = new Message();
-                    message.uid = UserRestful.INSTANCE.meId();
-                    message.uid2 = selectedMessage != null ? selectedMessage.uid : tweet.uid;
-                    message.tid = tweet.id;
-                    message.title = UserRestful.INSTANCE.me().name;
-                    message.icon = UserRestful.INSTANCE.me().avatar;
-                    message.content = selectedMessage != null ? "回复@" + selectedMessage.title + "：" + input : input;
-                    message.messageType = Message.MessageType.COMMENT;
-                    message.mainType = Message.MessageMainType.COMMENT_TWEET;
-                    message.detailType = Message.MessageDetailType.COMMENT;
-                    message.time = Utils.time();
-                    List<Message> messages = new ArrayList<>();
-                    messages.add(message);
-                    commentTweetMessageFragment.addMessages(messages);
-
-                    clearText(false, null);
-                    TweetRestful.INSTANCE.comment(message, new TweetRestful.OnTweetRestfulDo() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
-
-                        @Override
-                        public void onError(RestfulError error) {
-
-                        }
-
-                        @Override
-                        public void onFinish() {
-
-                        }
-                    });
-                }
-            } else {
-                NavUtils.toSign(getActivity());
             }
-
-        }
-    }
-
-    private void clearText(boolean open, Message message) {
-        selectedMessage = message;
-        inputET.setHint(message != null ? "@" + message.title + "：" : getString(R.string.detail_tweet_text_hint));
-        inputET.getText().clear();
-        if (open) {
-            ViewUtils.openKeyboard(getActivity(), inputET);
-        } else {
-            ViewUtils.closeKeyboard(getActivity());
-        }
+        });
 
     }
+
 }

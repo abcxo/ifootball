@@ -4,8 +4,6 @@ import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.IOException;
-
 import retrofit.Response;
 import retrofit.Retrofit;
 
@@ -22,7 +20,7 @@ public abstract class OnRestful<T> implements retrofit.Callback<T> {
 
     @Override
     public void onResponse(Response<T> response, Retrofit retrofit) {
-        if (response.isSuccess()) {
+        if (response.isSuccess() && response != null) {
             onSuccess(response.body());
         } else {
             Error error = new Error();

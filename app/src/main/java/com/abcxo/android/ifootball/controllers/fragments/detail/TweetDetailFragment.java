@@ -14,9 +14,11 @@ import android.webkit.WebViewClient;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.databinding.FragmentDetailTweetBinding;
+import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
+import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.OkHttpClient;
@@ -24,6 +26,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
  * Created by shadow on 15/11/4.
@@ -114,7 +117,20 @@ public class TweetDetailFragment extends DetailFragment {
             }
         });
 
+        webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (tweet.hasImage(url) && (url.toLowerCase().contains("jpg")
+                        || url.toLowerCase().contains("webp")
+                        || url.toLowerCase().contains("png")
+                        || url.toLowerCase().contains("gif"))) {
+                    NavUtils.toImage(getActivity(), (ArrayList<Image>) tweet.imageList(), tweet.indexOfImage(url));
+                    return true;
+                }
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
                 try {

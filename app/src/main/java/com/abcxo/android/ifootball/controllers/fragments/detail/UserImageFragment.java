@@ -143,12 +143,14 @@ public class UserImageFragment extends Fragment {
     }
 
     protected void refreshImages(List<Image> images) {
+        adapter.images.clear();
+
+
         if (images != null && images.size() > 0) {
-            adapter.images.clear();
             adapter.images.addAll(images);
-            adapter.notifyDataSetChanged();
             pageIndex++;
         }
+        adapter.notifyDataSetChanged();
     }
 
     protected void addImages(List<Image> images) {

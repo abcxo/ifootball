@@ -26,6 +26,7 @@ import com.abcxo.android.ifootball.controllers.fragments.nav.SearchNavFragment;
 import com.abcxo.android.ifootball.databinding.NavHeaderMainBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 
 public class NavActivity extends AppCompatActivity
@@ -96,6 +97,7 @@ public class NavActivity extends AppCompatActivity
             public void onReceive(Context context, Intent intent) {
                 User user = UserRestful.INSTANCE.me();
                 navHeaderMainBinding.setUser(user);
+                LocationUtils.saveLocation();
             }
         }, Constants.ACTION_EDIT);
 

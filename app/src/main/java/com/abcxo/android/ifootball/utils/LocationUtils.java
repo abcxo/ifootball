@@ -24,9 +24,9 @@ public class LocationUtils {
             public void onReceiveLocation(BDLocation location) {
                 if (UserRestful.INSTANCE.isLogin()
                         && location != null
-                        && location.getLocType() == BDLocation.TypeCacheLocation
-                        && location.getLocType() == BDLocation.TypeNetWorkLocation
-                        && location.getLocType() == BDLocation.TypeOffLineLocation) {
+                        && (location.getLocType() == BDLocation.TypeCacheLocation
+                        || location.getLocType() == BDLocation.TypeNetWorkLocation
+                        || location.getLocType() == BDLocation.TypeOffLineLocation)) {
                     User user = UserRestful.INSTANCE.me();
                     user.lat = location.getLatitude();
                     user.lon = location.getLongitude();

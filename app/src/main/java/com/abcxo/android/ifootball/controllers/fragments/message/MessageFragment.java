@@ -168,14 +168,23 @@ public class MessageFragment extends Fragment {
 
     protected void refreshMessages(List<Message> messages) {
         list.clear();
-        list.addAll(messages);
+
+
+        if (messages != null && messages.size() > 0) {
+            list.addAll(messages);
+            pageIndex++;
+
+        }
         adapter.notifyDataSetChanged();
     }
 
     public void addMessages(List<Message> messages) {
-        int bCount = list.size();
-        list.addAll(messages);
-        adapter.notifyItemRangeInserted(bCount, messages.size());
+        if (messages != null && messages.size() > 0) {
+            int bCount = list.size();
+            list.addAll(messages);
+            adapter.notifyItemRangeInserted(bCount, messages.size());
+            pageIndex++;
+        }
     }
 
     public interface Listener {

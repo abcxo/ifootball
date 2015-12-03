@@ -129,6 +129,30 @@ public class Tweet extends BaseObservable implements Parcelable {
         return cover;
     }
 
+
+    public boolean hasImage(String url) {
+        List<Image> imageList = imageList();
+        for (Image image : imageList) {
+            if (image.url.equals(url)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int indexOfImage(String url) {
+        List<Image> imageList = imageList();
+        int i = 0;
+        for (Image image : imageList) {
+            if (image.url.equals(url)) {
+                return i;
+            }
+            i++;
+        }
+        return i;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;

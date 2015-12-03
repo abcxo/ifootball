@@ -81,6 +81,7 @@ public class UserFragment extends Fragment {
             public void onRefresh() {
                 pageIndex = 0;
                 loadData(true);
+                UserFragment.this.onRefresh();
             }
         };
         recyclerView.setRefreshListener(onRefreshListener);
@@ -133,14 +134,18 @@ public class UserFragment extends Fragment {
         });
     }
 
+    protected void onRefresh() {
+
+    }
 
     protected void refreshUsers(List<User> users) {
+        list.clear();
         if (users != null && users.size() > 0) {
-            list.clear();
             list.addAll(users);
-            adapter.notifyDataSetChanged();
             pageIndex++;
         }
+        adapter.notifyDataSetChanged();
+
     }
 
     protected void addUsers(List<User> users) {

@@ -14,7 +14,6 @@ import android.view.animation.AccelerateInterpolator;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.controllers.activities.AddTeamActivity;
 import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
-import com.abcxo.android.ifootball.controllers.activities.SignActivity;
 import com.abcxo.android.ifootball.controllers.adapters.MainAdapter;
 import com.abcxo.android.ifootball.databinding.FragmentMainNavBinding;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
@@ -99,6 +98,9 @@ public class MainNavFragment extends NavFragment {
                 if (position == NEWS.getIndex()) {
                     fab.setVisibility(View.GONE);
 
+                }
+                if (position == DISCOVER.getIndex()) {
+                    LocationUtils.saveLocation();
                 }
             }
 

@@ -139,12 +139,15 @@ public class TweetFragment extends Fragment {
 
 
     protected void refreshTweets(List<Tweet> tweets) {
+        list.clear();
+
+
         if (tweets != null && tweets.size() > 0) {
-            list.clear();
             list.addAll(tweets);
-            adapter.notifyDataSetChanged();
             pageIndex++;
+
         }
+        adapter.notifyDataSetChanged();
     }
 
     protected void addTweets(List<Tweet> tweets) {

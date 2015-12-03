@@ -1,12 +1,9 @@
 package com.abcxo.android.ifootball.controllers.fragments.main;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.controllers.fragments.sign.UserFragment;
+import com.abcxo.android.ifootball.utils.LocationUtils;
 
 public class DiscoverUserFragment extends UserFragment {
     public static DiscoverUserFragment newInstance() {
@@ -20,4 +17,9 @@ public class DiscoverUserFragment extends UserFragment {
     }
 
 
+    @Override
+    protected void onRefresh() {
+        super.onRefresh();
+        LocationUtils.saveLocation();
+    }
 }

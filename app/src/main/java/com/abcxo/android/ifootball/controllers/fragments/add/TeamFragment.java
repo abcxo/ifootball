@@ -138,8 +138,11 @@ public class TeamFragment extends Fragment {
 
 
     protected void refreshUsers(List<User> users) {
+
         adapter.users.clear();
-        adapter.users.addAll(users);
+        if (users != null && users.size() > 0) {
+            adapter.users.addAll(users);
+        }
         adapter.notifyDataSetChanged();
 
     }

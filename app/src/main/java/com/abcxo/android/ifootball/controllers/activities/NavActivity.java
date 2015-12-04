@@ -29,7 +29,6 @@ import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.umeng.message.PushAgent;
-
 import cn.sharesdk.framework.ShareSDK;
 
 public class NavActivity extends AppCompatActivity

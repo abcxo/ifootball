@@ -25,12 +25,16 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    packagingOptions {
+        exclude 'META-INF/maven/com.squareup.okio/okio/pom.xml'
+        exclude 'META-INF/maven/com.squareup.okio/okio/pom.properties'
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:appcompat-v7:23.+'
     compile 'com.android.support:design:+'
     compile 'com.android.support:support-v4:+'
     compile 'com.android.support:percent:+'
@@ -40,5 +44,6 @@ dependencies {
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.malinskiy:superrecyclerview:1.1.1'
-
+//    compile project(':push')
+    compile project(':share')
 }

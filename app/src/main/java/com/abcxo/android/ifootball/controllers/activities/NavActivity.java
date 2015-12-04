@@ -28,6 +28,9 @@ import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.Utils;
+import com.umeng.message.PushAgent;
+
+import cn.sharesdk.framework.ShareSDK;
 
 public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,6 +60,9 @@ public class NavActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav);
+        init();
+
+
         navigationView = (NavigationView) findViewById(R.id.activity_navigationview);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -69,7 +75,14 @@ public class NavActivity extends AppCompatActivity
         User user = UserRestful.INSTANCE.me();
         navHeaderMainBinding.setUser(user);
 
+    }
 
+
+    private void init() {
+        ShareSDK.initSDK(this);
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        mPushAgent.enable();
+        LocationUtils.saveLocation();
     }
 
 
@@ -87,6 +100,7 @@ public class NavActivity extends AppCompatActivity
             public void onReceive(Context context, Intent intent) {
                 User user = UserRestful.INSTANCE.me();
                 navHeaderMainBinding.setUser(user);
+                LocationUtils.saveLocation();
                 reset();
             }
         }, Constants.ACTION_LOGIN);
@@ -97,7 +111,6 @@ public class NavActivity extends AppCompatActivity
             public void onReceive(Context context, Intent intent) {
                 User user = UserRestful.INSTANCE.me();
                 navHeaderMainBinding.setUser(user);
-                LocationUtils.saveLocation();
             }
         }, Constants.ACTION_EDIT);
 

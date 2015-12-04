@@ -3,7 +3,6 @@ package com.abcxo.android.ifootball.controllers.fragments.main;
 import android.os.Bundle;
 
 import com.abcxo.android.ifootball.controllers.fragments.sign.UserFragment;
-import com.abcxo.android.ifootball.utils.LocationUtils;
 
 public class DiscoverUserFragment extends UserFragment {
     public static DiscoverUserFragment newInstance() {
@@ -16,10 +15,4 @@ public class DiscoverUserFragment extends UserFragment {
         return fragment;
     }
 
-
-    @Override
-    protected void onRefresh() {
-        super.onRefresh();
-        LocationUtils.saveLocation();
-    }
 }

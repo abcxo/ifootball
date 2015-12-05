@@ -1,10 +1,14 @@
 package com.abcxo.android.ifootball.controllers.fragments.nav;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,18 +16,22 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.activities.AddTeamActivity;
 import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
-import com.abcxo.android.ifootball.controllers.adapters.MainAdapter;
+import com.abcxo.android.ifootball.controllers.fragments.main.DiscoverUserFragment;
+import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
+import com.abcxo.android.ifootball.controllers.fragments.main.NewsTweetFragment;
+import com.abcxo.android.ifootball.controllers.fragments.main.TeamTweetFragment;
 import com.abcxo.android.ifootball.databinding.FragmentMainNavBinding;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
 
-import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.DISCOVER;
-import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.HOME;
-import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.NEWS;
-import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.TEAM;
+import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.DISCOVER;
+import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.HOME;
+import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.NEWS;
+import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.TEAM;
 
 public class MainNavFragment extends NavFragment {
 
@@ -109,6 +117,72 @@ public class MainNavFragment extends NavFragment {
 
             }
         });
+
+
+    }
+
+
+    //获取用户列表
+    public enum PageType {
+
+        HOME(0),
+        TEAM(1),
+        NEWS(2),
+        DISCOVER(3);
+        private int index;
+
+        PageType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return PageType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
+
+    public class MainAdapter extends FragmentPagerAdapter {
+
+
+
+
+        private String[] titles;
+
+        public MainAdapter(FragmentManager fm, Context context) {
+            super(fm);
+            titles = context.getResources().getStringArray(R.array.main_page_list);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            if (position == HOME.getIndex()) {
+                return HomeTweetFragment.newInstance(bundle);
+            } else if (position == TEAM.getIndex()) {
+                return TeamTweetFragment.newInstance(bundle);
+            } else if (position == NEWS.getIndex()) {
+                return NewsTweetFragment.newInstance(bundle);
+            } else if (position == DISCOVER.getIndex()) {
+                return DiscoverUserFragment.newInstance(bundle);
+            }
+            return null;
+        }
+
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+
+        @Override
+        public int getCount() {
+            return titles.length;
+        }
 
 
     }

@@ -3,6 +3,7 @@ package com.abcxo.android.ifootball.controllers.fragments.add;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,9 +22,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.abcxo.android.ifootball.Application;
+import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.adapters.AddTweetImageAdapter;
 import com.abcxo.android.ifootball.databinding.FragmentAddTweetBinding;
 import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
@@ -31,9 +34,11 @@ import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.FileUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
+import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by shadow on 15/11/4.
@@ -102,6 +107,109 @@ public class AddTweetFragment extends Fragment {
 
     }
 
+    public enum ImageType {
+        NORMAL(0),
+        ADD(1);
+        private int index;
+
+        ImageType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return ImageType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
+    public class AddTweetImageAdapter extends RecyclerView.Adapter<AddTweetImageAdapter.BindingHolder> {
+
+        public List<Image> images;
+
+        private AddTweetFragment.BindingHandler handler;
+
+        public AddTweetImageAdapter(List<Image> images, AddTweetFragment.BindingHandler handler) {
+            this.images = images;
+            this.handler = handler;
+        }
+
+        public void addImage(Bitmap bitmap) {
+            String url = FileUtils.saveImage(bitmap, Constants.DIR_TWEET_ADD, Utils.randomString());
+            if (!TextUtils.isEmpty(url)) {
+                Image image = new Image();
+                image.url = url;
+                image.imageType = Image.ImageType.DELETE;
+                images.add(image);
+                notifyItemInserted(images.size());
+            } else {
+                ViewUtils.toast(R.string.add_tweet_send_image_error);
+            }
+
+
+        }
+
+        public class BindingHolder extends RecyclerView.ViewHolder {
+            public ViewDataBinding binding;
+            public View view;
+
+            public BindingHolder(View rowView) {
+                super(rowView);
+                binding = DataBindingUtil.bind(rowView);
+                view = rowView;
+            }
+        }
+
+        @Override
+        public BindingHolder onCreateViewHolder(ViewGroup parent, int type) {
+            BindingHolder holder = new BindingHolder(getItemLayoutView(parent, type));
+            return holder;
+        }
+
+        public View getItemLayoutView(ViewGroup parent, int type) {
+            if (type == ImageType.NORMAL.getIndex()) {
+                return LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_image_normal, parent, false);
+            } else {
+                return LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_image_add, parent, false);
+            }
+
+        }
+
+        @Override
+        public void onBindViewHolder(BindingHolder holder, int position) {
+            int type = getItemViewType(position);
+            if (type == ImageType.NORMAL.getIndex()) {
+                final Image image = images.get(position);
+                holder.binding.setVariable(BR.image, image);
+                holder.view.setTag(image);
+            }
+            holder.binding.setVariable(BR.handler, handler);
+
+        }
+
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position < images.size()) {
+                return ImageType.NORMAL.getIndex();
+            } else {
+                return ImageType.ADD.getIndex();
+            }
+        }
+
+
+        @Override
+        public int getItemCount() {
+            return images.size() + 1;
+        }
+
+
+    }
+
 
     public class BindingHandler {
 
@@ -140,17 +248,20 @@ public class AddTweetFragment extends Fragment {
                 TweetRestful.INSTANCE.add(tweet, adapter.images, null, originTweet != null ? originTweet.id : 0, new TweetRestful.OnTweetRestfulGet() {
                     @Override
                     public void onSuccess(Tweet tweet) {
+                        LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_REFRESH_HOME));
+                        ViewUtils.dismiss();
                         finish();
                     }
 
                     @Override
                     public void onError(RestfulError error) {
+                        ViewUtils.dismiss();
                         ViewUtils.toast(error.msg);
                     }
 
                     @Override
                     public void onFinish() {
-                        ViewUtils.dismiss();
+
                     }
                 });
 

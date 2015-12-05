@@ -1,16 +1,19 @@
 package com.abcxo.android.ifootball.controllers.fragments.sign;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.adapters.UserAdapter;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
@@ -21,6 +24,9 @@ import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.abcxo.android.ifootball.models.User.UserMainType.CONTACT;
+import static com.abcxo.android.ifootball.models.User.UserMainType.DISCOVER;
 
 public class UserFragment extends Fragment {
 
@@ -161,4 +167,72 @@ public class UserFragment extends Fragment {
         return UserRestful.GetsType.DISCOVER;
     }
 
+
+    public class UserAdapter extends RecyclerView.Adapter<UserAdapter.BindingHolder> {
+
+        public List<User> users;
+
+        public UserAdapter(List<User> users) {
+            this.users = users;
+        }
+
+        public class BindingHolder extends RecyclerView.ViewHolder {
+            public ViewDataBinding binding;
+
+            public BindingHolder(View rowView) {
+                super(rowView);
+                binding = DataBindingUtil.bind(rowView);
+            }
+        }
+
+        @Override
+        public BindingHolder onCreateViewHolder(ViewGroup parent, int type) {
+            BindingHolder holder = new BindingHolder(getItemLayoutView(parent, type));
+            return holder;
+        }
+
+        public View getItemLayoutView(ViewGroup parent, int type) {
+            if (type == CONTACT.getIndex()) {
+                return LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_user_contact, parent, false);
+            } else if (type == DISCOVER.getIndex()) {
+                return LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_user_discover, parent, false);
+            } else {
+                return LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_user_normal, parent, false);
+            }
+
+        }
+
+        @Override
+        public void onBindViewHolder(BindingHolder holder, int position) {
+            final User user = users.get(position);
+            holder.binding.setVariable(BR.user, user);
+            int type = getItemViewType(position);
+            if (type == CONTACT.getIndex()) {
+                boolean showIndex = true;
+                if (position > 0) {
+                    User previousUser = users.get(position-1);
+                    if (user.index.equals(previousUser.index)) {
+                        showIndex = false;
+                    }
+                }
+                holder.binding.setVariable(BR.showIndex, showIndex);
+            }
+        }
+
+
+        @Override
+        public int getItemViewType(int position) {
+            User user = users.get(position);
+            return user.mainType.getIndex();
+        }
+
+        @Override
+        public int getItemCount() {
+            return users.size();
+        }
+
+    }
 }

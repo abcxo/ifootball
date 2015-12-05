@@ -7,14 +7,21 @@
 
         <import type="com.abcxo.android.ifootball.models.User" />
 
+        <import type="android.view.View" />
+
         <variable
             name="user"
             type="User" />
+
+        <variable
+            name="showIndex"
+            type="Boolean" />
     </data>
 
     <LinearLayout
         style="@style/Item"
         android:gravity="center_vertical"
+        android:onClick="@{user.handler.onClickUser}"
         android:orientation="horizontal">
 
         <TextView
@@ -25,6 +32,7 @@
             android:text="@{user.index}"
             android:textColor="@color/color_primary"
             android:textSize="24dp"
+            android:visibility="@{showIndex?View.VISIBLE:View.INVISIBLE}"
             tools:text="A" />
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -33,8 +41,8 @@
             android:layout_height="40dp"
             android:layout_marginLeft="@dimen/padding_big"
             android:scaleType="centerCrop"
-            app:imageUrl="@{user.avatar}"
             app:error="@{@drawable/ic_avatar}"
+            app:imageUrl="@{user.avatar}"
             app:riv_corner_radius="@dimen/icon_radius"
             tools:src="@drawable/test2" />
 

@@ -2,7 +2,6 @@ package com.abcxo.android.ifootball.controllers.fragments.sign;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -19,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 
+import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.databinding.FragmentSignCompleteBinding;
@@ -102,26 +102,29 @@ public class CompleteSignFragment extends Fragment {
                 UserRestful.INSTANCE.edit(user, new UserRestful.OnUserRestfulGet() {
                     @Override
                     public void onSuccess(User user) {
-                        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_EDIT));
+                        LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_EDIT));
                         if (image != null) {
                             UserRestful.INSTANCE.avatar(image, new UserRestful.OnUserRestfulGet() {
                                 @Override
                                 public void onSuccess(User user) {
-                                    LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_EDIT));
+                                    LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_EDIT));
+                                    ViewUtils.dismiss();
                                     getActivity().finish();
                                 }
 
                                 @Override
                                 public void onError(RestfulError error) {
+                                    ViewUtils.dismiss();
                                     ViewUtils.toast(error.msg);
                                 }
 
                                 @Override
                                 public void onFinish() {
-                                    ViewUtils.dismiss();
+
                                 }
                             });
                         } else {
+                            ViewUtils.dismiss();
                             getActivity().finish();
                         }
 

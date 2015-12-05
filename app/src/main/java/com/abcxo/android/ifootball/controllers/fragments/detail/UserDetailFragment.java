@@ -1,10 +1,13 @@
 package com.abcxo.android.ifootball.controllers.fragments.detail;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,13 +17,12 @@ import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.adapters.SearchAdapter;
-import com.abcxo.android.ifootball.controllers.adapters.UserDetailAdapter;
 import com.abcxo.android.ifootball.databinding.FragmentDetailUserBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.ViewUtils;
+
 
 /**
  * Created by shadow on 15/11/4.
@@ -119,6 +121,68 @@ public class UserDetailFragment extends Fragment {
 
     public void bindData() {
         binding.setUser(user);
+
+    }
+
+
+
+    //获取用户列表
+    public enum PageType {
+        TWEET(0),
+        IMAGE(1);
+        private int index;
+
+        PageType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return PageType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
+    public class UserDetailAdapter extends FragmentPagerAdapter {
+
+        private long uid;
+
+
+
+
+        private String[] titles;
+
+        public UserDetailAdapter(FragmentManager fm, Context context, long uid) {
+            super(fm);
+            this.uid = uid;
+            titles = context.getResources().getStringArray(R.array.user_detail_page_list);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID,uid);
+            if (position == PageType.TWEET.getIndex()) {
+                return UserTweetFragment.newInstance(bundle);
+            } else if (position == PageType.IMAGE.getIndex()) {
+                return UserImageFragment.newInstance(bundle);
+
+            }
+            return null;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+
+        @Override
+        public int getCount() {
+            return titles.length;
+        }
+
 
     }
 

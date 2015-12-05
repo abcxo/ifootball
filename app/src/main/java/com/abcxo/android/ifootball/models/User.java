@@ -36,6 +36,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
     @Bindable
     public boolean focus;
     public String distance;
+    public String deviceToken;
 
     public GenderType gender = GenderType.MALE;
     public UserType userType = UserType.NORMAL;
@@ -65,6 +66,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         fansCount = in.readInt();
         focus = in.readByte() != 0;
         distance = in.readString();
+        deviceToken = in.readString();
         gender = GenderType.valueOf(in.readString());
         userType = UserType.valueOf(in.readString());
         mainType = UserMainType.valueOf(in.readString());
@@ -90,6 +92,16 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         return id == UserRestful.INSTANCE.meId();
     }
 
+
+    public boolean canDo() {
+        return isMe() == false && (userType == UserType.NORMAL || userType == UserType.TEAM);
+    }
+
+    public boolean canChat() {
+        return isMe() == false && userType == UserType.NORMAL;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -112,6 +124,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         dest.writeInt(fansCount);
         dest.writeByte((byte) (focus ? 1 : 0));
         dest.writeString(distance);
+        dest.writeString(deviceToken);
         dest.writeString(gender.name());
         dest.writeString(userType.name());
         dest.writeString(mainType.name());

@@ -2,20 +2,17 @@ package com.abcxo.android.ifootball.restfuls;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.models.User;
-import com.abcxo.android.ifootball.models.User.GenderType;
 import com.abcxo.android.ifootball.utils.FileUtils;
-import com.abcxo.android.ifootball.utils.Utils;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
+import com.umeng.message.UmengRegistrar;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -47,10 +44,13 @@ public class UserRestful {
 
     public interface UserService {
         @GET("/user/login")
-        Call<User> login(@Query("email") String email, @Query("password") String password);
+        Call<User> login(@Query("email") String email, @Query("password") String password, @Query("deviceToken") String deviceToken);
+
+        @GET("/user/login")
+        Call<Object> logout(@Query("uid") long uid);
 
         @POST("/user/register")
-        Call<User> register(@Query("email") String email, @Query("password") String password);
+        Call<User> register(@Query("email") String email, @Query("password") String password, @Query("deviceToken") String deviceToken);
 
 
         @PUT("/user")
@@ -150,6 +150,20 @@ public class UserRestful {
 
     //退出
     public boolean logout() {
+        Call<Object> call = userService.logout(meId());
+        call.enqueue(new OnRestful<Object>() {
+            @Override
+            void onSuccess(Object object) {
+            }
+
+            @Override
+            void onError(RestfulError error) {
+            }
+
+            @Override
+            void onFinish() {
+            }
+        });
         user = null;
         boolean isLogout = FileUtils.deleteObject(Constants.KEY_USER);
         LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_LOGOUT));
@@ -158,7 +172,7 @@ public class UserRestful {
 
     //注册
     public void register(String email, String password, @NonNull final OnUserRestfulGet onGet) {
-        Call<User> call = userService.register(email, password);
+        Call<User> call = userService.register(email, password, UmengRegistrar.getRegistrationId(Application.INSTANCE));
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {
@@ -180,7 +194,7 @@ public class UserRestful {
 
     //登录
     public void login(String email, String password, @NonNull final OnUserRestfulGet onGet) {
-        Call<User> call = userService.login(email, password);
+        Call<User> call = userService.login(email, password, UmengRegistrar.getRegistrationId(Application.INSTANCE));
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {
@@ -199,6 +213,7 @@ public class UserRestful {
             }
         });
     }
+
 
     //修改
     public void edit(User user, @NonNull final OnUserRestfulGet onGet) {

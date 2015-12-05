@@ -68,7 +68,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:orientation="horizontal"
-                            android:visibility="@{user.isMe()||user.userType!=User.UserType.NORMAL ||user.userType!=User.UserType.TEAM ?View.INVISIBLE:View.VISIBLE}">
+                            android:visibility="@{user.canDo()?View.VISIBLE:View.INVISIBLE}">
 
                             <Button
                                 android:id="@+id/focus_btn"
@@ -86,6 +86,7 @@
                                 android:backgroundTint="@color/color_button_accent"
                                 android:onClick="@{user.handler.onClickChat}"
                                 android:text="@string/chat_text"
+                                android:visibility="@{user.canChat()?View.VISIBLE:View.INVISIBLE}"
                                 android:textColor="@color/color_text_highlight" />
                         </LinearLayout>
 

@@ -15,41 +15,49 @@ import com.baidu.location.LocationClientOption.LocationMode;
  * Created by shadow on 15/11/24.
  */
 public class LocationUtils {
-    private static LocationClient locationClient = new LocationClient(Application.INSTANCE);
+    private static LocationClient locationClient;
 
     public static void saveLocation() {
-        locationClient.stop();
+        if (locationClient == null) {
+            locationClient = new LocationClient(Application.INSTANCE);
+        } else {
+            locationClient.stop();
+        }
+
         locationClient.registerLocationListener(new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation location) {
-                if (UserRestful.INSTANCE.isLogin()
-                        && location != null
-                        && (location.getLocType() == BDLocation.TypeCacheLocation
-                        || location.getLocType() == BDLocation.TypeNetWorkLocation
-                        || location.getLocType() == BDLocation.TypeOffLineLocation)) {
-                    User user = UserRestful.INSTANCE.me();
-                    user.lat = location.getLatitude();
-                    user.lon = location.getLongitude();
-                    UserRestful.INSTANCE.edit(user, new UserRestful.OnUserRestfulGet() {
-                        @Override
-                        public void onSuccess(User user) {
+                if (locationClient != null) {
+                    if (UserRestful.INSTANCE.isLogin()
+                            && location != null
+                            && (location.getLocType() == BDLocation.TypeCacheLocation
+                            || location.getLocType() == BDLocation.TypeNetWorkLocation
+                            || location.getLocType() == BDLocation.TypeOffLineLocation)) {
+                        User user = UserRestful.INSTANCE.me();
+                        user.lat = location.getLatitude();
+                        user.lon = location.getLongitude();
+                        UserRestful.INSTANCE.edit(user, new UserRestful.OnUserRestfulGet() {
+                            @Override
+                            public void onSuccess(User user) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onError(RestfulError error) {
+                            @Override
+                            public void onError(RestfulError error) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onFinish() {
+                            @Override
+                            public void onFinish() {
 
-                        }
-                    });
+                            }
+                        });
 
-
+                    }
+                    locationClient.stop();
+                    locationClient = null;
                 }
-                locationClient.stop();
+
             }
         });
         LocationClientOption option = new LocationClientOption();

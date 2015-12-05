@@ -1,16 +1,19 @@
 package com.abcxo.android.ifootball.controllers.fragments.main;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.adapters.TweetAdapter;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
@@ -22,6 +25,9 @@ import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.abcxo.android.ifootball.models.Tweet.TweetType.NEWS;
+import static com.abcxo.android.ifootball.models.Tweet.TweetType.TEAM;
+
 public class TweetFragment extends Fragment {
 
 
@@ -30,6 +36,8 @@ public class TweetFragment extends Fragment {
 
     protected SuperRecyclerView recyclerView;
     protected TweetAdapter adapter;
+
+    protected SwipeRefreshLayout.OnRefreshListener onRefreshListener;
 
 
     protected int pageIndex;
@@ -76,7 +84,7 @@ public class TweetFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         recyclerView.setRefreshingColorResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
-        final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 pageIndex = 0;
@@ -91,6 +99,12 @@ public class TweetFragment extends Fragment {
                 loadData(false);
             }
         }, Constants.MAX_LEFT_MORE);
+        refresh();
+
+    }
+
+
+    protected void refresh() {
         recyclerView.getSwipeToRefresh().post(new Runnable() {
             @Override
             public void run() {
@@ -98,7 +112,6 @@ public class TweetFragment extends Fragment {
                 onRefreshListener.onRefresh();
             }
         });
-
     }
 
     protected void loadData(final boolean first) {
@@ -160,4 +173,63 @@ public class TweetFragment extends Fragment {
     }
 
 
+    public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.BindingHolder> {
+
+        private List<Tweet> tweets;
+
+
+        public TweetAdapter(List<Tweet> tweets) {
+            this.tweets = tweets;
+        }
+
+        public class BindingHolder extends RecyclerView.ViewHolder {
+            public ViewDataBinding binding;
+            public View view;
+
+            public BindingHolder(View rowView) {
+                super(rowView);
+                binding = DataBindingUtil.bind(rowView);
+                view = rowView;
+            }
+        }
+
+        @Override
+        public BindingHolder onCreateViewHolder(ViewGroup parent, int type) {
+            BindingHolder holder = new BindingHolder(getItemLayoutView(parent, type));
+            return holder;
+        }
+
+        public View getItemLayoutView(ViewGroup parent, int type) {
+            if (type == TEAM.getIndex()) {
+                return LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_tweet_team, parent, false);
+            } else if (type == NEWS.getIndex()) {
+                return LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_tweet_news, parent, false);
+            } else {
+                return LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_tweet_normal, parent, false);
+            }
+
+        }
+
+        @Override
+        public void onBindViewHolder(BindingHolder holder, int position) {
+            final Tweet tweet = tweets.get(position);
+            holder.binding.setVariable(BR.tweet, tweet);
+        }
+
+
+        @Override
+        public int getItemViewType(int position) {
+            Tweet tweet = tweets.get(position);
+            return tweet.tweetType.getIndex();
+        }
+
+        @Override
+        public int getItemCount() {
+            return tweets.size();
+        }
+
+    }
 }

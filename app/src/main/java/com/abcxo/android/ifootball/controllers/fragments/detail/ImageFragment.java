@@ -3,6 +3,7 @@ package com.abcxo.android.ifootball.controllers.fragments.detail;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,19 +13,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.adapters.ImageAdapter;
+import com.abcxo.android.ifootball.controllers.adapters.BindingAdapter;
 import com.abcxo.android.ifootball.models.Image;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.HOME;
-import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.NEWS;
-import static com.abcxo.android.ifootball.controllers.adapters.MainAdapter.PageType.TEAM;
+import uk.co.senab.photoview.PhotoView;
 
 /**
  * Created by shadow on 15/11/4.
@@ -146,4 +144,41 @@ public class ImageFragment extends Fragment {
     }
 
 
+
+    public class ImageAdapter extends PagerAdapter {
+
+        public List<Image> images;
+
+        public ImageAdapter(List<Image> images) {
+            this.images = images;
+        }
+
+        @Override
+        public int getCount() {
+            return images.size();
+        }
+
+        @Override
+        public View instantiateItem(ViewGroup container, int position) {
+            PhotoView photoView = new PhotoView(container.getContext());
+            Image image = images.get(position);
+            BindingAdapter.loadImage(photoView, image.url);
+            // Now just add PhotoView to ViewPager and return it
+            container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            return photoView;
+        }
+
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((View) object);
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+
+    }
 }

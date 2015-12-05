@@ -42,6 +42,7 @@ public class TweetDetailNavFragment extends DetailFragment {
     private Tweet tweet;
     private long tid;
     private EditText inputET;
+    private ViewPager viewPager;
 
     private TweetDetailFragment tweetDetailFragment;
     private CommentTweetMessageFragment commentTweetMessageFragment;
@@ -96,10 +97,10 @@ public class TweetDetailNavFragment extends DetailFragment {
 
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(2);
 
-        viewPager.setAdapter(new TweetDetailAdapter(getChildFragmentManager(), getActivity()));
+        viewPager.setAdapter(new TweetDetailNavAdapter(getChildFragmentManager(), getActivity()));
         tabLayout.setupWithViewPager(viewPager);
 
         inputET = (EditText) view.findViewById(R.id.input);
@@ -126,11 +127,11 @@ public class TweetDetailNavFragment extends DetailFragment {
         }
     }
 
-    public class TweetDetailAdapter extends FragmentPagerAdapter {
+    public class TweetDetailNavAdapter extends FragmentPagerAdapter {
 
         private String[] titles;
 
-        public TweetDetailAdapter(FragmentManager fm, Context context) {
+        public TweetDetailNavAdapter(FragmentManager fm, Context context) {
             super(fm);
             titles = context.getResources().getStringArray(R.array.tweet_detail_page_list);
         }
@@ -216,6 +217,7 @@ public class TweetDetailNavFragment extends DetailFragment {
 
                         }
                     });
+                    viewPager.setCurrentItem(PageType.COMMENT.getIndex());
                 }
             } else {
                 NavUtils.toSign(getActivity());

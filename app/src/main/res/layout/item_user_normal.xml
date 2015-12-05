@@ -13,7 +13,8 @@
     </data>
 
     <RelativeLayout
-        style="@style/Item">
+        style="@style/Item"
+        android:onClick="@{user.handler.onClickUser}">
 
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -21,8 +22,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:scaleType="centerCrop"
-            app:riv_corner_radius="@dimen/icon_radius"
             app:imageUrl="@{user.avatar}"
+            app:riv_corner_radius="@dimen/icon_radius"
             tools:src="@drawable/test2" />
 
         <TextView
@@ -37,29 +38,19 @@
             android:textSize="16dp"
             tools:text="咸蛋超人" />
 
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/name"
-            android:layout_marginTop="@dimen/padding_small">
-
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/padding"
-                android:text="@{user.sign}"
-                android:textColor="@color/color_text_content"
-                android:textSize="14dp"
-                android:singleLine="true"
-                tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
-
-
-        </RelativeLayout>
-
+            android:layout_marginRight="@dimen/padding"
+            android:layout_marginTop="@dimen/padding_small"
+            android:singleLine="true"
+            android:text="@{user.sign}"
+            android:textColor="@color/color_text_content"
+            android:textSize="14dp"
+            tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
 
     </RelativeLayout>
 </layout>

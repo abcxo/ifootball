@@ -2,9 +2,6 @@ package com.abcxo.android.ifootball.controllers.fragments.sign;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.databinding.FragmentSignLoginBinding;
@@ -87,18 +85,20 @@ public class LoginSignFragment extends Fragment {
                 UserRestful.INSTANCE.login(emailET.getText().toString(), Utils.md52(passwordET.getText().toString()), new UserRestful.OnUserRestfulGet() {
                     @Override
                     public void onSuccess(User user) {
-                        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
+                        LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
+                        ViewUtils.dismiss();
                         getActivity().finish();
                     }
 
                     @Override
                     public void onError(RestfulError error) {
+                        ViewUtils.dismiss();
                         ViewUtils.toast(error.msg);
                     }
 
                     @Override
                     public void onFinish() {
-                        ViewUtils.dismiss();
+
                     }
                 });
 
@@ -125,7 +125,7 @@ public class LoginSignFragment extends Fragment {
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                                 .commit();
-                        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
+                        LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
                     }
 
                     @Override

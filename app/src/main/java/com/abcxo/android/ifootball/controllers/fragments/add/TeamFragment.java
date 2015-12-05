@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.adapters.TeamAdapter;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
@@ -168,6 +169,55 @@ public class TeamFragment extends Fragment {
         void onLoaded(List<User> users);
 
         void onItemClick(View view, User user, int position);
+    }
+
+    public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.BindingHolder> {
+
+        public List<User> users;
+        public BindingHandler handler;
+
+        public TeamAdapter(List<User> users, BindingHandler handler) {
+            this.users = users;
+            this.handler = handler;
+        }
+
+        public  class BindingHolder extends RecyclerView.ViewHolder {
+            public ViewDataBinding binding;
+            public View view;
+
+            public BindingHolder(View rowView) {
+                super(rowView);
+                binding = DataBindingUtil.bind(rowView);
+                view = rowView;
+            }
+        }
+
+        @Override
+        public BindingHolder onCreateViewHolder(ViewGroup parent, int type) {
+            BindingHolder holder = new BindingHolder(getItemLayoutView(parent, type));
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(BindingHolder holder, int position) {
+            User user = users.get(position);
+            holder.binding.setVariable(BR.user, user);
+            holder.binding.setVariable(BR.handler, handler);
+            holder.view.setTag(user);
+        }
+
+        public View getItemLayoutView(ViewGroup parent, int type) {
+            return LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_team, parent, false);
+
+        }
+
+
+        @Override
+        public int getItemCount() {
+            return users.size();
+        }
+
     }
 
 }

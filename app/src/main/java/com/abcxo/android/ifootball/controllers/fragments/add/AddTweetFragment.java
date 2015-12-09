@@ -236,7 +236,7 @@ public class AddTweetFragment extends Fragment {
 
         public void onClickSend(final View view) {
 
-            if (TextUtils.isEmpty(inputET.getText().toString())) {
+            if (TextUtils.isEmpty(inputET.getText().toString()) && originTweet == null) {
                 ViewUtils.toast(R.string.add_tweet_send_error);
             } else {
                 Tweet tweet = new Tweet();

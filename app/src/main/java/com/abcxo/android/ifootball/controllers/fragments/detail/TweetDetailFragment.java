@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,13 +112,15 @@ public class TweetDetailFragment extends DetailFragment {
         };
         refreshLayout.setOnRefreshListener(listener);
 
-        refreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                refreshLayout.setRefreshing(true);
-                listener.onRefresh();
-            }
-        });
+        if (!TextUtils.isEmpty(tweet.content)) {
+            refreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    refreshLayout.setRefreshing(true);
+                    listener.onRefresh();
+                }
+            });
+        }
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(this, "handler");

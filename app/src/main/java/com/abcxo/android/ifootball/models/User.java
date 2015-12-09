@@ -98,7 +98,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
 
 
     public boolean canDo() {
-        return isMe() == false && (userType == UserType.NORMAL || userType == UserType.TEAM);
+        return isMe() == false && (userType != UserType.SPECIAL);
     }
 
     public boolean canChat() {

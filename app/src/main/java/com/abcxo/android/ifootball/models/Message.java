@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
+import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 
 /**
@@ -163,16 +164,19 @@ public class Message implements Parcelable {
         }
 
         public void onClickMessage(View view) {
-            if (detailType == MessageDetailType.NORMAL) {
-            } else if (detailType == MessageDetailType.USER) {
-                NavUtils.toUserDetail(view.getContext(), uid);
-            } else if (detailType == MessageDetailType.TWEET) {
-                NavUtils.toTweetDetail(view.getContext(), tid);
-            }else if (detailType == MessageDetailType.COMMENT) {
-            } else if (detailType == MessageDetailType.CHAT) {
-                NavUtils.toChatDetail(view.getContext(), uid, uid2);
+            if (UserRestful.INSTANCE.isLogin()) {
+                if (detailType == MessageDetailType.NORMAL) {
+                } else if (detailType == MessageDetailType.USER) {
+                    NavUtils.toUserDetail(view.getContext(), uid);
+                } else if (detailType == MessageDetailType.TWEET) {
+                    NavUtils.toTweetDetail(view.getContext(), tid);
+                } else if (detailType == MessageDetailType.COMMENT) {
+                } else if (detailType == MessageDetailType.CHAT) {
+                    NavUtils.toChatDetail(view.getContext(), uid, uid2);//因为都是用户发我的，所以第一个是用户
+                }
+            } else {
+                NavUtils.toSign(view.getContext());
             }
-
         }
     }
 }

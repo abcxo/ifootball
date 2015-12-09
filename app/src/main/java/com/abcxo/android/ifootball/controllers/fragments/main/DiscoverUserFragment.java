@@ -15,4 +15,5 @@ public class DiscoverUserFragment extends UserFragment {
         return fragment;
     }
 
+
 }

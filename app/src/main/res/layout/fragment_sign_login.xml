@@ -145,12 +145,6 @@
                         android:onClick="@{handler.onClickQQ}"
                         android:src="@drawable/ic_qq" />
 
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="68dp"
-                        android:layout_weight="1"
-                        android:onClick="@{handler.onClickWechat}"
-                        android:src="@drawable/ic_wechat" />
 
                     <ImageView
                         android:layout_width="60dp"

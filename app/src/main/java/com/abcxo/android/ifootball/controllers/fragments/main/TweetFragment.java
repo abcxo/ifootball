@@ -104,7 +104,7 @@ public class TweetFragment extends Fragment {
     }
 
 
-    protected void refresh() {
+    public void refresh() {
         recyclerView.getSwipeToRefresh().post(new Runnable() {
             @Override
             public void run() {
@@ -115,8 +115,8 @@ public class TweetFragment extends Fragment {
     }
 
     protected void loadData(final boolean first) {
-        TweetRestful.INSTANCE.gets(uid,
-                getGetsType(), pageIndex, new TweetRestful.OnTweetRestfulList() {
+        TweetRestful.INSTANCE.gets(getGetsType(), uid, getKeyword(),
+                pageIndex, new TweetRestful.OnTweetRestfulList() {
                     @Override
                     public void onSuccess(List<Tweet> tweets) {
                         if (first) {
@@ -145,6 +145,10 @@ public class TweetFragment extends Fragment {
                 });
     }
 
+
+    protected String getKeyword() {
+        return "";
+    }
 
     protected TweetRestful.GetsType getGetsType() {
         return TweetRestful.GetsType.USER;

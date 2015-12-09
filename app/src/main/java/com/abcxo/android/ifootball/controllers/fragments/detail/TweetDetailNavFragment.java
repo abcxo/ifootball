@@ -31,9 +31,6 @@ import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by shadow on 15/11/4.
  */
@@ -196,9 +193,7 @@ public class TweetDetailNavFragment extends DetailFragment {
                     message.mainType = Message.MessageMainType.COMMENT_TWEET;
                     message.detailType = Message.MessageDetailType.COMMENT;
                     message.time = Utils.time();
-                    List<Message> messages = new ArrayList<>();
-                    messages.add(message);
-                    commentTweetMessageFragment.addMessages(messages);
+                    commentTweetMessageFragment.insertMessage(message);
 
                     clearText(false, null);
                     TweetRestful.INSTANCE.comment(message, new TweetRestful.OnTweetRestfulDo() {

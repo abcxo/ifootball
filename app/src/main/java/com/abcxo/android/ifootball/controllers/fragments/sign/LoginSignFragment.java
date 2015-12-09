@@ -25,6 +25,15 @@ import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
+import java.util.HashMap;
+
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
+
 /**
  * Created by shadow on 15/11/4.
  */
@@ -70,6 +79,30 @@ public class LoginSignFragment extends Fragment {
         passwordET = (EditText) view.findViewById(R.id.password);
 
 
+    }
+
+
+    private void loginsso(String email, String password, String name, String avatar, User.GenderType gender) {
+        ViewUtils.loading(getActivity());
+        UserRestful.INSTANCE.loginsso(email, Utils.md52(password), name, avatar, gender, new UserRestful.OnUserRestfulGet() {
+            @Override
+            public void onSuccess(User user) {
+                LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
+                ViewUtils.dismiss();
+                getActivity().finish();
+            }
+
+            @Override
+            public void onError(RestfulError error) {
+                ViewUtils.dismiss();
+                ViewUtils.toast(error.msg);
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
     }
 
     public class BindingHandler {
@@ -141,16 +174,72 @@ public class LoginSignFragment extends Fragment {
             }
         }
 
+
         public void onClickQQ(View view) {
-            Toast.makeText(getActivity(), "暂时不支持", Toast.LENGTH_SHORT).show();
+            ViewUtils.loading(getActivity());
+            Platform platform = ShareSDK.getPlatform(QQ.NAME);
+            platform.SSOSetting(false);  //设置false表示使用SSO授权方式
+            platform.setPlatformActionListener(new PlatformActionListener() {
+                @Override
+                public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                    ViewUtils.dismiss();
+                    PlatformDb db = platform.getDb();
+                    String name = db.getUserName().trim() + "_qq";
+                    String icon = db.getUserIcon();
+                    User.GenderType gender = "f".equals(db.getUserGender()) ? User.GenderType.FEMALE : User.GenderType.MALE;
+                    loginsso(name + "@qq.com", name, name, icon, gender);
+
+                }
+
+                @Override
+                public void onError(Platform platform, int i, Throwable throwable) {
+                    ViewUtils.dismiss();
+                    ViewUtils.toast(R.string.error_loginsso_qq);
+
+                }
+
+                @Override
+                public void onCancel(Platform platform, int i) {
+                    ViewUtils.toast(R.string.error_loginsso_qq);
+                    ViewUtils.dismiss();
+                }
+            }); // 设置分享事件回调
+            platform.authorize();
         }
 
-        public void onClickWechat(View view) {
-            Toast.makeText(getActivity(), "暂时不支持", Toast.LENGTH_SHORT).show();
-        }
 
         public void onClickWeibo(View view) {
-            Toast.makeText(getActivity(), "暂时不支持", Toast.LENGTH_SHORT).show();
+            ViewUtils.loading(getActivity());
+            Platform platform = ShareSDK.getPlatform(SinaWeibo.NAME);
+            platform.SSOSetting(false);  //设置false表示使用SSO授权方式
+            platform.setPlatformActionListener(new PlatformActionListener() {
+                @Override
+                public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                    ViewUtils.dismiss();
+                    PlatformDb db = platform.getDb();
+                    String name = db.getUserName().trim() + "_weibo";
+                    String icon = db.getUserIcon();
+                    User.GenderType gender = "f".equals(db.getUserGender()) ? User.GenderType.FEMALE : User.GenderType.MALE;
+                    loginsso(name + "@weibo.com", name, name, icon, gender);
+
+                }
+
+                @Override
+                public void onError(Platform platform, int i, Throwable throwable) {
+                    ViewUtils.dismiss();
+                    ViewUtils.toast(R.string.error_loginsso_weibo);
+
+                }
+
+                @Override
+                public void onCancel(Platform platform, int i) {
+                    ViewUtils.dismiss();
+                    ViewUtils.toast(R.string.error_loginsso_weibo_cancel);
+
+
+                }
+            }); // 设置分享事件回调
+            platform.authorize();
         }
 
         public void onClickForgetPassword(View view) {

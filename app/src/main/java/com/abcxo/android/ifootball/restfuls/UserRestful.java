@@ -46,11 +46,17 @@ public class UserRestful {
         @GET("/user/login")
         Call<User> login(@Query("email") String email, @Query("password") String password, @Query("deviceToken") String deviceToken);
 
-        @GET("/user/login")
+        @GET("/user/logout")
         Call<Object> logout(@Query("uid") long uid);
 
         @POST("/user/register")
         Call<User> register(@Query("email") String email, @Query("password") String password, @Query("deviceToken") String deviceToken);
+
+        @POST("/user/loginsso")
+        Call<User> loginsso(@Query("email") String email, @Query("password") String password,
+                            @Query("name") String name, @Query("avatar") String avatar,
+                            @Query("gender") User.GenderType gender,
+                            @Query("deviceToken") String deviceToken);
 
 
         @PUT("/user")
@@ -68,8 +74,9 @@ public class UserRestful {
         Call<User> get(@Query("uid") long uid, @Query("uid2") long uid2);
 
         @GET("/user/list")
-        Call<List<User>> gets(@Query("uid") long uid,
-                              @Query("getsType") GetsType type,
+        Call<List<User>> gets(@Query("getsType") GetsType type,
+                              @Query("uid") long uid,
+                              @Query("keyword") String keyword,
                               @Query("pageIndex") int pageIndex,
                               @Query("pageSize") int pageSize);
 
@@ -192,6 +199,30 @@ public class UserRestful {
         });
     }
 
+
+    //注册
+    public void loginsso(String email, String password, String name, String avatar, User.GenderType gender, @NonNull final OnUserRestfulGet onGet) {
+        Call<User> call = userService.loginsso(email, password, name, avatar,gender, UmengRegistrar.getRegistrationId(Application.INSTANCE));
+        call.enqueue(new OnRestful<User>() {
+            @Override
+            void onSuccess(User user) {
+                updateMe(user);
+                onGet.onSuccess(user);
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onGet.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onGet.onFinish();
+            }
+        });
+    }
+
+
     //登录
     public void login(String email, String password, @NonNull final OnUserRestfulGet onGet) {
         Call<User> call = userService.login(email, password, UmengRegistrar.getRegistrationId(Application.INSTANCE));
@@ -300,7 +331,8 @@ public class UserRestful {
         FRIEND(1),
         FOCUS(2),
         FANS(3),
-        DISCOVER(4);
+        DISCOVER(4),
+        SEARCH(5);
 
         private int index;
 
@@ -318,14 +350,14 @@ public class UserRestful {
     }
 
 
-    public void gets(long uid, final GetsType getsType, int pageIndex, @NonNull final OnUserRestfulList onList) {
-        Call<List<User>> call = userService.gets(uid, getsType, pageIndex, Constants.PAGE_SIZE);
+    public void gets(final GetsType getsType, long uid, String keyword, int pageIndex, @NonNull final OnUserRestfulList onList) {
+        Call<List<User>> call = userService.gets(getsType, uid, keyword, pageIndex, Constants.PAGE_SIZE);
         call.enqueue(new OnRestful<List<User>>() {
             @Override
             void onSuccess(List<User> users) {
                 if (users != null) {
                     for (User user : users) {
-                        if (getsType == GetsType.NORMAL) {
+                        if (getsType == GetsType.NORMAL || getsType == GetsType.SEARCH) {
                             user.mainType = User.UserMainType.NORMAL;
                         } else if (getsType == GetsType.DISCOVER) {
                             user.mainType = User.UserMainType.DISCOVER;

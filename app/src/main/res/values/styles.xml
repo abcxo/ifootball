@@ -34,12 +34,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
     </style>
-    
+
     <style name="TextInputLayout" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/color_text_slightLight</item>
         <item name="android:textSize">@dimen/text_input</item>
     </style>
-
 
 
     <style name="Gender" parent="android:Widget.TextView">
@@ -68,14 +67,18 @@
         <item name="android:drawableLeft">@drawable/ic_female</item>
     </style>
 
-  <style name="Item" >
-      <item name="android:layout_width">match_parent</item>
-      <item name="android:layout_height">wrap_content</item>
-      <item name="android:paddingRight">@dimen/padding</item>
-      <item name="android:paddingLeft">@dimen/padding</item>
-      <item name="android:paddingTop">@dimen/padding_small</item>
-      <item name="android:paddingBottom">@dimen/padding_small</item>
-  </style>
-    
-    
+    <style name="Item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingRight">@dimen/padding</item>
+        <item name="android:paddingLeft">@dimen/padding</item>
+        <item name="android:paddingTop">@dimen/padding_small</item>
+        <item name="android:paddingBottom">@dimen/padding_small</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
 </resources>

@@ -24,10 +24,10 @@ public class MessageRestful {
 
     public interface MessageService {
         @GET("/message/list")
-        Call<List<Message>> gets(@Query("uid") long uid,
+        Call<List<Message>> gets(@Query("getsType") GetsType type,
+                                 @Query("uid") long uid,
                                  @Query("uid2") long uid2,
                                  @Query("tid") long tid,
-                                 @Query("getsType") GetsType type,
                                  @Query("pageIndex") int pageIndex,
                                  @Query("pageSize") int pageSize);
 
@@ -98,8 +98,8 @@ public class MessageRestful {
 
 
     //获取推文列表
-    public void gets(long uid, long uid2, long tid, final GetsType getsType, int pageIndex, @NonNull final OnMessageRestfulList onList) {
-        Call<List<Message>> call = messageService.gets(uid, uid2, tid, getsType, pageIndex, Constants.PAGE_SIZE);
+    public void gets(final GetsType getsType, long uid, long uid2, long tid, int pageIndex, @NonNull final OnMessageRestfulList onList) {
+        Call<List<Message>> call = messageService.gets(getsType, uid, uid2, tid, pageIndex, Constants.PAGE_SIZE);
         call.enqueue(new OnRestful<List<Message>>() {
             @Override
             void onSuccess(List<Message> messages) {

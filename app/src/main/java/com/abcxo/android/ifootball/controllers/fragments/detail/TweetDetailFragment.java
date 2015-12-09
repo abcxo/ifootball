@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -19,6 +20,7 @@ import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
+import com.abcxo.android.ifootball.utils.NetworkUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.OkHttpClient;
@@ -118,23 +120,12 @@ public class TweetDetailFragment extends DetailFragment {
         });
 
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(this, "handler");
         webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (tweet.hasImage(url) && (url.toLowerCase().contains("jpg")
-                        || url.toLowerCase().contains("webp")
-                        || url.toLowerCase().contains("png")
-                        || url.toLowerCase().contains("gif"))) {
-                    NavUtils.toImage(getActivity(), (ArrayList<Image>) tweet.imageList(), tweet.indexOfImage(url));
-                    return true;
-                }
-                return super.shouldOverrideUrlLoading(view, url);
-            }
-
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
                 try {
-                    OkHttpClient mOkHttpClient = new OkHttpClient();
+                    OkHttpClient mOkHttpClient = NetworkUtils.getClient();
                     final Request request = new Request.Builder()
                             .url(url)
                             .build();
@@ -142,8 +133,8 @@ public class TweetDetailFragment extends DetailFragment {
                     Response response = call.execute();
                     String contentType = response.header("Content-Type");
                     String encodingType = "UTF-8";
-                    InputStream responseInputStream = response.body().byteStream();
-                    return new WebResourceResponse(contentType, encodingType, responseInputStream);
+                    InputStream inputStream = response.body().byteStream();
+                    return new WebResourceResponse(contentType, encodingType, inputStream);
 
                 } catch (Exception e) {
 
@@ -160,6 +151,11 @@ public class TweetDetailFragment extends DetailFragment {
             }
         });
 
+    }
+
+    @JavascriptInterface
+    public void onImageClick(String url) {
+        NavUtils.toImage(getActivity(), (ArrayList<Image>) tweet.imageList(), tweet.indexOfImage(url));
     }
 
 }

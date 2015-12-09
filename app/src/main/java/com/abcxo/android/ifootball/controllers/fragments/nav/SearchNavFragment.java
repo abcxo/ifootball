@@ -7,20 +7,29 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.fragments.search.SearchTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.search.SearchUserFragment;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.ViewUtils;
 
 public class SearchNavFragment extends NavFragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private EditText inputET;
+    private SearchTweetFragment searchTweetFragment;
+    private SearchUserFragment searchUserFragment;
 
     public static SearchNavFragment newInstance() {
         return newInstance(null);
@@ -65,8 +74,29 @@ public class SearchNavFragment extends NavFragment {
 
             }
         });
-    }
 
+        inputET = (EditText) view.findViewById(R.id.input);
+        inputET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+                    String keyword = inputET.getText().toString().trim();
+                    searchUserFragment.keyword = keyword;
+                    searchTweetFragment.keyword = keyword;
+                    if (!TextUtils.isEmpty(keyword)) {
+                        searchUserFragment.refresh();
+                        searchTweetFragment.refresh();
+                        ViewUtils.closeKeyboard(getActivity());
+                    } else {
+                        ViewUtils.toast(R.string.error_search_empty);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 
 
     //获取用户列表
@@ -104,9 +134,15 @@ public class SearchNavFragment extends NavFragment {
             Bundle bundle = new Bundle();
             bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
             if (position == PageType.USER.getIndex()) {
-                return SearchUserFragment.newInstance(bundle);
+                if (searchUserFragment == null) {
+                    searchUserFragment = SearchUserFragment.newInstance(bundle);
+                }
+                return searchUserFragment;
             } else if (position == PageType.TWEET.getIndex()) {
-                return SearchTweetFragment.newInstance(bundle);
+                if (searchTweetFragment == null) {
+                    searchTweetFragment = SearchTweetFragment.newInstance(bundle);
+                }
+                return searchTweetFragment;
             }
             return null;
         }
@@ -123,7 +159,6 @@ public class SearchNavFragment extends NavFragment {
 
 
     }
-
 
 
 }

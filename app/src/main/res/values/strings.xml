@@ -14,6 +14,15 @@
     <string name="message_prompt">\&#064;了你</string>
 
 
+    <string name="error_loginsso_qq_cancel">取消QQ授权</string>
+
+    <string name="error_loginsso_weibo_cancel">取消新浪微博授权</string>
+
+    <string name="error_loginsso_qq">QQ授权失败</string>
+    <string name="error_loginsso_weibo">新浪微博授权失败</string>
+
+
+    <string name="error_search_empty">请输入搜索关键字</string>
 
     <string name="success_image_save">保存成功</string>
     <string name="error_share">分享失败</string>
@@ -32,7 +41,7 @@
     <string name="app_name">爱足球吧</string>
 
     <string name="activity_nav">爱足球吧</string>
-
+    <string name="activity_welcome">爱足球吧</string>
 
 
     <string name="activity_detail_tweet">推文详情</string>
@@ -106,8 +115,6 @@
     </string-array>
 
 
-
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -117,7 +124,7 @@
     <string name="menu_item_message">消息</string>
     <string name="menu_item_search">搜索</string>
     <string name="menu_item_setting">设置</string>
-    <string name="menu_item_help">帮助&#038;反馈</string>
+    <string name="menu_item_help">帮助</string>
     <string name="menu_item_about">关于爱足球吧</string>
 
 
@@ -129,7 +136,7 @@
     <string name="sign_login_email_hint">邮箱</string>
     <string name="sign_login_email_error">请输入有效的邮箱地址</string>
     <string name="sign_login_password_hint">密码</string>
-    <string name="sign_login_password_error">请输入6-10位的字母或者数字</string>
+    <string name="sign_login_password_error">请输入6-12位的字母或者数字</string>
 
     <string name="sign_login_login_text">登录</string>
     <string name="sign_login_register_text">注册</string>
@@ -141,9 +148,9 @@
     <string name="sign_complete_sign_text">签名（选填）</string>
     <string name="sign_complete_complete_text">完成</string>
 
-    <string name="sign_login_name_error">请输入小于20位的昵称</string>
+    <string name="sign_login_name_error">请输入4-20位的昵称</string>
 
-    <string name="sign_login_sign_error">请输入小于40位的签名</string>
+    <string name="sign_login_sign_error">请输入40位以内的签名</string>
 
 
     <string name="gender_male_text">男</string>
@@ -163,5 +170,22 @@
     <string name="add_tweet_send_image_max_error">最多添加9张图片</string>
 
     <string name="add_team_ok_text">确定</string>
+
+    <string name="search_input_hint">关键字？</string>
+
+    <string name="welcome_begin">开始</string>
+
+
+    <string name="about_text">
+        为中国3000万足球迷而生的社交新闻应用。\n
+        为可以定制自己喜欢的球队和球员的新闻。\n
+        你可以发现周围同样在踢球的人，约球。\n
+        你可以和你的朋友尽情的看球。\n
+        不用在某些论坛里和别人撕逼。\n
+        未来还有更多神秘彩蛋。。。\n
+        勾搭专线：iamthefootball@qq.com\n
+    </string>
+
+    <string name="about_feedback">勾搭</string>
 
 </resources>

@@ -14,14 +14,10 @@ import android.widget.EditText;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.fragments.message.ChatUserMessageFragment;
-import com.abcxo.android.ifootball.controllers.fragments.message.CommentTweetMessageFragment;
 import com.abcxo.android.ifootball.databinding.FragmentDetailChatBinding;
-import com.abcxo.android.ifootball.databinding.FragmentDetailTweetBinding;
 import com.abcxo.android.ifootball.models.Message;
-import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.MessageRestful;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
-import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
@@ -34,6 +30,7 @@ import java.util.List;
  */
 public class ChatDetailFragment extends DetailFragment {
 
+    private long uid;
     private long uid2;
     private EditText inputET;
     private ChatUserMessageFragment chatUserMessageFragment;
@@ -54,7 +51,9 @@ public class ChatDetailFragment extends DetailFragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         if (args != null) {
+            uid = args.getLong(Constants.KEY_UID);
             uid2 = args.getLong(Constants.KEY_UID2);
+
         }
     }
 
@@ -86,7 +85,7 @@ public class ChatDetailFragment extends DetailFragment {
         inputET = (EditText) view.findViewById(R.id.input);
 
         Bundle bundle = new Bundle();
-        bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+        bundle.putLong(Constants.KEY_UID, uid);
         bundle.putLong(Constants.KEY_UID2, uid2);
         chatUserMessageFragment = ChatUserMessageFragment.newInstance(bundle);
         getChildFragmentManager().beginTransaction().replace(R.id.comment, chatUserMessageFragment).commit();

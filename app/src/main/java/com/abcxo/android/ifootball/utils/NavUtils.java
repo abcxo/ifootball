@@ -2,6 +2,7 @@ package com.abcxo.android.ifootball.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -33,6 +34,14 @@ public class NavUtils {
     }
 
 
+    public static void toEmail(Context context) {
+        Intent data = new Intent(Intent.ACTION_SENDTO);
+        data.setData(Uri.parse("mailto:iamthefootball@qq.com"));
+        data.putExtra(Intent.EXTRA_SUBJECT, "关于爱足球吧建议反馈");
+        data.putExtra(Intent.EXTRA_TEXT, "说说您的看法！");
+        context.startActivity(data);
+    }
+
     public static void toAddTweet(Context context, Tweet tweet) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_TWEET, tweet);
@@ -57,7 +66,7 @@ public class NavUtils {
         context.startActivity(intent);
     }
 
-    public static void toChatDetail(Context context,long uid,long uid2) {
+    public static void toChatDetail(Context context, long uid, long uid2) {
         Bundle bundle = new Bundle();
         bundle.putLong(Constants.KEY_UID, uid);
         bundle.putLong(Constants.KEY_UID2, uid2);

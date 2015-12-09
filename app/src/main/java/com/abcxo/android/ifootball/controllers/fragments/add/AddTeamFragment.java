@@ -28,6 +28,7 @@ import com.abcxo.android.ifootball.databinding.FragmentAddTeamBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
 import java.util.ArrayList;
@@ -70,7 +71,6 @@ public class AddTeamFragment extends Fragment {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
-//        activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,26 +214,30 @@ public class AddTeamFragment extends Fragment {
     public class BindingHandler {
 
         public void onClickOk(final View view) {
-            ViewUtils.loading(view.getContext());
-            UserRestful.INSTANCE.focusTeams(adapter.users, new UserRestful.OnUserRestfulDo() {
-                @Override
-                public void onSuccess() {
-                    LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_REFRESH_TEAM));
-                    ViewUtils.dismiss();
-                    getActivity().finish();
-                }
+            if (UserRestful.INSTANCE.isLogin()) {
+                ViewUtils.loading(view.getContext());
+                UserRestful.INSTANCE.focusTeams(adapter.users, new UserRestful.OnUserRestfulDo() {
+                    @Override
+                    public void onSuccess() {
+                        LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_REFRESH_TEAM));
+                        ViewUtils.dismiss();
+                        getActivity().finish();
+                    }
 
-                @Override
-                public void onError(RestfulError error) {
-                    ViewUtils.dismiss();
-                    ViewUtils.toast(error.msg);
-                }
+                    @Override
+                    public void onError(RestfulError error) {
+                        ViewUtils.dismiss();
+                        ViewUtils.toast(error.msg);
+                    }
 
-                @Override
-                public void onFinish() {
+                    @Override
+                    public void onFinish() {
 
-                }
-            });
+                    }
+                });
+            } else {
+                NavUtils.toSign(view.getContext());
+            }
         }
 
         public void onClickFocus(final View view) {

@@ -63,8 +63,9 @@ public class TweetRestful {
         );
 
         @GET("/tweet/list")
-        Call<List<Tweet>> gets(@Query("uid") long uid,
-                               @Query("getsType") GetsType type,
+        Call<List<Tweet>> gets(@Query("getsType") GetsType type,
+                               @Query("uid") long uid,
+                               @Query("keyword") String keyword,
                                @Query("pageIndex") int pageIndex,
                                @Query("pageSize") int pageSize);
 
@@ -232,7 +233,8 @@ public class TweetRestful {
         HOME(0),
         TEAM(1),
         NEWS(2),
-        USER(3);
+        USER(3),
+        SEARCH(4);
         private int index;
 
         GetsType(int index) {
@@ -249,8 +251,8 @@ public class TweetRestful {
     }
 
 
-    public void gets(long uid, final GetsType getsType, int pageIndex, @NonNull final OnTweetRestfulList onList) {
-        Call<List<Tweet>> call = tweetService.gets(uid, getsType, pageIndex, Constants.PAGE_SIZE);
+    public void gets(final GetsType getsType, long uid, String keyword, int pageIndex, @NonNull final OnTweetRestfulList onList) {
+        Call<List<Tweet>> call = tweetService.gets(getsType, uid, keyword, pageIndex, Constants.PAGE_SIZE);
         call.enqueue(new OnRestful<List<Tweet>>() {
             @Override
             void onSuccess(List<Tweet> tweets) {

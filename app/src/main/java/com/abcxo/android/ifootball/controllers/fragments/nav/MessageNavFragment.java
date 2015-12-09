@@ -1,14 +1,20 @@
 package com.abcxo.android.ifootball.controllers.fragments.nav;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.SpinnerAdapter;
@@ -19,6 +25,7 @@ import com.abcxo.android.ifootball.controllers.fragments.message.MessageFragment
 import com.abcxo.android.ifootball.controllers.fragments.message.OtherMessageFragment;
 import com.abcxo.android.ifootball.controllers.fragments.message.PromptMessageFragment;
 import com.abcxo.android.ifootball.controllers.fragments.message.StarMessageFragment;
+import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MessageNavFragment.SpinnerType.ALL;
@@ -56,6 +63,7 @@ public class MessageNavFragment extends NavFragment {
         }
     }
 
+    private BroadcastReceiver receiver;
 
     private MessageFragment allFg;
     private MessageFragment chatFg;
@@ -76,6 +84,54 @@ public class MessageNavFragment extends NavFragment {
         if (args != null) fragment.setArguments(args);
         return fragment;
     }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Message message = intent.getParcelableExtra("message");
+                allFg.refresh();
+                MessageFragment fragment;
+                switch (message.messageType) {
+                    case FOCUS:
+                        fragment = focusFg;
+                        break;
+                    case STAR:
+                        fragment = starFg;
+                        break;
+                    case PROMPT:
+                        fragment = promptFg;
+                        break;
+                    case COMMENT:
+                        fragment = commentFg;
+                        break;
+                    case CHAT:
+                        fragment = chatFg;
+                        break;
+                    default:
+                        fragment = otherFg;
+                        break;
+                }
+
+                if (fragment != null) {
+                    fragment.refresh();
+                }
+
+            }
+        };
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
+        localBroadcastManager.registerReceiver(receiver, new IntentFilter(Constants.ACTION_MESSAGE));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
+        localBroadcastManager.unregisterReceiver(receiver);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -115,6 +171,7 @@ public class MessageNavFragment extends NavFragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
 
     }
 

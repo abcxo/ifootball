@@ -86,7 +86,7 @@
                                 android:backgroundTint="@color/color_button_accent"
                                 android:onClick="@{user.handler.onClickChat}"
                                 android:text="@string/chat_text"
-                                android:visibility="@{user.canChat()?View.VISIBLE:View.INVISIBLE}"
+                                android:visibility="@{user.canChat()?View.VISIBLE:View.GONE}"
                                 android:textColor="@color/color_text_highlight" />
                         </LinearLayout>
 

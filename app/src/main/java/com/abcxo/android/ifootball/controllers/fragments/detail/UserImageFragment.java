@@ -101,8 +101,8 @@ public class UserImageFragment extends Fragment {
 
 
     protected void loadData(final boolean first) {
-        TweetRestful.INSTANCE.gets(uid,
-                getGetsType(), pageIndex, new TweetRestful.OnTweetRestfulList() {
+        TweetRestful.INSTANCE.gets(getGetsType(), uid, "",
+                pageIndex, new TweetRestful.OnTweetRestfulList() {
                     @Override
                     public void onSuccess(List<Tweet> tweets) {
                         if (first) {
@@ -164,7 +164,6 @@ public class UserImageFragment extends Fragment {
     }
 
 
-
     public class UserImageAdapter extends RecyclerView.Adapter<UserImageAdapter.BindingHolder> {
 
         public List<Image> images;
@@ -175,7 +174,7 @@ public class UserImageFragment extends Fragment {
             this.handler = handler;
         }
 
-        public  class BindingHolder extends RecyclerView.ViewHolder {
+        public class BindingHolder extends RecyclerView.ViewHolder {
             public ViewDataBinding binding;
             public View view;
 
@@ -206,7 +205,6 @@ public class UserImageFragment extends Fragment {
                     .inflate(R.layout.item_image_user, parent, false);
 
         }
-
 
 
         @Override

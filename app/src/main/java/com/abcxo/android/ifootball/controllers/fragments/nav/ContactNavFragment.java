@@ -1,14 +1,20 @@
 package com.abcxo.android.ifootball.controllers.fragments.nav;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.SpinnerAdapter;
@@ -46,6 +52,7 @@ public class ContactNavFragment extends NavFragment {
         }
     }
 
+    private BroadcastReceiver receiver;
 
     private ContactUserFragment friendFg;
     private ContactUserFragment focusFg;
@@ -62,6 +69,32 @@ public class ContactNavFragment extends NavFragment {
         if (args != null) fragment.setArguments(args);
         return fragment;
     }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                friendFg.refresh();
+                if (focusFg != null) {
+                    focusFg.refresh();
+                }
+
+            }
+        };
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
+        localBroadcastManager.registerReceiver(receiver, new IntentFilter(Constants.ACTION_REFRESH_CONTACT));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
+        localBroadcastManager.unregisterReceiver(receiver);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -16,8 +16,19 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:paddingRight="@dimen/padding"
             app:popupTheme="@style/AppTheme.PopupLight">
 
+            <EditText
+                android:id="@+id/input"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_input_hint"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:textColor="@color/color_text_highlight"
+                android:textSize="@dimen/text_input" />
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout

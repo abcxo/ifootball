@@ -43,7 +43,7 @@ public class MessageFragment extends Fragment {
 
 
     protected List<Message> list = new ArrayList<>();
-
+    protected SwipeRefreshLayout.OnRefreshListener onRefreshListener;
 
     protected SuperRecyclerView recyclerView;
     protected int pageIndex;
@@ -110,7 +110,7 @@ public class MessageFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         recyclerView.setRefreshingColorResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
-        final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 pageIndex = 0;
@@ -125,13 +125,7 @@ public class MessageFragment extends Fragment {
                 loadData(false);
             }
         }, Constants.MAX_LEFT_MORE);
-        recyclerView.getSwipeToRefresh().post(new Runnable() {
-            @Override
-            public void run() {
-                recyclerView.getSwipeToRefresh().setRefreshing(true);
-                onRefreshListener.onRefresh();
-            }
-        });
+        refresh();
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -147,7 +141,7 @@ public class MessageFragment extends Fragment {
     }
 
     protected void loadData(final boolean first) {
-        MessageRestful.INSTANCE.gets(uid, uid2, tid, getGetsType(), pageIndex, new MessageRestful.OnMessageRestfulList() {
+        MessageRestful.INSTANCE.gets(getGetsType(), uid, uid2, tid , pageIndex, new MessageRestful.OnMessageRestfulList() {
             @Override
             public void onSuccess(List<Message> messages) {
                 if (first) {
@@ -177,6 +171,16 @@ public class MessageFragment extends Fragment {
     }
 
 
+    public void refresh() {
+        recyclerView.getSwipeToRefresh().post(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.getSwipeToRefresh().setRefreshing(true);
+                onRefreshListener.onRefresh();
+            }
+        });
+    }
+
     protected MessageRestful.GetsType getGetsType() {
         return MessageRestful.GetsType.ALL;
     }
@@ -193,12 +197,29 @@ public class MessageFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+
     public void addMessages(List<Message> messages) {
         if (messages != null && messages.size() > 0) {
             int bCount = list.size();
             list.addAll(messages);
             adapter.notifyItemRangeInserted(bCount, messages.size());
             pageIndex++;
+        }
+    }
+
+    public void addMessage(Message message) {
+        if (message != null) {
+            int bCount = list.size();
+            list.add(message);
+            adapter.notifyItemRangeInserted(bCount, 1);
+        }
+    }
+
+
+    public void insertMessage(Message message) {
+        if (message != null) {
+            list.add(message);
+            adapter.notifyItemRangeInserted(0, 1);
         }
     }
 
@@ -215,7 +236,7 @@ public class MessageFragment extends Fragment {
             this.messages = users;
         }
 
-        public  class BindingHolder extends RecyclerView.ViewHolder {
+        public class BindingHolder extends RecyclerView.ViewHolder {
             public ViewDataBinding binding;
 
             public BindingHolder(View rowView) {

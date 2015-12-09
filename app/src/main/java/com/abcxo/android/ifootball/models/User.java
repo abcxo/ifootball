@@ -1,12 +1,16 @@
 package com.abcxo.android.ifootball.models;
 
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 
+import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.BR;
+import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
@@ -220,7 +224,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
                 UserRestful.INSTANCE.focus(id, focus, new UserRestful.OnUserRestfulDo() {
                     @Override
                     public void onSuccess() {
-
+                        LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_LOGIN));
                     }
 
                     @Override

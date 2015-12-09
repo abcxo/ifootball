@@ -40,6 +40,8 @@ public class UserFragment extends Fragment {
 
     protected int pageIndex;
 
+    protected SwipeRefreshLayout.OnRefreshListener onRefreshListener;
+
     public static UserFragment newInstance() {
         return newInstance(null);
     }
@@ -82,12 +84,11 @@ public class UserFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         recyclerView.setRefreshingColorResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
-        final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 pageIndex = 0;
                 loadData(true);
-                UserFragment.this.onRefresh();
             }
         };
         recyclerView.setRefreshListener(onRefreshListener);
@@ -98,6 +99,13 @@ public class UserFragment extends Fragment {
                 loadData(false);
             }
         }, Constants.MAX_LEFT_MORE);
+        refresh();
+
+
+    }
+
+
+    public void refresh() {
         recyclerView.getSwipeToRefresh().post(new Runnable() {
             @Override
             public void run() {
@@ -105,13 +113,10 @@ public class UserFragment extends Fragment {
                 onRefreshListener.onRefresh();
             }
         });
-
-
     }
 
-
     protected void loadData(final boolean first) {
-        UserRestful.INSTANCE.gets(uid, getGetsType(), pageIndex, new UserRestful.OnUserRestfulList() {
+        UserRestful.INSTANCE.gets(getGetsType(), uid, getKeyword(), pageIndex, new UserRestful.OnUserRestfulList() {
             @Override
             public void onSuccess(List<User> users) {
                 if (first) {
@@ -140,9 +145,10 @@ public class UserFragment extends Fragment {
         });
     }
 
-    protected void onRefresh() {
-
+    protected String getKeyword() {
+        return "";
     }
+
 
     protected void refreshUsers(List<User> users) {
         list.clear();
@@ -213,7 +219,7 @@ public class UserFragment extends Fragment {
             if (type == CONTACT.getIndex()) {
                 boolean showIndex = true;
                 if (position > 0) {
-                    User previousUser = users.get(position-1);
+                    User previousUser = users.get(position - 1);
                     if (user.index.equals(previousUser.index)) {
                         showIndex = false;
                     }

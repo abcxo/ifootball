@@ -80,8 +80,12 @@ public class ViewUtils {
     }
 
     public static void loading(Context context) {
-        dismiss();
-        progressDialog = ProgressDialog.show(context, null, null);
+        try {
+            dismiss();
+            progressDialog = ProgressDialog.show(context, null, null);
+        } catch (Exception e) {
+
+        }
     }
 
     public static void dismiss() {

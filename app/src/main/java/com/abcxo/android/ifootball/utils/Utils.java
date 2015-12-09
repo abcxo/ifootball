@@ -1,30 +1,16 @@
 package com.abcxo.android.ifootball.utils;
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.IntentFilter;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Patterns;
 
 import com.abcxo.android.ifootball.Application;
-import com.abcxo.android.ifootball.constants.Constants;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
-import java.util.SimpleTimeZone;
 import java.util.regex.Pattern;
 
 /**
@@ -43,16 +29,13 @@ public class Utils {
     }
 
 
-    public static boolean hasEmpty(String str) {
-        return str.isEmpty() || str.contains(" ");
-    }
 
     public static boolean isEmail(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     public static boolean isPassword(String password) {
-        Pattern pattern = Pattern.compile("[a-zA-Z0-9]{6,10}");
+        Pattern pattern = Pattern.compile("[a-zA-Z0-9]{6,12}");
         return pattern.matcher(password).matches();
     }
 
@@ -73,8 +56,8 @@ public class Utils {
     }
 
     public static String md5(String str) {
-        StringBuffer buf = null;
         try {
+            StringBuffer buf = null;
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(str.getBytes());
             byte b[] = md.digest();
@@ -87,9 +70,11 @@ public class Utils {
                     buf.append("0");
                 buf.append(Integer.toHexString(i));
             }
-        } catch (NoSuchAlgorithmException e) {
+
+            return buf.toString().substring(8, 24);
+        } catch (Exception e) {
         }
-        return buf.toString().substring(8, 24);
+        return "";
     }
 
     public static String randomString() {

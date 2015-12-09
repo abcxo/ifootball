@@ -16,11 +16,14 @@ public final class Constants {
 
     public static final String ACTION_REFRESH_HOME = "refresh_home";
     public static final String ACTION_REFRESH_TEAM = "refresh_team";
+    public static final String ACTION_REFRESH_CONTACT = "refresh_contact";
+    public static final String ACTION_MESSAGE = "message";
+    public static final String ACTION_MESSAGE_CLICK = "message_click";
 
 
-    //        public static final String HOST = "http://123.56.119.95:8080";
+//            public static final String HOST = "http://123.56.119.95:8080";
     public static final String HOST = "http://localhost:8080";
-    public static final String SITE = "http://www.baidu.com";
+    public static final String SITE = "http://www.ifootball.com";
 
     public static final int PAGE_INDEX = 0;
     public static final int PAGE_SIZE = 30;
@@ -41,9 +44,13 @@ public final class Constants {
 
     public static String DIR_TWEET_ADD = DIR + "/tweetadd/";
     public static String DIR_TWEET_SHARE = DIR + "/tweetshare/";
+    public static String DIR_TWEET_CACHE = DIR + "/tweetcache/";
 
     public static int MAX_ADD_TWEET_IMAGE = 9;
 
     public static int MAX_LEFT_MORE = 5;
+
+    public static String PREFERENCE = "ifootball";
+    public static String PREFERENCE_FIRST = "first";
 
 }

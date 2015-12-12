@@ -1,0 +1,262 @@
+package com.abcxo.android.ifootball.controllers.fragments.nav;
+
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.abcxo.android.ifootball.Application;
+import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.databinding.FragmentSettingBinding;
+import com.abcxo.android.ifootball.models.User;
+import com.abcxo.android.ifootball.restfuls.RestfulError;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.Utils;
+import com.abcxo.android.ifootball.utils.ViewUtils;
+
+/**
+ * Created by shadow on 15/12/11.
+ */
+public class SettingFragment extends Fragment {
+
+    public static SettingFragment newInstance() {
+        return newInstance(null);
+    }
+
+    public static SettingFragment newInstance(Bundle args) {
+        SettingFragment fragment = new SettingFragment();
+        if (args != null) fragment.setArguments(args);
+        return fragment;
+    }
+
+    enum RequestType {
+        COVER,
+        AVATAR
+    }
+
+    private User user;
+
+    private RequestType requestType;
+    private FragmentSettingBinding binding;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        user = UserRestful.INSTANCE.me();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_setting, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding = DataBindingUtil.bind(view);
+        binding.setHandler(new BindingHandler());
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+    }
+
+
+    private void edit() {
+        ViewUtils.loading(getActivity());
+        UserRestful.INSTANCE.edit(user, new UserRestful.OnUserRestfulGet() {
+            @Override
+            public void onSuccess(User user) {
+                LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_EDIT));
+                refresh();
+            }
+
+            @Override
+            public void onError(RestfulError error) {
+                ViewUtils.toast(error.msg);
+            }
+
+            @Override
+            public void onFinish() {
+                ViewUtils.dismiss();
+            }
+        });
+    }
+
+
+    private void cover(Bitmap image) {
+        ViewUtils.loading(getActivity());
+        UserRestful.INSTANCE.cover(image, new UserRestful.OnUserRestfulGet() {
+            @Override
+            public void onSuccess(User user) {
+                LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_EDIT));
+                refresh();
+            }
+
+            @Override
+            public void onError(RestfulError error) {
+                ViewUtils.toast(error.msg);
+            }
+
+            @Override
+            public void onFinish() {
+                ViewUtils.dismiss();
+            }
+        });
+    }
+
+    private void avatar(Bitmap image) {
+        ViewUtils.loading(getActivity());
+        UserRestful.INSTANCE.avatar(image, new UserRestful.OnUserRestfulGet() {
+            @Override
+            public void onSuccess(User user) {
+                LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_EDIT));
+                refresh();
+            }
+
+            @Override
+            public void onError(RestfulError error) {
+                ViewUtils.toast(error.msg);
+            }
+
+            @Override
+            public void onFinish() {
+                ViewUtils.dismiss();
+            }
+        });
+    }
+
+    public void refresh() {
+        user = UserRestful.INSTANCE.me();
+        binding.setUser(user);
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK && data != null) {
+            String sdState = Environment.getExternalStorageState();
+            if (!sdState.equals(Environment.MEDIA_MOUNTED)) {
+                return;
+            }
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            if (requestType == RequestType.COVER) {
+                cover(bitmap);
+            } else {
+                avatar(bitmap);
+            }
+
+        } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
+            try {
+                Uri selectedImage = data.getData();
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                if (requestType == RequestType.COVER) {
+                    cover(bitmap);
+                } else {
+                    avatar(bitmap);
+                }
+            } catch (Exception e) {
+                ViewUtils.toast(R.string.add_tweet_send_image_error);
+            }
+
+        }
+    }
+
+
+    public class BindingHandler {
+
+        public void onClickCover(View view) {
+            requestType = RequestType.COVER;
+            ViewUtils.image(SettingFragment.this);
+        }
+
+        public void onClickAvatar(View view) {
+            requestType = RequestType.AVATAR;
+            ViewUtils.image(SettingFragment.this);
+        }
+
+        public void onClickName(View view) {
+            final EditText editText = new EditText(getActivity());
+            new AlertDialog.Builder(getActivity())
+                    .setView(editText)
+                    .setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            boolean isName = Utils.isName(editText.getText().toString());
+                            if (isName) {
+                                user.name = editText.getText().toString();
+                                edit();
+                            } else {
+                                ViewUtils.toast(R.string.sign_login_name_error);
+                            }
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel_text, null)
+                    .show();
+        }
+
+        public void onClickSign(View view) {
+            final EditText editText = new EditText(getActivity());
+            new AlertDialog.Builder(getActivity())
+                    .setView(editText)
+                    .setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            boolean isSign = Utils.isSign(editText.getText().toString());
+                            if (isSign) {
+                                user.sign = editText.getText().toString();
+                                edit();
+                            } else {
+                                ViewUtils.toast(R.string.sign_login_sign_error);
+                            }
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel_text, null)
+                    .show();
+        }
+
+        public void onClickGender(View view) {
+            new AlertDialog.Builder(getActivity())
+                    .setItems(R.array.gender_list, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            user.gender = which == 0 ? User.GenderType.MALE : User.GenderType.FEMALE;
+                            edit();
+                            dialog.dismiss();
+                        }
+                    }).show();
+        }
+
+        public void onClickLogout(View view) {
+            UserRestful.INSTANCE.logout();
+            getActivity().finish();
+        }
+
+
+    }
+}

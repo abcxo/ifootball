@@ -229,8 +229,12 @@ public class NavActivity extends AppCompatActivity
                 @Override
                 public void run() {
                     if (id == R.id.nav_item_setting) {
-                        UserRestful.INSTANCE.logout();
-//                        toAppend(SettingActivity.class);
+                        if (UserRestful.INSTANCE.isLogin()) {
+                            toAppend(SettingActivity.class);
+                        } else {
+                            NavUtils.toSign(NavActivity.this);
+                        }
+
                     } else if (id == R.id.nav_item_help) {
                         toAppend(WelcomeActivity.class);
                     } else if (id == R.id.nav_item_about) {

@@ -277,6 +277,31 @@ public class UserRestful {
 
 
     //上传头像
+    public void cover(Bitmap image, @NonNull final OnUserRestfulGet onGet) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), baos.toByteArray());
+        Call<User> call = userService.cover(meId(), requestBody);
+        call.enqueue(new OnRestful<User>() {
+            @Override
+            void onSuccess(User user) {
+                updateMe(user);
+                onGet.onSuccess(user);
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onGet.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onGet.onFinish();
+            }
+        });
+    }
+
+    //上传头像
     public void avatar(Bitmap image, @NonNull final OnUserRestfulGet onGet) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 50, baos);

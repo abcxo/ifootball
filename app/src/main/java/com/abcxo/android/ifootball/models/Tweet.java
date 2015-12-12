@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -60,6 +61,8 @@ public class Tweet extends BaseObservable implements Parcelable {
 
     public double lon;
     public double lat;
+    @Bindable
+    public String location;
 
     public Tweet originTweet;
 
@@ -90,6 +93,7 @@ public class Tweet extends BaseObservable implements Parcelable {
         time = in.readString();
         lon = in.readDouble();
         lat = in.readDouble();
+        location = in.readString();
         originTweet = in.readParcelable(Tweet.class.getClassLoader());
         star = in.readByte() != 0;
         tweetType = TweetType.valueOf(in.readString());
@@ -175,6 +179,7 @@ public class Tweet extends BaseObservable implements Parcelable {
         dest.writeString(time);
         dest.writeDouble(lon);
         dest.writeDouble(lat);
+        dest.writeString(location);
         dest.writeParcelable(originTweet, flags);
         dest.writeByte((byte) (star ? 1 : 0));
         dest.writeString(tweetType.name());
@@ -223,6 +228,10 @@ public class Tweet extends BaseObservable implements Parcelable {
             } else {
                 NavUtils.toSign(view.getContext());
             }
+        }
+
+        public void onClickLocation(View view) {
+            NavUtils.toLocation(view.getContext(), lat,lon,location);
         }
 
         public void onClickStar(final View view) {
@@ -305,8 +314,6 @@ public class Tweet extends BaseObservable implements Parcelable {
             } else {
                 NavUtils.toSign(view.getContext());
             }
-
-
 
 
         }

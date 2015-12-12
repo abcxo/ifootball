@@ -55,7 +55,7 @@
                     app:error="@{@drawable/ic_avatar}"
                     app:imageUrl="@{user.avatar}"
                     app:riv_corner_radius="@dimen/icon_radius_small"
-                    tools:src="@drawable/test0" />
+                    tools:src="@drawable/bg_sign_complete" />
 
             </LinearLayout>
 
@@ -83,7 +83,7 @@
                     android:onClick="@{handler.onClickCamera}"
                     android:src="@drawable/ic_camera"
                     android:tint="@color/color_icon_light"
-                    android:visibility="@{tweet ==null? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{tweet.originTweet ==null? View.VISIBLE : View.GONE}" />
 
                 <ImageView
                     android:id="@+id/photo"
@@ -95,7 +95,7 @@
                     android:onClick="@{handler.onClickPhoto}"
                     android:src="@drawable/ic_photo"
                     android:tint="@color/color_icon_light"
-                    android:visibility="@{tweet ==null? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{tweet.originTweet ==null? View.VISIBLE : View.GONE}" />
 
                 <ImageView
                     android:id="@+id/location"
@@ -104,9 +104,10 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/padding"
                     android:layout_toRightOf="@id/photo"
+                    android:onClick="@{handler.onClickLocation}"
                     android:src="@drawable/ic_location"
                     android:tint="@color/color_icon_light"
-                    android:visibility="@{tweet ==null? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{tweet.originTweet ==null? View.VISIBLE : View.GONE}" />
 
                 <ImageView
                     android:id="@+id/face"
@@ -115,6 +116,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/padding"
                     android:layout_toRightOf="@id/location"
+                    android:onClick="@{handler.onClickFace}"
                     android:src="@drawable/ic_face"
                     android:tint="@color/color_icon_light" />
 
@@ -138,26 +140,50 @@
                 android:layout_above="@id/action_layout"
                 android:background="@color/color_divider" />
 
+
+            <TextView
+                android:id="@+id/location_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_above="@id/action_divider"
+                android:drawableLeft="@drawable/ic_location_mini"
+                android:onClick="@{tweet.handler.onClickLocation}"
+                android:drawableTint="@color/color_icon_light_o"
+                android:drawablePadding="@dimen/padding_small"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/padding"
+                android:textColor="@color/color_text_append"
+                android:textSize="@dimen/text_append"
+                android:paddingTop="@dimen/padding"
+                android:singleLine="true"
+                android:text="@{tweet.location}"
+                android:visibility="@{tweet.location!=null?View.VISIBLE:View.GONE}"
+                tools:text="中国浙江省杭州市区" />
+
             <FrameLayout
                 android:id="@+id/framelayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/action_divider"
+                android:layout_above="@id/location_tv"
                 android:layout_marginBottom="@dimen/padding_small">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/image_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:visibility="@{tweet ==null? View.VISIBLE : View.GONE}" />
+                    android:visibility="@{tweet.originTweet ==null? View.VISIBLE : View.GONE}" />
 
                 <include
                     android:id="@+id/repeat_content"
                     layout="@layout/content_tweet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    bind:tweet="@{tweet}" />
+                    bind:tweet="@{tweet.originTweet}" />
+
+
             </FrameLayout>
+
+
 
 
             <EditText

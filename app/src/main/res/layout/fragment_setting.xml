@@ -52,9 +52,9 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
-                    android:onClick="@{handler.onClickCover}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{handler.onClickCover}"
                     android:padding="@dimen/padding">
 
                     <TextView
@@ -68,6 +68,7 @@
                         android:textSize="@dimen/text_title" />
 
                     <com.makeramen.roundedimageview.RoundedImageView
+                        android:background="@color/color_bg"
                         android:layout_width="100dp"
                         android:layout_height="48dp"
                         android:layout_alignParentRight="true"
@@ -83,9 +84,9 @@
                 <View style="@style/Divider" />
 
                 <RelativeLayout
-                    android:onClick="@{handler.onClickAvatar}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{handler.onClickAvatar}"
                     android:padding="@dimen/padding">
 
                     <TextView
@@ -104,6 +105,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:scaleType="centerCrop"
+                        app:error="@{@drawable/ic_avatar}"
                         app:imageUrl="@{user.avatar}"
                         app:riv_corner_radius="@dimen/icon_radius"
                         tools:src="@drawable/bg_sign_complete" />
@@ -147,9 +149,9 @@
 
 
                 <RelativeLayout
-                    android:onClick="@{handler.onClickName}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{handler.onClickName}"
                     android:padding="@dimen/padding">
 
                     <TextView
@@ -179,9 +181,9 @@
                 <View style="@style/Divider" />
 
                 <RelativeLayout
-                    android:onClick="@{handler.onClickSign}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{handler.onClickSign}"
                     android:padding="@dimen/padding">
 
                     <TextView
@@ -211,9 +213,9 @@
                 <View style="@style/Divider" />
 
                 <RelativeLayout
-                    android:onClick="@{handler.onClickGender}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="@{handler.onClickGender}"
                     android:padding="@dimen/padding">
 
                     <TextView
@@ -243,11 +245,11 @@
                 <View style="@style/Divider" />
 
                 <Button
-                    android:onClick="@{handler.onClickLogout}"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_margin="@dimen/padding"
                     android:backgroundTint="@color/color_icon_red"
+                    android:onClick="@{handler.onClickLogout}"
                     android:text="@string/setting_logout_text"
                     android:textColor="@color/color_text_highlight" />
 

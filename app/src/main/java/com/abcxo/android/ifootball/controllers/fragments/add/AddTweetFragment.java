@@ -33,9 +33,11 @@ import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.FileUtils;
+import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
+import com.baidu.location.BDLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +62,7 @@ public class AddTweetFragment extends Fragment {
     private RecyclerView recyclerView;
     private AddTweetImageAdapter adapter;
 
+    private Tweet tweet = new Tweet();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,6 +70,7 @@ public class AddTweetFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             originTweet = (Tweet) getArguments().get(Constants.KEY_TWEET);
+            tweet.originTweet = originTweet;
         }
     }
 
@@ -83,7 +87,7 @@ public class AddTweetFragment extends Fragment {
         AddTweetFragment.BindingHandler handler = new BindingHandler();
         binding.setHandler(handler);
         binding.setUser(UserRestful.INSTANCE.me());
-        binding.setTweet(originTweet);
+        binding.setTweet(tweet);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -234,12 +238,39 @@ public class AddTweetFragment extends Fragment {
             ViewUtils.photo(AddTweetFragment.this);
         }
 
+        public void onClickLocation(final View view) {
+            ViewUtils.loading(getActivity());
+            LocationUtils.getLocation(new LocationUtils.LocationListener() {
+                @Override
+                public void onSuccess(BDLocation location) {
+                    tweet.lon = location.getLongitude();
+                    tweet.lat = location.getLatitude();
+                    tweet.location = location.getLocationDescribe();
+                    tweet.notifyPropertyChanged(BR.location);
+                }
+
+                @Override
+                public void onError(String msg) {
+                    ViewUtils.toast(msg);
+                }
+
+                @Override
+                public void onFinish() {
+                    ViewUtils.dismiss();
+                }
+            });
+
+        }
+
+        public void onClickFace(final View view) {
+
+        }
+
         public void onClickSend(final View view) {
 
             if (TextUtils.isEmpty(inputET.getText().toString()) && originTweet == null) {
                 ViewUtils.toast(R.string.add_tweet_send_error);
             } else {
-                Tweet tweet = new Tweet();
                 tweet.uid = UserRestful.INSTANCE.meId();
                 tweet.icon = UserRestful.INSTANCE.me().avatar;
                 tweet.name = UserRestful.INSTANCE.me().name;

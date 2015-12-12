@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
@@ -71,6 +72,7 @@ public class SettingFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = DataBindingUtil.bind(view);
+        binding.setUser(user);
         binding.setHandler(new BindingHandler());
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
@@ -201,9 +203,14 @@ public class SettingFragment extends Fragment {
         }
 
         public void onClickName(View view) {
-            final EditText editText = new EditText(getActivity());
+            View inputView = View.inflate(view.getContext(), R.layout.view_input, null);
+            TextView titleTV = (TextView) inputView.findViewById(R.id.title);
+            titleTV.setText(R.string.setting_name_text);
+            final EditText editText = (EditText) inputView.findViewById(R.id.input);
+            editText.setHint(R.string.setting_name_hint);
+            editText.setText(user.name);
             new AlertDialog.Builder(getActivity())
-                    .setView(editText)
+                    .setView(inputView)
                     .setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -221,9 +228,14 @@ public class SettingFragment extends Fragment {
         }
 
         public void onClickSign(View view) {
-            final EditText editText = new EditText(getActivity());
+            View inputView = View.inflate(view.getContext(), R.layout.view_input, null);
+            TextView titleTV = (TextView) inputView.findViewById(R.id.title);
+            titleTV.setText(R.string.setting_sign_text);
+            final EditText editText = (EditText) inputView.findViewById(R.id.input);
+            editText.setHint(R.string.setting_sign_hint);
+            editText.setText(user.sign);
             new AlertDialog.Builder(getActivity())
-                    .setView(editText)
+                    .setView(inputView)
                     .setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

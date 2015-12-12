@@ -34,6 +34,12 @@ public class NavUtils {
     }
 
 
+    public static void toLocation(Context context,double lat,double lon,String location) {
+        Uri uri = Uri.parse(String.format("geo:%f,%f?q=%s", lat, lon, location));
+        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+        context.startActivity(intent);
+    }
+
     public static void toEmail(Context context) {
         Intent data = new Intent(Intent.ACTION_SENDTO);
         data.setData(Uri.parse("mailto:iamthefootball@qq.com"));

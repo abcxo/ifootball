@@ -29,7 +29,7 @@
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{tweet.icon}"
             app:riv_corner_radius="@dimen/icon_radius"
-            tools:src="@drawable/test2"/>
+            tools:src="@drawable/bg_sign_complete"/>
 
         <TextView
             android:id="@+id/name"
@@ -74,7 +74,7 @@
             android:layout_marginTop="@dimen/padding_small"
             android:background="@color/color_bg"
             android:scaleType="centerCrop"
-            tools:src="@drawable/test0"
+            tools:src="@drawable/bg_sign_complete"
             android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
             app:imageUrl="@{tweet.cover}" />
 
@@ -88,11 +88,31 @@
             android:layout_marginTop="@dimen/padding"
             bind:tweet="@{tweet.originTweet}" />
 
+
+        <TextView
+            android:id="@+id/location_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_below="@+id/repeat_content"
+            android:drawableLeft="@drawable/ic_location_mini"
+            android:layout_alignLeft="@+id/name"
+            android:drawableTint="@color/color_icon_light_o"
+            android:drawablePadding="@dimen/padding_small"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/padding"
+            android:textColor="@color/color_text_append"
+            android:textSize="@dimen/text_append"
+            android:paddingTop="@dimen/padding"
+            android:singleLine="true"
+            android:text="@{tweet.location}"
+            android:visibility="@{tweet.location!=null?View.VISIBLE:View.GONE}"
+            tools:text="中国浙江省杭州市区" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
-            android:layout_below="@+id/repeat_content"
+            android:layout_below="@+id/location_tv"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

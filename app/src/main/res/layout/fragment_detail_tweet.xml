@@ -115,11 +115,31 @@
                         bind:tweet="@{tweet.originTweet}" />
 
                     <TextView
+                        android:layout_marginTop="@dimen/padding_small"
+                        android:id="@+id/location_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_below="@+id/repeat_content"
+                        android:drawableLeft="@drawable/ic_location_mini"
+                        android:onClick="@{tweet.handler.onClickLocation}"
+                        android:drawableTint="@color/color_icon_light_o"
+                        android:drawablePadding="@dimen/padding_small"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="@dimen/padding"
+                        android:textColor="@color/color_text_append"
+                        android:textSize="@dimen/text_append"
+                        android:paddingTop="@dimen/padding"
+                        android:singleLine="true"
+                        android:text="@{tweet.location}"
+                        android:visibility="@{tweet.location!=null?View.VISIBLE:View.GONE}"
+                        tools:text="中国浙江省杭州市区" />
+
+                    <TextView
                         android:id="@+id/time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/repeat_content"
-                        android:layout_marginTop="@dimen/padding"
+                        android:layout_below="@+id/location_tv"
+                        android:layout_marginTop="@dimen/padding_small"
                         android:text="@{tweet.time}"
                         android:textColor="@color/color_text_append"
                         android:textSize="12dp"

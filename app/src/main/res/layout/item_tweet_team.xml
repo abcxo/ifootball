@@ -69,6 +69,7 @@
             android:layout_below="@+id/source"
             android:layout_marginTop="@dimen/padding_small"
             android:text="@{tweet.title}"
+            android:visibility="@{tweet.title!=null?View.VISIBLE:View.GONE}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
             tools:text="恒大队的外援威震中超" />

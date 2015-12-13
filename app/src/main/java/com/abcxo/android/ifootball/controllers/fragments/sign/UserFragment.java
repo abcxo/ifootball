@@ -220,7 +220,7 @@ public class UserFragment extends Fragment {
                 boolean showIndex = true;
                 if (position > 0) {
                     User previousUser = users.get(position - 1);
-                    if (user.index.equals(previousUser.index)) {
+                    if (user.letter.equals(previousUser.letter)) {
                         showIndex = false;
                     }
                 }

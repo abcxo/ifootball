@@ -22,7 +22,7 @@ import java.io.Serializable;
  */
 public class User extends BaseObservable implements Parcelable, Serializable {
     public long id;
-    public String index;
+    public String letter;
     public String groupName;
     public String email;
     public String name;
@@ -56,7 +56,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
 
     protected User(Parcel in) {
         id = in.readLong();
-        index = in.readString();
+        letter = in.readString();
         groupName = in.readString();
         email = in.readString();
         name = in.readString();
@@ -115,7 +115,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
-        dest.writeString(index);
+        dest.writeString(letter);
         dest.writeString(groupName);
         dest.writeString(email);
         dest.writeString(name);

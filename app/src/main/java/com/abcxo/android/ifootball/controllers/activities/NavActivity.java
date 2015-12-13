@@ -196,9 +196,12 @@ public class NavActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if (selectedItemId != R.id.nav_item_main) {
+            onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
         } else {
             super.onBackPressed();
         }
+
     }
 
     @Override
@@ -311,6 +314,5 @@ public class NavActivity extends AppCompatActivity
         startActivity(intent);
 
     }
-
 
 }

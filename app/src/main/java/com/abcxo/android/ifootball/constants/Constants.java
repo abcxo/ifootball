@@ -21,9 +21,9 @@ public final class Constants {
     public static final String ACTION_MESSAGE_CLICK = "message_click";
 
 
-//            public static final String HOST = "http://123.56.119.95:8080";
-    public static final String HOST = "http://localhost:8080";
-    public static final String SITE = "http://www.ifootball.com";
+            public static final String HOST = "http://123.56.119.95:8080";
+//    public static final String HOST = "http://localhost:8080";
+    public static final String SITE = "http://7xosf3.com1.z0.glb.clouddn.com/ifootball.apk";
 
     public static final int PAGE_INDEX = 0;
     public static final int PAGE_SIZE = 30;

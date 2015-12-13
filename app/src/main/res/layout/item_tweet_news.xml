@@ -47,7 +47,7 @@
             android:text="@{tweet.summary}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
-            tools:text="在那一年被贴在那一年占了恒大队全队进球的七成。" />
+            tools:text="在那一年被贴在那一年占了恒大队全队wefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwef进球的七成。" />
 
 
         <LinearLayout
@@ -55,7 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/text"
-            android:layout_marginTop="@dimen/_padding_small"
             android:gravity="center">
 
             <ImageView

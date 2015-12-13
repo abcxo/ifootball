@@ -45,5 +45,6 @@ dependencies {
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.malinskiy:superrecyclerview:1.1.1'
     compile project(':push')
+    compile project(':library')
 //    compile project(':share')
 }

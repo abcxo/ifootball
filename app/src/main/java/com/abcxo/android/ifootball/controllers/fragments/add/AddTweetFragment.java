@@ -38,6 +38,9 @@ import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.baidu.location.BDLocation;
+import com.rockerhieu.emojicon.EmojiconGridFragment;
+import com.rockerhieu.emojicon.EmojiconsFragment;
+import com.rockerhieu.emojicon.emoji.Emojicon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +48,7 @@ import java.util.List;
 /**
  * Created by shadow on 15/11/4.
  */
-public class AddTweetFragment extends Fragment {
+public class AddTweetFragment extends Fragment implements EmojiconGridFragment.OnEmojiconClickedListener, EmojiconsFragment.OnEmojiconBackspaceClickedListener {
     public Tweet originTweet;
 
     public static AddTweetFragment newInstance() {
@@ -63,6 +66,10 @@ public class AddTweetFragment extends Fragment {
     private AddTweetImageAdapter adapter;
 
     private Tweet tweet = new Tweet();
+
+    private EmojiconsFragment emojiconsFragment;
+    private View faceView;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,7 +116,36 @@ public class AddTweetFragment extends Fragment {
         adapter = new AddTweetImageAdapter(new ArrayList<Image>(), handler);
         recyclerView.setAdapter(adapter);
 
+        faceView = view.findViewById(R.id.face_layout);
+
+        emojiconsFragment = EmojiconsFragment.newInstance(true);
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.face_layout, emojiconsFragment)
+                .commit();
+
+        inputET.requestFocus();
+
+        inputET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (faceView.getVisibility() == View.VISIBLE) {
+                    hideFace(true);
+                }
+            }
+        });
     }
+
+
+    @Override
+    public void onEmojiconClicked(Emojicon emojicon) {
+        EmojiconsFragment.input(inputET, emojicon);
+    }
+
+    @Override
+    public void onEmojiconBackspaceClicked(View v) {
+        EmojiconsFragment.backspace(inputET);
+    }
+
 
     public enum ImageType {
         NORMAL(0),
@@ -215,6 +251,34 @@ public class AddTweetFragment extends Fragment {
     }
 
 
+    private void hideFace(boolean hidden) {
+        if (hidden) {
+            if (faceView.getVisibility() != View.GONE) {
+                faceView.setVisibility(View.GONE);
+                faceView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ViewUtils.openKeyboard(getActivity(), inputET);
+                    }
+                });
+            }
+
+
+        } else {
+            if (faceView.getVisibility() != View.VISIBLE) {
+                ViewUtils.closeKeyboard(getActivity());
+                faceView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        faceView.setVisibility(View.VISIBLE);
+                    }
+                }, 100);
+            }
+
+        }
+    }
+
+
     public class BindingHandler {
 
         public void onClickImage(final View view) {
@@ -263,6 +327,7 @@ public class AddTweetFragment extends Fragment {
         }
 
         public void onClickFace(final View view) {
+            hideFace(faceView.getVisibility() == View.VISIBLE);
 
         }
 
@@ -329,6 +394,14 @@ public class AddTweetFragment extends Fragment {
     private void finish() {
         FileUtils.delete(Constants.DIR_TWEET_ADD);
         getActivity().finish();
+    }
+
+    public boolean onBackPressed() {
+        if (faceView.getVisibility() == View.VISIBLE) {
+            hideFace(true);
+            return true;
+        }
+        return false;
     }
 }
 

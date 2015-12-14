@@ -50,19 +50,26 @@ public class ChatUserMessageFragment extends MessageFragment {
     @Override
     public void addMessage(Message message) {
         super.addMessage(message);
-        recyclerView.getRecyclerView().smoothScrollToPosition(adapter.getItemCount()-1);
+        if (adapter.getItemCount()>0){
+            recyclerView.getRecyclerView().smoothScrollToPosition(adapter.getItemCount()-1);
+        }
+
     }
 
     @Override
     public void addMessages(List<Message> messages) {
         super.addMessages(messages);
-        recyclerView.getRecyclerView().smoothScrollToPosition(adapter.getItemCount()-1);
+        if (adapter.getItemCount()>0){
+            recyclerView.getRecyclerView().smoothScrollToPosition(adapter.getItemCount()-1);
+        }
     }
 
     @Override
     protected void refreshMessages(List<Message> messages) {
         super.refreshMessages(messages);
-        recyclerView.getRecyclerView().smoothScrollToPosition(adapter.getItemCount()-1);
+        if (adapter.getItemCount()>0){
+            recyclerView.getRecyclerView().smoothScrollToPosition(adapter.getItemCount()-1);
+        }
     }
 
     @Override

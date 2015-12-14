@@ -45,11 +45,11 @@ public class TweetRestful {
 
     public interface TweetService {
 
-        @POST("/tweet")
+        @POST("/ifootball/tweet")
         Call<Tweet> add(@Query("prompt") String prompt, @Query("originTid") long originTid, @Body Tweet tweet);
 
         @Multipart
-        @POST("/tweet/photo")
+        @POST("/ifootball/tweet/photo")
         Call<Tweet> photo(@Query("tid") long tid,
                           @Part("image\"; filename=\"image.jpg\" ") RequestBody image0,
                           @Part("image\"; filename=\"image.jpg\" ") RequestBody image1,
@@ -62,7 +62,7 @@ public class TweetRestful {
                           @Part("image\"; filename=\"image.jpg\" ") RequestBody image8
         );
 
-        @GET("/tweet/list")
+        @GET("/ifootball/tweet/list")
         Call<List<Tweet>> gets(@Query("getsType") GetsType type,
                                @Query("uid") long uid,
                                @Query("keyword") String keyword,
@@ -70,17 +70,17 @@ public class TweetRestful {
                                @Query("pageSize") int pageSize);
 
 
-        @GET("/tweet")
+        @GET("/ifootball/tweet")
         Call<Tweet> get(@Query("uid") long uid, @Query("tid") long tid);
 
 
-        @POST("/tweet/star")
+        @POST("/ifootball/tweet/star")
         Call<Object> star(@Query("uid") long uid, @Query("tid") long tid, @Query("star") boolean star);
 
-        @POST("/tweet/comment")
+        @POST("/ifootball/tweet/comment")
         Call<Object> comment(@Body Message message);
 
-        @DELETE("/tweet")
+        @DELETE("/ifootball/tweet")
         Call<Object> delete(@Query("tid") long tid);
     }
 

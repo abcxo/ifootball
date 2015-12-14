@@ -23,7 +23,7 @@ public class MessageRestful {
     private MessageService messageService;
 
     public interface MessageService {
-        @GET("/message/list")
+        @GET("/ifootball/message/list")
         Call<List<Message>> gets(@Query("getsType") GetsType type,
                                  @Query("uid") long uid,
                                  @Query("uid2") long uid2,
@@ -31,7 +31,7 @@ public class MessageRestful {
                                  @Query("pageIndex") int pageIndex,
                                  @Query("pageSize") int pageSize);
 
-        @POST("/message/chat")
+        @POST("/ifootball/message/chat")
         Call<Object> chat(@Body Message message);
 
     }

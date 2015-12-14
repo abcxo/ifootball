@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
@@ -243,7 +242,29 @@ public class LoginSignFragment extends Fragment {
         }
 
         public void onClickForgetPassword(View view) {
-            Toast.makeText(getActivity(), "暂时不支持", Toast.LENGTH_SHORT).show();
+            boolean isEmail = Utils.isEmail(emailET.getText().toString());
+            if (!isEmail) {
+                ViewUtils.toast(R.string.sign_login_email_error);
+            } else {
+                ViewUtils.loading(getActivity());
+                UserRestful.INSTANCE.password(emailET.getText().toString(), new UserRestful.OnUserRestfulGet() {
+                    @Override
+                    public void onSuccess(User user) {
+                        ViewUtils.toast(String.format("%s%s", getString(R.string.success_forget_password, emailET.getText().toString())));
+                    }
+
+                    @Override
+                    public void onError(RestfulError error) {
+                        ViewUtils.toast(error.msg);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        ViewUtils.dismiss();
+                    }
+                });
+
+            }
         }
 
     }

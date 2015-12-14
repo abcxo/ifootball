@@ -43,53 +43,57 @@ public class UserRestful {
     private UserService userService;
 
     public interface UserService {
-        @GET("/user/login")
+
+        @GET("/ifootball/user/password")
+        Call<User> password(@Query("email") String email);
+
+        @GET("/ifootball/user/login")
         Call<User> login(@Query("email") String email, @Query("password") String password, @Query("deviceToken") String deviceToken);
 
-        @GET("/user/logout")
+        @GET("/ifootball/user/logout")
         Call<Object> logout(@Query("uid") long uid);
 
-        @POST("/user/register")
+        @POST("/ifootball/user/register")
         Call<User> register(@Query("email") String email, @Query("password") String password, @Query("deviceToken") String deviceToken);
 
-        @POST("/user/loginsso")
+        @POST("/ifootball/user/loginsso")
         Call<User> loginsso(@Query("email") String email, @Query("password") String password,
                             @Query("name") String name, @Query("avatar") String avatar,
                             @Query("gender") User.GenderType gender,
                             @Query("deviceToken") String deviceToken);
 
 
-        @PUT("/user")
+        @PUT("/ifootball/user")
         Call<User> edit(@Body User user);
 
         @Multipart
-        @POST("/user/avatar")
+        @POST("/ifootball/user/avatar")
         Call<User> avatar(@Query("uid") long uid, @Part("image\"; filename=\"avatar.jpg\" ") RequestBody image);
 
         @Multipart
-        @POST("/user/cover")
+        @POST("/ifootball/user/cover")
         Call<User> cover(@Query("uid") long uid, @Part("image\"; filename=\"cover.jpg\" ") RequestBody image);
 
-        @GET("/user")
+        @GET("/ifootball/user")
         Call<User> get(@Query("uid") long uid, @Query("uid2") long uid2);
 
-        @GET("/user/list")
+        @GET("/ifootball/user/list")
         Call<List<User>> gets(@Query("getsType") GetsType type,
                               @Query("uid") long uid,
                               @Query("keyword") String keyword,
                               @Query("pageIndex") int pageIndex,
                               @Query("pageSize") int pageSize);
 
-        @GET("/user/team/list")
+        @GET("/ifootball/user/team/list")
         Call<List<User>> getTeams(@Query("uid") long uid,
                                   @Query("groupName") String name);
 
 
-        @POST("/user/team/focus")
+        @POST("/ifootball/user/team/focus")
         Call<Object> focusTeams(@Query("uid") long uid, @Query("uid2s") String uid2s);
 
 
-        @POST("/user/focus")
+        @POST("/ifootball/user/focus")
         Call<Object> focus(@Query("uid") long uid, @Query("uid2") long uid2, @Query("focus") boolean focus);
 
 
@@ -203,6 +207,30 @@ public class UserRestful {
     //注册
     public void loginsso(String email, String password, String name, String avatar, User.GenderType gender, @NonNull final OnUserRestfulGet onGet) {
         Call<User> call = userService.loginsso(email, password, name, avatar,gender, UmengRegistrar.getRegistrationId(Application.INSTANCE));
+        call.enqueue(new OnRestful<User>() {
+            @Override
+            void onSuccess(User user) {
+                updateMe(user);
+                onGet.onSuccess(user);
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onGet.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onGet.onFinish();
+            }
+        });
+    }
+
+
+
+    //注册
+    public void password(String email, @NonNull final OnUserRestfulGet onGet) {
+        Call<User> call = userService.password(email);
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {

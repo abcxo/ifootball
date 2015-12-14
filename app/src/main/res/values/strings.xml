@@ -183,6 +183,8 @@
     <string name="welcome_begin">开始</string>
 
 
+    <string name="about_title">爱足球吧 1.0</string>
+
     <string name="about_text">
         为中国3000万足球迷而生的社交新闻应用。\n
         为可以定制自己喜欢的球队和球员的新闻。\n
@@ -209,5 +211,7 @@
 
     <string name="ok_text">确定</string>
     <string name="cancel_text">取消</string>
+
+    <string name="success_forget_password">重置密码已经发到</string>
 
 </resources>

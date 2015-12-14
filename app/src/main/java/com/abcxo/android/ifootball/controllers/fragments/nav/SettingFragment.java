@@ -161,32 +161,39 @@ public class SettingFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK && data != null) {
-            String sdState = Environment.getExternalStorageState();
-            if (!sdState.equals(Environment.MEDIA_MOUNTED)) {
-                return;
-            }
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            if (requestType == RequestType.COVER) {
-                cover(bitmap);
-            } else {
-                avatar(bitmap);
-            }
-
-        } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
-            try {
-                Uri selectedImage = data.getData();
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                if (requestType == RequestType.COVER) {
-                    cover(bitmap);
-                } else {
-                    avatar(bitmap);
+        try {
+            if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK && data != null) {
+                String sdState = Environment.getExternalStorageState();
+                if (!sdState.equals(Environment.MEDIA_MOUNTED)) {
+                    return;
                 }
-            } catch (Exception e) {
-                ViewUtils.toast(R.string.add_tweet_send_image_error);
-            }
+                if (ViewUtils.imageUrl != null) {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), ViewUtils.imageUrl);
+                    if (requestType == RequestType.COVER) {
+                        cover(bitmap);
+                    } else {
+                        avatar(bitmap);
+                    }
+                }
 
+            } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
+                try {
+                    Uri selectedImage = data.getData();
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                    if (requestType == RequestType.COVER) {
+                        cover(bitmap);
+                    } else {
+                        avatar(bitmap);
+                    }
+                } catch (Exception e) {
+                    ViewUtils.toast(R.string.add_tweet_send_image_error);
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
 

@@ -151,26 +151,34 @@ public class CompleteSignFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK && data != null) {
-            String sdState = Environment.getExternalStorageState();
-            if (!sdState.equals(Environment.MEDIA_MOUNTED)) {
-                return;
-            }
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            avatarIV.setImageBitmap(bitmap);
-            image = bitmap;
+        try {
+            if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK && data != null) {
+                String sdState = Environment.getExternalStorageState();
+                if (!sdState.equals(Environment.MEDIA_MOUNTED)) {
+                    return;
+                }
+                if (ViewUtils.imageUrl != null) {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), ViewUtils.imageUrl);
+                    avatarIV.setImageBitmap(bitmap);
+                    image = bitmap;
+                }
 
-        } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
-            try {
-                Uri selectedImage = data.getData();
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                avatarIV.setImageBitmap(bitmap);
-                image = bitmap;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
+            } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
+                try {
+                    Uri selectedImage = data.getData();
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                    avatarIV.setImageBitmap(bitmap);
+                    image = bitmap;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
 

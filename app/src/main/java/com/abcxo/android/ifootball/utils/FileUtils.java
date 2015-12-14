@@ -76,7 +76,7 @@ public class FileUtils {
             }
             File file = new File(dir + name + ".jpg");
             FileOutputStream fileOutputStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.WEBP, 80, fileOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, fileOutputStream);
             fileOutputStream.flush();
             fileOutputStream.close();
             return file.getAbsolutePath();

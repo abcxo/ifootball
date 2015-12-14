@@ -370,24 +370,32 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK && data != null) {
-            String sdState = Environment.getExternalStorageState();
-            if (!sdState.equals(Environment.MEDIA_MOUNTED)) {
-                return;
-            }
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            adapter.addImage(bitmap);
+        try {
+            if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK && data != null) {
+                String sdState = Environment.getExternalStorageState();
+                if (!sdState.equals(Environment.MEDIA_MOUNTED)) {
+                    return;
+                }
+                if (ViewUtils.imageUrl != null) {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), ViewUtils.imageUrl);
+                    adapter.addImage(bitmap);
+                }
 
-        } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
-            try {
-                Uri selectedImage = data.getData();
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                adapter.addImage(bitmap);
-            } catch (Exception e) {
-                ViewUtils.toast(R.string.add_tweet_send_image_error);
-            }
 
+            } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
+                try {
+                    Uri selectedImage = data.getData();
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                    adapter.addImage(bitmap);
+                } catch (Exception e) {
+                    ViewUtils.toast(R.string.add_tweet_send_image_error);
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
 

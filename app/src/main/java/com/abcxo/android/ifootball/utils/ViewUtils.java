@@ -2,10 +2,12 @@ package com.abcxo.android.ifootball.utils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -24,6 +26,8 @@ import com.abcxo.android.ifootball.constants.Constants;
 public class ViewUtils {
 
     private static ProgressDialog progressDialog;
+
+    public static Uri imageUrl;
 
     public static int screenWidth() {
         Context context = Application.INSTANCE;
@@ -102,7 +106,10 @@ public class ViewUtils {
 
     public static void camera(Fragment fragment) {
         try {
+            imageUrl = fragment.getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    new ContentValues());
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUrl);
             fragment.startActivityForResult(intent, Constants.REQUEST_CAMERA);
         } catch (Exception e) {
             ViewUtils.toast(R.string.error_camera);

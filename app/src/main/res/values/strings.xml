@@ -40,6 +40,8 @@
     <string name="menu_item_save">保存图片</string>
     <string name="menu_item_share">分享图片</string>
 
+    <string name="menu_item_tweet_delete">删除推文</string>
+
     <string name="app_name">爱足球吧</string>
 
     <string name="activity_nav">爱足球吧</string>

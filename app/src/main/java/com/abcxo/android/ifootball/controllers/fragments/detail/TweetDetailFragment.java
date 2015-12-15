@@ -58,8 +58,10 @@ public class TweetDetailFragment extends DetailFragment {
         if (args != null) {
             tweet = (Tweet) args.get(Constants.KEY_TWEET);
             tid = args.getLong(Constants.KEY_TID);
+
         }
     }
+
 
     @Nullable
     @Override

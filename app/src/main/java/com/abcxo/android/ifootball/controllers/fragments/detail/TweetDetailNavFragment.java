@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -65,8 +68,53 @@ public class TweetDetailNavFragment extends DetailFragment {
         if (args != null) {
             tweet = (Tweet) args.get(Constants.KEY_TWEET);
             tid = args.getLong(Constants.KEY_TID);
+            if (tweet != null && tweet.uid == UserRestful.INSTANCE.meId()) {
+                setHasOptionsMenu(true);
+            }
         }
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.add(R.string.menu_item_tweet_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String title = item.getTitle().toString();
+        if (title.equals(getString(R.string.menu_item_tweet_delete))) {
+            deleteTweet();
+        }
+        return true;
+    }
+
+
+    public void deleteTweet() {
+        ViewUtils.loading(getActivity());
+        TweetRestful.INSTANCE.delete(tweet.id, new TweetRestful.OnTweetRestfulDo() {
+            @Override
+            public void onSuccess() {
+                ViewUtils.dismiss();
+                getActivity().finish();
+
+            }
+
+            @Override
+            public void onError(RestfulError error) {
+                ViewUtils.toast(error.msg);
+                ViewUtils.dismiss();
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
+    }
+
 
     @Nullable
     @Override

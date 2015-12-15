@@ -229,6 +229,26 @@ public class TweetRestful {
         });
     }
 
+    public void delete(long tid, @NonNull final OnTweetRestfulDo onDo) {
+        Call<Object> call = tweetService.delete(tid);
+        call.enqueue(new OnRestful<Object>() {
+            @Override
+            void onSuccess(Object object) {
+                onDo.onSuccess();
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onDo.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onDo.onFinish();
+            }
+        });
+    }
+
     public enum GetsType {
         HOME(0),
         TEAM(1),

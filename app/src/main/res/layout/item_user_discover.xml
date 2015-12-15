@@ -7,6 +7,8 @@
 
         <import type="com.abcxo.android.ifootball.models.User" />
 
+        <import type="android.view.View" />
+
         <variable
             name="user"
             type="User" />
@@ -23,7 +25,7 @@
             android:scaleType="centerCrop"
             app:imageUrl="@{user.avatar}"
             app:riv_corner_radius="@dimen/icon_radius"
-            tools:src="@drawable/test2" />
+            tools:src="@drawable/bg_sign_complete" />
 
         <TextView
             android:id="@+id/name"
@@ -41,7 +43,16 @@
             style="@style/Male"
             android:layout_alignBaseline="@id/name"
             android:layout_marginLeft="@dimen/padding"
-            android:layout_toRightOf="@id/name" />
+            android:layout_toRightOf="@id/name"
+            android:visibility="@{user.gender==User.GenderType.MALE?View.VISIBLE:View.GONE}" />
+
+        <TextView
+            style="@style/Female"
+            android:layout_alignBaseline="@id/name"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_toRightOf="@id/name"
+            android:visibility="@{user.gender==User.GenderType.MALE?View.GONE:View.VISIBLE}"
+            tools:visibility="gone"/>
 
 
         <TextView

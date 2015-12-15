@@ -148,12 +148,12 @@ public class NavActivity extends AppCompatActivity
                 Message message = intent.getParcelableExtra("message");
                 if (message.messageType == Message.MessageType.CHAT) {
                     if (!ChatDetailActivity.isChatting(message.uid, message.uid2)) {
-                        NavUtils.toChatDetail(NavActivity.this, message.uid2, message.uid);
+                        NavUtils.toChatDetail(context, message.uid2, message.uid);
                     } else {
 
                     }
                 } else {
-                    Intent i = new Intent(NavActivity.this, NavActivity.class);
+                    Intent i = new Intent(context, NavActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
                     onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_message));

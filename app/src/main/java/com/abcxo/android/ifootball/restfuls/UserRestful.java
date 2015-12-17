@@ -44,56 +44,56 @@ public class UserRestful {
 
     public interface UserService {
 
-        @GET("/ifootball/user/password")
+        @GET(Constants.PATH+"/user/password")
         Call<User> password(@Query("email") String email);
 
-        @GET("/ifootball/user/login")
+        @GET(Constants.PATH+"/user/login")
         Call<User> login(@Query("email") String email, @Query("password") String password, @Query("deviceToken") String deviceToken);
 
-        @GET("/ifootball/user/logout")
+        @GET(Constants.PATH+"/user/logout")
         Call<Object> logout(@Query("uid") long uid);
 
-        @POST("/ifootball/user/register")
+        @POST(Constants.PATH+"/user/register")
         Call<User> register(@Query("email") String email, @Query("password") String password, @Query("deviceToken") String deviceToken);
 
-        @POST("/ifootball/user/loginsso")
+        @POST(Constants.PATH+"/user/loginsso")
         Call<User> loginsso(@Query("email") String email, @Query("password") String password,
                             @Query("name") String name, @Query("avatar") String avatar,
                             @Query("gender") User.GenderType gender,
                             @Query("deviceToken") String deviceToken);
 
 
-        @PUT("/ifootball/user")
+        @PUT(Constants.PATH+"/user")
         Call<User> edit(@Body User user);
 
         @Multipart
-        @POST("/ifootball/user/avatar")
+        @POST(Constants.PATH+"/user/avatar")
         Call<User> avatar(@Query("uid") long uid, @Part("image\"; filename=\"avatar.jpg\" ") RequestBody image);
 
         @Multipart
-        @POST("/ifootball/user/cover")
+        @POST(Constants.PATH+"/user/cover")
         Call<User> cover(@Query("uid") long uid, @Part("image\"; filename=\"cover.jpg\" ") RequestBody image);
 
-        @GET("/ifootball/user")
+        @GET(Constants.PATH+"/user")
         Call<User> get(@Query("uid") long uid, @Query("uid2") long uid2);
 
-        @GET("/ifootball/user/list")
+        @GET(Constants.PATH+"/user/list")
         Call<List<User>> gets(@Query("getsType") GetsType type,
                               @Query("uid") long uid,
                               @Query("keyword") String keyword,
                               @Query("pageIndex") int pageIndex,
                               @Query("pageSize") int pageSize);
 
-        @GET("/ifootball/user/team/list")
+        @GET(Constants.PATH+"/user/team/list")
         Call<List<User>> getTeams(@Query("uid") long uid,
                                   @Query("groupName") String name);
 
 
-        @POST("/ifootball/user/team/focus")
+        @POST(Constants.PATH+"/user/team/focus")
         Call<Object> focusTeams(@Query("uid") long uid, @Query("uid2s") String uid2s);
 
 
-        @POST("/ifootball/user/focus")
+        @POST(Constants.PATH+"/user/focus")
         Call<Object> focus(@Query("uid") long uid, @Query("uid2") long uid2, @Query("focus") boolean focus);
 
 

@@ -129,14 +129,20 @@
             android:name=".controllers.activities.AddTeamActivity"
             android:label="@string/activity_add_team"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".controllers.activities.ContactActivity"
+            android:label="@string/activity_contact"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".controllers.activities.SignActivity"
             android:label="@string/activity_sign"
-            android:theme="@style/AppTheme.NoActionBar.NoStatusBar.NoNavigationBar" />
+            android:theme="@style/AppTheme.NoActionBar.NoStatusBar" />
         <activity
             android:name=".controllers.activities.ImageActivity"
             android:label="@string/activity_image"
-            android:theme="@style/AppTheme.NoActionBar.NoStatusBar.NoNavigationBar" />
+            android:theme="@style/AppTheme.NoActionBar.NoStatusBar" />
         <activity
             android:name=".controllers.activities.AboutActivity"
             android:label="@string/activity_about"

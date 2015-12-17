@@ -4,7 +4,6 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -57,6 +56,7 @@ public class Tweet extends BaseObservable implements Parcelable {
 
 
     public String images;
+    public String imageTitles;
     public String time;
 
     public double lon;
@@ -69,6 +69,7 @@ public class Tweet extends BaseObservable implements Parcelable {
     @Bindable
     public boolean star;
     public TweetType tweetType = TweetType.NORMAL;
+
 
     public transient BindingHandler handler = new BindingHandler();
 
@@ -90,6 +91,7 @@ public class Tweet extends BaseObservable implements Parcelable {
         summary = in.readString();
         content = in.readString();
         images = in.readString();
+        imageTitles = in.readString();
         time = in.readString();
         lon = in.readDouble();
         lat = in.readDouble();
@@ -118,8 +120,18 @@ public class Tweet extends BaseObservable implements Parcelable {
             for (String url : list) {
                 Image image = new Image();
                 image.url = url;
+
                 imageList.add(image);
             }
+            if (!TextUtils.isEmpty(imageTitles)) {
+                List<String> listTitle = Arrays.asList(imageTitles.split(";"));
+                for (int i = 0; i < imageList.size(); i++) {
+                    Image image = imageList.get(i);
+                    image.title = "_".equals(listTitle.get(i)) ? null : listTitle.get(i);
+                    image.imageType = Image.ImageType.TWEET;
+                }
+            }
+
         }
         return imageList;
     }
@@ -157,6 +169,13 @@ public class Tweet extends BaseObservable implements Parcelable {
     }
 
 
+    public TweetMainType getMainType() {
+        if (tweetType == TweetType.NEWS && !TextUtils.isEmpty(imageTitles)) {
+            return TweetMainType.IMAGE;
+        }
+        return TweetMainType.valueOf(tweetType.name());
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -176,6 +195,7 @@ public class Tweet extends BaseObservable implements Parcelable {
         dest.writeString(summary);
         dest.writeString(content);
         dest.writeString(images);
+        dest.writeString(imageTitles);
         dest.writeString(time);
         dest.writeDouble(lon);
         dest.writeDouble(lat);
@@ -208,13 +228,46 @@ public class Tweet extends BaseObservable implements Parcelable {
         }
     }
 
+
+    public enum TweetMainType {
+
+        NORMAL(0),
+        TEAM(1),
+        NEWS(2),
+        IMAGE(3),
+        PUBLIC(3),
+        SPECIAL(4);
+        private int index;
+
+        TweetMainType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return TweetType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
     public class BindingHandler {
         public void onClickImage(View view) {
             NavUtils.toImage(view.getContext(), (ArrayList<Image>) imageList());
         }
 
         public void onClickTweet(View view) {
-            NavUtils.toTweetDetail(view.getContext(), Tweet.this);
+            if (getMainType() != TweetMainType.IMAGE) {
+                NavUtils.toTweetDetail(view.getContext(), Tweet.this);
+            } else {
+                NavUtils.toImage(view.getContext(), (ArrayList<Image>) imageList(), 0, Tweet.this);
+            }
+
+        }
+
+        public void onClickComment(View view) {
+            NavUtils.toComment(view.getContext(), Tweet.this);
         }
 
         public void onClickUser(View view) {
@@ -231,7 +284,7 @@ public class Tweet extends BaseObservable implements Parcelable {
         }
 
         public void onClickLocation(View view) {
-            NavUtils.toLocation(view.getContext(), lat,lon,location);
+            NavUtils.toLocation(view.getContext(), lat, lon, location);
         }
 
         public void onClickStar(final View view) {

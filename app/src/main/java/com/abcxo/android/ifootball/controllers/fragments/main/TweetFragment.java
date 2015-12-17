@@ -25,8 +25,6 @@ import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.abcxo.android.ifootball.models.Tweet.TweetType.NEWS;
-import static com.abcxo.android.ifootball.models.Tweet.TweetType.TEAM;
 
 public class TweetFragment extends Fragment {
 
@@ -204,12 +202,15 @@ public class TweetFragment extends Fragment {
         }
 
         public View getItemLayoutView(ViewGroup parent, int type) {
-            if (type == TEAM.getIndex()) {
+            if (type == Tweet.TweetMainType.TEAM.getIndex()) {
                 return LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_tweet_team, parent, false);
-            } else if (type == NEWS.getIndex()) {
+            } else if (type == Tweet.TweetMainType.NEWS.getIndex()) {
                 return LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_tweet_news, parent, false);
+            } else if (type == Tweet.TweetMainType.IMAGE.getIndex()) {
+                return LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_tweet_image, parent, false);
             } else {
                 return LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_tweet_normal, parent, false);
@@ -227,7 +228,7 @@ public class TweetFragment extends Fragment {
         @Override
         public int getItemViewType(int position) {
             Tweet tweet = tweets.get(position);
-            return tweet.tweetType.getIndex();
+            return tweet.getMainType().getIndex();
         }
 
         @Override

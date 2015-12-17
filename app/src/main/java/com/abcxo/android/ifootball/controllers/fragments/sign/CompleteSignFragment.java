@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.activities.AddTeamActivity;
 import com.abcxo.android.ifootball.databinding.FragmentSignCompleteBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.models.User.GenderType;
@@ -109,7 +110,9 @@ public class CompleteSignFragment extends Fragment {
                                 public void onSuccess(User user) {
                                     LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_EDIT));
                                     ViewUtils.dismiss();
+                                    startActivity(new Intent(getActivity(), AddTeamActivity.class));
                                     getActivity().finish();
+
                                 }
 
                                 @Override
@@ -125,6 +128,7 @@ public class CompleteSignFragment extends Fragment {
                             });
                         } else {
                             ViewUtils.dismiss();
+                            startActivity(new Intent(getActivity(), AddTeamActivity.class));
                             getActivity().finish();
                         }
 
@@ -175,7 +179,7 @@ public class CompleteSignFragment extends Fragment {
                 }
 
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

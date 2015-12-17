@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.abcxo.android.ifootball.models.Tweet" />
+
+        <variable
+            name="tweet"
+            type="Tweet" />
+    </data>
+
+    <RelativeLayout
+        style="@style/Item"
+        android:onClick="@{tweet.handler.onClickTweet}">
+
+        <RelativeLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/padding_small"
+                android:layout_toLeftOf="@id/comment"
+                android:singleLine="true"
+                android:text="@{tweet.title}"
+                android:textColor="@color/color_text_title"
+                android:textSize="16dp"
+                tools:text="恒大队的外援威震中超" />
+
+            <LinearLayout
+                android:id="@+id/comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_comment"
+                    android:tint="@color/color_icon_light" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:text="@{String.valueOf(tweet.commentCount)}"
+                    android:textColor="@color/color_text_append"
+                    android:textSize="12dp"
+                    tools:text="307" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_layout"
+            android:layout_marginTop="@dimen/padding_small">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginRight="@dimen/padding_small"
+                android:layout_weight="1"
+                android:background="@color/color_bg"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{tweet.imageList.get(0).url}"
+                tools:src="@drawable/bg_sign_complete" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginLeft="@dimen/padding_min"
+                android:layout_marginRight="@dimen/padding_min"
+                android:layout_weight="1"
+                android:background="@color/color_bg"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{tweet.imageList.get(1).url}"
+                tools:src="@drawable/bg_sign_complete" />
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginLeft="@dimen/padding_small"
+                android:layout_weight="1"
+                android:background="@color/color_bg"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{tweet.imageList.get(2).url}"
+                tools:src="@drawable/bg_sign_complete" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

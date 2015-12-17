@@ -39,6 +39,10 @@
     <string name="menu_item_delete">删除图片</string>
     <string name="menu_item_save">保存图片</string>
     <string name="menu_item_share">分享图片</string>
+    <string name="menu_item_tweet_share">分享</string>
+    <string name="menu_item_tweet_star">点赞</string>
+    <string name="menu_item_tweet_repeat">转发</string>
+    <string name="menu_item_tweet_comment">评论</string>
 
     <string name="menu_item_tweet_delete">删除推文</string>
 
@@ -55,6 +59,8 @@
 
     <string name="activity_add_tweet">写推文</string>
     <string name="activity_add_team">添加球队</string>
+
+    <string name="activity_contact">联系人</string>
 
 
     <string name="activity_image">图片</string>
@@ -84,8 +90,8 @@
         <item>私信</item>
         <item>评论</item>
         <item>\&#064;我</item>
-        <item>点赞</item>
         <item>关注</item>
+        <item>点赞</item>
         <item>其他</item>
     </string-array>
 
@@ -110,6 +116,10 @@
 
     <string-array name="tweet_detail_page_list">
         <item>详情</item>
+        <item>评论</item>
+    </string-array>
+
+    <string-array name="tweet_comment_page_list">
         <item>评论</item>
     </string-array>
 

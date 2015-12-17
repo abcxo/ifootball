@@ -23,7 +23,7 @@ public class MessageRestful {
     private MessageService messageService;
 
     public interface MessageService {
-        @GET("/ifootball/message/list")
+        @GET(Constants.PATH+"/message/list")
         Call<List<Message>> gets(@Query("getsType") GetsType type,
                                  @Query("uid") long uid,
                                  @Query("uid2") long uid2,
@@ -31,7 +31,7 @@ public class MessageRestful {
                                  @Query("pageIndex") int pageIndex,
                                  @Query("pageSize") int pageSize);
 
-        @POST("/ifootball/message/chat")
+        @POST(Constants.PATH+"/message/chat")
         Call<Object> chat(@Body Message message);
 
     }
@@ -113,11 +113,11 @@ public class MessageRestful {
                             message.detailType = Message.MessageDetailType.NONE;
                         } else {
                             Message.MessageMainType mainType = Message.MessageMainType.valueOf(message.messageType.name());
-                            if (mainType == Message.MessageMainType.FOCUS ||
-                                    mainType == Message.MessageMainType.STAR) {
+                            if (mainType == Message.MessageMainType.FOCUS) {
                                 message.detailType = Message.MessageDetailType.USER;
                             } else if (mainType == Message.MessageMainType.COMMENT ||
-                                    mainType == Message.MessageMainType.PROMPT) {
+                                    mainType == Message.MessageMainType.PROMPT ||
+                                    mainType == Message.MessageMainType.STAR) {
                                 message.detailType = Message.MessageDetailType.TWEET;
                             } else if (mainType == Message.MessageMainType.CHAT) {
                                 message.detailType = Message.MessageDetailType.CHAT;

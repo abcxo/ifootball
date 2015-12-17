@@ -30,6 +30,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  */
 public class Image implements Parcelable {
     public String url;
+    public String title;
     public ImageType imageType = ImageType.SAVE_SHARE;
     public transient BindingHandler handler = new BindingHandler();
 
@@ -39,6 +40,7 @@ public class Image implements Parcelable {
 
     protected Image(Parcel in) {
         url = in.readString();
+        title = in.readString();
         imageType = ImageType.valueOf(in.readString());
 
     }
@@ -63,6 +65,7 @@ public class Image implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(url);
+        dest.writeString(title);
         dest.writeString(imageType.name());
     }
 
@@ -70,7 +73,8 @@ public class Image implements Parcelable {
     public enum ImageType {
 
         SAVE_SHARE(0),
-        DELETE(1);
+        DELETE(1),
+        TWEET(2);
 
         private int index;
 

@@ -1,5 +1,7 @@
 package com.abcxo.android.ifootball.controllers.fragments.sign;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
+import com.abcxo.android.ifootball.views.RecyclerItemClickListener;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
@@ -37,6 +40,7 @@ public class UserFragment extends Fragment {
     protected UserAdapter adapter;
 
     protected long uid;
+    protected boolean isSelect;
 
     protected int pageIndex;
 
@@ -58,6 +62,7 @@ public class UserFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             uid = args.getLong(Constants.KEY_UID);
+            isSelect = args.getBoolean(Constants.KEY_IS_SELECT);
         }
     }
 
@@ -101,6 +106,22 @@ public class UserFragment extends Fragment {
         }, Constants.MAX_LEFT_MORE);
         refresh();
 
+        if (isSelect) {
+            recyclerView.addOnItemTouchListener(
+                    new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            User user = adapter.users.get(position);
+                            Intent intent = new Intent();
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable(Constants.KEY_USER, user);
+                            intent.putExtras(bundle);
+                            getActivity().setResult(Activity.RESULT_OK, intent);
+                            getActivity().finish();
+                        }
+                    })
+            );
+        }
 
     }
 
@@ -208,7 +229,6 @@ public class UserFragment extends Fragment {
                 return LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_user_normal, parent, false);
             }
-
         }
 
         @Override
@@ -225,6 +245,7 @@ public class UserFragment extends Fragment {
                     }
                 }
                 holder.binding.setVariable(BR.showIndex, showIndex);
+                holder.binding.setVariable(BR.isSelect, isSelect);
             }
         }
 

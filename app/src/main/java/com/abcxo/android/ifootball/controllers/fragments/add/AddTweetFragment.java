@@ -16,11 +16,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.BR;
@@ -29,6 +30,7 @@ import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.databinding.FragmentAddTweetBinding;
 import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
+import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
@@ -37,6 +39,7 @@ import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
+import com.abcxo.android.ifootball.views.SpanEditText;
 import com.baidu.location.BDLocation;
 import com.rockerhieu.emojicon.EmojiconGridFragment;
 import com.rockerhieu.emojicon.EmojiconsFragment;
@@ -61,7 +64,7 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
         return fragment;
     }
 
-    private EditText inputET;
+    private SpanEditText inputET;
     private RecyclerView recyclerView;
     private AddTweetImageAdapter adapter;
 
@@ -69,6 +72,8 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
 
     private EmojiconsFragment emojiconsFragment;
     private View faceView;
+
+    private List<User> promptUsers = new ArrayList<>();
 
 
     @Override
@@ -108,7 +113,7 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
                 getActivity().finish();
             }
         });
-        inputET = (EditText) view.findViewById(R.id.input);
+        inputET = (SpanEditText) view.findViewById(R.id.input);
         recyclerView = (RecyclerView) view.findViewById(R.id.image_recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -123,6 +128,7 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
                 .replace(R.id.face_layout, emojiconsFragment)
                 .commit();
 
+
         inputET.requestFocus();
 
         inputET.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +139,30 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
                 }
             }
         });
+
+        inputET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String str = s.toString();
+                if (str.endsWith("@")) {
+                    inputET.setText(s.subSequence(0, s.length() - 1));
+                    inputET.setSelection(s.length() - 1);
+                    NavUtils.toContact(AddTweetFragment.this, Constants.REQUEST_CONTACT);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
     }
 
 
@@ -331,8 +361,11 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
 
         }
 
-        public void onClickSend(final View view) {
+        public void onClickPrompt(final View view) {
+            NavUtils.toContact(AddTweetFragment.this, Constants.REQUEST_CONTACT);
+        }
 
+        public void onClickSend(final View view) {
             if (TextUtils.isEmpty(inputET.getText().toString()) && originTweet == null) {
                 ViewUtils.toast(R.string.add_tweet_send_error);
             } else {
@@ -341,7 +374,14 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
                 tweet.name = UserRestful.INSTANCE.me().name;
                 tweet.content = inputET.getText().toString();
                 ViewUtils.loading(getActivity());
-                TweetRestful.INSTANCE.add(tweet, adapter.images, null, originTweet != null ? originTweet.id : 0, new TweetRestful.OnTweetRestfulGet() {
+                List<String> promptUids = new ArrayList<>();
+                List<String> promptSpan = inputET.getSpanStringList();
+                for (User user : promptUsers) {
+                    if (promptSpan.contains(user.name)) {
+                        promptUids.add(String.valueOf(user.id));
+                    }
+                }
+                TweetRestful.INSTANCE.add(tweet, adapter.images, TextUtils.join(";", promptUids), originTweet != null ? originTweet.id : 0, new TweetRestful.OnTweetRestfulGet() {
                     @Override
                     public void onSuccess(Tweet tweet) {
                         LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_REFRESH_HOME));
@@ -391,7 +431,12 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
                     ViewUtils.toast(R.string.add_tweet_send_image_error);
                 }
 
+            } else if (requestCode == Constants.REQUEST_CONTACT && resultCode == Activity.RESULT_OK) {
+                User user = (User) data.getExtras().get(Constants.KEY_USER);
+                promptUsers.add(user);
+                inputET.addSpan("@" + user.name, user.name);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

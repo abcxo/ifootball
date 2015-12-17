@@ -134,6 +134,7 @@ public class ContactNavFragment extends NavFragment {
         if (friendFg == null) {
             Bundle bundle = new Bundle();
             bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            bundle.putBoolean(Constants.KEY_IS_SELECT, isSelect);
             friendFg = FriendContactFragment.newInstance(bundle);
         }
         toContact(friendFg);
@@ -144,6 +145,7 @@ public class ContactNavFragment extends NavFragment {
         if (focusFg == null) {
             Bundle bundle = new Bundle();
             bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            bundle.putBoolean(Constants.KEY_IS_SELECT, isSelect);
             focusFg = FocusContactFragment.newInstance(bundle);
 
         }
@@ -155,6 +157,7 @@ public class ContactNavFragment extends NavFragment {
         if (fansFg == null) {
             Bundle bundle = new Bundle();
             bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            bundle.putBoolean(Constants.KEY_IS_SELECT, isSelect);
             fansFg = FansContactFragment.newInstance(bundle);
         }
         toContact(fansFg);

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
 import com.abcxo.android.ifootball.controllers.activities.ChatDetailActivity;
+import com.abcxo.android.ifootball.controllers.activities.ContactActivity;
 import com.abcxo.android.ifootball.controllers.activities.ImageActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
 import com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity;
@@ -34,9 +36,9 @@ public class NavUtils {
     }
 
 
-    public static void toLocation(Context context,double lat,double lon,String location) {
+    public static void toLocation(Context context, double lat, double lon, String location) {
         Uri uri = Uri.parse(String.format("geo:%f,%f?q=%s", lat, lon, location));
-        Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);
     }
 
@@ -47,6 +49,12 @@ public class NavUtils {
         data.putExtra(Intent.EXTRA_TEXT, "说说您的看法！");
         context.startActivity(data);
     }
+
+    public static void toContact(Fragment context, int requestCode) {
+        Intent intent = new Intent(context.getActivity(), ContactActivity.class);
+        context.startActivityForResult(intent, requestCode);
+    }
+
 
     public static void toAddTweet(Context context, Tweet tweet) {
         Bundle bundle = new Bundle();
@@ -89,6 +97,16 @@ public class NavUtils {
         context.startActivity(intent);
     }
 
+
+    public static void toComment(Context context, Tweet tweet) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.KEY_TWEET, tweet);
+        bundle.putBoolean(Constants.KEY_IS_COMMENT, true);
+        Intent intent = new Intent(context, TweetDetailActivity.class);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
     public static void toTweetDetail(Context context, Tweet tweet) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.KEY_TWEET, tweet);
@@ -99,13 +117,18 @@ public class NavUtils {
 
 
     public static void toImage(Context context, ArrayList<Image> images) {
-        toImage(context, images, 0);
+        toImage(context, images, 0, null);
     }
 
     public static void toImage(Context context, ArrayList<Image> images, int index) {
+        toImage(context, images, index, null);
+    }
+
+    public static void toImage(Context context, ArrayList<Image> images, int index, Tweet tweet) {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList(Constants.KEY_IMAGES, images);
         bundle.putInt(Constants.KEY_IMAGES_INDEX, index);
+        bundle.putParcelable(Constants.KEY_TWEET, tweet);
         Intent intent = new Intent(context, ImageActivity.class);
         intent.putExtras(bundle);
         context.startActivity(intent);

@@ -13,11 +13,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.BindingAdapter;
 import com.abcxo.android.ifootball.models.Image;
+import com.abcxo.android.ifootball.models.Tweet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,8 @@ public class ImageFragment extends Fragment {
     private List<Image> images = new ArrayList<>();
     private int currentIndex;
     private ViewPager viewPager;
+
+    private Tweet tweet;
 
     public static ImageFragment newInstance() {
         return newInstance(null);
@@ -51,6 +55,7 @@ public class ImageFragment extends Fragment {
         if (args != null) {
             images = args.getParcelableArrayList(Constants.KEY_IMAGES);
             currentIndex = args.getInt(Constants.KEY_IMAGES_INDEX);
+            tweet = (Tweet) args.get(Constants.KEY_TWEET);
         }
     }
 
@@ -109,6 +114,12 @@ public class ImageFragment extends Fragment {
         } else if (imageType == Image.ImageType.SAVE_SHARE) {
             menu.add(R.string.menu_item_save).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
             menu.add(R.string.menu_item_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        } else if (imageType == Image.ImageType.TWEET) {
+            menu.add(R.string.menu_item_tweet_comment).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+            menu.add(R.string.menu_item_tweet_repeat).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+            menu.add(R.string.menu_item_tweet_star).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+            menu.add(R.string.menu_item_tweet_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+            menu.add(R.string.menu_item_save).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
         }
 
     }
@@ -127,7 +138,21 @@ public class ImageFragment extends Fragment {
         } else if (title.equals(getString(R.string.menu_item_share))) {
             share(image);
             return true;
+        } else if (title.equals(getString(R.string.menu_item_tweet_comment))) {
+            tweet.handler.onClickComment(viewPager);
+            return true;
+        } else if (title.equals(getString(R.string.menu_item_tweet_repeat))) {
+            tweet.handler.onClickRepeat(viewPager);
+            return true;
+        } else if (title.equals(getString(R.string.menu_item_tweet_star))) {
+            tweet.handler.onClickStar(viewPager);
+            return true;
+        } else if (title.equals(getString(R.string.menu_item_tweet_share))) {
+            tweet.handler.onClickShare(viewPager);
+            return true;
         }
+
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -142,7 +167,6 @@ public class ImageFragment extends Fragment {
     private void share(Image image) {
         image.handler.onClickShare(viewPager);
     }
-
 
 
     public class ImageAdapter extends PagerAdapter {
@@ -160,12 +184,14 @@ public class ImageFragment extends Fragment {
 
         @Override
         public View instantiateItem(ViewGroup container, int position) {
-            PhotoView photoView = new PhotoView(container.getContext());
+            View view = View.inflate(getContext(), R.layout.view_image, null);
+            PhotoView photoView = (PhotoView) view.findViewById(R.id.image);
             Image image = images.get(position);
             BindingAdapter.loadImage(photoView, image.url);
-            // Now just add PhotoView to ViewPager and return it
-            container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            return photoView;
+            TextView titleTV = (TextView) view.findViewById(R.id.title);
+            titleTV.setText(image.title);
+            container.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            return view;
         }
 
 

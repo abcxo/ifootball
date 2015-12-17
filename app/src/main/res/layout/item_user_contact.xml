@@ -16,12 +16,16 @@
         <variable
             name="showIndex"
             type="Boolean" />
+
+        <variable
+            name="isSelect"
+            type="Boolean" />
     </data>
 
     <LinearLayout
         style="@style/Item"
         android:gravity="center_vertical"
-        android:onClick="@{user.handler.onClickUser}"
+        android:onClick="@{isSelect?null:user.handler.onClickUser}"
         android:orientation="horizontal">
 
         <TextView

@@ -48,6 +48,8 @@ public class TweetDetailNavFragment extends DetailFragment {
     private CommentTweetMessageFragment commentTweetMessageFragment;
     private FragmentDetailTweetNavBinding binding;
 
+    private boolean isComment;
+
     private Message selectedMessage;
 
     public static TweetDetailNavFragment newInstance() {
@@ -68,6 +70,7 @@ public class TweetDetailNavFragment extends DetailFragment {
         if (args != null) {
             tweet = (Tweet) args.get(Constants.KEY_TWEET);
             tid = args.getLong(Constants.KEY_TID);
+            isComment = args.getBoolean(Constants.KEY_IS_COMMENT);
             if (tweet != null && tweet.uid == UserRestful.INSTANCE.meId()) {
                 setHasOptionsMenu(true);
             }
@@ -178,19 +181,21 @@ public class TweetDetailNavFragment extends DetailFragment {
 
         public TweetDetailNavAdapter(FragmentManager fm, Context context) {
             super(fm);
-            titles = context.getResources().getStringArray(R.array.tweet_detail_page_list);
+            if (isComment) {
+                titles = context.getResources().getStringArray(R.array.tweet_comment_page_list);
+
+            } else {
+                titles = context.getResources().getStringArray(R.array.tweet_detail_page_list);
+            }
+
         }
 
         @Override
         public Fragment getItem(int position) {
             Bundle bundle = new Bundle();
             bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
-            if (position == PageType.DETAIL.getIndex()) {
-                bundle.putParcelable(Constants.KEY_TWEET, tweet);
-                bundle.putLong(Constants.KEY_TID, tid);
-                tweetDetailFragment = tweetDetailFragment.newInstance(bundle);
-                return tweetDetailFragment;
-            } else {
+            if (isComment) {
+
                 bundle.putLong(Constants.KEY_TID, tweet != null ? tweet.id : tid);
                 commentTweetMessageFragment = CommentTweetMessageFragment.newInstance(bundle);
                 commentTweetMessageFragment.setListener(new MessageFragment.Listener() {
@@ -202,7 +207,30 @@ public class TweetDetailNavFragment extends DetailFragment {
                     }
                 });
                 return commentTweetMessageFragment;
+
+
+            } else {
+                if (position == PageType.DETAIL.getIndex()) {
+                    bundle.putParcelable(Constants.KEY_TWEET, tweet);
+                    bundle.putLong(Constants.KEY_TID, tid);
+                    tweetDetailFragment = tweetDetailFragment.newInstance(bundle);
+                    return tweetDetailFragment;
+                } else {
+                    bundle.putLong(Constants.KEY_TID, tweet != null ? tweet.id : tid);
+                    commentTweetMessageFragment = CommentTweetMessageFragment.newInstance(bundle);
+                    commentTweetMessageFragment.setListener(new MessageFragment.Listener() {
+                        @Override
+                        public void onItemClick(View view, Message message, int position) {
+                            if (message.uid != UserRestful.INSTANCE.meId()) {
+                                clearText(true, message);
+                            }
+                        }
+                    });
+                    return commentTweetMessageFragment;
+                }
             }
+
+
         }
 
 

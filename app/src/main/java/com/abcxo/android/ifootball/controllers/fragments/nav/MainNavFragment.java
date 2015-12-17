@@ -148,8 +148,6 @@ public class MainNavFragment extends NavFragment {
     public class MainAdapter extends FragmentPagerAdapter {
 
 
-
-
         private String[] titles;
 
         public MainAdapter(FragmentManager fm, Context context) {

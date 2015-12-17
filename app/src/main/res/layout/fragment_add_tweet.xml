@@ -130,6 +130,17 @@
                     android:src="@drawable/ic_face"
                     android:tint="@color/color_icon_light" />
 
+                <ImageView
+                    android:id="@+id/prompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:layout_toRightOf="@id/face"
+                    android:onClick="@{handler.onClickPrompt}"
+                    android:src="@drawable/ic_prompt"
+                    android:tint="@color/color_icon_light" />
+
                 <Button
                     android:id="@+id/send"
                     android:layout_width="wrap_content"
@@ -198,7 +209,7 @@
             </FrameLayout>
 
 
-            <EditText
+            <com.abcxo.android.ifootball.views.SpanEditText
                 android:id="@+id/input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

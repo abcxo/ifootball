@@ -45,11 +45,11 @@ public class TweetRestful {
 
     public interface TweetService {
 
-        @POST("/ifootball/tweet")
+        @POST(Constants.PATH+"/tweet")
         Call<Tweet> add(@Query("prompt") String prompt, @Query("originTid") long originTid, @Body Tweet tweet);
 
         @Multipart
-        @POST("/ifootball/tweet/photo")
+        @POST(Constants.PATH+"/tweet/photo")
         Call<Tweet> photo(@Query("tid") long tid,
                           @Part("image\"; filename=\"image.jpg\" ") RequestBody image0,
                           @Part("image\"; filename=\"image.jpg\" ") RequestBody image1,
@@ -62,7 +62,7 @@ public class TweetRestful {
                           @Part("image\"; filename=\"image.jpg\" ") RequestBody image8
         );
 
-        @GET("/ifootball/tweet/list")
+        @GET(Constants.PATH+"/tweet/list")
         Call<List<Tweet>> gets(@Query("getsType") GetsType type,
                                @Query("uid") long uid,
                                @Query("keyword") String keyword,
@@ -70,17 +70,17 @@ public class TweetRestful {
                                @Query("pageSize") int pageSize);
 
 
-        @GET("/ifootball/tweet")
+        @GET(Constants.PATH+"/tweet")
         Call<Tweet> get(@Query("uid") long uid, @Query("tid") long tid);
 
 
-        @POST("/ifootball/tweet/star")
+        @POST(Constants.PATH+"/tweet/star")
         Call<Object> star(@Query("uid") long uid, @Query("tid") long tid, @Query("star") boolean star);
 
-        @POST("/ifootball/tweet/comment")
+        @POST(Constants.PATH+"/tweet/comment")
         Call<Object> comment(@Body Message message);
 
-        @DELETE("/ifootball/tweet")
+        @DELETE(Constants.PATH+"/tweet")
         Call<Object> delete(@Query("tid") long tid);
     }
 

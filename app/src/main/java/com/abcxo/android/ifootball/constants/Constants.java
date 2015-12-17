@@ -9,6 +9,7 @@ public final class Constants {
 
     public static final int REQUEST_CAMERA = 1000;
     public static final int REQUEST_PHOTO = 1001;
+    public static final int REQUEST_CONTACT = 1002;
 
     public static final String ACTION_LOGIN = "login";
     public static final String ACTION_EDIT = "edit";
@@ -19,10 +20,10 @@ public final class Constants {
     public static final String ACTION_REFRESH_CONTACT = "refresh_contact";
     public static final String ACTION_MESSAGE = "message";
     public static final String ACTION_MESSAGE_CLICK = "message_click";
-
-
-    public static final String HOST = "http://www.iamthefootball.com:8080";
-    //    public static final String HOST = "http://localhost:8080";
+    //    public static final String HOST = "http://www.iamthefootball.com:8080";
+//    public static final String PATH = "/ifootball";
+    public static final String HOST = "http://localhost:8080";
+    public static final String PATH = "";
     public static final String SITE = "http://a.app.qq.com/o/simple.jsp?pkgname=com.abcxo.android.ifootball";
 
     public static final int PAGE_INDEX = 0;
@@ -36,11 +37,13 @@ public final class Constants {
     public static String KEY_TID = "tid";
     public static String KEY_NAME = "name";
     public static String KEY_MESSAGE = "message";
+    public static String KEY_IS_SELECT = "isSelect";
+    public static String KEY_IS_COMMENT = "isComment";
 
     public static String KEY_IMAGES = "images";
     public static String KEY_IMAGES_INDEX = "images_index";
 
-    public static String DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + "/ifootball";
+    public static String DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.PATH + "";
 
     public static String DIR_TWEET_ADD = DIR + "/tweetadd/";
     public static String DIR_TWEET_SHARE = DIR + "/tweetshare/";

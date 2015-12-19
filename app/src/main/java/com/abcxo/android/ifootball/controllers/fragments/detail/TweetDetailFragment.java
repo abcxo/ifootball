@@ -38,7 +38,7 @@ public class TweetDetailFragment extends DetailFragment {
 
     private Tweet tweet;
     private long tid;
-    private FragmentDetailTweetBinding binding;
+    public FragmentDetailTweetBinding binding;
 
     public static TweetDetailFragment newInstance() {
         return newInstance(null);

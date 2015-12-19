@@ -21,7 +21,7 @@
             android:layout_height="64dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{tweet.cover}"
-            tools:src="@drawable/test2" />
+            tools:src="@drawable/bg_sign_complete" />
 
 
         <TextView

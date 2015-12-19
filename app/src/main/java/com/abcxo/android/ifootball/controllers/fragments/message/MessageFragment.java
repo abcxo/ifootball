@@ -48,7 +48,7 @@ public class MessageFragment extends Fragment {
     protected SuperRecyclerView recyclerView;
     protected int pageIndex;
 
-    protected MessageAdapter adapter;
+    public MessageAdapter adapter;
     private Listener listener;
 
     protected long uid;
@@ -141,7 +141,7 @@ public class MessageFragment extends Fragment {
     }
 
     protected void loadData(final boolean first) {
-        MessageRestful.INSTANCE.gets(getGetsType(), uid, uid2, tid , pageIndex, new MessageRestful.OnMessageRestfulList() {
+        MessageRestful.INSTANCE.gets(getGetsType(), uid, uid2, tid, pageIndex, new MessageRestful.OnMessageRestfulList() {
             @Override
             public void onSuccess(List<Message> messages) {
                 if (first) {
@@ -195,6 +195,9 @@ public class MessageFragment extends Fragment {
 
         }
         adapter.notifyDataSetChanged();
+        if (listener != null) {
+            listener.onLoaded(list);
+        }
     }
 
 
@@ -203,6 +206,9 @@ public class MessageFragment extends Fragment {
             int bCount = list.size();
             list.addAll(messages);
             adapter.notifyItemRangeInserted(bCount, messages.size());
+            if (listener != null) {
+                listener.onLoaded(list);
+            }
             pageIndex++;
         }
     }
@@ -212,18 +218,26 @@ public class MessageFragment extends Fragment {
             int bCount = list.size();
             list.add(message);
             adapter.notifyItemRangeInserted(bCount, 1);
+            if (listener != null) {
+                listener.onLoaded(list);
+            }
         }
     }
 
 
     public void insertMessage(Message message) {
         if (message != null) {
-            list.add(message);
+            list.add(0, message);
             adapter.notifyItemRangeInserted(0, 1);
+            if (listener != null) {
+                listener.onLoaded(list);
+            }
         }
     }
 
     public interface Listener {
+        void onLoaded(List<Message> messages);
+
         void onItemClick(View view, Message message, int position);
     }
 

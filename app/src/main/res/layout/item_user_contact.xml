@@ -48,7 +48,7 @@
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{user.avatar}"
             app:riv_corner_radius="@dimen/icon_radius"
-            tools:src="@drawable/test2" />
+            tools:src="@drawable/bg_sign_complete" />
 
         <TextView
             android:id="@+id/name"

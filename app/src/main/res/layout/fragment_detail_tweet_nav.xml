@@ -7,9 +7,15 @@
 
         <import type="com.abcxo.android.ifootball.controllers.fragments.detail.TweetDetailNavFragment.BindingHandler" />
 
+        <import type="android.view.View" />
+
         <variable
             name="handler"
             type="BindingHandler" />
+        <variable
+            name="isComment"
+            type="Boolean" />
+
     </data>
 
 
@@ -32,6 +38,7 @@
                 app:popupTheme="@style/AppTheme.PopupLight">
 
                 <LinearLayout
+                    android:visibility="@{isComment?View.GONE:View.VISIBLE}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|end"

@@ -34,6 +34,8 @@ import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
+import java.util.List;
+
 /**
  * Created by shadow on 15/11/4.
  */
@@ -51,6 +53,9 @@ public class TweetDetailNavFragment extends DetailFragment {
     private boolean isComment;
 
     private Message selectedMessage;
+
+
+    private BindingHandler handler = new BindingHandler();
 
     public static TweetDetailNavFragment newInstance() {
         return newInstance(null);
@@ -129,12 +134,14 @@ public class TweetDetailNavFragment extends DetailFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = DataBindingUtil.bind(view);
-        binding.setHandler(new BindingHandler());
+        binding.setIsComment(isComment);
+        binding.setHandler(handler);
 
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+        activity.getSupportActionBar().setDisplayShowTitleEnabled(isComment);
+        activity.getSupportActionBar().setTitle(R.string.activity_detail_tweet_comment);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +152,7 @@ public class TweetDetailNavFragment extends DetailFragment {
 
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        tabLayout.setVisibility(isComment ? View.GONE : View.VISIBLE);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(2);
 
@@ -204,6 +212,25 @@ public class TweetDetailNavFragment extends DetailFragment {
                         if (message.uid != UserRestful.INSTANCE.meId()) {
                             clearText(true, message);
                         }
+
+                    }
+
+                    @Override
+                    public void onLoaded(List<Message> messages) {
+                        if (tweetDetailFragment != null) {
+                            tweetDetailFragment.binding.setHandler(handler);
+                            if (messages.size() > 0) {
+                                tweetDetailFragment.binding.setMessage0(messages.get(0));
+                            }
+
+                            if (messages.size() > 1) {
+                                tweetDetailFragment.binding.setMessage1(messages.get(1));
+                            }
+
+                            if (messages.size() > 2) {
+                                tweetDetailFragment.binding.setMessage2(messages.get(2));
+                            }
+                        }
                     }
                 });
                 return commentTweetMessageFragment;
@@ -223,6 +250,26 @@ public class TweetDetailNavFragment extends DetailFragment {
                         public void onItemClick(View view, Message message, int position) {
                             if (message.uid != UserRestful.INSTANCE.meId()) {
                                 clearText(true, message);
+                            }
+                        }
+
+                        @Override
+                        public void onLoaded(List<Message> messages) {
+                            if (tweetDetailFragment != null) {
+                                tweetDetailFragment.binding.setHandler(handler);
+                                tweetDetailFragment.binding.setIsHandle(true);
+                                if (messages.size() > 0) {
+                                    tweetDetailFragment.binding.setMessage0(messages.get(0));
+                                }
+
+                                if (messages.size() > 1) {
+                                    tweetDetailFragment.binding.setMessage1(messages.get(1));
+                                }
+
+                                if (messages.size() > 2) {
+                                    tweetDetailFragment.binding.setMessage2(messages.get(2));
+                                }
+
                             }
                         }
                     });
@@ -248,8 +295,24 @@ public class TweetDetailNavFragment extends DetailFragment {
     }
 
     public class BindingHandler {
+
+        public void onClickItem(View view) {
+            Message message = null;
+            if (view.getId() == R.id.comment_item0) {
+                message = commentTweetMessageFragment.adapter.messages.get(0);
+            } else if (view.getId() == R.id.comment_item1) {
+                message = commentTweetMessageFragment.adapter.messages.get(1);
+            }
+            if (view.getId() == R.id.comment_item2) {
+                message = commentTweetMessageFragment.adapter.messages.get(2);
+            }
+            if (message != null && message.uid != UserRestful.INSTANCE.meId()) {
+                clearText(true, message);
+            }
+        }
+
         public void onClickComment(View view) {
-            clearText(true, null);
+            viewPager.setCurrentItem(PageType.COMMENT.getIndex());
         }
 
         public void onClickSend(View view) {

@@ -32,7 +32,7 @@
             android:scaleType="centerCrop"
             android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
             app:imageUrl="@{tweet.cover}"
-            tools:src="@drawable/test2" />
+            tools:src="@drawable/bg_sign_complete" />
 
         <TextView
             android:id="@+id/title"

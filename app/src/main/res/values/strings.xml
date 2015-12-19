@@ -52,8 +52,8 @@
     <string name="activity_welcome">爱足球吧</string>
 
 
+    <string name="activity_detail_tweet_comment">热门评论</string>
     <string name="activity_detail_tweet">推文详情</string>
-    <string name="activity_detail_news">新闻详情</string>
     <string name="activity_detail_chat">私信详情</string>
     <string name="activity_detail_user">用户详情</string>
 
@@ -179,6 +179,8 @@
     <string name="detail_tweet_text_hint">评论一下？</string>
     <string name="detail_tweet_send_text">回复</string>
 
+    <string name="detail_tweet_comment_text">更多评论</string>
+
     <string name="detail_chat_text_hint">聊一下？</string>
     <string name="detail_chat_send_text">发送</string>
 
@@ -189,6 +191,9 @@
     <string name="add_tweet_send_image_max_error">最多添加9张图片</string>
 
     <string name="add_team_ok_text">确定</string>
+
+
+
 
     <string name="search_input_hint">关键字？</string>
 

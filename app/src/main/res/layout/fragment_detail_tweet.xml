@@ -6,6 +6,18 @@
 
     <data>
 
+
+        <import type="com.abcxo.android.ifootball.controllers.fragments.detail.TweetDetailNavFragment.BindingHandler" />
+
+        <variable
+            name="handler"
+            type="BindingHandler" />
+
+        <variable
+            name="isHandle"
+            type="Boolean" />
+
+
         <import type="com.abcxo.android.ifootball.models.Tweet" />
 
         <import type="android.view.View" />
@@ -13,6 +25,23 @@
         <variable
             name="tweet"
             type="Tweet" />
+
+
+        <import type="java.util.List" />
+
+        <import type="com.abcxo.android.ifootball.models.Message" />
+
+        <variable
+            name="message0"
+            type="Message" />
+
+        <variable
+            name="message1"
+            type="Message" />
+
+        <variable
+            name="message2"
+            type="Message" />
 
     </data>
 
@@ -56,7 +85,7 @@
                             app:error="@{@drawable/ic_avatar}"
                             app:imageUrl="@{tweet.icon}"
                             app:riv_corner_radius="@dimen/icon_radius"
-                            tools:src="@drawable/test2" />
+                            tools:src="@drawable/bg_sign_complete" />
 
                         <TextView
                             android:id="@+id/name"
@@ -97,13 +126,13 @@
 
 
                     <WebView
-                        android:paddingLeft="@dimen/_padding_small"
-                        android:paddingRight="@dimen/_padding_small"
                         android:id="@+id/webview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/title"
-                        android:layout_marginTop="@dimen/padding_small" />
+                        android:layout_marginTop="@dimen/padding_small"
+                        android:paddingLeft="@dimen/_padding_small"
+                        android:paddingRight="@dimen/_padding_small" />
 
                     <include
                         android:id="@+id/repeat_content"
@@ -115,22 +144,22 @@
                         bind:tweet="@{tweet.originTweet}" />
 
                     <TextView
-                        android:layout_marginTop="@dimen/padding_small"
                         android:id="@+id/location_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
                         android:layout_below="@+id/repeat_content"
+                        android:layout_marginTop="@dimen/padding_small"
                         android:drawableLeft="@drawable/ic_location_mini"
-                        android:onClick="@{tweet.handler.onClickLocation}"
-                        android:drawableTint="@color/color_icon_light_o"
                         android:drawablePadding="@dimen/padding_small"
+                        android:drawableTint="@color/color_icon_light_o"
                         android:gravity="center_vertical"
+                        android:onClick="@{tweet.handler.onClickLocation}"
                         android:paddingBottom="@dimen/padding"
-                        android:textColor="@color/color_text_append"
-                        android:textSize="@dimen/text_append"
                         android:paddingTop="@dimen/padding"
                         android:singleLine="true"
                         android:text="@{tweet.location}"
+                        android:textColor="@color/color_text_append"
+                        android:textSize="@dimen/text_append"
                         android:visibility="@{tweet.location!=null?View.VISIBLE:View.GONE}"
                         tools:text="中国浙江省杭州市区" />
 
@@ -216,6 +245,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
+                            android:onClick="@{handler.onClickComment}"
                             android:padding="@dimen/padding">
 
                             <ImageView
@@ -282,6 +312,87 @@
                         android:id="@+id/divider3"
                         style="@style/Divider"
                         android:layout_below="@id/action_layout" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/divider3"
+                        android:layout_marginLeft="@dimen/_padding"
+                        android:layout_marginRight="@dimen/_padding"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/comment_item0"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{handler.onClickItem}"
+                            android:orientation="vertical"
+                            android:visibility="@{message0!=null? View.VISIBLE : View.GONE}">
+
+                            <include
+                                layout="@layout/item_message_comment_tweet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                bind:isHandle="@{isHandle}"
+                                bind:message="@{message0}" />
+
+                            <View style="@style/Divider" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/comment_item1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{handler.onClickItem}"
+                            android:orientation="vertical"
+                            android:visibility="@{message1!=null? View.VISIBLE : View.GONE}">
+
+                            <include
+                                layout="@layout/item_message_comment_tweet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                bind:isHandle="@{isHandle}"
+                                bind:message="@{message1}" />
+
+                            <View style="@style/Divider" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/comment_item2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{handler.onClickItem}"
+                            android:orientation="vertical"
+                            android:visibility="@{message2!=null? View.VISIBLE : View.GONE}">
+
+                            <include
+                                layout="@layout/item_message_comment_tweet"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                bind:isHandle="@{isHandle}"
+                                bind:message="@{message2}" />
+
+                            <View style="@style/Divider" />
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:layout_marginBottom="@dimen/padding"
+                                android:layout_marginLeft="@dimen/padding_big"
+                                android:layout_marginRight="@dimen/padding_big"
+                                android:layout_marginTop="@dimen/padding"
+                                android:backgroundTint="@color/color_button_minor"
+                                android:onClick="@{handler.onClickComment}"
+                                android:text="@string/detail_tweet_comment_text"
+                                android:textColor="@color/color_text_highlight" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
 
                 </RelativeLayout>
 

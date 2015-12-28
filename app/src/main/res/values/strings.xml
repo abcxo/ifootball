@@ -157,7 +157,7 @@
     <string name="sign_login_email_hint">邮箱</string>
     <string name="sign_login_email_error">请输入有效的邮箱地址</string>
     <string name="sign_login_password_hint">密码</string>
-    <string name="sign_login_password_error">请输入6-12位的字母或者数字</string>
+    <string name="sign_login_password_error">请输入字母或者数字（6-12位）</string>
 
     <string name="sign_login_login_text">登录</string>
     <string name="sign_login_register_text">注册</string>
@@ -166,12 +166,16 @@
 
     <string name="sign_complete_name_text">昵称</string>
 
-    <string name="sign_complete_sign_text">签名（选填）</string>
+    <string name="sign_complete_position_text">场上位置</string>
+
+    <string name="sign_complete_sign_text">签名</string>
     <string name="sign_complete_complete_text">完成</string>
 
-    <string name="sign_login_name_error">请输入4-20位的昵称</string>
+    <string name="sign_login_name_error">请输入昵称（4-20位）</string>
 
-    <string name="sign_login_sign_error">请输入40位以内的签名</string>
+    <string name="sign_login_sign_error">请输入签名（40位以内）</string>
+
+    <string name="sign_login_position_error">请输入你在足球场上的位置（2-4位）</string>
 
 
     <string name="gender_male_text">男</string>

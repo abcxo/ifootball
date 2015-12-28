@@ -38,6 +38,8 @@ public class CompleteSignFragment extends Fragment {
 
     private User user;
 
+
+    private EditText positionET;
     private EditText nameET;
     private EditText signET;
     private ImageView avatarIV;
@@ -78,6 +80,7 @@ public class CompleteSignFragment extends Fragment {
         avatarIV = (ImageView) view.findViewById(R.id.avatar);
         nameET = (EditText) view.findViewById(R.id.name);
         signET = (EditText) view.findViewById(R.id.sign);
+        positionET = (EditText) view.findViewById(R.id.position);
         genderRG = (RadioGroup) view.findViewById(R.id.gender_layout);
 
     }
@@ -91,13 +94,17 @@ public class CompleteSignFragment extends Fragment {
         public void onClickComplete(final View view) {
             boolean isName = Utils.isName(nameET.getText().toString());
             boolean isSign = Utils.isSign(signET.getText().toString());
+            boolean isPosition = Utils.isPosition(positionET.getText().toString());
             if (!isName) {
                 ViewUtils.toast(R.string.sign_login_name_error);
             } else if (!isSign) {
                 ViewUtils.toast(R.string.sign_login_sign_error);
+            } else if (!isPosition) {
+                ViewUtils.toast(R.string.sign_login_position_error);
             } else {
                 user.name = nameET.getText().toString();
                 user.sign = signET.getText().toString();
+                user.position = positionET.getText().toString();
                 user.gender = genderRG.getCheckedRadioButtonId() == R.id.male ? GenderType.MALE : GenderType.FEMALE;
                 ViewUtils.loading(getActivity());
                 UserRestful.INSTANCE.edit(user, new UserRestful.OnUserRestfulGet() {

@@ -51,6 +51,11 @@ public class Utils {
         return pattern.matcher(sign).matches();
     }
 
+    public static boolean isPosition(String sign) {
+        Pattern pattern = Pattern.compile(".{2,4}");
+        return pattern.matcher(sign).matches();
+    }
+
     public static String md52(String str) {
         return md5(md5(str));
     }

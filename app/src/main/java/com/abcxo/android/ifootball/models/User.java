@@ -30,6 +30,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
     public String password;
     public String avatar;
     public String cover;
+    public String position;
 
     public double lon;
     public double lat;
@@ -64,6 +65,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         password = in.readString();
         avatar = in.readString();
         cover = in.readString();
+        position = in.readString();
         lon = in.readDouble();
         lat = in.readDouble();
         focusCount = in.readInt();
@@ -123,6 +125,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         dest.writeString(password);
         dest.writeString(avatar);
         dest.writeString(cover);
+        dest.writeString(position);
         dest.writeDouble(lon);
         dest.writeDouble(lat);
         dest.writeInt(focusCount);

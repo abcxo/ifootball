@@ -24,6 +24,7 @@ import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.NewsTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.TeamTweetFragment;
 import com.abcxo.android.ifootball.databinding.FragmentMainNavBinding;
+import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
@@ -159,6 +160,11 @@ public class MainNavFragment extends NavFragment {
         public Fragment getItem(int position) {
             Bundle bundle = new Bundle();
             bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+
+            if (!hasNews() && position == PageType.NEWS.getIndex()) {
+                position++;
+            }
+
             if (position == HOME.getIndex()) {
                 return HomeTweetFragment.newInstance(bundle);
             } else if (position == TEAM.getIndex()) {
@@ -174,12 +180,21 @@ public class MainNavFragment extends NavFragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
+            if (!hasNews() && position == PageType.NEWS.getIndex()) {
+                return titles[position + 1];
+            }
             return titles[position];
+
+
         }
 
         @Override
         public int getCount() {
-            return titles.length;
+            return hasNews() ? titles.length : titles.length - 1;
+        }
+
+        public boolean hasNews() {
+            return UserRestful.INSTANCE.isLogin() && UserRestful.INSTANCE.me().userType == User.UserType.SPECIAL;
         }
 
 
@@ -202,6 +217,11 @@ public class MainNavFragment extends NavFragment {
                 NavUtils.toSign(view.getContext());
             }
 
+        }
+
+
+        public void onClickSearch(View view) {
+            NavUtils.toSearch(view.getContext());
         }
 
 

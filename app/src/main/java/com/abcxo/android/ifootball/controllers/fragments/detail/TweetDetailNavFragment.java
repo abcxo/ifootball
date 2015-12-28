@@ -257,7 +257,6 @@ public class TweetDetailNavFragment extends DetailFragment {
                         public void onLoaded(List<Message> messages) {
                             if (tweetDetailFragment != null) {
                                 tweetDetailFragment.binding.setHandler(handler);
-                                tweetDetailFragment.binding.setIsHandle(true);
                                 if (messages.size() > 0) {
                                     tweetDetailFragment.binding.setMessage0(messages.get(0));
                                 }
@@ -298,12 +297,12 @@ public class TweetDetailNavFragment extends DetailFragment {
 
         public void onClickItem(View view) {
             Message message = null;
-            if (view.getId() == R.id.comment_item0) {
+            View parent = (View) view.getParent();
+            if (parent.getId() == R.id.comment_item0) {
                 message = commentTweetMessageFragment.adapter.messages.get(0);
-            } else if (view.getId() == R.id.comment_item1) {
+            } else if (parent.getId() == R.id.comment_item1) {
                 message = commentTweetMessageFragment.adapter.messages.get(1);
-            }
-            if (view.getId() == R.id.comment_item2) {
+            } else if (parent.getId() == R.id.comment_item2) {
                 message = commentTweetMessageFragment.adapter.messages.get(2);
             }
             if (message != null && message.uid != UserRestful.INSTANCE.meId()) {

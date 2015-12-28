@@ -136,6 +136,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".controllers.activities.SearchActivity"
+            android:label="@string/activity_search"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".controllers.activities.SignActivity"
             android:label="@string/activity_sign"
             android:theme="@style/AppTheme.NoActionBar.NoStatusBar" />

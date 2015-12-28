@@ -16,6 +16,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -36,6 +37,8 @@ import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.push.PushUtil;
+
+import java.util.List;
 
 import cn.sharesdk.framework.ShareSDK;
 
@@ -68,9 +71,16 @@ public class NavActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                fragmentManager.beginTransaction().remove(fragment).commitAllowingStateLoss();
+            }
+        }
+
+
         init();
-
-
         navigationView = (NavigationView) findViewById(R.id.activity_navigationview);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -93,6 +103,7 @@ public class NavActivity extends AppCompatActivity
             startActivity(new Intent(this, WelcomeActivity.class));
             overridePendingTransition(0, 0);
         }
+
 
     }
 

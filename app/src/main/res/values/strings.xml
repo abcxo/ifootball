@@ -46,10 +46,10 @@
 
     <string name="menu_item_tweet_delete">删除推文</string>
 
-    <string name="app_name">爱足球吧</string>
+    <string name="app_name">足球狗</string>
 
-    <string name="activity_nav">爱足球吧</string>
-    <string name="activity_welcome">爱足球吧</string>
+    <string name="activity_nav">足球狗</string>
+    <string name="activity_welcome">足球狗</string>
 
 
     <string name="activity_detail_tweet_comment">热门评论</string>
@@ -62,12 +62,14 @@
 
     <string name="activity_contact">联系人</string>
 
+    <string name="activity_search">搜索</string>
+
 
     <string name="activity_image">图片</string>
     <string name="activity_sign">登录/注册</string>
     <string name="activity_setting">设置</string>
     <string name="activity_help">帮助&#038;反馈</string>
-    <string name="activity_about">关于爱足球吧</string>
+    <string name="activity_about">关于足球狗</string>
     <string name="activity_web"></string>
 
 
@@ -144,7 +146,7 @@
     <string name="menu_item_search">搜索</string>
     <string name="menu_item_setting">设置</string>
     <string name="menu_item_help">帮助</string>
-    <string name="menu_item_about">关于爱足球吧</string>
+    <string name="menu_item_about">关于足球狗</string>
 
 
     <string name="empty">""</string>
@@ -200,7 +202,7 @@
     <string name="welcome_begin">开始</string>
 
 
-    <string name="about_title">爱足球吧 1.0</string>
+    <string name="about_title">足球狗 1.0</string>
 
     <string name="about_text">
         为中国3000万足球迷而生的社交新闻应用。\n

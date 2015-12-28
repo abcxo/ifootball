@@ -13,10 +13,6 @@
             name="handler"
             type="BindingHandler" />
 
-        <variable
-            name="isHandle"
-            type="Boolean" />
-
 
         <import type="com.abcxo.android.ifootball.models.Tweet" />
 
@@ -26,8 +22,6 @@
             name="tweet"
             type="Tweet" />
 
-
-        <import type="java.util.List" />
 
         <import type="com.abcxo.android.ifootball.models.Message" />
 
@@ -325,7 +319,6 @@
                             android:id="@+id/comment_item0"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:onClick="@{handler.onClickItem}"
                             android:orientation="vertical"
                             android:visibility="@{message0!=null? View.VISIBLE : View.GONE}">
 
@@ -333,7 +326,7 @@
                                 layout="@layout/item_message_comment_tweet"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                bind:isHandle="@{isHandle}"
+                                bind:handler="@{handler}"
                                 bind:message="@{message0}" />
 
                             <View style="@style/Divider" />
@@ -345,7 +338,6 @@
                             android:id="@+id/comment_item1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:onClick="@{handler.onClickItem}"
                             android:orientation="vertical"
                             android:visibility="@{message1!=null? View.VISIBLE : View.GONE}">
 
@@ -353,8 +345,7 @@
                                 layout="@layout/item_message_comment_tweet"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-
-                                bind:isHandle="@{isHandle}"
+                                bind:handler="@{handler}"
                                 bind:message="@{message1}" />
 
                             <View style="@style/Divider" />
@@ -365,7 +356,6 @@
                             android:id="@+id/comment_item2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:onClick="@{handler.onClickItem}"
                             android:orientation="vertical"
                             android:visibility="@{message2!=null? View.VISIBLE : View.GONE}">
 
@@ -373,7 +363,7 @@
                                 layout="@layout/item_message_comment_tweet"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                bind:isHandle="@{isHandle}"
+                                bind:handler="@{handler}"
                                 bind:message="@{message2}" />
 
                             <View style="@style/Divider" />

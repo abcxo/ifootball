@@ -12,6 +12,7 @@ import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
 import com.abcxo.android.ifootball.controllers.activities.ChatDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.ContactActivity;
 import com.abcxo.android.ifootball.controllers.activities.ImageActivity;
+import com.abcxo.android.ifootball.controllers.activities.SearchActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
 import com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.UserDetailActivity;
@@ -36,6 +37,11 @@ public class NavUtils {
     }
 
 
+    public static void toSearch(Context context) {
+        Intent intent = new Intent(context, SearchActivity.class);
+        context.startActivity(intent);
+    }
+
     public static void toLocation(Context context, double lat, double lon, String location) {
         Uri uri = Uri.parse(String.format("geo:%f,%f?q=%s", lat, lon, location));
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -45,7 +51,7 @@ public class NavUtils {
     public static void toEmail(Context context) {
         Intent data = new Intent(Intent.ACTION_SENDTO);
         data.setData(Uri.parse("mailto:iamthefootball@qq.com"));
-        data.putExtra(Intent.EXTRA_SUBJECT, "关于爱足球吧建议反馈");
+        data.putExtra(Intent.EXTRA_SUBJECT, "关于足球狗建议反馈");
         data.putExtra(Intent.EXTRA_TEXT, "说说您的看法！");
         context.startActivity(data);
     }

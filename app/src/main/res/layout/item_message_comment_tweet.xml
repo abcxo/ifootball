@@ -11,14 +11,16 @@
             name="message"
             type="Message" />
 
+        <import type="com.abcxo.android.ifootball.controllers.fragments.detail.TweetDetailNavFragment.BindingHandler" />
+
         <variable
-            name="isHandle"
-            type="Boolean" />
+            name="handler"
+            type="BindingHandler" />
     </data>
 
     <RelativeLayout
         style="@style/Item"
-        android:onClick="@{isHandle!=null?null:message.handler.onClickMessage}">
+        android:onClick="@{handler!=null?handler.onClickItem:message.handler.onClickMessage}">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon"

@@ -258,7 +258,30 @@ public class SettingFragment extends Fragment {
                     .setNegativeButton(R.string.cancel_text, null)
                     .show();
         }
-
+        public void onClickPosition(View view) {
+            View inputView = View.inflate(view.getContext(), R.layout.view_input, null);
+            TextView titleTV = (TextView) inputView.findViewById(R.id.title);
+            titleTV.setText(R.string.setting_position_text);
+            final EditText editText = (EditText) inputView.findViewById(R.id.input);
+            editText.setHint(R.string.setting_position_hint);
+            editText.setText(user.sign);
+            new AlertDialog.Builder(getActivity())
+                    .setView(inputView)
+                    .setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            boolean isPosition = Utils.isPosition(editText.getText().toString());
+                            if (isPosition) {
+                                user.position = editText.getText().toString();
+                                edit();
+                            } else {
+                                ViewUtils.toast(R.string.sign_login_position_error);
+                            }
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel_text, null)
+                    .show();
+        }
         public void onClickGender(View view) {
             new AlertDialog.Builder(getActivity())
                     .setItems(R.array.gender_list, new DialogInterface.OnClickListener() {

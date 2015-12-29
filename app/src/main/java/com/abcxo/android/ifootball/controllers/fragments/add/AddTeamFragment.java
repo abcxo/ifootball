@@ -220,6 +220,10 @@ public class AddTeamFragment extends Fragment {
                     @Override
                     public void onSuccess() {
                         LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_REFRESH_TEAM));
+                        if (adapter.users.size() > 0) {
+                            UserRestful.INSTANCE.me().teamIcon = adapter.users.get(0).avatar;
+                            UserRestful.INSTANCE.updateMe(UserRestful.INSTANCE.me());
+                        }
                         ViewUtils.dismiss();
                         getActivity().finish();
                     }

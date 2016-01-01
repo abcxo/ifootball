@@ -41,7 +41,7 @@ public class Utils {
 
 
     public static boolean isName(String name) {
-        Pattern pattern = Pattern.compile(".{4,20}");
+        Pattern pattern = Pattern.compile(".{2,20}");
         return pattern.matcher(name).matches();
     }
 

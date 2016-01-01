@@ -63,6 +63,7 @@
     <string name="activity_contact">联系人</string>
 
     <string name="activity_search">搜索</string>
+    <string name="activity_message">消息</string>
 
 
     <string name="activity_image">图片</string>
@@ -171,7 +172,7 @@
     <string name="sign_complete_sign_text">签名</string>
     <string name="sign_complete_complete_text">完成</string>
 
-    <string name="sign_login_name_error">请输入昵称（4-20位）</string>
+    <string name="sign_login_name_error">请输入昵称（2-20位）</string>
 
     <string name="sign_login_sign_error">请输入签名（40位以内）</string>
 

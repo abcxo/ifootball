@@ -19,6 +19,8 @@ import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.FileUtils;
+import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
 import com.abcxo.android.ifootball.views.RecyclerItemClickListener;
@@ -104,7 +106,10 @@ public class UserFragment extends Fragment {
                 loadData(false);
             }
         }, Constants.MAX_LEFT_MORE);
-        refresh();
+        if (needFirstRefresh()) {
+            load();
+        }
+
 
         if (isSelect) {
             recyclerView.addOnItemTouchListener(
@@ -125,6 +130,25 @@ public class UserFragment extends Fragment {
 
     }
 
+    public boolean needFirstRefresh() {
+        return true;
+    }
+
+
+    protected void load() {
+        ArrayList<User> users = (ArrayList<User>) FileUtils.getObject(getKey());
+        if (users != null) {
+            refreshUsers(users);
+        } else {
+            refresh();
+        }
+
+    }
+
+    protected String getKey() {
+        return Utils.md5(String.format("uid=%s;getsType=%s;", uid, getGetsType().name()));
+    }
+
 
     public void refresh() {
         recyclerView.getSwipeToRefresh().post(new Runnable() {
@@ -142,6 +166,7 @@ public class UserFragment extends Fragment {
             public void onSuccess(List<User> users) {
                 if (first) {
                     refreshUsers(users);
+                    FileUtils.setObject(getKey(), new ArrayList<>(users));
                 } else {
                     addUsers(users);
                 }

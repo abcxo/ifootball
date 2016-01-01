@@ -19,7 +19,6 @@ public class BindingAdapter {
         if (!TextUtils.isEmpty(url)) {
             if (url.contains("http")) {
                 Picasso.with(Application.INSTANCE).load(url).placeholder(errorDrawable).into(imageView);
-                Picasso.with(Application.INSTANCE).load(url).placeholder(errorDrawable).into(imageView);
             } else {
                 Picasso.with(Application.INSTANCE).load(new File(url)).placeholder(errorDrawable).into(imageView);
             }

@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -386,7 +385,7 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
                     public void onSuccess(Tweet tweet) {
                         LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_REFRESH_HOME));
                         ViewUtils.dismiss();
-                        finish();
+                        getActivity().finish();
                     }
 
                     @Override
@@ -411,21 +410,24 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
                 String sdState = Environment.getExternalStorageState();
                 if (!sdState.equals(Environment.MEDIA_MOUNTED)) {
                     return;
                 }
+
                 if (ViewUtils.imageUrl != null) {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), ViewUtils.imageUrl);
-                    adapter.addImage(bitmap);
+                    Bitmap bitmap = ViewUtils.getSmallBitmap(FileUtils.uri2Path(ViewUtils.imageUrl));
+                    if (bitmap != null) {
+                        adapter.addImage(bitmap);
+                    }
                 }
 
 
             } else if (requestCode == Constants.REQUEST_PHOTO && resultCode == Activity.RESULT_OK && data != null) {
                 try {
                     Uri selectedImage = data.getData();
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                    Bitmap bitmap = ViewUtils.getSmallBitmap(FileUtils.uri2Path(selectedImage));
                     adapter.addImage(bitmap);
                 } catch (Exception e) {
                     ViewUtils.toast(R.string.add_tweet_send_image_error);
@@ -434,7 +436,7 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
             } else if (requestCode == Constants.REQUEST_CONTACT && resultCode == Activity.RESULT_OK) {
                 User user = (User) data.getExtras().get(Constants.KEY_USER);
                 promptUsers.add(user);
-                inputET.addSpan("@" + user.name, user.name);
+                inputET.addSpan("@" + user.name + " ", user.name);
             }
 
         } catch (Exception e) {
@@ -443,10 +445,10 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
 
     }
 
-
-    private void finish() {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         FileUtils.delete(Constants.DIR_TWEET_ADD);
-        getActivity().finish();
     }
 
     public boolean onBackPressed() {

@@ -14,7 +14,7 @@
 
     <RelativeLayout
         style="@style/Item"
-        android:onClick="@{user.handler.onClickUser}">
+        android:onClick="@{user.getHandler().onClickUser}">
 
 
         <com.makeramen.roundedimageview.RoundedImageView

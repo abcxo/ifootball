@@ -68,13 +68,13 @@
                     <RelativeLayout
                         android:id="@+id/title_layout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:onClick="@{tweet.getHandler().onClickUser}">
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/icon"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
-                            android:onClick="@{tweet.handler.onClickUser}"
                             android:scaleType="centerCrop"
                             app:error="@{@drawable/ic_avatar}"
                             app:imageUrl="@{tweet.icon}"
@@ -147,7 +147,7 @@
                         android:drawablePadding="@dimen/padding_small"
                         android:drawableTint="@color/color_icon_light_o"
                         android:gravity="center_vertical"
-                        android:onClick="@{tweet.handler.onClickLocation}"
+                        android:onClick="@{tweet.getHandler().onClickLocation}"
                         android:paddingBottom="@dimen/padding"
                         android:paddingTop="@dimen/padding"
                         android:singleLine="true"
@@ -256,7 +256,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:onClick="@{tweet.handler.onClickRepeat}"
+                            android:onClick="@{tweet.getHandler().onClickRepeat}"
                             android:padding="@dimen/padding">
 
                             <ImageView
@@ -273,7 +273,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:onClick="@{tweet.handler.onClickStar}"
+                            android:onClick="@{tweet.getHandler().onClickStar}"
                             android:padding="@dimen/padding">
 
                             <ImageView
@@ -289,7 +289,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:onClick="@{tweet.handler.onClickShare}"
+                            android:onClick="@{tweet.getHandler().onClickShare}"
                             android:padding="@dimen/padding">
 
                             <ImageView

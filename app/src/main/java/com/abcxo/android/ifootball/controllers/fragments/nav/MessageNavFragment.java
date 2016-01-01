@@ -143,9 +143,14 @@ public class MessageNavFragment extends NavFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
+        String[] array = getActivity().getResources().getStringArray(R.array.message_page_list);
+        for (int i = 0; i < array.length; i++) {
+            array[i] = "      " + array[i] + "      ";
+        }
         spinner.setAdapter(new SpinnerAdapter(
                 toolbar.getContext(),
-                getActivity().getResources().getStringArray(R.array.message_page_list)));
+                array
+        ));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

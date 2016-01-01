@@ -18,13 +18,13 @@
 
     <RelativeLayout
         style="@style/Item"
-        android:onClick="@{tweet.handler.onClickTweet}">
+        android:onClick="@{tweet.getHandler().onClickTweet}">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:onClick="@{tweet.handler.onClickUser}"
+            android:onClick="@{tweet.getHandler().onClickUser}"
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{tweet.icon}"
@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{tweet.handler.onClickRepeat}"
+                android:onClick="@{tweet.getHandler().onClickRepeat}"
                 android:padding="@dimen/padding">
 
                 <ImageView
@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{tweet.handler.onClickStar}"
+                android:onClick="@{tweet.getHandler().onClickStar}"
                 android:padding="@dimen/padding">
 
                 <ImageView

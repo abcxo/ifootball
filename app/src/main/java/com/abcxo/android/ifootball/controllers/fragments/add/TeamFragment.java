@@ -18,6 +18,8 @@ import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.FileUtils;
+import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
@@ -28,11 +30,12 @@ public class TeamFragment extends Fragment {
 
 
     protected String name;
-
+    protected SwipeRefreshLayout.OnRefreshListener onRefreshListener;
     protected SuperRecyclerView recyclerView;
 
     protected TeamAdapter adapter;
     private Listener listener;
+
 
     public Listener getListener() {
         return listener;
@@ -80,14 +83,33 @@ public class TeamFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         recyclerView.setRefreshingColorResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
-        final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 loadData(true);
             }
         };
         recyclerView.setRefreshListener(onRefreshListener);
+        load();
 
+    }
+
+
+    protected void load() {
+        ArrayList<User> users = (ArrayList<User>) FileUtils.getObject(getKey());
+        if (users != null && users.size() > 0) {
+            refreshUsers(users);
+            if (TeamFragment.this.listener != null) {
+                TeamFragment.this.listener.onLoaded(users);
+            }
+            recyclerView.getSwipeToRefresh().setEnabled(false);
+        } else {
+            refresh();
+        }
+
+    }
+
+    public void refresh() {
         recyclerView.getSwipeToRefresh().post(new Runnable() {
             @Override
             public void run() {
@@ -95,8 +117,12 @@ public class TeamFragment extends Fragment {
                 onRefreshListener.onRefresh();
             }
         });
-
     }
+
+    protected String getKey() {
+        return Utils.md5(String.format("uid=%s;name=%s;getsType=%s;", UserRestful.INSTANCE.meId(), name, getGetsType().name()));
+    }
+
 
     protected void loadData(final boolean first) {
         UserRestful.INSTANCE.getTeams(name, new UserRestful.OnUserRestfulList() {
@@ -181,7 +207,7 @@ public class TeamFragment extends Fragment {
             this.handler = handler;
         }
 
-        public  class BindingHolder extends RecyclerView.ViewHolder {
+        public class BindingHolder extends RecyclerView.ViewHolder {
             public ViewDataBinding binding;
             public View view;
 

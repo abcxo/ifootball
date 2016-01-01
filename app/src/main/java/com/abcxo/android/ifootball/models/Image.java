@@ -20,6 +20,7 @@ import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,18 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 /**
  * Created by shadow on 15/11/17.
  */
-public class Image implements Parcelable {
+public class Image implements Parcelable,Serializable {
     public String url;
     public String title;
     public ImageType imageType = ImageType.SAVE_SHARE;
-    public transient BindingHandler handler = new BindingHandler();
+    private transient BindingHandler handler = new BindingHandler();
+
+    public BindingHandler getHandler() {
+        if (handler == null) {
+            handler = new BindingHandler();
+        }
+        return handler;
+    }
 
     public Image() {
         super();

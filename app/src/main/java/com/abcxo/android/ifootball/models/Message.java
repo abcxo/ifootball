@@ -7,10 +7,12 @@ import android.view.View;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 
+import java.io.Serializable;
+
 /**
  * Created by SHARON on 15/10/29.
  */
-public class Message implements Parcelable {
+public class Message implements Parcelable,Serializable {
     public long id;
 
     //用户id
@@ -27,7 +29,14 @@ public class Message implements Parcelable {
     public MessageMainType mainType = MessageMainType.NORMAL;
     public MessageDetailType detailType = MessageDetailType.NORMAL;
 
-    public transient BindingHandler handler = new BindingHandler();
+    private transient BindingHandler handler = new BindingHandler();
+
+    public BindingHandler getHandler() {
+        if (handler == null) {
+            handler = new BindingHandler();
+        }
+        return handler;
+    }
 
     public Message() {
         super();

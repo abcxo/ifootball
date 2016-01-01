@@ -26,6 +26,10 @@ public class SearchUserFragment extends UserFragment {
         return keyword;
     }
 
+    @Override
+    public boolean needFirstRefresh() {
+        return false;
+    }
 
     @Override
     protected UserRestful.GetsType getGetsType() {

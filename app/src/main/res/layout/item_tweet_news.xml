@@ -13,7 +13,7 @@
     </data>
 
     <RelativeLayout style="@style/Item"
-        android:onClick="@{tweet.handler.onClickTweet}">
+        android:onClick="@{tweet.getHandler().onClickTweet}">
 
         <ImageView
             android:id="@+id/cover"

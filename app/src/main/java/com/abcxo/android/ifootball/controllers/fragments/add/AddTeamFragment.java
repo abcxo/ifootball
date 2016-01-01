@@ -28,6 +28,7 @@ import com.abcxo.android.ifootball.databinding.FragmentAddTeamBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.FileUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
@@ -51,6 +52,8 @@ public class AddTeamFragment extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    private AddTeamAdapter addTeamAdapter;
 
     private RecyclerView recyclerView;
     private AddTeamFocusAdapter adapter;
@@ -83,7 +86,8 @@ public class AddTeamFragment extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(6);
 
-        viewPager.setAdapter(new AddTeamAdapter(getChildFragmentManager(), getActivity(), handler));
+        addTeamAdapter = new AddTeamAdapter(getChildFragmentManager(), getActivity(), handler);
+        viewPager.setAdapter(addTeamAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -116,6 +120,7 @@ public class AddTeamFragment extends Fragment {
     public class AddTeamAdapter extends FragmentPagerAdapter {
 
         private String[] titles;
+        public List<TeamFragment> teamFragments = new ArrayList<>();
 
         private AddTeamFragment.BindingHandler handler;
 
@@ -142,6 +147,7 @@ public class AddTeamFragment extends Fragment {
                     handler.onClickItem(view);
                 }
             });
+            teamFragments.add(fragment);
             return fragment;
         }
 
@@ -219,10 +225,13 @@ public class AddTeamFragment extends Fragment {
                 UserRestful.INSTANCE.focusTeams(adapter.users, new UserRestful.OnUserRestfulDo() {
                     @Override
                     public void onSuccess() {
+                        LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_EDIT));
                         LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_REFRESH_TEAM));
-                        if (adapter.users.size() > 0) {
-                            UserRestful.INSTANCE.me().teamIcon = adapter.users.get(0).avatar;
-                            UserRestful.INSTANCE.updateMe(UserRestful.INSTANCE.me());
+                        String teamIcon = adapter.users.size() > 0 ? adapter.users.get(0).avatar : null;
+                        UserRestful.INSTANCE.me().teamIcon = teamIcon;
+                        UserRestful.INSTANCE.updateMe(UserRestful.INSTANCE.me());
+                        for (TeamFragment teamFragment : addTeamAdapter.teamFragments) {
+                            FileUtils.setObject(teamFragment.getKey(), new ArrayList<>(teamFragment.adapter.users));
                         }
                         ViewUtils.dismiss();
                         getActivity().finish();

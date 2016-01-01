@@ -50,7 +50,7 @@
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:onClick="@{user.handler.onClickUser}"
+                    android:onClick="@{user.getHandler().onClickUser}"
                     android:scaleType="centerCrop"
                     app:error="@{@drawable/ic_avatar}"
                     app:imageUrl="@{user.avatar}"
@@ -171,7 +171,7 @@
                 android:drawablePadding="@dimen/padding_small"
                 android:drawableTint="@color/color_icon_light_o"
                 android:gravity="center_vertical"
-                android:onClick="@{tweet.handler.onClickLocation}"
+                android:onClick="@{tweet.getHandler().onClickLocation}"
                 android:paddingBottom="@dimen/padding"
                 android:paddingLeft="@dimen/padding"
                 android:paddingRight="@dimen/padding"

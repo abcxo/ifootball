@@ -139,16 +139,16 @@ public class ImageFragment extends Fragment {
             share(image);
             return true;
         } else if (title.equals(getString(R.string.menu_item_tweet_comment))) {
-            tweet.handler.onClickComment(viewPager);
+            tweet.getHandler().onClickComment(viewPager);
             return true;
         } else if (title.equals(getString(R.string.menu_item_tweet_repeat))) {
-            tweet.handler.onClickRepeat(viewPager);
+            tweet.getHandler().onClickRepeat(viewPager);
             return true;
         } else if (title.equals(getString(R.string.menu_item_tweet_star))) {
-            tweet.handler.onClickStar(viewPager);
+            tweet.getHandler().onClickStar(viewPager);
             return true;
         } else if (title.equals(getString(R.string.menu_item_tweet_share))) {
-            tweet.handler.onClickShare(viewPager);
+            tweet.getHandler().onClickShare(viewPager);
             return true;
         }
 
@@ -161,11 +161,11 @@ public class ImageFragment extends Fragment {
     }
 
     private void save(Image image) {
-        image.handler.onClickSave(viewPager);
+        image.getHandler().onClickSave(viewPager);
     }
 
     private void share(Image image) {
-        image.handler.onClickShare(viewPager);
+        image.getHandler().onClickShare(viewPager);
     }
 
 

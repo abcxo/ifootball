@@ -224,6 +224,10 @@ public class MainNavFragment extends NavFragment {
             NavUtils.toSearch(view.getContext());
         }
 
+        public void onClickMessage(View view) {
+            NavUtils.toMessage(view.getContext());
+        }
+
 
     }
 

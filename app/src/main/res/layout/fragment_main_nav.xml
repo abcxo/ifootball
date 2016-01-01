@@ -48,10 +48,24 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/padding"
-                        android:layout_marginRight="@dimen/padding"
+                        android:clickable="true"
+                        android:onClick="@{handler.onClickMessage}"
+                        android:paddingBottom="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding"
+                        android:paddingRight="@dimen/padding_small"
+                        android:paddingTop="@dimen/padding_small"
+                        android:src="@drawable/ic_message"
+                        android:tint="@color/color_icon_highlight" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:clickable="true"
                         android:onClick="@{handler.onClickSearch}"
+                        android:paddingBottom="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingRight="@dimen/padding"
+                        android:paddingTop="@dimen/padding_small"
                         android:src="@drawable/ic_search"
                         android:tint="@color/color_icon_highlight" />
                 </LinearLayout>

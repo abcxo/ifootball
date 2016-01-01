@@ -20,13 +20,13 @@
 
     <RelativeLayout
         style="@style/Item"
-        android:onClick="@{handler!=null?handler.onClickItem:message.handler.onClickMessage}">
+        android:onClick="@{handler!=null?handler.onClickItem:message.getHandler().onClickMessage}">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:onClick="@{message.handler.onClickUser}"
+            android:onClick="@{message.getHandler().onClickUser}"
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{message.icon}"

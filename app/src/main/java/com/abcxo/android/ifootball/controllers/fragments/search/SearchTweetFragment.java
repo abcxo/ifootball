@@ -8,12 +8,12 @@ import com.abcxo.android.ifootball.restfuls.TweetRestful;
 /**
  * Created by shadow on 15/11/4.
  */
-public class SearchTweetFragment extends TweetFragment{
+public class SearchTweetFragment extends TweetFragment {
     public static SearchTweetFragment newInstance() {
         return newInstance(null);
     }
 
-    public  String keyword="";
+    public String keyword = "";
 
     public static SearchTweetFragment newInstance(Bundle args) {
         SearchTweetFragment fragment = new SearchTweetFragment();
@@ -23,8 +23,13 @@ public class SearchTweetFragment extends TweetFragment{
 
 
     @Override
-    public  String getKeyword() {
+    public String getKeyword() {
         return keyword;
+    }
+
+    @Override
+    public boolean needFirstRefresh() {
+        return false;
     }
 
     @Override

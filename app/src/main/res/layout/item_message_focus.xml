@@ -13,7 +13,7 @@
     </data>
 
     <RelativeLayout
-        android:onClick="@{message.handler.onClickMessage}"
+        android:onClick="@{message.getHandler().onClickMessage}"
         style="@style/Item">
 
         <LinearLayout
@@ -24,7 +24,7 @@
             android:layout_marginTop="@dimen/padding_small">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:onClick="@{message.handler.onClickUser}"
+                android:onClick="@{message.getHandler().onClickUser}"
                 android:id="@+id/icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -51,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignRight="@id/name"
+                android:layout_marginLeft="@dimen/padding_small"
                 android:text="@string/message_focus"
                 android:textColor="@color/color_text_content"
                 android:textSize="14dp"

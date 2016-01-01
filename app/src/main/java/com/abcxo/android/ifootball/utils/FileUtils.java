@@ -1,8 +1,13 @@
 package com.abcxo.android.ifootball.utils;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.text.TextUtils;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.constants.Constants;
@@ -76,7 +81,7 @@ public class FileUtils {
             }
             File file = new File(dir + name + ".jpg");
             FileOutputStream fileOutputStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 30, fileOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.WEBP, 80, fileOutputStream);
             fileOutputStream.flush();
             fileOutputStream.close();
             return file.getAbsolutePath();
@@ -86,9 +91,55 @@ public class FileUtils {
         return null;
     }
 
+
     public static boolean delete(String path) {
-        File dirFile = new File(path);
-        return dirFile.delete();
+        if (!TextUtils.isEmpty(path)) {
+            try {
+                File file = new File(path);
+                if (file.isDirectory()) {// 处理目录
+                    File files[] = file.listFiles();
+                    for (int i = 0; i < files.length; i++) {
+                        delete(files[i].getAbsolutePath());
+                    }
+                }
+                if (!file.isDirectory()) {// 如果是文件，删除
+                    file.delete();
+                } else {// 目录
+                    if (file.listFiles().length == 0) {// 目录下没有文件或者目录，删除
+                        file.delete();
+                    }
+                }
+                return true;
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
+
+    public static String uri2Path(final Uri uri) {
+        if (null == uri) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if (scheme == null)
+            data = uri.getPath();
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = Application.INSTANCE.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
+
 
 }

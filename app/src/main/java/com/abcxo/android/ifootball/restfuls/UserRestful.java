@@ -106,9 +106,6 @@ public class UserRestful {
                 .build();
         userService = retrofit.create(UserService.class);
         user = (User) FileUtils.getObject(Constants.KEY_USER);
-        if (user != null) {
-            user.init();
-        }
 
     }
 

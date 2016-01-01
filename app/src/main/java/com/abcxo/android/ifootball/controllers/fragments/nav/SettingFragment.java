@@ -264,7 +264,7 @@ public class SettingFragment extends Fragment {
             titleTV.setText(R.string.setting_position_text);
             final EditText editText = (EditText) inputView.findViewById(R.id.input);
             editText.setHint(R.string.setting_position_hint);
-            editText.setText(user.sign);
+            editText.setText(user.position);
             new AlertDialog.Builder(getActivity())
                     .setView(inputView)
                     .setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {

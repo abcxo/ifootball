@@ -13,10 +13,10 @@
     </data>
 
     <RelativeLayout style="@style/Item"
-        android:onClick="@{message.handler.onClickMessage}">
+        android:onClick="@{message.getHandler().onClickMessage}">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:onClick="@{message.handler.onClickUser}"
+            android:onClick="@{message.getHandler().onClickUser}"
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"

@@ -12,6 +12,7 @@ import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
 import com.abcxo.android.ifootball.controllers.activities.ChatDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.ContactActivity;
 import com.abcxo.android.ifootball.controllers.activities.ImageActivity;
+import com.abcxo.android.ifootball.controllers.activities.MessageActivity;
 import com.abcxo.android.ifootball.controllers.activities.SearchActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
 import com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity;
@@ -41,6 +42,12 @@ public class NavUtils {
         Intent intent = new Intent(context, SearchActivity.class);
         context.startActivity(intent);
     }
+
+    public static void toMessage(Context context) {
+        Intent intent = new Intent(context, MessageActivity.class);
+        context.startActivity(intent);
+    }
+
 
     public static void toLocation(Context context, double lat, double lon, String location) {
         Uri uri = Uri.parse(String.format("geo:%f,%f?q=%s", lat, lon, location));

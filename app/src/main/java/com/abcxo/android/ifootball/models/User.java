@@ -49,7 +49,14 @@ public class User extends BaseObservable implements Parcelable, Serializable {
     public UserMainType mainType = UserMainType.NORMAL;
 
 
-    public transient BindingHandler handler = new BindingHandler();
+    private transient BindingHandler handler = new BindingHandler();
+
+    public BindingHandler getHandler() {
+        if (handler == null) {
+            handler = new BindingHandler();
+        }
+        return handler;
+    }
 
 
     public User() {
@@ -92,9 +99,6 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         }
     };
 
-    public void init() {
-        handler = new BindingHandler();
-    }
 
     public boolean isMe() {
         return id == UserRestful.INSTANCE.meId();
@@ -208,7 +212,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         public void onClickAvatar(View view) {
             Image image = new Image();
             image.url = avatar;
-            image.handler.onClickImage(view);
+            image.getHandler().onClickImage(view);
         }
 
         public void onClickUser(View view) {

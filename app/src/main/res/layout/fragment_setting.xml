@@ -203,7 +203,7 @@
                         tools:text="wewe" />
 
                 </LinearLayout>
-
+                <View style="@style/Divider" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -225,7 +225,7 @@
                         android:layout_marginLeft="@dimen/padding"
                         android:gravity="center_vertical|right"
                         android:minHeight="48dp"
-                        android:text="@{user.sign}"
+                        android:text="@{user.position}"
                         android:textColor="@color/color_text_content"
                         android:textSize="@dimen/text_title"
                         tools:text="前锋" />

@@ -75,7 +75,7 @@
                                 android:layout_width="60dp"
                                 android:layout_height="40dp"
                                 android:backgroundTint="@{user.focus?@color/color_icon_red:@color/color_button_minor}"
-                                android:onClick="@{user.handler.onClickFocus}"
+                                android:onClick="@{user.getHandler().onClickFocus}"
                                 android:text="@{user.focus?@string/unfocus_text:@string/focus_text}"
                                 android:textColor="@color/color_text_highlight" />
 
@@ -84,10 +84,10 @@
                                 android:layout_width="60dp"
                                 android:layout_height="40dp"
                                 android:backgroundTint="@color/color_button_accent"
-                                android:onClick="@{user.handler.onClickChat}"
+                                android:onClick="@{user.getHandler().onClickChat}"
                                 android:text="@string/chat_text"
-                                android:visibility="@{user.canChat()?View.VISIBLE:View.GONE}"
-                                android:textColor="@color/color_text_highlight" />
+                                android:textColor="@color/color_text_highlight"
+                                android:visibility="@{user.canChat()?View.VISIBLE:View.GONE}" />
                         </LinearLayout>
 
                         <TextView
@@ -100,7 +100,6 @@
                             android:textColor="@color/color_text_title"
                             android:textSize="@dimen/text_title"
                             tools:text="咸蛋超人" />
-
 
 
                     </RelativeLayout>
@@ -184,10 +183,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/padding"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingBottom="@dimen/padding_mid"
             app:layout_anchor="@id/layout"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
             app:layout_anchorGravity="top|left"
             app:layout_behavior="com.abcxo.android.ifootball.views.ViewVisiblityBehavior">
 
@@ -195,7 +194,7 @@
                 android:id="@+id/icon"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:onClick="@{user.handler.onClickAvatar}"
+                android:onClick="@{user.getHandler().onClickAvatar}"
                 android:scaleType="centerCrop"
                 app:error="@{@drawable/ic_avatar}"
                 app:imageUrl="@{user.avatar}"
@@ -204,24 +203,27 @@
                 app:riv_corner_radius="@dimen/icon_radius_max"
                 tools:src="@drawable/bg_sign_complete" />
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/team"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginBottom="@dimen/padding"
                 android:layout_marginLeft="@dimen/padding"
                 android:scaleType="centerCrop"
+                android:visibility="@{user.teamIcon!=null?View.VISIBLE:View.GONE}"
                 app:imageUrl="@{user.teamIcon}"
+                app:riv_oval="true"
                 tools:src="@drawable/bg_sign_complete" />
+
             <TextView
                 android:id="@+id/postion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/do_layout"
                 android:layout_marginBottom="@dimen/padding"
-                android:singleLine="true"
                 android:layout_marginLeft="@dimen/padding"
-                android:text="@{user.name}"
+                android:singleLine="true"
+                android:text="@{user.position}"
                 android:textColor="@color/color_text_highlight"
                 android:textSize="@dimen/text_title"
                 tools:text="前锋" />

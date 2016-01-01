@@ -19,6 +19,8 @@ import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.restfuls.MessageRestful;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.FileUtils;
+import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
 import com.abcxo.android.ifootball.views.RecyclerItemClickListener;
@@ -125,7 +127,7 @@ public class MessageFragment extends Fragment {
                 loadData(false);
             }
         }, Constants.MAX_LEFT_MORE);
-        refresh();
+        load();
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -146,6 +148,7 @@ public class MessageFragment extends Fragment {
             public void onSuccess(List<Message> messages) {
                 if (first) {
                     refreshMessages(messages);
+                    FileUtils.setObject(getKey(), new ArrayList<>(messages));
                 } else {
                     addMessages(messages);
                 }
@@ -170,6 +173,20 @@ public class MessageFragment extends Fragment {
         });
     }
 
+
+    protected void load() {
+        ArrayList<Message> messages = (ArrayList<Message>) FileUtils.getObject(getKey());
+        if (messages != null) {
+            refreshMessages(messages);
+        } else {
+            refresh();
+        }
+
+    }
+
+    protected String getKey() {
+        return Utils.md5(String.format("uid=%s;uid2=%s;tid=%s;getsType=%s;", uid, uid2, tid, getGetsType().name()));
+    }
 
     public void refresh() {
         recyclerView.getSwipeToRefresh().post(new Runnable() {

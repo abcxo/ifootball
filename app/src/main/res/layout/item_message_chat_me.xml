@@ -13,7 +13,7 @@
     </data>
 
     <RelativeLayout style="@style/Item"
-        android:onClick="@{message.handler.onClickMessage}">
+        android:onClick="@{message.getHandler().onClickMessage}">
 
 
         <TextView
@@ -56,7 +56,7 @@
             tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:onClick="@{message.handler.onClickUser}"
+            android:onClick="@{message.getHandler().onClickUser}"
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"

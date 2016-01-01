@@ -17,6 +17,8 @@ import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
+import com.abcxo.android.ifootball.utils.FileUtils;
+import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
 import com.malinskiy.superrecyclerview.OnMoreListener;
@@ -97,10 +99,30 @@ public class TweetFragment extends Fragment {
                 loadData(false);
             }
         }, Constants.MAX_LEFT_MORE);
-        refresh();
+        if (needFirstRefresh()) {
+            load();
+        }
 
     }
 
+
+    protected void load() {
+        ArrayList<Tweet> tweets = (ArrayList<Tweet>) FileUtils.getObject(getKey());
+        if (tweets != null) {
+            refreshTweets(tweets);
+        } else {
+            refresh();
+        }
+
+    }
+
+    protected String getKey() {
+        return Utils.md5(String.format("uid=%s;getsType=%s;", uid, getGetsType().name()));
+    }
+
+    public boolean needFirstRefresh() {
+        return true;
+    }
 
     public void refresh() {
         recyclerView.getSwipeToRefresh().post(new Runnable() {
@@ -119,6 +141,7 @@ public class TweetFragment extends Fragment {
                     public void onSuccess(List<Tweet> tweets) {
                         if (first) {
                             refreshTweets(tweets);
+                            FileUtils.setObject(getKey(), new ArrayList<>(tweets));
                         } else {
                             addTweets(tweets);
                         }
@@ -164,6 +187,7 @@ public class TweetFragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
     }
+
 
     protected void addTweets(List<Tweet> tweets) {
         if (tweets != null && tweets.size() > 0) {

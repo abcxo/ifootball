@@ -3,6 +3,7 @@ package com.abcxo.android.ifootball.controllers.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.abcxo.android.ifootball.Application;
@@ -28,11 +29,11 @@ public class PushReceiver extends BroadcastReceiver {
             Message message = new Gson().fromJson(m, Message.class);
             if (PushConstants.ACTION_PUSH.equals(intent.getAction())) {
                 Intent i = new Intent(Constants.ACTION_MESSAGE);
-                i.putExtra("message", message);
+                i.putExtra("message", (Parcelable) message);
                 LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(i);
             } else if (PushConstants.ACTION_PUSH_CLICK.equals(intent.getAction())) {
                 Intent i = new Intent(Constants.ACTION_MESSAGE_CLICK);
-                i.putExtra("message", message);
+                i.putExtra("message", (Parcelable) message);
                 LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(i);
             }
         } catch (Exception e) {

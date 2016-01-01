@@ -14,7 +14,7 @@
 
     <RelativeLayout
         style="@style/Item"
-        android:onClick="@{tweet.handler.onClickTweet}">
+        android:onClick="@{tweet.getHandler().onClickTweet}">
 
         <RelativeLayout
             android:id="@+id/title_layout"

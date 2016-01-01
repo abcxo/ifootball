@@ -25,6 +25,7 @@ import com.abcxo.android.ifootball.views.ReverseInterpolator;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +35,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 /**
  * Created by SHARON on 15/10/29.
  */
-public class Tweet extends BaseObservable implements Parcelable {
+public class Tweet extends BaseObservable implements Parcelable, Serializable {
     public long id;
     //用户
     public long uid;
@@ -71,8 +72,14 @@ public class Tweet extends BaseObservable implements Parcelable {
     public TweetType tweetType = TweetType.NORMAL;
 
 
-    public transient BindingHandler handler = new BindingHandler();
+    private transient BindingHandler handler = new BindingHandler();
 
+    public BindingHandler getHandler() {
+        if (handler == null) {
+            handler = new BindingHandler();
+        }
+        return handler;
+    }
 
     public Tweet() {
         super();

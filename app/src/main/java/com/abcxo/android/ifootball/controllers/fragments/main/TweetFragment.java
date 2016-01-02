@@ -108,12 +108,10 @@ public class TweetFragment extends Fragment {
 
     protected void load() {
         ArrayList<Tweet> tweets = (ArrayList<Tweet>) FileUtils.getObject(getKey());
-        if (tweets != null) {
+        if (tweets != null && tweets.size() > 0) {
             refreshTweets(tweets);
-        } else {
-            refresh();
         }
-
+        refresh();
     }
 
     protected String getKey() {

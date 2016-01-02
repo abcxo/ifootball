@@ -137,11 +137,10 @@ public class UserFragment extends Fragment {
 
     protected void load() {
         ArrayList<User> users = (ArrayList<User>) FileUtils.getObject(getKey());
-        if (users != null) {
+        if (users != null && users.size() > 0) {
             refreshUsers(users);
-        } else {
-            refresh();
         }
+        refresh();
 
     }
 

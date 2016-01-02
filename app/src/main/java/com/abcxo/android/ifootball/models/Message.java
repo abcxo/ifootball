@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * Created by SHARON on 15/10/29.
  */
-public class Message implements Parcelable,Serializable {
+public class Message implements Parcelable, Serializable {
     public long id;
 
     //用户id
@@ -21,6 +21,7 @@ public class Message implements Parcelable,Serializable {
     public long tid;
 
     public String icon;
+    public String icon2;
     public String title;
     public String content;
     public String time;
@@ -48,6 +49,7 @@ public class Message implements Parcelable,Serializable {
         uid2 = in.readLong();
         tid = in.readLong();
         icon = in.readString();
+        icon2 = in.readString();
         title = in.readString();
         content = in.readString();
         time = in.readString();
@@ -80,6 +82,7 @@ public class Message implements Parcelable,Serializable {
         dest.writeLong(uid2);
         dest.writeLong(tid);
         dest.writeString(icon);
+        dest.writeString(icon2);
         dest.writeString(title);
         dest.writeString(content);
         dest.writeString(time);
@@ -97,7 +100,8 @@ public class Message implements Parcelable,Serializable {
         PROMPT(3),
         STAR(4),
         CHAT(5),
-        SPECIAL(6);
+        CHAT_GROUP(6),
+        SPECIAL(7);
 
         public int index;
 
@@ -122,7 +126,7 @@ public class Message implements Parcelable,Serializable {
         COMMENT(2),
         PROMPT(3),
         STAR(4),
-        CHAT(5),
+        CHAT_GROUP(5),
         SPECIAL(6),
         COMMENT_TWEET(7),
         CHAT_USER(8),

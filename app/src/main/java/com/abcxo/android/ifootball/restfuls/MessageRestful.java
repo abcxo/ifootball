@@ -119,7 +119,7 @@ public class MessageRestful {
                                     mainType == Message.MessageMainType.PROMPT ||
                                     mainType == Message.MessageMainType.STAR) {
                                 message.detailType = Message.MessageDetailType.TWEET;
-                            } else if (mainType == Message.MessageMainType.CHAT) {
+                            } else if (mainType == Message.MessageMainType.CHAT_GROUP) {
                                 message.detailType = Message.MessageDetailType.CHAT;
                             } else {
                                 message.detailType = Message.MessageDetailType.NORMAL;

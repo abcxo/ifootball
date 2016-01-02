@@ -12,26 +12,46 @@
             type="Message" />
     </data>
 
-    <RelativeLayout style="@style/Item"
+    <RelativeLayout
+        style="@style/Item"
         android:onClick="@{message.getHandler().onClickMessage}">
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:onClick="@{message.getHandler().onClickUser}"
-            android:id="@+id/icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:scaleType="centerCrop"
-            app:riv_corner_radius="@dimen/icon_radius"
-            app:imageUrl="@{message.icon}"
-            app:error="@{@drawable/ic_avatar}"
-            tools:src="@drawable/bg_sign_complete" />
+        <LinearLayout
+            android:id="@+id/icon_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/icon"
+                android:layout_width="23.5dp"
+                android:layout_height="48dp"
+                android:scaleType="centerCrop"
+                app:error="@{@drawable/ic_avatar}"
+                app:imageUrl="@{message.icon}"
+                app:riv_corner_radius_bottom_left="@dimen/icon_radius"
+                app:riv_corner_radius_top_left="@dimen/icon_radius"
+                tools:src="@drawable/bg_sign_complete" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/icon2"
+                android:layout_width="23.5dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="1dp"
+                android:scaleType="centerCrop"
+                app:error="@{@drawable/ic_avatar}"
+                app:imageUrl="@{message.icon2}"
+                app:riv_corner_radius_bottom_right="@dimen/icon_radius"
+                app:riv_corner_radius_top_right="@dimen/icon_radius"
+                tools:src="@drawable/bg_sign_login" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/padding_small"
-            android:layout_toRightOf="@id/icon"
+            android:layout_toRightOf="@id/icon_layout"
             android:singleLine="true"
             android:text="@{message.title}"
             android:textColor="@color/color_text_title"
@@ -55,12 +75,12 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/name"
-            android:layout_marginTop="@dimen/padding"
+            android:layout_marginTop="@dimen/padding_small"
             android:maxLines="2"
+            android:singleLine="true"
             android:text="@{message.content}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
-            android:singleLine="true"
             tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
 
 

@@ -20,10 +20,10 @@ public final class Constants {
     public static final String ACTION_REFRESH_CONTACT = "refresh_contact";
     public static final String ACTION_MESSAGE = "message";
     public static final String ACTION_MESSAGE_CLICK = "message_click";
-        public static final String HOST = "http://www.iamthefootball.com:8080";
-    public static final String PATH = "/ifootball";
-//    public static final String HOST = "http://localhost:8080";
-//    public static final String PATH = "";
+//        public static final String HOST = "http://www.iamthefootball.com:8080";
+//    public static final String PATH = "/ifootball";
+    public static final String HOST = "http://localhost:8080";
+    public static final String PATH = "";
     public static final String SITE = "http://a.app.qq.com/o/simple.jsp?pkgname=com.abcxo.android.ifootball";
 
     public static final int PAGE_INDEX = 0;

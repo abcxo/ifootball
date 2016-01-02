@@ -30,7 +30,7 @@ import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.abcxo.android.ifootball.models.Message.MessageMainType.CHAT;
+import static com.abcxo.android.ifootball.models.Message.MessageMainType.CHAT_GROUP;
 import static com.abcxo.android.ifootball.models.Message.MessageMainType.CHAT_ME;
 import static com.abcxo.android.ifootball.models.Message.MessageMainType.CHAT_USER;
 import static com.abcxo.android.ifootball.models.Message.MessageMainType.COMMENT;
@@ -176,11 +176,12 @@ public class MessageFragment extends Fragment {
 
     protected void load() {
         ArrayList<Message> messages = (ArrayList<Message>) FileUtils.getObject(getKey());
-        if (messages != null) {
+        if (messages != null && messages.size() > 0) {
             refreshMessages(messages);
-        } else {
-            refresh();
+
         }
+        refresh();
+
 
     }
 
@@ -299,9 +300,9 @@ public class MessageFragment extends Fragment {
             } else if (type == STAR.getIndex()) {
                 return LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_message_star, parent, false);
-            } else if (type == CHAT.getIndex()) {
+            } else if (type == CHAT_GROUP.getIndex()) {
                 return LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_message_chat, parent, false);
+                        .inflate(R.layout.item_message_chat_group, parent, false);
             } else if (type == SPECIAL.getIndex()) {
                 return LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_message_special, parent, false);

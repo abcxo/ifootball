@@ -28,6 +28,7 @@ import com.abcxo.android.ifootball.databinding.FragmentSettingBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
+import com.abcxo.android.ifootball.utils.FileUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
@@ -162,13 +163,13 @@ public class SettingFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == Constants.REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
                 String sdState = Environment.getExternalStorageState();
                 if (!sdState.equals(Environment.MEDIA_MOUNTED)) {
                     return;
                 }
                 if (ViewUtils.imageUrl != null) {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), ViewUtils.imageUrl);
+                    Bitmap bitmap = ViewUtils.getSmallBitmap(FileUtils.uri2Path(ViewUtils.imageUrl));
                     if (requestType == RequestType.COVER) {
                         cover(bitmap);
                     } else {

@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/name"
-            android:layout_marginTop="@dimen/padding"
+            android:layout_marginTop="@dimen/padding_small"
             android:singleLine="true"
             android:text="@{message.content}"
             android:textColor="@color/color_text_content"

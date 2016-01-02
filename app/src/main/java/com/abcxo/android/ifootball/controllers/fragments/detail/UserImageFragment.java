@@ -18,7 +18,9 @@ import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
+import com.abcxo.android.ifootball.utils.FileUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
+import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
@@ -31,6 +33,7 @@ public class UserImageFragment extends Fragment {
 
     protected long uid;
 
+    protected SwipeRefreshLayout.OnRefreshListener onRefreshListener;
     protected SuperRecyclerView recyclerView;
     protected UserImageAdapter adapter;
 
@@ -75,7 +78,7 @@ public class UserImageFragment extends Fragment {
 
         recyclerView.setNumberBeforeMoreIsCalled(Constants.MAX_LEFT_MORE);
         recyclerView.setRefreshingColorResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
-        final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 pageIndex = 0;
@@ -90,6 +93,25 @@ public class UserImageFragment extends Fragment {
                 loadData(false);
             }
         }, Constants.MAX_LEFT_MORE);
+        load();
+    }
+
+    protected void load() {
+        ArrayList<Tweet> tweets = (ArrayList<Tweet>) FileUtils.getObject(getKey());
+        if (tweets != null&&tweets.size()>0) {
+            refreshImages(tweetsToImages(tweets));
+
+        }
+        refresh();
+
+    }
+
+    protected String getKey() {
+        return Utils.md5(String.format("uid=%s;getsType=%s;", uid, getGetsType().name()));
+    }
+
+
+    public void refresh() {
         recyclerView.getSwipeToRefresh().post(new Runnable() {
             @Override
             public void run() {
@@ -99,7 +121,6 @@ public class UserImageFragment extends Fragment {
         });
     }
 
-
     protected void loadData(final boolean first) {
         TweetRestful.INSTANCE.gets(getGetsType(), uid, "",
                 pageIndex, new TweetRestful.OnTweetRestfulList() {
@@ -107,6 +128,7 @@ public class UserImageFragment extends Fragment {
                     public void onSuccess(List<Tweet> tweets) {
                         if (first) {
                             refreshImages(tweetsToImages(tweets));
+                            FileUtils.setObject(getKey(), new ArrayList<>(tweets));
                         } else {
                             addImages(tweetsToImages(tweets));
                         }

@@ -12,6 +12,10 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -22,6 +26,8 @@ import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by shadow on 15/11/7.
@@ -191,5 +197,25 @@ public class ViewUtils {
         options.inJustDecodeBounds = false;
 
         return BitmapFactory.decodeFile(filePath, options);
+    }
+
+
+    public static SpannableString getPromptString(String str) {
+        if (!TextUtils.isEmpty(str)) {
+            SpannableString spannableString = new SpannableString(str);
+            Pattern pattern = Pattern.compile("@[^\\s]*");
+            Matcher matcher = pattern.matcher(str);
+            while (matcher.find()) {
+                int start = matcher.start();
+                int end = matcher.end();
+                spannableString.setSpan(new ForegroundColorSpan(Application.INSTANCE.getResources().getColor(R.color.color_button_accent)), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            return spannableString;
+
+        } else {
+            return new SpannableString("");
+        }
+
+
     }
 }

@@ -30,6 +30,7 @@ import com.abcxo.android.ifootball.utils.ViewUtils;
 public class UserDetailFragment extends Fragment {
     private User user;
     private long uid;
+    private String name;
     private FragmentDetailUserBinding binding;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -51,6 +52,7 @@ public class UserDetailFragment extends Fragment {
         if (args != null) {
             user = (User) args.get(Constants.KEY_USER);
             uid = args.getLong(Constants.KEY_UID);
+            name = args.getString(Constants.KEY_NAME);
         }
     }
 
@@ -87,7 +89,6 @@ public class UserDetailFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
 
 
-
         if (user != null) {
             bindData();
         } else {
@@ -96,7 +97,7 @@ public class UserDetailFragment extends Fragment {
                 bindData();
             } else {
                 ViewUtils.loading(getActivity());
-                UserRestful.INSTANCE.get(uid, new UserRestful.OnUserRestfulGet() {
+                UserRestful.OnUserRestfulGet onGet = new UserRestful.OnUserRestfulGet() {
                     @Override
                     public void onSuccess(User user) {
                         UserDetailFragment.this.user = user;
@@ -112,7 +113,12 @@ public class UserDetailFragment extends Fragment {
                     public void onFinish() {
                         ViewUtils.dismiss();
                     }
-                });
+                };
+                if (uid > 0) {
+                    UserRestful.INSTANCE.get(uid, onGet);
+                } else {
+                    UserRestful.INSTANCE.get(name, onGet);
+                }
             }
 
         }
@@ -123,7 +129,6 @@ public class UserDetailFragment extends Fragment {
         binding.setUser(user);
 
     }
-
 
 
     //获取用户列表
@@ -150,8 +155,6 @@ public class UserDetailFragment extends Fragment {
         private long uid;
 
 
-
-
         private String[] titles;
 
         public UserDetailAdapter(FragmentManager fm, Context context, long uid) {
@@ -163,7 +166,7 @@ public class UserDetailFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID,uid);
+            bundle.putLong(Constants.KEY_UID, uid);
             if (position == PageType.TWEET.getIndex()) {
                 return UserTweetFragment.newInstance(bundle);
             } else if (position == PageType.IMAGE.getIndex()) {

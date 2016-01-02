@@ -53,7 +53,7 @@
             android:layout_below="@+id/title"
             android:layout_marginTop="@dimen/padding_min"
             android:maxLines="2"
-            android:text="@{tweet.summary}"
+            android:text="@{tweet.getSummary()}"
             android:textColor="@color/color_text_content"
             android:textSize="@dimen/text_content"
             tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />

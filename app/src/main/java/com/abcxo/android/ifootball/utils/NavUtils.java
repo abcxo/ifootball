@@ -85,6 +85,15 @@ public class NavUtils {
         context.startActivity(intent);
     }
 
+
+    public static void toUserDetail(Context context, String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY_NAME, name);
+        Intent intent = new Intent(context, UserDetailActivity.class);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
     public static void toUserDetail(Context context, long uid) {
         Bundle bundle = new Bundle();
         bundle.putLong(Constants.KEY_UID, uid);

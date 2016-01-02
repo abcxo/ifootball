@@ -77,6 +77,9 @@ public class UserRestful {
         @GET(Constants.PATH+"/user")
         Call<User> get(@Query("uid") long uid, @Query("uid2") long uid2);
 
+        @GET(Constants.PATH+"/user/name")
+        Call<User> get(@Query("uid") long uid, @Query("name") String name);
+
         @GET(Constants.PATH+"/user/list")
         Call<List<User>> gets(@Query("getsType") GetsType type,
                               @Query("uid") long uid,
@@ -355,6 +358,28 @@ public class UserRestful {
     //获取单个用户
     public void get(long uid, @NonNull final OnUserRestfulGet onGet) {
         Call<User> call = userService.get(meId(), uid);
+        call.enqueue(new OnRestful<User>() {
+            @Override
+            void onSuccess(User user) {
+                onGet.onSuccess(user);
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onGet.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onGet.onFinish();
+            }
+        });
+    }
+
+
+    //获取单个用户
+    public void get(String name, @NonNull final OnUserRestfulGet onGet) {
+        Call<User> call = userService.get(meId(), name);
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {

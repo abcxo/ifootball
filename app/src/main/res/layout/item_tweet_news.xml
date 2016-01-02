@@ -44,7 +44,7 @@
             android:layout_below="@+id/title"
             android:layout_marginTop="@dimen/padding_small"
             android:maxLines="2"
-            android:text="@{tweet.summary}"
+            android:text="@{tweet.getSummary()}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
             tools:text="在那一年被贴在那一年占了恒大队全队wefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwefwef进球的七成。" />

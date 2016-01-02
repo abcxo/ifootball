@@ -1,5 +1,5 @@
 Tweet:
-item_tweet_summary （推文摘要，主页转发推文，或者新建转发推文用到）
+item_tweet.getSummary() （推文摘要，主页转发推文，或者新建转发推文用到）
 item_tweet（用户发的推文，做个图标，表示是官方的）  搜索微博就是这3种内容
 item_team（球队发的推文）
 item_news（新闻发的推文）

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -141,6 +142,10 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
 
         }
         return imageList;
+    }
+
+    public SpannableString getSummary() {
+        return ViewUtils.getPromptString(summary);
     }
 
     public String cover() {

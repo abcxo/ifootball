@@ -103,7 +103,7 @@ public class ChatDetailFragment extends DetailFragment {
             } else {
                 Message message = new Message();
                 message.uid = UserRestful.INSTANCE.meId();
-                message.uid2 = uid2;
+                message.uid2 = UserRestful.INSTANCE.meId() == uid ? uid2 : uid;
                 message.title = UserRestful.INSTANCE.me().name;
                 message.icon = UserRestful.INSTANCE.me().avatar;
                 message.content = input;

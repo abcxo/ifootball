@@ -2,17 +2,18 @@ package com.abcxo.android.ifootball.restfuls;
 
 import android.support.annotation.NonNull;
 
+import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.models.Tweet;
+import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class TweetRestful {
         Call<Tweet> add(
                 @Query("prompt") String prompt,
                 @Query("originTid") long originTid,
-                @Query("tweet") String tweetJSON,
+                @Part("tweet\"; filename=\"tweet\" ") RequestBody tweet,
                 @Part("image\"; filename=\"image.jpg\" ") RequestBody image0,
                 @Part("image\"; filename=\"image.jpg\" ") RequestBody image1,
                 @Part("image\"; filename=\"image.jpg\" ") RequestBody image2,
@@ -122,8 +123,10 @@ public class TweetRestful {
 
     //添加推文
     public void add(Tweet tweet, final List<Image> images, String prompt, long originTid, @NonNull final OnTweetRestfulGet onGet) {
-        List<RequestBody> requestBodies = new ArrayList<RequestBody>();
+
+
         try {
+            List<RequestBody> requestBodies = new ArrayList<RequestBody>();
             for (Image image : images) {
                 File file = new File(image.url);
                 byte[] bytes = new byte[(int) file.length()];
@@ -133,71 +136,68 @@ public class TweetRestful {
                 RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), bytes);
                 requestBodies.add(requestBody);
             }
+            Call<Tweet> callPhoto;
+            String tweetJSON = URLEncoder.encode(new Gson().toJson(tweet), "UTF8");
+            RequestBody tweetBody = RequestBody.create(MediaType.parse("multipart/form-data"), tweetJSON.getBytes());
+            switch (requestBodies.size()) {
+                case 1:
+                    callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetBody, requestBodies.get(0), null, null, null, null, null, null, null, null);
+                    break;
+                case 2:
+                    callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetBody, requestBodies.get(0), requestBodies.get(1), null, null, null, null, null, null, null);
+                    break;
+                case 3:
+                    callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetBody, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), null, null, null, null, null, null);
+                    break;
+                case 4:
+                    callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetBody, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), null, null, null, null, null);
+                    break;
+                case 5:
+                    callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetBody, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), null, null, null, null);
+                    break;
+                case 6:
+                    callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetBody, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), null, null, null);
+                    break;
+                case 7:
+                    callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetBody, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), requestBodies.get(6), null, null);
+                    break;
+                case 8:
+                    callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetBody, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), requestBodies.get(6), requestBodies.get(7), null);
+                    break;
+                case 9:
+                    callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetBody, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), requestBodies.get(6), requestBodies.get(7), requestBodies.get(8));
+                    break;
+                default:
+                    callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetBody, RequestBody.create(MediaType.parse("multipart/form-data"), "".getBytes()), null, null, null, null, null, null, null, null);
+                    break;
+
+            }
+
+            callPhoto.enqueue(new OnRestful<Tweet>() {
+                @Override
+                void onSuccess(Tweet tweet) {
+                    onGet.onSuccess(tweet);
+                }
+
+                @Override
+                void onError(RestfulError error) {
+                    onGet.onError(error);
+                }
+
+                @Override
+                void onFinish() {
+                    onGet.onFinish();
+                }
+            });
+
         } catch (Exception e) {
-        }
-
-
-        Call<Tweet> callPhoto;
-        String tweetJSON = null;
-        try {
-            tweetJSON = URLEncoder.encode(new Gson().toJson(tweet), "UTF8");
-        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            onGet.onError(new RestfulError(ViewUtils.getString(R.string.error_unknown)));
+            onGet.onFinish();
         }
-        switch (requestBodies.size()) {
-            case 1:
-                callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetJSON, requestBodies.get(0), null, null, null, null, null, null, null, null);
-                break;
-            case 2:
-                callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetJSON, requestBodies.get(0), requestBodies.get(1), null, null, null, null, null, null, null);
-                break;
-            case 3:
-                callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetJSON, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), null, null, null, null, null, null);
-                break;
-            case 4:
-                callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetJSON, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), null, null, null, null, null);
-                break;
-            case 5:
-                callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetJSON, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), null, null, null, null);
-                break;
-            case 6:
-                callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetJSON, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), null, null, null);
-                break;
-            case 7:
-                callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetJSON, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), requestBodies.get(6), null, null);
-                break;
-            case 8:
-                callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetJSON, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), requestBodies.get(6), requestBodies.get(7), null);
-                break;
-            case 9:
-                callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetJSON, requestBodies.get(0), requestBodies.get(1), requestBodies.get(2), requestBodies.get(3), requestBodies.get(4), requestBodies.get(5), requestBodies.get(6), requestBodies.get(7), requestBodies.get(8));
-                break;
-            default:
-                callPhoto = tweetService.add(prompt != null ? prompt : "", originTid, tweetJSON, RequestBody.create(MediaType.parse("multipart/form-data"), "".getBytes()), null, null, null, null, null, null, null, null);
-                break;
-
-        }
-
-        callPhoto.enqueue(new OnRestful<Tweet>() {
-            @Override
-            void onSuccess(Tweet tweet) {
-                onGet.onSuccess(tweet);
-            }
-
-            @Override
-            void onError(RestfulError error) {
-                onGet.onError(error);
-            }
-
-            @Override
-            void onFinish() {
-                onGet.onFinish();
-            }
-        });
 
 
     }
-
 
 
     //获取单个用户
@@ -283,7 +283,6 @@ public class TweetRestful {
             }
         });
     }
-
 
 
     public void star(long tid, boolean isStar, @NonNull final OnTweetRestfulDo onDo) {

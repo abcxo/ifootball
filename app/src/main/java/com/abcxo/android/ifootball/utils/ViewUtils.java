@@ -203,7 +203,7 @@ public class ViewUtils {
     public static SpannableString getPromptString(String str) {
         if (!TextUtils.isEmpty(str)) {
             SpannableString spannableString = new SpannableString(str);
-            Pattern pattern = Pattern.compile("@[^\\s]*");
+            Pattern pattern = Pattern.compile("@[^\\p{P}|\\p{S}|\\p{Z}|\\p{M}]*");
             Matcher matcher = pattern.matcher(str);
             while (matcher.find()) {
                 int start = matcher.start();

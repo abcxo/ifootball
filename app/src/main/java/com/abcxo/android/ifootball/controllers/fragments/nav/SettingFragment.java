@@ -88,23 +88,26 @@ public class SettingFragment extends Fragment {
     }
 
 
-    private void edit() {
+    private void edit(final UserRestful.OnUserRestfulGet onGet) {
         ViewUtils.loading(getActivity());
         UserRestful.INSTANCE.edit(user, new UserRestful.OnUserRestfulGet() {
             @Override
             public void onSuccess(User user) {
                 LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_EDIT));
                 refresh();
+                onGet.onSuccess(user);
             }
 
             @Override
             public void onError(RestfulError error) {
                 ViewUtils.toast(error.msg);
+                onGet.onError(error);
             }
 
             @Override
             public void onFinish() {
                 ViewUtils.dismiss();
+                onGet.onFinish();
             }
         });
     }
@@ -224,8 +227,24 @@ public class SettingFragment extends Fragment {
                         public void onClick(DialogInterface dialog, int which) {
                             boolean isName = Utils.isName(editText.getText().toString());
                             if (isName) {
+                                final String name = user.name;
                                 user.name = editText.getText().toString();
-                                edit();
+                                edit(new UserRestful.OnUserRestfulGet() {
+                                    @Override
+                                    public void onSuccess(User user) {
+
+                                    }
+
+                                    @Override
+                                    public void onError(RestfulError error) {
+                                        user.name = name;
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+
+                                    }
+                                });
                             } else {
                                 ViewUtils.toast(R.string.sign_login_name_error);
                             }
@@ -249,8 +268,24 @@ public class SettingFragment extends Fragment {
                         public void onClick(DialogInterface dialog, int which) {
                             boolean isSign = Utils.isSign(editText.getText().toString());
                             if (isSign) {
+                                final String sign = user.sign;
                                 user.sign = editText.getText().toString();
-                                edit();
+                                edit(new UserRestful.OnUserRestfulGet() {
+                                    @Override
+                                    public void onSuccess(User user) {
+
+                                    }
+
+                                    @Override
+                                    public void onError(RestfulError error) {
+                                        user.sign = sign;
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+
+                                    }
+                                });
                             } else {
                                 ViewUtils.toast(R.string.sign_login_sign_error);
                             }
@@ -259,6 +294,7 @@ public class SettingFragment extends Fragment {
                     .setNegativeButton(R.string.cancel_text, null)
                     .show();
         }
+
         public void onClickPosition(View view) {
             View inputView = View.inflate(view.getContext(), R.layout.view_input, null);
             TextView titleTV = (TextView) inputView.findViewById(R.id.title);
@@ -273,8 +309,24 @@ public class SettingFragment extends Fragment {
                         public void onClick(DialogInterface dialog, int which) {
                             boolean isPosition = Utils.isPosition(editText.getText().toString());
                             if (isPosition) {
+                                final String position = user.position;
                                 user.position = editText.getText().toString();
-                                edit();
+                                edit(new UserRestful.OnUserRestfulGet() {
+                                    @Override
+                                    public void onSuccess(User user) {
+
+                                    }
+
+                                    @Override
+                                    public void onError(RestfulError error) {
+                                        user.position = position;
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+
+                                    }
+                                });
                             } else {
                                 ViewUtils.toast(R.string.sign_login_position_error);
                             }
@@ -283,13 +335,30 @@ public class SettingFragment extends Fragment {
                     .setNegativeButton(R.string.cancel_text, null)
                     .show();
         }
+
         public void onClickGender(View view) {
             new AlertDialog.Builder(getActivity())
                     .setItems(R.array.gender_list, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            final User.GenderType gender = user.gender;
                             user.gender = which == 0 ? User.GenderType.MALE : User.GenderType.FEMALE;
-                            edit();
+                            edit(new UserRestful.OnUserRestfulGet() {
+                                @Override
+                                public void onSuccess(User user) {
+
+                                }
+
+                                @Override
+                                public void onError(RestfulError error) {
+                                    user.gender = gender;
+                                }
+
+                                @Override
+                                public void onFinish() {
+
+                                }
+                            });
                             dialog.dismiss();
                         }
                     }).show();

@@ -182,7 +182,7 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
 
 
     public TweetMainType getMainType() {
-        if (tweetType == TweetType.NEWS && !TextUtils.isEmpty(imageTitles)) {
+        if (tweetType == TweetType.NEWS && !TextUtils.isEmpty(imageTitles) && imageTitles.split(";").length >= 3) {
             return TweetMainType.IMAGE;
         }
         return TweetMainType.valueOf(tweetType.name());

@@ -18,7 +18,7 @@ import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
-import com.abcxo.android.ifootball.views.WebView;
+import com.abcxo.android.ifootball.views.NestedWebView;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebViewClient;
 
@@ -30,7 +30,7 @@ public class WebFragment extends DetailFragment {
 
     public String url;
     public String title;
-    private WebView webView;
+    private NestedWebView webView;
     private SwipeRefreshLayout refreshLayout;
     private SwipeRefreshLayout.OnRefreshListener listener;
 
@@ -81,7 +81,7 @@ public class WebFragment extends DetailFragment {
             }
         });
 
-        webView = (WebView) view.findViewById(R.id.webview);
+        webView = (NestedWebView) view.findViewById(R.id.webview);
 
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshlayout);
         refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);

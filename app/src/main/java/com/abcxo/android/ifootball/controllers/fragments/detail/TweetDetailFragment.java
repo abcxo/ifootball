@@ -136,11 +136,12 @@ public class TweetDetailFragment extends DetailFragment {
 //                    return new WebResourceResponse(contentType, encodingType, inputStream);
 //
 //                } catch (Exception e) {
+//                    e.printStackTrace();
 //                }
-//                return null;
+//                return super.shouldInterceptRequest(view, url);
 //
 //            }
-//
+
             @Override
             public boolean shouldOverrideUrlLoading(com.tencent.smtt.sdk.WebView view, String url) {
                 NavUtils.toWeb(getActivity(), url);
@@ -154,7 +155,6 @@ public class TweetDetailFragment extends DetailFragment {
 
             }
         });
-
 
 
     }

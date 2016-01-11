@@ -333,6 +333,7 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
 
         public void onClickShare(final View view) {
             if (UserRestful.INSTANCE.isLogin()) {
+                Application.packageName = Constants.PACKAGE_NAME;
                 ViewUtils.loading(view.getContext());
                 final String cover = cover();
                 Picasso.with(Application.INSTANCE).load(cover).into(new Target() {

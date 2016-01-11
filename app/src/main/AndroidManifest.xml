@@ -116,6 +116,7 @@
         </activity>
         <activity
             android:name=".controllers.activities.TweetDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/activity_detail_tweet"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified" />
@@ -183,6 +184,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
+
             <data android:scheme="http" />
             <data android:scheme="https" />
         </activity>

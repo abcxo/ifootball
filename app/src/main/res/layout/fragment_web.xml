@@ -40,7 +40,7 @@
 
 
 
-            <com.abcxo.android.ifootball.views.WebView
+            <com.abcxo.android.ifootball.views.NestedWebView
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

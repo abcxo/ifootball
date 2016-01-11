@@ -296,18 +296,18 @@ public class TweetDetailNavFragment extends DetailFragment {
     public class BindingHandler {
 
         public void onClickItem(View view) {
-            Message message = null;
-            View parent = (View) view.getParent();
-            if (parent.getId() == R.id.comment_item0) {
-                message = commentTweetMessageFragment.adapter.messages.get(0);
-            } else if (parent.getId() == R.id.comment_item1) {
-                message = commentTweetMessageFragment.adapter.messages.get(1);
-            } else if (parent.getId() == R.id.comment_item2) {
-                message = commentTweetMessageFragment.adapter.messages.get(2);
-            }
-            if (message != null && message.uid != UserRestful.INSTANCE.meId()) {
-                clearText(true, message);
-            }
+//            Message message = null;
+//            View parent = (View) view.getParent();
+//            if (parent.getId() == R.id.comment_item0) {
+//                message = commentTweetMessageFragment.adapter.messages.get(0);
+//            } else if (parent.getId() == R.id.comment_item1) {
+//                message = commentTweetMessageFragment.adapter.messages.get(1);
+//            } else if (parent.getId() == R.id.comment_item2) {
+//                message = commentTweetMessageFragment.adapter.messages.get(2);
+//            }
+//            if (message != null && message.uid != UserRestful.INSTANCE.meId()) {
+//                clearText(true, message);
+//            }
         }
 
         public void onClickComment(View view) {

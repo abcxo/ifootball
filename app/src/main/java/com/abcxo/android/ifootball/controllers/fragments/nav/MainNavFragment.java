@@ -13,7 +13,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
@@ -21,6 +20,7 @@ import com.abcxo.android.ifootball.controllers.activities.AddTeamActivity;
 import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
 import com.abcxo.android.ifootball.controllers.fragments.main.DiscoverUserFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
+import com.abcxo.android.ifootball.controllers.fragments.main.LiveFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.NewsTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.TeamTweetFragment;
 import com.abcxo.android.ifootball.databinding.FragmentMainNavBinding;
@@ -31,6 +31,7 @@ import com.abcxo.android.ifootball.utils.NavUtils;
 
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.DISCOVER;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.HOME;
+import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.LIVE;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.NEWS;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.TEAM;
 
@@ -68,7 +69,7 @@ public class MainNavFragment extends NavFragment {
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
 
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(5);
 
 
         viewPager.setAdapter(new MainAdapter(getChildFragmentManager(), getActivity()));
@@ -79,21 +80,22 @@ public class MainNavFragment extends NavFragment {
                 final int width = viewPager.getWidth();
                 ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
 
-                if (fab.getVisibility() == View.GONE) {
-                    fab.setVisibility(View.VISIBLE);
-                }
                 if (position == HOME.getIndex()) { // represents transition from page 0 to page 1 (horizontal shift)
                     int translationX = (int) ((-(width - lp.leftMargin - lp.rightMargin - fab.getWidth()) / 2f) * positionOffset);
                     fab.setTranslationX(translationX);
                 } else if (position == TEAM.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
+
+
+                } else if (position == LIVE.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
                     fab.setScaleX(1 - positionOffset);
                     fab.setScaleY(1 - positionOffset);
-
-                } else if (position == NEWS.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
-                    fab.setScaleX(positionOffset);
-                    fab.setScaleY(positionOffset);
-                    int translationX = (int) ((-(width - lp.leftMargin - lp.rightMargin - fab.getWidth()) / 2f) * (1 - positionOffset));
-                    fab.setTranslationX(translationX);
+                    fab.setVisibility(View.VISIBLE);
+                } else if (position == NEWS.getIndex() || position == DISCOVER.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
+//                    fab.setScaleX(positionOffset);
+//                    fab.setScaleY(positionOffset);
+//                    int translationX = (int) ((-(width - lp.leftMargin - lp.rightMargin - fab.getWidth()) / 2f) * (1 - positionOffset));
+//                    fab.setTranslationX(translationX);
+                    fab.setVisibility(View.GONE);
                 }
 
             }
@@ -101,13 +103,6 @@ public class MainNavFragment extends NavFragment {
             @Override
             public void onPageSelected(int position) {
                 currentIndex = position;
-                if (fab.getTranslationY() != 0) {
-                    fab.animate().translationY(0).setInterpolator(new AccelerateInterpolator(2)).start();
-                }
-                if (position == NEWS.getIndex()) {
-                    fab.setVisibility(View.GONE);
-
-                }
                 if (position == DISCOVER.getIndex()) {
                     LocationUtils.saveLocation();
                 }
@@ -128,8 +123,9 @@ public class MainNavFragment extends NavFragment {
 
         HOME(0),
         TEAM(1),
-        NEWS(2),
-        DISCOVER(3);
+        LIVE(2),
+        NEWS(3),
+        DISCOVER(4);
         private int index;
 
         PageType(int index) {
@@ -169,6 +165,8 @@ public class MainNavFragment extends NavFragment {
                 return HomeTweetFragment.newInstance(bundle);
             } else if (position == TEAM.getIndex()) {
                 return TeamTweetFragment.newInstance(bundle);
+            } else if (position == LIVE.getIndex()) {
+                return LiveFragment.newInstance(bundle);
             } else if (position == NEWS.getIndex()) {
                 return NewsTweetFragment.newInstance(bundle);
             } else if (position == DISCOVER.getIndex()) {
@@ -207,7 +205,7 @@ public class MainNavFragment extends NavFragment {
             if (UserRestful.INSTANCE.isLogin()) {
                 if (currentIndex == HOME.getIndex()) {
                     startActivity(new Intent(getActivity(), AddTweetActivity.class));
-                } else if (currentIndex == TEAM.getIndex()) {
+                } else if (currentIndex == TEAM.getIndex()||currentIndex == LIVE.getIndex()) {
                     startActivity(new Intent(getActivity(), AddTeamActivity.class));
                 } else if (currentIndex == NEWS.getIndex()) {
                 } else if (currentIndex == DISCOVER.getIndex()) {

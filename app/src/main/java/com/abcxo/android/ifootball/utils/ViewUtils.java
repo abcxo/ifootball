@@ -2,6 +2,7 @@ package com.abcxo.android.ifootball.utils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -215,7 +216,12 @@ public class ViewUtils {
         } else {
             return new SpannableString("");
         }
+    }
 
 
+    public static void copy(String str) {
+        ClipboardManager clipboardManager = (ClipboardManager) Application.INSTANCE.getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboardManager.setText(str);
+        ViewUtils.toast(str);
     }
 }

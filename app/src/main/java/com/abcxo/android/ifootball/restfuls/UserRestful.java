@@ -234,7 +234,6 @@ public class UserRestful {
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {
-                updateMe(user);
                 onGet.onSuccess(user);
             }
 

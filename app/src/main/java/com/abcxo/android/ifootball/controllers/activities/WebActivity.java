@@ -1,33 +1,28 @@
 package com.abcxo.android.ifootball.controllers.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.controllers.fragments.detail.WebFragment;
 
 /**
  * Created by shadow on 15/11/4.
  */
 public class WebActivity extends AppCompatActivity {
+    public WebFragment fragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fragment = WebFragment.newInstance(getIntent().getExtras());
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
     }
-
+    @Override
+    public void onBackPressed() {
+        if (fragment == null || fragment.onBackPressed() == false) {
+            super.onBackPressed();
+        }
+    }
 }

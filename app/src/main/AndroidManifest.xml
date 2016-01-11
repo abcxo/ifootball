@@ -43,6 +43,9 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="pcZixv1lLoov3AUD8GmCnfGj" />
+        <meta-data
+            android:name="QBSDKAppKey"
+            android:value="4t+OEvGKAuJvmsqVQKixHN1i" />
 
         <service
             android:name="com.baidu.location.f"
@@ -168,10 +171,32 @@
             android:name=".controllers.activities.SettingActivity"
             android:label="@string/activity_setting"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".controllers.activities.WebActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/activity_web"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+            <data android:scheme="http" />
+            <data android:scheme="https" />
+        </activity>
+        <activity
+            android:name="com.tencent.smtt.sdk.VideoActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="com.tencent.smtt.tbs.video.PLAY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 

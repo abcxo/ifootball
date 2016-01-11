@@ -21,12 +21,16 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private Drawable mDivider;
 
+
+
     private int mOrientation;
 
     public DividerItemDecoration(Context context, int orientation) {
         mDivider = context.getResources().getDrawable(R.drawable.ic_divider);
         setOrientation(orientation);
     }
+
+
 
     public void setOrientation(int orientation) {
         if (orientation != HORIZONTAL && orientation != VERTICAL) {

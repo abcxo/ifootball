@@ -20,16 +20,18 @@ public final class Constants {
     public static final String ACTION_REFRESH_CONTACT = "refresh_contact";
     public static final String ACTION_MESSAGE = "message";
     public static final String ACTION_MESSAGE_CLICK = "message_click";
-    public static final String HOST = "http://www.iamthefootball.com:8080";
-    public static final String PATH = "/ifootball";
-//        public static final String HOST = "http://localhost:8080";
-//    public static final String PATH = "";
+//    public static final String HOST = "http://www.iamthefootball.com:8080";
+//    public static final String PATH = "/ifootball";
+            public static final String HOST = "http://localhost:8080";
+    public static final String PATH = "";
     public static final String SITE = "http://a.app.qq.com/o/simple.jsp?pkgname=com.abcxo.android.ifootball";
 
     public static final int PAGE_INDEX = 0;
     public static final int PAGE_SIZE = 30;
 
 
+    public static String KEY_TITLE = "title";
+    public static String KEY_URL = "url";
     public static String KEY_TWEET = "tweet";
     public static String KEY_USER = "user";
     public static String KEY_UID = "uid";
@@ -55,5 +57,9 @@ public final class Constants {
 
     public static String PREFERENCE = "ifootball";
     public static String PREFERENCE_FIRST = "first";
+    public static String PREFERENCE_X5 = "x5";
 
+
+    public static String PACKAGE_NAME_X5 = "com.tencent.x5sdk.demo";
+    public static String PACKAGE_NAME = "com.abcxo.android.ifootball";
 }

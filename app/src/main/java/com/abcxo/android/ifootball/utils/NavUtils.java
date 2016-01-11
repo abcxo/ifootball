@@ -17,6 +17,7 @@ import com.abcxo.android.ifootball.controllers.activities.SearchActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
 import com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.UserDetailActivity;
+import com.abcxo.android.ifootball.controllers.activities.WebActivity;
 import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.models.User;
@@ -34,6 +35,26 @@ public class NavUtils {
 
     public static void toSign(Context context) {
         Intent intent = new Intent(context, SignActivity.class);
+        context.startActivity(intent);
+    }
+
+
+    public static void toWeb(Context context, String url, String title) {
+        Intent intent = new Intent(context, WebActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY_URL, url);
+        bundle.putString(Constants.KEY_TITLE, title);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public static void toWeb(Context context, String url) {
+        toWeb(context, url, null);
+    }
+
+    public static void toBrowser(Context context, String url) {
+        Uri uri = Uri.parse(url.toString());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);
     }
 

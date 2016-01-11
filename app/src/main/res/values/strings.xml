@@ -14,6 +14,10 @@
     <string name="message_prompt">\&#064;了你</string>
 
 
+    <string name="error_game_url">比赛连接失败</string>
+    <string name="error_game_none">比赛暂时没有直播</string>
+    <string name="error_game_over">比赛已经结束了</string>
+
     <string name="error_location">获取位置失败</string>
 
     <string name="error_loginsso_qq_cancel">取消QQ授权</string>
@@ -43,6 +47,8 @@
     <string name="menu_item_tweet_star">点赞</string>
     <string name="menu_item_tweet_repeat">转发</string>
     <string name="menu_item_tweet_comment">评论</string>
+    <string name="menu_item_web_copy">复制链接</string>
+    <string name="menu_item_web_open">其他浏览器打开</string>
 
     <string name="menu_item_tweet_delete">删除推文</string>
 
@@ -77,6 +83,7 @@
     <string-array name="main_page_list">
         <item>主页</item>
         <item>球队</item>
+        <item>直播</item>
         <item>新闻</item>
         <item>发现</item>
     </string-array>
@@ -200,8 +207,6 @@
     <string name="add_team_ok_text">确定</string>
 
 
-
-
     <string name="search_input_hint">关键字？</string>
 
     <string name="welcome_begin">开始</string>
@@ -239,5 +244,6 @@
     <string name="cancel_text">取消</string>
 
     <string name="success_forget_password">重置密码已经发到</string>
+    <string name="loading_video">加载中...</string>
 
 </resources>

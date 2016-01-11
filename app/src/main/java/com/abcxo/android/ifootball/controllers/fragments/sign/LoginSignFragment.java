@@ -250,7 +250,7 @@ public class LoginSignFragment extends Fragment {
                 UserRestful.INSTANCE.password(emailET.getText().toString(), new UserRestful.OnUserRestfulGet() {
                     @Override
                     public void onSuccess(User user) {
-                        ViewUtils.toast(String.format("%s%s", getString(R.string.success_forget_password, emailET.getText().toString())));
+                        ViewUtils.toast(String.format("%s %s", getString(R.string.success_forget_password), emailET.getText().toString()));
                     }
 
                     @Override

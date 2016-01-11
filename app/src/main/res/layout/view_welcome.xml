@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/padding_hurge"
+        android:layout_marginBottom="@dimen/padding_huge"
         android:backgroundTint="@color/color_primary"
         android:text="@string/welcome_begin"
         android:textColor="@color/color_text_highlight" />

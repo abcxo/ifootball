@@ -2,6 +2,8 @@ package com.abcxo.android.ifootball.controllers.fragments.detail;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
@@ -152,7 +154,6 @@ public class TweetDetailFragment extends DetailFragment {
             public void onPageFinished(com.tencent.smtt.sdk.WebView view, String url) {
                 super.onPageFinished(view, url);
                 refreshLayout.setRefreshing(false);
-
             }
         });
 
@@ -160,13 +161,24 @@ public class TweetDetailFragment extends DetailFragment {
     }
 
     @JavascriptInterface
-    public void onImageClick(String url) {
-        NavUtils.toImage(getActivity(), (ArrayList<Image>) tweet.imageList(), tweet.indexOfImage(url));
+    public void onImageClick(final String url) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                NavUtils.toImage(getActivity(), (ArrayList<Image>) tweet.imageList(), tweet.indexOfImage(url));
+            }
+        });
+
     }
 
     @JavascriptInterface
-    public void onPromptClick(String name) {
-        NavUtils.toUserDetail(getActivity(), name.replace("@", ""));
+    public void onPromptClick(final String name) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                NavUtils.toUserDetail(getActivity(), name.replace("@", ""));
+            }
+        });
 
     }
 

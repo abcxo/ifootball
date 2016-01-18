@@ -71,6 +71,7 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
     @Bindable
     public boolean star;
     public TweetType tweetType = TweetType.NORMAL;
+    public TweetContentType tweetContentType = TweetContentType.NORMAL;
 
 
     private transient BindingHandler handler = new BindingHandler();
@@ -107,6 +108,7 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
         originTweet = in.readParcelable(Tweet.class.getClassLoader());
         star = in.readByte() != 0;
         tweetType = TweetType.valueOf(in.readString());
+        tweetContentType = TweetContentType.valueOf(in.readString());
     }
 
     public static final Creator<Tweet> CREATOR = new Creator<Tweet>() {
@@ -215,6 +217,7 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
         dest.writeParcelable(originTweet, flags);
         dest.writeByte((byte) (star ? 1 : 0));
         dest.writeString(tweetType.name());
+        dest.writeString(tweetContentType.name());
     }
 
 
@@ -240,6 +243,26 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
         }
     }
 
+
+    public enum TweetContentType {
+
+        NORMAL(0),
+        IMAGES(1),
+        VIDEO(2);
+        private int index;
+
+        TweetContentType(int index) {
+            this.index = index;
+        }
+
+        public static int size() {
+            return TweetType.values().length;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
 
     public enum TweetMainType {
 
@@ -333,12 +356,12 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
 
         public void onClickShare(final View view) {
             if (UserRestful.INSTANCE.isLogin()) {
-                Application.packageName = Constants.PACKAGE_NAME;
                 ViewUtils.loading(view.getContext());
                 final String cover = cover();
                 Picasso.with(Application.INSTANCE).load(cover).into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        Application.packageName = Constants.PACKAGE_NAME;
                         String path = FileUtils.saveImage(bitmap, Constants.DIR_TWEET_SHARE, Utils.md5(cover));
                         OnekeyShare oks = new OnekeyShare();
                         //关闭sso授权

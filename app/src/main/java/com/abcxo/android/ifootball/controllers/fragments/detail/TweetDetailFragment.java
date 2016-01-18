@@ -1,5 +1,6 @@
 package com.abcxo.android.ifootball.controllers.fragments.detail;
 
+import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
+import android.widget.FrameLayout;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
@@ -22,15 +24,25 @@ import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
-import com.abcxo.android.ifootball.views.WebView;
+import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by shadow on 15/11/4.
  */
 public class TweetDetailFragment extends DetailFragment {
+
+    private View customView;
+    private int originalSystemUiVisibility;
+    private int originalOrientation;
+    private CustomViewCallback customViewCallback;
+
+
     public WebView webView;
     private Tweet tweet;
     private long tid;
@@ -46,11 +58,13 @@ public class TweetDetailFragment extends DetailFragment {
         return fragment;
     }
 
+    public TweetDetailFragment() {
+        Application.packageName = ViewUtils.isX5() ? Constants.PACKAGE_NAME_X5 : Constants.PACKAGE_NAME;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Application.packageName = Constants.PACKAGE_NAME_X5;
         Bundle args = getArguments();
         if (args != null) {
             tweet = (Tweet) args.get(Constants.KEY_TWEET);
@@ -97,6 +111,10 @@ public class TweetDetailFragment extends DetailFragment {
     }
 
 
+    public long getUid() {
+        return tweet != null ? tweet.uid : 0;
+    }
+
     public void bindData(View view) {
         binding.setTweet(tweet);
         webView = (WebView) view.findViewById(R.id.webview);
@@ -120,41 +138,76 @@ public class TweetDetailFragment extends DetailFragment {
                 }
             });
         }
-
         webView.addJavascriptInterface(this, "handler");
         webView.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public WebResourceResponse shouldInterceptRequest(com.tencent.smtt.sdk.WebView view, String url) {
-//                try {
-//                    OkHttpClient mOkHttpClient = NetworkUtils.getClient();
-//                    final Request request = new Request.Builder()
-//                            .url(url)
-//                            .build();
-//                    Call call = mOkHttpClient.newCall(request);
-//                    Response response = call.execute();
-//                    String contentType = response.header("Content-Type");
-//                    String encodingType = "UTF-8";
-//                    InputStream inputStream = response.body().byteStream();
-//                    return new WebResourceResponse(contentType, encodingType, inputStream);
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                return super.shouldInterceptRequest(view, url);
-//
-//            }
-
             @Override
-            public boolean shouldOverrideUrlLoading(com.tencent.smtt.sdk.WebView view, String url) {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 NavUtils.toWeb(getActivity(), url);
                 return true;
             }
 
             @Override
-            public void onPageFinished(com.tencent.smtt.sdk.WebView view, String url) {
+            public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 refreshLayout.setRefreshing(false);
             }
+        });
+
+        webView.setWebChromeClient(new WebChromeClient() {
+
+            @Override
+            public void onShowCustomView(View view,
+                                         CustomViewCallback callback) {
+                // if a view already exists then immediately terminate the new one
+                if (customView != null) {
+                    onHideCustomView();
+                    return;
+                }
+
+                // 1. Stash the current state
+                customView = view;
+                originalSystemUiVisibility = getActivity().getWindow().getDecorView().getSystemUiVisibility();
+                originalOrientation = getActivity().getRequestedOrientation();
+
+                // 2. Stash the custom view callback
+                customViewCallback = callback;
+
+                // 3. Add the custom view to the view hierarchy
+                FrameLayout decor = (FrameLayout) getActivity().getWindow().getDecorView();
+                decor.addView(customView, new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+
+
+                // 4. Change the state of the window
+                getActivity().getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                                View.SYSTEM_UI_FLAG_FULLSCREEN |
+                                View.SYSTEM_UI_FLAG_IMMERSIVE);
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            }
+
+            @Override
+            public void onHideCustomView() {
+                // 1. Remove the custom view
+                FrameLayout decor = (FrameLayout) getActivity().getWindow().getDecorView();
+                decor.removeView(customView);
+                customView = null;
+
+                // 2. Restore the state to it's original form
+                getActivity().getWindow().getDecorView()
+                        .setSystemUiVisibility(originalSystemUiVisibility);
+                getActivity().setRequestedOrientation(originalOrientation);
+
+                // 3. Call the custom view callback
+                customViewCallback.onCustomViewHidden();
+                customViewCallback = null;
+
+            }
+
         });
 
 
@@ -185,7 +238,7 @@ public class TweetDetailFragment extends DetailFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Application.packageName = Constants.PACKAGE_NAME_X5;
+        Application.packageName = ViewUtils.isX5() ? Constants.PACKAGE_NAME_X5 : Constants.PACKAGE_NAME;
         if (webView != null) {
             webView.onResume();
         }
@@ -204,6 +257,7 @@ public class TweetDetailFragment extends DetailFragment {
 
     @Override
     public void onDestroy() {
+
         if (webView != null) {
             webView.destroy();
         }

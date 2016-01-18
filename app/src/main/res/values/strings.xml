@@ -34,6 +34,7 @@
     <string name="error_share">分享失败</string>
     <string name="error_image_save">保存失败</string>
     <string name="error_chat">请写些内容</string>
+    <string name="error_comment">推文加载中</string>
     <string name="error_unknown">未知错误</string>
     <string name="error_camera">打开相机失败</string>
     <string name="error_photo">请安装相册应用</string>

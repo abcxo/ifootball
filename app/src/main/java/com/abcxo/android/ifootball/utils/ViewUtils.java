@@ -224,4 +224,9 @@ public class ViewUtils {
         clipboardManager.setText(str);
         ViewUtils.toast(str);
     }
+
+
+    public static boolean isX5() {
+        return FileUtils.getPreference(Constants.PREFERENCE_X5) != null;
+    }
 }

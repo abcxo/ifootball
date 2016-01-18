@@ -25,6 +25,7 @@
         android:visibility="@{game!=null?View.VISIBLE:View.INVISIBLE}">
 
         <com.abcxo.android.ifootball.views.SquareRelativeLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

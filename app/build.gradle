@@ -49,5 +49,6 @@ dependencies {
     compile 'com.malinskiy:superrecyclerview:1.1.1'
     compile project(':push')
     compile project(':library')
-//    compile project(':share')
+    //    compile project(':share')
+//    compile project(':crosswalkwebview164542119arm')
 }

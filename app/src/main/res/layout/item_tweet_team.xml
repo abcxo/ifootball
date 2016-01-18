@@ -10,13 +10,13 @@
         <import type="android.view.View" />
 
 
-
         <variable
             name="tweet"
             type="Tweet" />
     </data>
 
-    <RelativeLayout style="@style/Item"
+    <RelativeLayout
+        style="@style/Item"
         android:onClick="@{tweet.getHandler().onClickTweet}">
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -24,8 +24,8 @@
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:scaleType="centerCrop"
-            app:riv_corner_radius="@dimen/icon_radius_small"
             app:imageUrl="@{tweet.icon}"
+            app:riv_corner_radius="@dimen/icon_radius_small"
             tools:src="@drawable/bg_sign_complete" />
 
         <TextView
@@ -69,9 +69,9 @@
             android:layout_below="@+id/source"
             android:layout_marginTop="@dimen/padding_small"
             android:text="@{tweet.title}"
-            android:visibility="@{tweet.title!=null?View.VISIBLE:View.GONE}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
+            android:visibility="@{tweet.title!=null?View.VISIBLE:View.GONE}"
             tools:text="恒大队的外援威震中超" />
 
 
@@ -94,22 +94,39 @@
             android:layout_alignLeft="@+id/title"
             android:layout_below="@+id/text">
 
-            <ImageView
-                android:id="@+id/images"
+            <FrameLayout
+                android:id="@+id/images_layout"
                 android:layout_width="74dp"
                 android:layout_height="86dp"
-                android:layout_marginTop="@dimen/padding_small"
-                android:background="@color/color_bg"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/test0"
-                android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
-                app:imageUrl="@{tweet.cover}" />
+                android:layout_marginTop="@dimen/padding_small">
+
+                <ImageView
+                    android:id="@+id/images"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:background="@color/color_bg"
+                    android:scaleType="centerCrop"
+                    android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
+                    app:imageUrl="@{tweet.cover}"
+                    tools:src="@drawable/bg_sign_complete" />
+
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_video"
+                    android:visibility="@{tweet.tweetContentType==Tweet.TweetContentType.VIDEO?View.VISIBLE:View.GONE}" />
+
+            </FrameLayout>
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/images"
+                android:layout_alignBottom="@+id/images_layout"
                 android:layout_alignParentRight="true"
                 android:gravity="center">
 

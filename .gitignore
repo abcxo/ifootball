@@ -16,6 +16,7 @@ gen/
 .gradle/*
 gradle/*
 build/*
+crosswalkwebview164542119arm/*
 gradlew*
 
 # Local configuration file (sdk path, etc)

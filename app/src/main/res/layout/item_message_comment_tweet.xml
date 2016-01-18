@@ -11,7 +11,7 @@
             name="message"
             type="Message" />
 
-        <import type="com.abcxo.android.ifootball.controllers.fragments.detail.TweetDetailNavFragment.BindingHandler" />
+        <import type="com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity.BindingHandler" />
 
         <variable
             name="handler"
@@ -63,7 +63,6 @@
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/name"
             android:layout_marginTop="@dimen/padding_small"
-            android:singleLine="true"
             android:text="@{message.content}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"

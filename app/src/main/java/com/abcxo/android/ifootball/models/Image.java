@@ -131,11 +131,11 @@ public class Image implements Parcelable,Serializable {
 
         public void onClickShare(final View view) {
             if (UserRestful.INSTANCE.isLogin()) {
-                Application.packageName = Constants.PACKAGE_NAME;
                 ViewUtils.loading(view.getContext());
                 Picasso.with(Application.INSTANCE).load(url).into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        Application.packageName = Constants.PACKAGE_NAME;
                         String path = FileUtils.saveImage(bitmap, Constants.DIR_TWEET_SHARE, Utils.md5(url));
                         OnekeyShare oks = new OnekeyShare();
                         //关闭sso授权

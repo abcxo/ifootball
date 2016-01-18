@@ -7,7 +7,7 @@
     <data>
 
 
-        <import type="com.abcxo.android.ifootball.controllers.fragments.detail.TweetDetailNavFragment.BindingHandler" />
+        <import type="com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity.BindingHandler" />
 
         <variable
             name="handler"
@@ -111,7 +111,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/title_layout"
                         android:layout_marginTop="@dimen/padding_small"
-                        android:singleLine="true"
                         android:text="@{tweet.title}"
                         android:textColor="@color/color_text_title"
                         android:textSize="16dp"
@@ -119,13 +118,12 @@
                         tools:text="咸蛋超wefwefwef人" />
 
 
-                    <com.abcxo.android.ifootball.views.WebView
+                    <com.abcxo.android.ifootball.views.x5.WebView
                         android:id="@+id/webview"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/title"
-                        android:layout_marginTop="@dimen/padding_small"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                        android:layout_marginTop="@dimen/padding_small" />
 
                     <include
                         android:id="@+id/repeat_content"
@@ -386,7 +384,6 @@
                 </RelativeLayout>
 
             </android.support.v4.widget.NestedScrollView>
-
 
 
         </android.support.v4.widget.SwipeRefreshLayout>

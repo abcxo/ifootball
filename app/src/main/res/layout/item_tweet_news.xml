@@ -12,24 +12,39 @@
             type="Tweet" />
     </data>
 
-    <RelativeLayout style="@style/Item"
+    <RelativeLayout
+        style="@style/Item"
         android:onClick="@{tweet.getHandler().onClickTweet}">
 
-        <ImageView
-            android:id="@+id/cover"
+        <FrameLayout
+            android:id="@+id/images_layout"
             android:layout_width="72dp"
-            android:layout_height="64dp"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{tweet.cover}"
-            tools:src="@drawable/bg_sign_complete" />
+            android:layout_height="64dp">
 
+            <ImageView
+                android:id="@+id/cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{tweet.cover}"
+                tools:src="@drawable/bg_sign_complete" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:visibility="@{tweet.tweetContentType==Tweet.TweetContentType.VIDEO?View.VISIBLE:View.GONE}"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_video" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/padding_small"
-            android:layout_toRightOf="@id/cover"
+            android:layout_toRightOf="@id/images_layout"
             android:text="@{tweet.title}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"

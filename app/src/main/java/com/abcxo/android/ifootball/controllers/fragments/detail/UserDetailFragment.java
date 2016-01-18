@@ -85,10 +85,6 @@ public class UserDetailFragment extends Fragment {
         viewPager.setOffscreenPageLimit(2);
 
 
-        viewPager.setAdapter(new UserDetailAdapter(getChildFragmentManager(), getActivity(), user != null ? user.id : uid));
-        tabLayout.setupWithViewPager(viewPager);
-
-
         if (user != null) {
             bindData();
         } else {
@@ -127,7 +123,8 @@ public class UserDetailFragment extends Fragment {
 
     public void bindData() {
         binding.setUser(user);
-
+        viewPager.setAdapter(new UserDetailAdapter(getChildFragmentManager(), getActivity(), user != null ? user.id : uid));
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 

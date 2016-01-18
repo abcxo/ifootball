@@ -16,7 +16,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -34,15 +33,10 @@ import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.FileUtils;
 import com.abcxo.android.ifootball.utils.LocationUtils;
-import com.abcxo.android.ifootball.utils.LogUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.push.PushUtil;
-import com.tencent.smtt.sdk.QbSdk;
-import com.tencent.smtt.sdk.TbsDownloader;
-import com.tencent.smtt.sdk.TbsListener;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 import cn.sharesdk.framework.ShareSDK;
@@ -115,32 +109,33 @@ public class NavActivity extends AppCompatActivity
 
     private void init() {
         try {
-            if (TextUtils.isEmpty(FileUtils.getPreference(Constants.PREFERENCE_X5))) {
-                Class<?> clazz = Class.forName("com.tencent.smtt.sdk.TbsDownloader");
-                Method method = clazz.getDeclaredMethod("a", Context.class);
-                method.setAccessible(true);
-                method.invoke(null, this);
-                Application.packageName = Constants.PACKAGE_NAME_X5;
-                QbSdk.setTbsListener(new TbsListener() {
-                    @Override
-                    public void onDownloadFinish(int i) {
-                        LogUtils.d("download");
-                    }
-
-                    @Override
-                    public void onInstallFinish(int i) {
-                        LogUtils.d("install");
-                        Application.packageName = Constants.PACKAGE_NAME;
-                        FileUtils.setPreference(Constants.PREFERENCE_X5, "1");
-                    }
-
-                    @Override
-                    public void onDownloadProgress(int i) {
-                        LogUtils.d("progress");
-                    }
-                });
-                TbsDownloader.startDownload(this);
-            }
+//            if (TextUtils.isEmpty(FileUtils.getPreference(Constants.PREFERENCE_X5))) {
+//                Class<?> clazz = Class.forName("com.tencent.smtt.sdk.TbsDownloader");
+//                Method method = clazz.getDeclaredMethod("a", Context.class);
+//                method.setAccessible(true);
+//                method.invoke(null, this);
+//                Application.packageName = Constants.PACKAGE_NAME_X5;
+//                QbSdk.setTbsListener(new TbsListener() {
+//                    @Override
+//                    public void onDownloadFinish(int i) {
+//                        LogUtils.d("download");
+//                    }
+//
+//                    @Override
+//                    public void onInstallFinish(int i) {
+//                        LogUtils.d("install");
+//                        Application.packageName = Constants.PACKAGE_NAME;
+//                        FileUtils.setPreference(Constants.PREFERENCE_X5, "1");
+//                    }
+//
+//                    @Override
+//                    public void onDownloadProgress(int i) {
+//                        LogUtils.d("progress");
+//                    }
+//                });
+//                QbSdk.setDownloadWithoutWifi(false);
+//                TbsDownloader.startDownload(this);
+//            }
             ShareSDK.initSDK(this);
             PushUtil.enable(this);
             LocationUtils.saveLocation();

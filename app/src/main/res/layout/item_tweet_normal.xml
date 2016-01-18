@@ -29,7 +29,7 @@
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{tweet.icon}"
             app:riv_corner_radius="@dimen/icon_radius"
-            tools:src="@drawable/bg_sign_complete"/>
+            tools:src="@drawable/bg_sign_complete" />
 
         <TextView
             android:id="@+id/name"
@@ -65,18 +65,31 @@
             android:textSize="14dp"
             tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
 
-        <ImageView
-            android:id="@+id/images"
+        <FrameLayout
+            android:id="@+id/images_layout"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/text"
-            android:layout_marginTop="@dimen/padding_small"
-            android:background="@color/color_bg"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/bg_sign_complete"
-            android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
-            app:imageUrl="@{tweet.cover}" />
+            android:layout_marginTop="@dimen/padding_small">
+
+            <ImageView
+                android:id="@+id/images"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_bg"
+                android:scaleType="centerCrop"
+                android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
+                app:imageUrl="@{tweet.cover}"
+                tools:src="@drawable/bg_sign_complete" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:visibility="@{tweet.tweetContentType==Tweet.TweetContentType.VIDEO?View.VISIBLE:View.GONE}"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_video"/>
+        </FrameLayout>
 
         <include
             android:id="@+id/repeat_content"
@@ -84,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
-            android:layout_below="@id/images"
+            android:layout_below="@id/images_layout"
             android:layout_marginTop="@dimen/padding"
             bind:tweet="@{tweet.originTweet}" />
 
@@ -93,18 +106,18 @@
             android:id="@+id/location_tv"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/repeat_content"
             android:drawableLeft="@drawable/ic_location_mini"
-            android:layout_alignLeft="@+id/name"
-            android:drawableTint="@color/color_icon_light_o"
             android:drawablePadding="@dimen/padding_small"
+            android:drawableTint="@color/color_icon_light_o"
             android:gravity="center_vertical"
             android:paddingBottom="@dimen/padding"
-            android:textColor="@color/color_text_append"
-            android:textSize="@dimen/text_append"
             android:paddingTop="@dimen/padding"
             android:singleLine="true"
             android:text="@{tweet.location}"
+            android:textColor="@color/color_text_append"
+            android:textSize="@dimen/text_append"
             android:visibility="@{tweet.location!=null?View.VISIBLE:View.GONE}"
             tools:text="中国浙江省杭州市区" />
 

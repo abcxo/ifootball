@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.mob.tools.FakeActivity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.mob.tools.FakeActivity;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 
@@ -189,7 +190,7 @@ public class PlatformListFakeActivity extends FakeActivity {
 		String editPageClass = ((Object)this).getClass().getPackage().getName()+".EditPage";
 		try {
 			editPageFakeActivity = (EditPageFakeActivity) Class.forName(editPageClass).newInstance();
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 			return;
 		}

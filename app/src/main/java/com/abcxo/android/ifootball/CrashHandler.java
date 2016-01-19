@@ -3,7 +3,6 @@ package com.abcxo.android.ifootball;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
@@ -84,7 +83,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         } else {
             try {
                 Thread.sleep(3000);
-            } catch (InterruptedException e) {
+            } catch (Throwable e) {
                 Log.e(TAG, "error : ", e);
             }
 
@@ -137,7 +136,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 infos.put("versionName", versionName);
                 infos.put("versionCode", versionCode);
             }
-        } catch (NameNotFoundException e) {
+        } catch (Throwable e) {
             Log.e(TAG, "an error occured when collect package info", e);
         }
 
@@ -147,7 +146,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 field.setAccessible(true);
                 infos.put(field.getName(), field.get(null).toString());
                 Log.d(TAG, field.getName() + " : " + field.get(null));
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 Log.e(TAG, "an error occured when collect crash info", e);
             }
         }
@@ -196,7 +195,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             }
 
             return fileName;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             Log.e(TAG, "an error occured while writing file...", e);
         }
 

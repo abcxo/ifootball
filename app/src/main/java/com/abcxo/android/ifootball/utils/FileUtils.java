@@ -44,7 +44,7 @@ public class FileUtils {
             os.writeObject(object);
             os.close();
             fos.close();
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
             return false;
         }
@@ -59,7 +59,7 @@ public class FileUtils {
             is.close();
             fis.close();
             return object;
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
 
         }
@@ -85,7 +85,7 @@ public class FileUtils {
             fileOutputStream.flush();
             fileOutputStream.close();
             return file.getAbsolutePath();
-        } catch (Exception e) {
+        } catch (Throwable e) {
 
         }
         return null;
@@ -110,7 +110,7 @@ public class FileUtils {
                     }
                 }
                 return true;
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }

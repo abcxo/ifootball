@@ -22,42 +22,42 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/padding_tiny"
         android:paddingLeft="@dimen/padding_small"
         android:paddingRight="@dimen/padding_small"
-        android:paddingTop="@{showIndex?@dimen/padding:@dimen/padding_tiny}">
+        android:paddingTop="@{showIndex?@dimen/padding_empty:@dimen/padding_tiny}">
 
         <TextView
             android:id="@+id/index"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="44dp"
+            android:gravity="center"
             android:singleLine="true"
             android:text="@{gameSection.title}"
             android:textColor="@color/color_primary"
             android:textSize="@dimen/text_title"
-            android:visibility="@{showIndex?View.VISIBLE:View.INVISIBLE}"
+            android:visibility="@{showIndex?View.VISIBLE:View.GONE}"
             tools:text="关注" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding"
             android:orientation="horizontal">
 
             <include
-                bind:game="@{gameSection.game}"
                 layout="@layout/item_game"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                bind:game="@{gameSection.game}" />
 
             <include
-                bind:game="@{gameSection.game2}"
                 layout="@layout/item_game"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                bind:game="@{gameSection.game2}" />
         </LinearLayout>
 
 

@@ -36,7 +36,7 @@ public class PushReceiver extends BroadcastReceiver {
                 i.putExtra("message", (Parcelable) message);
                 LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(i);
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
 

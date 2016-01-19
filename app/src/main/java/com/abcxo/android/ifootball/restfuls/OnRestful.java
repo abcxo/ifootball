@@ -26,7 +26,7 @@ public abstract class OnRestful<T> implements retrofit.Callback<T> {
             Error error = new Error();
             try {
                 error = (Error) retrofit.responseConverter(Error.class, Error.class.getAnnotations()).convert(response.errorBody());
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 e.printStackTrace();
 
             } finally {

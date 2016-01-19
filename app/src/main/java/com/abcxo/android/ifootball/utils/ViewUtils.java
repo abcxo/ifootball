@@ -97,7 +97,7 @@ public class ViewUtils {
         try {
             dismiss();
             progressDialog = ProgressDialog.show(context, null, null);
-        } catch (Exception e) {
+        } catch (Throwable e) {
 
         }
     }
@@ -107,7 +107,7 @@ public class ViewUtils {
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
 
         }
 
@@ -124,7 +124,7 @@ public class ViewUtils {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUrl);
             fragment.startActivityForResult(intent, Constants.REQUEST_CAMERA);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             ViewUtils.toast(R.string.error_camera);
         }
     }
@@ -133,7 +133,7 @@ public class ViewUtils {
         try {
             Intent picture = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             fragment.startActivityForResult(picture, Constants.REQUEST_PHOTO);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             ViewUtils.toast(R.string.error_photo);
         }
 

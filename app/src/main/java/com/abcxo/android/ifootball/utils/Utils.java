@@ -77,7 +77,7 @@ public class Utils {
             }
 
             return buf.toString().substring(8, 24);
-        } catch (Exception e) {
+        } catch (Throwable e) {
         }
         return "";
     }

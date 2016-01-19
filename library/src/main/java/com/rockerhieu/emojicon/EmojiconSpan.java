@@ -63,7 +63,7 @@ class EmojiconSpan extends DynamicDrawableSpan {
                 mWidth = mHeight * mDrawable.getIntrinsicWidth() / mDrawable.getIntrinsicHeight();
                 mTop = (mTextSize - mHeight) / 2;
                 mDrawable.setBounds(0, mTop, mWidth, mTop + mHeight);
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 // swallow
             }
         }

@@ -23,6 +23,7 @@ import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.LiveFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.NewsTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.TeamTweetFragment;
+import com.abcxo.android.ifootball.controllers.fragments.main.VideoTweetFragment;
 import com.abcxo.android.ifootball.databinding.FragmentMainNavBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
@@ -34,6 +35,7 @@ import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragm
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.LIVE;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.NEWS;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.TEAM;
+import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.VIDEO;
 
 public class MainNavFragment extends NavFragment {
 
@@ -124,8 +126,9 @@ public class MainNavFragment extends NavFragment {
         HOME(0),
         TEAM(1),
         LIVE(2),
-        NEWS(3),
-        DISCOVER(4);
+        VIDEO(3),
+        NEWS(4),
+        DISCOVER(5);
         private int index;
 
         PageType(int index) {
@@ -169,6 +172,8 @@ public class MainNavFragment extends NavFragment {
                 return LiveFragment.newInstance(bundle);
             } else if (position == NEWS.getIndex()) {
                 return NewsTweetFragment.newInstance(bundle);
+            }else if (position == VIDEO.getIndex()) {
+                return VideoTweetFragment.newInstance(bundle);
             } else if (position == DISCOVER.getIndex()) {
                 return DiscoverUserFragment.newInstance(bundle);
             }

@@ -190,7 +190,7 @@ public class TweetRestful {
                 }
             });
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
             onGet.onError(new RestfulError(ViewUtils.getString(R.string.error_unknown)));
             onGet.onFinish();
@@ -244,9 +244,10 @@ public class TweetRestful {
     public enum GetsType {
         HOME(0),
         TEAM(1),
-        NEWS(2),
-        USER(3),
-        SEARCH(4);
+        VIDEO(2),
+        NEWS(3),
+        USER(4),
+        SEARCH(5);
         private int index;
 
         GetsType(int index) {

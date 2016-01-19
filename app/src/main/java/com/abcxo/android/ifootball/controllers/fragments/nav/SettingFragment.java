@@ -189,12 +189,12 @@ public class SettingFragment extends Fragment {
                     } else {
                         avatar(bitmap);
                     }
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     ViewUtils.toast(R.string.add_tweet_send_image_error);
                 }
 
             }
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
 

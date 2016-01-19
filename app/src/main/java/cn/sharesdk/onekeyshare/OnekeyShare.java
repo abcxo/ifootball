@@ -100,7 +100,7 @@ public class OnekeyShare implements PlatformActionListener, Callback {
 			}else{
 				platformListFakeActivity = (PlatformListFakeActivity) Class.forName("cn.sharesdk.onekeyshare.theme.classic.PlatformListPage").newInstance();
 			}
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 			return;
 		}

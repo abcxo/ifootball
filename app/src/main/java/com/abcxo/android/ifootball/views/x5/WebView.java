@@ -42,6 +42,7 @@ public class WebView extends com.tencent.smtt.sdk.WebView {
     }
 
 
+
     public void init() {
         WebSettings webSettings = getSettings();
         setCookies();
@@ -75,7 +76,7 @@ public class WebView extends com.tencent.smtt.sdk.WebView {
             Field field= Class.forName("com.tencent.smtt.sdk.WebView").getDeclaredField("h");
             field.setAccessible(true);
             android.webkit.CookieManager.getInstance().setAcceptThirdPartyCookies((android.webkit.WebView) field.get(this),true);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
 

@@ -18,8 +18,8 @@ public class Application extends android.app.Application {
         INSTANCE = this;
     }
 
-//    @Override
-//    public String getPackageName() {
-//        return packageName;
-//    }
+    @Override
+    public String getPackageName() {
+        return packageName;
+    }
 }

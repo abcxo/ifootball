@@ -6,7 +6,7 @@
     <data>
 
         <import type="com.abcxo.android.ifootball.models.Tweet" />
-
+        <import type="android.view.View" />
         <variable
             name="tweet"
             type="Tweet" />

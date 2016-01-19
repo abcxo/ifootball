@@ -40,7 +40,7 @@ public class ChatDetailActivity extends AppCompatActivity {
             String chatId2 = uid2 + "|" + uid;
             String currentChatId = chatIds.peek();
             return chatId.equals(currentChatId) || chatId2.equals(currentChatId);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             return false;
         }
 

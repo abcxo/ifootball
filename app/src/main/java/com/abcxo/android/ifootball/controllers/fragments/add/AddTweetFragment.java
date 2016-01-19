@@ -429,7 +429,7 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
                     Uri selectedImage = data.getData();
                     Bitmap bitmap = ViewUtils.getSmallBitmap(FileUtils.uri2Path(selectedImage));
                     adapter.addImage(bitmap);
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     ViewUtils.toast(R.string.add_tweet_send_image_error);
                 }
 
@@ -439,7 +439,7 @@ public class AddTweetFragment extends Fragment implements EmojiconGridFragment.O
                 inputET.addSpan("@" + user.name + " ", user.name);
             }
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
         }
 

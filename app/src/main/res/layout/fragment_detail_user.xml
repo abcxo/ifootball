@@ -195,6 +195,7 @@
                 android:id="@+id/icon"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:background="?attr/selectableItemBackground"
                 android:onClick="@{user.getHandler().onClickAvatar}"
                 android:scaleType="centerCrop"
                 app:error="@{@drawable/ic_avatar}"

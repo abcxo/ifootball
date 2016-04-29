@@ -11,6 +11,7 @@ import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
 import com.abcxo.android.ifootball.controllers.activities.ChatDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.ContactActivity;
+import com.abcxo.android.ifootball.controllers.activities.DataDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.ImageActivity;
 import com.abcxo.android.ifootball.controllers.activities.MessageActivity;
 import com.abcxo.android.ifootball.controllers.activities.SearchActivity;
@@ -38,6 +39,10 @@ public class NavUtils {
         context.startActivity(intent);
     }
 
+    public static void toDataDetail(Context context) {
+        Intent intent = new Intent(context, DataDetailActivity.class);
+        context.startActivity(intent);
+    }
 
     public static void toWeb(Context context, String url, String title) {
         Intent intent = new Intent(context, WebActivity.class);

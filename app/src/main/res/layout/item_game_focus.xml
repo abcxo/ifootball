@@ -19,21 +19,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
         android:onClick="@{game!=null?game.getHandler().onClickGame:null}"
         android:paddingLeft="@dimen/padding_tiny"
         android:paddingRight="@dimen/padding_tiny"
         android:visibility="@{game!=null?View.VISIBLE:View.INVISIBLE}">
 
         <com.abcxo.android.ifootball.views.SquareRelativeLayout
-
+            android:background="@drawable/bg_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@color/color_text_title" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -48,7 +43,7 @@
                     android:layout_marginTop="@dimen/padding"
                     android:singleLine="true"
                     android:text="@{game.title}"
-                    android:textColor="@color/color_text_light"
+                    android:textColor="@color/color_text_title"
                     android:textSize="@dimen/text_content"
                     tools:text="英超第19轮" />
 
@@ -83,7 +78,7 @@
                             android:maxLength="4"
                             android:singleLine="true"
                             android:text="@{game.name}"
-                            android:textColor="@color/color_text_light"
+                            android:textColor="@color/color_text_title"
                             android:textSize="@dimen/text_min"
                             tools:text="曼联" />
                     </LinearLayout>
@@ -95,7 +90,7 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:singleLine="true"
                         android:text="@{game.score}"
-                        android:textColor="@color/color_text_light"
+                        android:textColor="@color/color_text_title"
                         android:textSize="@dimen/text_title"
                         tools:text="2" />
 
@@ -104,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:singleLine="true"
                         android:text=" - "
-                        android:textColor="@color/color_text_light"
+                        android:textColor="@color/color_text_title"
                         android:textSize="@dimen/text_title" />
 
                     <TextView
@@ -113,7 +108,7 @@
                         android:paddingRight="@dimen/padding_small"
                         android:singleLine="true"
                         android:text="@{game.score2}"
-                        android:textColor="@color/color_text_light"
+                        android:textColor="@color/color_text_title"
                         android:textSize="@dimen/text_title"
                         tools:text="0" />
 
@@ -140,7 +135,7 @@
                             android:maxLength="4"
                             android:singleLine="true"
                             android:text="@{game.name2}"
-                            android:textColor="@color/color_text_light"
+                            android:textColor="@color/color_text_title"
                             android:textSize="@dimen/text_min"
                             tools:text="切尔西" />
                     </LinearLayout>
@@ -152,7 +147,7 @@
                     android:layout_marginTop="@dimen/padding_mid"
                     android:singleLine="true"
                     android:text="@{game.time}"
-                    android:textColor="@color/color_text_light"
+                    android:textColor="@color/color_text_title"
                     android:textSize="@dimen/text_content"
                     tools:text="01月19日 20:30" />
             </LinearLayout>

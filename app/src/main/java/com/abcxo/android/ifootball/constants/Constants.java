@@ -20,10 +20,10 @@ public final class Constants {
     public static final String ACTION_REFRESH_CONTACT = "refresh_contact";
     public static final String ACTION_MESSAGE = "message";
     public static final String ACTION_MESSAGE_CLICK = "message_click";
-//    public static final String HOST = "http://www.iamthefootball.com:8080";
-//    public static final String PATH = "/ifootball";
-            public static final String HOST = "http://localhost:8080";
-    public static final String PATH = "";
+    public static final String HOST = "http://www.iamthefootball.com:8080";
+    public static final String PATH = "/ifootball";
+//            public static final String HOST = "http://localhost:8080";
+//    public static final String PATH = "";
     public static final String SITE = "http://a.app.qq.com/o/simple.jsp?pkgname=com.abcxo.android.ifootball";
 
     public static final int PAGE_INDEX = 0;
@@ -38,6 +38,7 @@ public final class Constants {
     public static String KEY_UID2 = "uid2";
     public static String KEY_TID = "tid";
     public static String KEY_NAME = "name";
+    public static String KEY_CATEGORY = "category";
     public static String KEY_MESSAGE = "message";
     public static String KEY_IS_SELECT = "isSelect";
     public static String KEY_IS_COMMENT = "isComment";

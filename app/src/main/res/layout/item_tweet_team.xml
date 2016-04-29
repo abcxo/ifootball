@@ -17,6 +17,7 @@
 
     <RelativeLayout
         style="@style/Item"
+        android:background="?attr/selectableItemBackground"
         android:onClick="@{tweet.getHandler().onClickTweet}">
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -98,6 +99,7 @@
                 android:id="@+id/images_layout"
                 android:layout_width="74dp"
                 android:layout_height="86dp"
+                android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
                 android:layout_marginTop="@dimen/padding_small">
 
                 <ImageView
@@ -107,7 +109,7 @@
                     android:layout_marginTop="@dimen/padding_small"
                     android:background="@color/color_bg"
                     android:scaleType="centerCrop"
-                    android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
+
                     app:imageUrl="@{tweet.cover}"
                     tools:src="@drawable/bg_sign_complete" />
 

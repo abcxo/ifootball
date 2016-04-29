@@ -16,7 +16,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -37,6 +36,7 @@ import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.LogUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
+import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.push.PushUtil;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.TbsDownloader;
@@ -115,7 +115,7 @@ public class NavActivity extends AppCompatActivity
 
     private void init() {
         try {
-            if (TextUtils.isEmpty(FileUtils.getPreference(Constants.PREFERENCE_X5))) {
+            if (!ViewUtils.isX5()) {
                 Class<?> clazz = Class.forName("com.tencent.smtt.sdk.TbsDownloader");
                 Method method = clazz.getDeclaredMethod("a", Context.class);
                 method.setAccessible(true);

@@ -72,6 +72,7 @@
                         android:onClick="@{tweet.getHandler().onClickUser}">
 
                         <com.makeramen.roundedimageview.RoundedImageView
+                            android:background="?attr/selectableItemBackground"
                             android:id="@+id/icon"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
@@ -121,7 +122,7 @@
                     <com.abcxo.android.ifootball.views.x5.WebView
                         android:id="@+id/webview"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_below="@id/title"
                         android:layout_marginTop="@dimen/padding_small" />
 

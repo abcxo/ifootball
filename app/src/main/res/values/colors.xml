@@ -77,6 +77,7 @@
 
     <color name="color_white">#FFFFFF</color>
     <color name="color_gray">#cccccc</color>
+    <color name="color_gray_dark">#888888</color>
     <color name="color_gray_light">#EEEEEE</color>
     <color name="color_red">#F44336</color>
     <color name="color_dark">#000000</color>

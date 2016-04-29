@@ -227,6 +227,6 @@ public class ViewUtils {
 
 
     public static boolean isX5() {
-        return FileUtils.getPreference(Constants.PREFERENCE_X5) != null;
+        return !TextUtils.isEmpty(FileUtils.getPreference(Constants.PREFERENCE_X5));
     }
 }

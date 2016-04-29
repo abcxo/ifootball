@@ -22,6 +22,7 @@ public class Game implements Parcelable, Serializable {
     public String title;
     public String content;
     public String section;
+    public boolean focus;
     public long uid;
     public String icon;
     public String name;
@@ -33,6 +34,7 @@ public class Game implements Parcelable, Serializable {
     public List<Live> lives;
     public StateType stateType = StateType.PREPARE;
     public String time;
+    public long date;
 
 
     public static class Live implements Parcelable, Serializable {
@@ -76,6 +78,7 @@ public class Game implements Parcelable, Serializable {
         title = in.readString();
         content = in.readString();
         section = in.readString();
+        focus = in.readByte() != 0;
         uid = in.readLong();
         icon = in.readString();
         name = in.readString();
@@ -85,6 +88,7 @@ public class Game implements Parcelable, Serializable {
         name2 = in.readString();
         score2 = in.readString();
         time = in.readString();
+        date = in.readLong();
     }
 
     public static final Creator<Game> CREATOR = new Creator<Game>() {
@@ -117,6 +121,7 @@ public class Game implements Parcelable, Serializable {
         dest.writeString(title);
         dest.writeString(content);
         dest.writeString(section);
+        dest.writeByte((byte) (focus ? 1 : 0));
         dest.writeLong(uid);
         dest.writeString(icon);
         dest.writeString(name);
@@ -126,6 +131,7 @@ public class Game implements Parcelable, Serializable {
         dest.writeString(name2);
         dest.writeString(score2);
         dest.writeString(time);
+        dest.writeLong(date);
     }
 
 

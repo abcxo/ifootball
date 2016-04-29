@@ -21,10 +21,12 @@ import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.databinding.FragmentLiveBinding;
 import com.abcxo.android.ifootball.models.Game;
 import com.abcxo.android.ifootball.restfuls.GameRestful;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.utils.FileUtils;
+import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.malinskiy.superrecyclerview.OnMoreListener;
@@ -93,7 +95,8 @@ public class LiveFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        FragmentLiveBinding binding = DataBindingUtil.bind(view);
+        binding.setHandler(new BindingHandler());
         recyclerView = (SuperRecyclerView) view.findViewById(R.id.recyclerview);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -190,13 +193,21 @@ public class LiveFragment extends Fragment {
         GameSection gameSection = null;
         for (int i = 0; i < games.size(); i++) {
             Game game = games.get(i);
-            if (gameSection == null || !game.section.equals(gameSection.title) || gameSection.game2 != null) {
+            if (gameSection == null || !game.section.equals(gameSection.title) || gameSection.game2 != null || !game.focus) {
                 if (gameSection != null) {
                     gameSections.add(gameSection);
                 }
                 gameSection = new GameSection();
                 gameSection.game = game;
-                gameSection.title = game.section;
+                if (game.focus) {
+                    gameSection.title = game.section;
+                    gameSection.type = GameSection.GameSectionType.FOCUS;
+                } else {
+                    gameSection.title = Utils.date(game.date);
+                    game.time = Utils.time(game.date);
+                    gameSection.type = GameSection.GameSectionType.NORMAL;
+                }
+
             } else {
                 gameSection.game2 = game;
             }
@@ -211,6 +222,28 @@ public class LiveFragment extends Fragment {
         public String title;
         public Game game;
         public Game game2;
+        public GameSectionType type;
+
+        public enum GameSectionType {
+
+            NORMAL(0),
+            FOCUS(1);
+
+            private int index;
+
+            GameSectionType(int index) {
+                this.index = index;
+            }
+
+            public static int size() {
+                return GameSectionType.values().length;
+            }
+
+            public int getIndex() {
+                return index;
+            }
+        }
+
     }
 
     protected void refreshGameSections(List<GameSection> gameSections) {
@@ -263,8 +296,14 @@ public class LiveFragment extends Fragment {
         }
 
         public View getItemLayoutView(ViewGroup parent, int type) {
-            return LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_gamesection_normal, parent, false);
+            if (type == GameSection.GameSectionType.FOCUS.getIndex()) {
+                return LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_gamesection_focus, parent, false);
+            } else {
+                return LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_gamesection_normal, parent, false);
+            }
+
         }
 
 
@@ -285,7 +324,7 @@ public class LiveFragment extends Fragment {
 
         @Override
         public int getItemViewType(int position) {
-            return 1;
+            return gameSections.get(position).type.getIndex();
         }
 
         @Override
@@ -295,5 +334,10 @@ public class LiveFragment extends Fragment {
 
     }
 
+    public class BindingHandler {
+        public void onClickDataDetail(final View view) {
+            NavUtils.toDataDetail(getActivity());
+        }
+    }
 
 }

@@ -2,7 +2,6 @@ package com.abcxo.android.ifootball.controllers.activities;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -17,6 +16,7 @@ import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
+import com.abcxo.android.ifootball.views.SwipeRefreshLayout;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
@@ -84,7 +84,6 @@ public class WebActivity extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 refreshLayout.setRefreshing(false);
-                refreshLayout.setEnabled(false);
 
             }
         });
@@ -160,10 +159,10 @@ public class WebActivity extends AppCompatActivity {
             }
         });
 
-        webView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+        refreshLayout.setCanChildScrollUpCallback(new SwipeRefreshLayout.CanChildScrollUpCallback() {
             @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                refreshLayout.setEnabled(scrollY <= 0);
+            public boolean canSwipeRefreshChildScrollUp() {
+                return webView.getView().getScrollY() > 0;
             }
         });
         refresh();

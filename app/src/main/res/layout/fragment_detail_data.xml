@@ -56,50 +56,12 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <RelativeLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="match_parent" />
 
-            <RelativeLayout
-                android:id="@+id/focus_layout"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/color_bg"
-                android:paddingLeft="@dimen/padding"
-                android:paddingRight="@dimen/padding">
-
-                <Button
-                    android:id="@+id/ok"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/padding"
-                    android:backgroundTint="@color/color_button_minor"
-                    android:onClick="@{handler.onClickOk}"
-                    android:text="@string/add_team_ok_text"
-                    android:textColor="@color/color_text_highlight" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/ok" />
-
-
-            </RelativeLayout>
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@id/focus_layout" />
-
-
-        </RelativeLayout>
 
 
     </android.support.design.widget.CoordinatorLayout>

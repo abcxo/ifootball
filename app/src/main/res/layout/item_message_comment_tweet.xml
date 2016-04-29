@@ -20,12 +20,14 @@
 
     <RelativeLayout
         style="@style/Item"
+        android:background="?attr/selectableItemBackground"
         android:onClick="@{handler!=null?handler.onClickItem:message.getHandler().onClickMessage}">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
             android:onClick="@{message.getHandler().onClickUser}"
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"

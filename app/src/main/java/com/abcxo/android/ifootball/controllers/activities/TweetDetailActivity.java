@@ -24,6 +24,7 @@ import com.abcxo.android.ifootball.controllers.fragments.message.MessageFragment
 import com.abcxo.android.ifootball.databinding.ActivityDetailTweetBinding;
 import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.models.Tweet;
+import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
@@ -96,7 +97,9 @@ public class TweetDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (tweet != null && tweet.uid == UserRestful.INSTANCE.meId()) {
+        if (tweet != null &&
+                (tweet.uid == UserRestful.INSTANCE.meId() ||
+                        (UserRestful.INSTANCE.isLogin() && UserRestful.INSTANCE.me().userType == User.UserType.SPECIAL))) {
             menu.add(R.string.menu_item_tweet_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
         }
         return super.onCreateOptionsMenu(menu);

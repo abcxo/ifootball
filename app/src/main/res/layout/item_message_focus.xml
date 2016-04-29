@@ -14,6 +14,7 @@
 
     <RelativeLayout
         android:onClick="@{message.getHandler().onClickMessage}"
+        android:background="?attr/selectableItemBackground"
         style="@style/Item">
 
         <LinearLayout
@@ -24,6 +25,7 @@
             android:layout_marginTop="@dimen/padding_small">
 
             <com.makeramen.roundedimageview.RoundedImageView
+                android:background="?attr/selectableItemBackground"
                 android:onClick="@{message.getHandler().onClickUser}"
                 android:id="@+id/icon"
                 android:layout_width="48dp"

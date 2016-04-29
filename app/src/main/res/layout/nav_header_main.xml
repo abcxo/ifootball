@@ -15,6 +15,7 @@
     </data>
 
     <FrameLayout
+        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_header_height"
         android:onClick="@{user!=null?user.getHandler().onClickUser:NavUtils.toSign}">

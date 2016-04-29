@@ -32,27 +32,21 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        <android.support.v4.widget.SwipeRefreshLayout
+        <com.abcxo.android.ifootball.views.SwipeRefreshLayout
             android:id="@+id/refreshlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-            <!--<android.support.v4.widget.NestedScrollView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" >-->
-
-                <com.abcxo.android.ifootball.views.x5.WebView
-                    android:id="@+id/webview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-            <!--</android.support.v4.widget.NestedScrollView>-->
+            <com.abcxo.android.ifootball.views.x5.WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </com.abcxo.android.ifootball.views.SwipeRefreshLayout>
 
 
     </android.support.design.widget.CoordinatorLayout>

@@ -14,10 +14,12 @@
 
     <RelativeLayout
         style="@style/Item"
+        android:background="?attr/selectableItemBackground"
         android:onClick="@{message.getHandler().onClickMessage}">
 
         <LinearLayout
             android:id="@+id/icon_layout"
+            android:background="?attr/selectableItemBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 

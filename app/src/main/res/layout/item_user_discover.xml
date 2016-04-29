@@ -16,6 +16,7 @@
 
     <RelativeLayout
         style="@style/Item"
+        android:background="?attr/selectableItemBackground"
         android:onClick="@{user.getHandler().onClickUser}">
 
         <com.makeramen.roundedimageview.RoundedImageView

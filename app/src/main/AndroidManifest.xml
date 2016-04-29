@@ -34,6 +34,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <uses-permission android:name="android.permission.MANAGE_USERS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
 
     <application
@@ -141,6 +142,10 @@
         <activity
             android:name=".controllers.activities.AddTeamActivity"
             android:label="@string/activity_add_team"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controllers.activities.DataDetailActivity"
+            android:label="@string/activity_detail_data"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity

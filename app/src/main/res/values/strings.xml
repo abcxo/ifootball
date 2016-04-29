@@ -66,6 +66,7 @@
 
     <string name="activity_add_tweet">写推文</string>
     <string name="activity_add_team">添加球队</string>
+    <string name="activity_detail_data">联赛数据</string>
 
     <string name="activity_contact">联系人</string>
 
@@ -119,6 +120,23 @@
         <item>意甲</item>
         <item>法甲</item>
         <item>中超</item>
+    </string-array>
+    <string-array name="data_page_list">
+        <item>英超</item>
+        <item>西甲</item>
+        <item>欧冠</item>
+        <item>德甲</item>
+        <item>意甲</item>
+        <item>法甲</item>
+        <item>中超</item>
+        <item>亚冠</item>
+    </string-array>
+
+    <string-array name="data_category_page_list">
+        <item>积分榜</item>
+        <item>射手榜</item>
+        <item>助攻版</item>
+        <item>赛程表</item>
     </string-array>
 
     <string-array name="user_detail_page_list">

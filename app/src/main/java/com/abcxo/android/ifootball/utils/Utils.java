@@ -29,7 +29,6 @@ public class Utils {
     }
 
 
-
     public static boolean isEmail(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
@@ -97,6 +96,16 @@ public class Utils {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM月dd日 HH时mm分");//设置日期格式
         return dateFormat.format(new Date());
 
+    }
+
+    public static String date(long date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");//设置日期格式
+        return dateFormat.format(date);
+    }
+
+    public static String time(long date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");//设置日期格式
+        return dateFormat.format(date);
     }
 
 

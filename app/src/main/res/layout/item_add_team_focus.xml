@@ -24,6 +24,7 @@
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:padding="@dimen/padding_min"
             android:layout_marginLeft="@dimen/padding_min"
             android:layout_marginRight="@dimen/padding_min"
             android:background="@drawable/bg_image"

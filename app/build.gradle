@@ -12,14 +12,31 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-
     }
+
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+        }
+
+        release {
+            storeFile file('debug.keystore')
+            storePassword "androiddebugkey"
+            keyAlias "android"
+            keyPassword "android"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']

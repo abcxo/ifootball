@@ -45,7 +45,7 @@
             android:id="@+id/tv_from"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="@dimen/padding_half"
             android:layout_toRightOf="@+id/name"
             android:text="@string/from"
             android:textColor="@color/color_gray_dark"
@@ -102,7 +102,7 @@
         <FrameLayout
             android:id="@+id/images_layout"
             android:layout_width="match_parent"
-            android:layout_height="86dp"
+            android:layout_height="140dp"
             android:layout_alignLeft="@+id/title"
             android:layout_below="@+id/text"
             android:layout_marginTop="@dimen/padding_small"
@@ -115,10 +115,8 @@
                 android:layout_marginTop="@dimen/padding_small"
                 android:background="@color/color_bg"
                 android:scaleType="centerCrop"
-
                 app:imageUrl="@{tweet.cover}"
                 tools:src="@drawable/bg_sign_complete"/>
-
 
             <ImageView
                 android:layout_width="40dp"
@@ -133,16 +131,16 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginLeft="@dimen/padding_half"
             android:layout_below="@+id/images_layout"
             android:gravity="center">
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_comment"
-                android:tint="@color/color_icon_light"/>
+            <com.abcxo.android.ifootball.views.IconFontView
+                android:layout_width="wrap_content"
+                android:text="@string/iconfont.comment"
+                android:textSize="17sp"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:layout_width="wrap_content"

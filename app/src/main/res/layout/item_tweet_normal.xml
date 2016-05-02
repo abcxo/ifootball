@@ -37,23 +37,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/padding_small"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="@dimen/padding_min"
             android:layout_toRightOf="@id/icon"
             android:singleLine="true"
             android:text="@{tweet.name}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
             tools:text="咸蛋超人" />
-
-        <com.abcxo.android.ifootball.views.IconFontView
-            android:id="@+id/test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding_small"
-            android:layout_marginTop="3dp"
-            android:layout_toRightOf="@id/name"
-            android:text="@string/IconFont.Add"
-            android:textSize="16dp"/>
 
         <TextView
             android:id="@+id/time"
@@ -149,11 +139,11 @@
                 android:gravity="center"
                 android:padding="@dimen/padding">
 
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/ic_comment"
-                    android:tint="@color/color_icon_light" />
+                <com.abcxo.android.ifootball.views.IconFontView
+                    android:layout_width="wrap_content"
+                    android:text="@string/iconfont.comment"
+                    android:textSize="17sp"
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -174,11 +164,11 @@
                 android:onClick="@{tweet.getHandler().onClickRepeat}"
                 android:padding="@dimen/padding">
 
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/ic_repeat"
-                    android:tint="@color/color_icon_light" />
+                <com.abcxo.android.ifootball.views.IconFontView
+                    android:layout_width="wrap_content"
+                    android:text="@string/iconfont.forward"
+                    android:textSize="17sp"
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -199,11 +189,12 @@
                 android:onClick="@{tweet.getHandler().onClickStar}"
                 android:padding="@dimen/padding">
 
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/ic_star"
-                    android:tint="@{tweet.star?@color/color_icon_yellow:@color/color_icon_light_o}" />
+                <com.abcxo.android.ifootball.views.IconFontView
+                    android:layout_width="wrap_content"
+                    android:text="@string/iconfont.star"
+                    android:textSize="17sp"
+                    android:textColor="@{tweet.star?@color/color_icon_yellow:@color/color_icon_light_o}"
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:layout_width="wrap_content"

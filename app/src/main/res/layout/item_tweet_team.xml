@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="com.abcxo.android.ifootball.models.Tweet" />
+        <import type="com.abcxo.android.ifootball.models.Tweet"/>
 
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
 
 
         <variable
             name="tweet"
-            type="Tweet" />
+            type="Tweet"/>
     </data>
 
     <RelativeLayout
@@ -27,7 +27,7 @@
             android:scaleType="centerCrop"
             app:imageUrl="@{tweet.icon}"
             app:riv_corner_radius="@dimen/icon_radius_small"
-            tools:src="@drawable/bg_sign_complete" />
+            tools:src="@drawable/bg_sign_complete"/>
 
         <TextView
             android:id="@+id/name"
@@ -39,41 +39,51 @@
             android:text="@{tweet.name}"
             android:textColor="@color/color_text_title"
             android:textSize="14dp"
-            tools:text="咸蛋超人" />
+            tools:text="咸蛋超人"/>
+
+        <TextView
+            android:id="@+id/tv_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/name"
+            android:text="@string/from"
+            android:textColor="@color/color_gray_dark"
+            android:textSize="14dp"/>
 
         <TextView
             android:id="@+id/source"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/name"
-            android:layout_below="@+id/name"
+            android:layout_toRightOf="@+id/tv_from"
             android:text="@{tweet.source}"
-            android:textColor="@color/color_text_special"
-            android:textSize="12dp"
-            tools:text="新浪微博" />
+            android:textColor="@color/color_text_title"
+            android:textSize="14dp"
+            tools:text="新浪微博"/>
 
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignLeft="@+id/name"
+            android:layout_below="@+id/name"
             android:text="@{tweet.time}"
             android:textColor="@color/color_text_append"
             android:textSize="12dp"
-            tools:text="3小时" />
+            tools:text="3小时"/>
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/icon"
-            android:layout_below="@+id/source"
+            android:layout_below="@+id/icon"
             android:layout_marginTop="@dimen/padding_small"
             android:text="@{tweet.title}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
             android:visibility="@{tweet.title!=null?View.VISIBLE:View.GONE}"
-            tools:text="恒大队的外援威震中超" />
+            tools:text="恒大队的外援威震中超"/>
 
 
         <TextView
@@ -86,69 +96,63 @@
             android:text="@{tweet.getSummary()}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
-            tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
+            tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。"/>
 
 
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/images_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="86dp"
             android:layout_alignLeft="@+id/title"
-            android:layout_below="@+id/text">
+            android:layout_below="@+id/text"
+            android:layout_marginTop="@dimen/padding_small"
+            android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}">
 
-            <FrameLayout
-                android:id="@+id/images_layout"
-                android:layout_width="74dp"
-                android:layout_height="86dp"
-                android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
-                android:layout_marginTop="@dimen/padding_small">
+            <ImageView
+                android:id="@+id/images"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/padding_small"
+                android:background="@color/color_bg"
+                android:scaleType="centerCrop"
 
-                <ImageView
-                    android:id="@+id/images"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/padding_small"
-                    android:background="@color/color_bg"
-                    android:scaleType="centerCrop"
-
-                    app:imageUrl="@{tweet.cover}"
-                    tools:src="@drawable/bg_sign_complete" />
+                app:imageUrl="@{tweet.cover}"
+                tools:src="@drawable/bg_sign_complete"/>
 
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_video"
-                    android:visibility="@{tweet.tweetContentType==Tweet.TweetContentType.VIDEO?View.VISIBLE:View.GONE}" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_video"
+                android:visibility="@{tweet.tweetContentType==Tweet.TweetContentType.VIDEO?View.VISIBLE:View.GONE}"/>
 
-            </FrameLayout>
+        </FrameLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/images_layout"
+            android:gravity="center">
 
-            <LinearLayout
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_comment"
+                android:tint="@color/color_icon_light"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/images_layout"
-                android:layout_alignParentRight="true"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/ic_comment"
-                    android:tint="@color/color_icon_light" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_small"
-                    android:text="@{String.valueOf(tweet.commentCount)}"
-                    android:textColor="@color/color_text_append"
-                    android:textSize="12dp"
-                    tools:text="307" />
-            </LinearLayout>
-        </RelativeLayout>
-
+                android:layout_marginLeft="@dimen/padding_small"
+                android:text="@{String.valueOf(tweet.commentCount)}"
+                android:textColor="@color/color_text_append"
+                android:textSize="12dp"
+                tools:text="307"/>
+        </LinearLayout>
 
     </RelativeLayout>
 </layout>

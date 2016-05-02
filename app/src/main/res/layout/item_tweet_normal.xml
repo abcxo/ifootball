@@ -23,8 +23,8 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:onClick="@{tweet.getHandler().onClickUser}"
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"
@@ -37,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/padding_small"
+            android:layout_marginTop="3dp"
             android:layout_toRightOf="@id/icon"
             android:singleLine="true"
             android:text="@{tweet.name}"
@@ -44,12 +45,23 @@
             android:textSize="16dp"
             tools:text="咸蛋超人" />
 
+        <com.abcxo.android.ifootball.views.IconFontView
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@id/name"
+            android:text="@string/IconFont.Add"
+            android:textSize="16dp"/>
+
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:text="@{tweet.time}"
+            android:layout_below="@+id/name"
+            android:layout_alignLeft="@+id/name"
             android:textColor="@color/color_text_append"
             android:textSize="12dp"
             tools:text="3小时" />
@@ -58,8 +70,8 @@
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/name"
-            android:layout_below="@+id/name"
+            android:layout_alignLeft="@+id/icon"
+            android:layout_below="@+id/icon"
             android:layout_marginTop="@dimen/padding_small"
             android:text="@{tweet.getSummary()}"
             android:textColor="@color/color_text_content"
@@ -70,7 +82,7 @@
             android:id="@+id/images_layout"
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:layout_alignLeft="@+id/name"
+            android:layout_alignLeft="@+id/icon"
             android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
             android:layout_below="@+id/text"
             android:layout_marginTop="@dimen/padding_small">
@@ -97,7 +109,7 @@
             layout="@layout/content_tweet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/name"
+            android:layout_alignLeft="@+id/icon"
             android:layout_below="@id/images_layout"
             android:layout_marginTop="@dimen/padding"
             bind:tweet="@{tweet.originTweet}" />
@@ -107,7 +119,7 @@
             android:id="@+id/location_tv"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_alignLeft="@+id/name"
+            android:layout_alignLeft="@+id/icon"
             android:layout_below="@+id/repeat_content"
             android:drawableLeft="@drawable/ic_location_mini"
             android:drawablePadding="@dimen/padding_small"
@@ -125,15 +137,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/name"
+            android:layout_alignLeft="@+id/icon"
             android:layout_below="@+id/location_tv"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:gravity="center"
                 android:padding="@dimen/padding">
 
@@ -155,9 +167,9 @@
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center"
                 android:onClick="@{tweet.getHandler().onClickRepeat}"
                 android:padding="@dimen/padding">
@@ -180,9 +192,9 @@
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:gravity="center"
                 android:onClick="@{tweet.getHandler().onClickStar}"
                 android:padding="@dimen/padding">

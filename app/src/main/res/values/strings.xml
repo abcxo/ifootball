@@ -266,4 +266,31 @@
     <string name="success_forget_password">重置密码已经发到</string>
     <string name="loading_video">加载中...</string>
 
+    <string name="from">来自</string>
+
+    <!-- iconfont资源-->
+
+    <string name="IconFont.At">&#xe607;</string>
+    <string name="IconFont.Comment">&#xe608;</string>
+    <string name="IconFont.Forward">&#xe609;</string>
+
+    <string name="IconFont.Location">&#xe60a;</string>
+    <string name="IconFont.Face">&#xe60b;</string>
+    <string name="IconFont.Follow">&#xe60c;</string>
+
+    <string name="IconFont.Person">&#xe60d;</string>
+    <string name="IconFont.Star">&#xe60e;</string>
+    <string name="IconFont.Discovery">&#xe60f;</string>
+
+    <string name="IconFont.Data">&#xe600;</string>
+    <string name="IconFont.Team">&#xe601;</string>
+    <string name="IconFont.Video">&#xe602;</string>
+
+    <string name="IconFont.Setting">&#xe603;</string>
+    <string name="IconFont.Send">&#xe604;</string>
+    <string name="IconFont.Add">&#xe605;</string>
+
+    <string name="IconFont.Notification">&#xe606;</string>
+
+
 </resources>

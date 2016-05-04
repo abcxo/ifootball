@@ -44,11 +44,11 @@
                 android:layout_centerVertical="true"
                 android:gravity="center">
 
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/ic_comment"
-                    android:tint="@color/color_icon_light" />
+                <com.abcxo.android.ifootball.views.IconFontView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/iconfont.comment"
+                    android:textSize="17sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"

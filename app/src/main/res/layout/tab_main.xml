@@ -15,13 +15,14 @@
         android:textColor="@drawable/selector_tab_text_color"
         android:layout_centerVertical="true"
         android:text="@string/iconfont.follow"
-        android:textSize="21sp"/>
+        android:textSize="23sp"/>
 
     <TextView
         android:id="@+id/tv_tab"
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/padding_min"
+        android:textSize="12sp"
         tools:text="关注"
         android:textColor="@drawable/selector_tab_text_color"
         android:layout_height="wrap_content"/>

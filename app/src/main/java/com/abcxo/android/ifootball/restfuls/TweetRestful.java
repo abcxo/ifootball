@@ -49,7 +49,6 @@ public class TweetRestful {
 
     public interface TweetService {
 
-
         @Multipart
         @POST(Constants.PATH + "/tweet")
         Call<Tweet> add(

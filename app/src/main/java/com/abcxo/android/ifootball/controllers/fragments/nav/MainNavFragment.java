@@ -50,7 +50,6 @@ public class MainNavFragment extends NavFragment {
     private FloatingActionButton fab;
     private int currentIndex;
 
-
     public static MainNavFragment newInstance() {
         return newInstance(null);
     }
@@ -67,7 +66,6 @@ public class MainNavFragment extends NavFragment {
         return inflater.inflate(R.layout.fragment_main_nav, container, false);
     }
 
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -79,39 +77,13 @@ public class MainNavFragment extends NavFragment {
 
         viewPager.setOffscreenPageLimit(5);
 
-        viewPager.setAdapter(new MainAdapter(getChildFragmentManager(), getActivity()));
+        MainAdapter adapter = new MainAdapter(getChildFragmentManager(), getActivity());
+        viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
-//            tabLayout.getTabAt(i).setIcon(R.drawable.ic_avatar);
-            LinearLayout tab = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.tab_main, null);
-            TextView tv_tab = (TextView) tab.findViewById(R.id.tv_tab);
-            tv_tab.setText(tabLayout.getTabAt(i).getText());
-
-            IconFontView ifv_tab = (IconFontView) tab.findViewById(R.id.ifv_tab);
-
-            switch (i) {
-                case 0:
-                    ifv_tab.setText(R.string.iconfont_follow);
-                    break;
-                case 1:
-                    ifv_tab.setText(R.string.iconfont_team);
-                    break;
-                case 2:
-                    ifv_tab.setText(R.string.iconfont_follow);
-                    break;
-                case 3:
-                    ifv_tab.setText(R.string.iconfont_video);
-                    break;
-                case 4:
-                    ifv_tab.setText(R.string.iconfont_follow);
-                    break;
-                case 5:
-                    ifv_tab.setText(R.string.iconfont_data);
-                    break;
-            }
-
-            tabLayout.getTabAt(i).setCustomView(tab);
+            tabLayout.getTabAt(i).setCustomView(adapter.getTabView(i));  // 设置tab图片和文字
         }
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -204,7 +176,6 @@ public class MainNavFragment extends NavFragment {
 
     public class MainAdapter extends FragmentPagerAdapter {
 
-
         private String[] titles;
 
         public MainAdapter(FragmentManager fm, Context context) {
@@ -257,9 +228,44 @@ public class MainNavFragment extends NavFragment {
             return UserRestful.INSTANCE.isLogin() && UserRestful.INSTANCE.me().userType == User.UserType.SPECIAL;
         }
 
+        public View getTabView(int position) {
+            LinearLayout tab = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.tab_main, null);
+            TextView tv_tab = (TextView) tab.findViewById(R.id.tv_tab);
+            if (!hasNews() && position == PageType.NEWS.getIndex()) {
+                tv_tab.setText(titles[position + 1]);
+            } else {
+                tv_tab.setText(titles[position]);
+            }
 
+            IconFontView ifv_tab = (IconFontView) tab.findViewById(R.id.ifv_tab);
+
+            switch (position) {
+                case 0:
+                    ifv_tab.setText(R.string.iconfont_follow);
+                    break;
+                case 1:
+                    ifv_tab.setText(R.string.iconfont_team);
+                    break;
+                case 2:
+                    ifv_tab.setText(R.string.iconfont_follow);
+                    break;
+                case 3:
+                    ifv_tab.setText(R.string.iconfont_video);
+                    break;
+                case 4:
+                    if (hasNews()) {
+                        ifv_tab.setText(R.string.iconfont_news);
+                    } else {
+                        ifv_tab.setText(R.string.iconfont_data);
+                    }
+                    break;
+                case 5:
+                    ifv_tab.setText(R.string.iconfont_data);
+                    break;
+            }
+            return tab;
+        }
     }
-
 
     public class BindingHandler {
 
@@ -287,9 +293,5 @@ public class MainNavFragment extends NavFragment {
         public void onClickMessage(View view) {
             NavUtils.toMessage(view.getContext());
         }
-
-
     }
-
-
 }

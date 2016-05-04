@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_activity_bg"
     tools:context=".controllers.activities.NavActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -21,23 +23,24 @@
 
             <EditText
                 android:id="@+id/input"
-                android:background="@null"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:hint="@string/search_input_hint"
                 android:imeOptions="actionSearch"
                 android:singleLine="true"
                 android:textColor="@color/color_text_highlight"
-                android:textSize="@dimen/text_input" />
+                android:textSize="@dimen/text_input"/>
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/color_icon_highlight"
             app:tabIndicatorColor="@color/color_icon_light"
-            app:tabSelectedTextColor="@color/color_text_highlight"
-            app:tabTextColor="@color/color_text_light" />
+            app:tabSelectedTextColor="@color/color_accent_search"
+            app:tabTextColor="@color/color_text_empty"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -45,6 +48,6 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

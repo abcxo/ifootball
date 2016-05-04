@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.socks.library.KLog;
 
 /**
  * Created by shadow on 15/11/1.
@@ -26,6 +27,7 @@ public class NavFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        KLog.e("onCreate()");
         Bundle args = getArguments();
         if (args != null) {
             isSelect = args.getBoolean(Constants.KEY_IS_SELECT);
@@ -35,37 +37,50 @@ public class NavFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        KLog.e("onViewCreated()");
         toolbar = (Toolbar) getView().findViewById(R.id.toolbar);
         drawer = (DrawerLayout) getNavActivity().findViewById(R.id.drawer_layout);
         syncToolbar();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        KLog.e("onResume()");
+    }
+
     private void syncToolbar() {
-        getNavActivity().setSupportActionBar(toolbar);
-        getNavActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationIcon(null);
-        if (isSelect) {
+        if (!(this instanceof MainNavFragment)) {
+            getNavActivity().setSupportActionBar(toolbar);
+            getNavActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
             getNavActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getActivity().finish();
+                    getActivity().onBackPressed();
                 }
             });
-        } else {
-            toggle = new ActionBarDrawerToggle(
-                    getNavActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
-            toggle.syncState();
+//            if (isSelect) {
+//                getNavActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        getActivity().finish();
+//                    }
+//                });
+//            } else {
+//                toggle = new ActionBarDrawerToggle(
+//                        getNavActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//                drawer.setDrawerListener(toggle);
+//                toggle.syncState();
+//            }
         }
-
-
     }
-
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        KLog.e("onHiddenChanged()");
         if (!hidden) {
             syncToolbar();
         }

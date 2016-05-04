@@ -30,7 +30,6 @@ import java.util.List;
 
 public class TweetFragment extends Fragment {
 
-
     protected List<Tweet> list = new ArrayList<>();
     protected long uid;
 
@@ -38,7 +37,6 @@ public class TweetFragment extends Fragment {
     protected TweetAdapter adapter;
 
     protected SwipeRefreshLayout.OnRefreshListener onRefreshListener;
-
 
     protected int pageIndex;
 
@@ -102,9 +100,7 @@ public class TweetFragment extends Fragment {
         if (needFirstRefresh()) {
             load();
         }
-
     }
-
 
     protected void load() {
         ArrayList<Tweet> tweets = (ArrayList<Tweet>) FileUtils.getObject(getKey());
@@ -158,8 +154,6 @@ public class TweetFragment extends Fragment {
                         } else {
                             recyclerView.hideMoreProgress();
                         }
-
-
                     }
                 });
     }
@@ -173,10 +167,8 @@ public class TweetFragment extends Fragment {
         return TweetRestful.GetsType.USER;
     }
 
-
     protected void refreshTweets(List<Tweet> tweets) {
         list.clear();
-
 
         if (tweets != null && tweets.size() > 0) {
             list.addAll(tweets);
@@ -196,11 +188,9 @@ public class TweetFragment extends Fragment {
         }
     }
 
-
     public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.BindingHolder> {
 
         private List<Tweet> tweets;
-
 
         public TweetAdapter(List<Tweet> tweets) {
             this.tweets = tweets;

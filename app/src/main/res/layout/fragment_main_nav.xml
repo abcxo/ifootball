@@ -49,9 +49,11 @@
                     <com.abcxo.android.ifootball.views.IconFontView
                         android:id="@+id/ifv_message"
                         android:layout_width="wrap_content"
+                        android:padding="@dimen/padding_small"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/padding"
+                        android:layout_marginRight="@dimen/padding_small"
                         android:layout_toLeftOf="@+id/ifv_person"
                         android:text="@string/iconfont.notification"
                         android:textSize="18sp"/>
@@ -59,6 +61,7 @@
                     <com.abcxo.android.ifootball.views.IconFontView
                         android:id="@+id/ifv_person"
                         android:layout_width="wrap_content"
+                        android:padding="@dimen/padding_small"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"

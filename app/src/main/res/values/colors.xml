@@ -3,7 +3,7 @@
     <!--主色调-->
     <color name="color_primary">#415894</color>
     <!--暗黑主色调-->
-    <color name="color_primary_dark">#00786C</color>
+    <color name="color_primary_dark">#000000</color>
     <!--明亮主色调-->
     <color name="color_primary_light">#89009688</color>
 
@@ -85,6 +85,6 @@
     <color name="color_bg">#20000000</color>
 
 
-
+    <color name="color_activity_bg">#CFD0D5</color>
 
 </resources>

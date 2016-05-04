@@ -56,7 +56,6 @@ public class NavActivity extends AppCompatActivity
     private BroadcastReceiver logoutReceiver;
     private BroadcastReceiver messageClickReceiver;
 
-
     private NavFragment mainFg;
     private NavFragment contactFg;
     private NavFragment messageFg;
@@ -64,11 +63,9 @@ public class NavActivity extends AppCompatActivity
 
     private Fragment currentFg;
 
-
     private NavHeaderMainBinding navHeaderMainBinding;
 
-    private int selectedItemId;
-
+    private boolean mIsMainFragment;
 
     private NavigationView navigationView;
 
@@ -84,18 +81,15 @@ public class NavActivity extends AppCompatActivity
             }
         }
 
-
         init();
         navigationView = (NavigationView) findViewById(R.id.activity_navigationview);
         navigationView.setNavigationItemSelectedListener(this);
-
 
 //        if (getIntent().getExtras() == null) {
         onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
 //        } else {
 //            onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_message));
 //        }
-
 
         registerBroadcastReceiver();
         //设置Nav页面
@@ -108,8 +102,6 @@ public class NavActivity extends AppCompatActivity
             startActivity(new Intent(this, WelcomeActivity.class));
             overridePendingTransition(0, 0);
         }
-
-
     }
 
 
@@ -233,17 +225,15 @@ public class NavActivity extends AppCompatActivity
             searchFg = null;
         }
 
-        selectedItemId = 0;
         onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
     }
-
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
-        } else if (selectedItemId != R.id.nav_item_main) {
+        } else if (!mIsMainFragment) {
             onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
         } else {
             super.onBackPressed();
@@ -260,8 +250,6 @@ public class NavActivity extends AppCompatActivity
         final int id = item.getItemId();
 
         if (groupId == R.id.nav_group_nav) {
-            if (selectedItemId != id) {
-                selectedItemId = id;
                 item.setChecked(true);
                 if (id == R.id.nav_item_main) {
                     toMain();
@@ -272,8 +260,6 @@ public class NavActivity extends AppCompatActivity
                 } else if (id == R.id.nav_item_search) {
                     toSearch();
                 }
-            }
-
         } else if (groupId == R.id.nav_group_append) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -302,6 +288,7 @@ public class NavActivity extends AppCompatActivity
 
 
     private void toMain() {
+        mIsMainFragment = true;
         if (mainFg == null) {
             mainFg = MainNavFragment.newInstance();
         }
@@ -310,6 +297,7 @@ public class NavActivity extends AppCompatActivity
     }
 
     private void toContact() {
+        mIsMainFragment = false;
         if (contactFg == null) {
             contactFg = ContactNavFragment.newInstance();
 
@@ -319,6 +307,7 @@ public class NavActivity extends AppCompatActivity
     }
 
     public void toMessage() {
+        mIsMainFragment = false;
         if (messageFg == null) {
             messageFg = MessageNavFragment.newInstance();
         }
@@ -328,6 +317,7 @@ public class NavActivity extends AppCompatActivity
 
 
     public void toSearch() {
+        mIsMainFragment = false;
         if (searchFg == null) {
             searchFg = SearchNavFragment.newInstance();
         }
@@ -359,5 +349,4 @@ public class NavActivity extends AppCompatActivity
         startActivity(intent);
 
     }
-
 }

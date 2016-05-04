@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="com.abcxo.android.ifootball.models.Message" />
+        <import type="com.abcxo.android.ifootball.models.Message"/>
 
         <variable
             name="message"
-            type="Message" />
+            type="Message"/>
 
-        <import type="com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity.BindingHandler" />
+        <import type="com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity.BindingHandler"/>
 
         <variable
             name="handler"
-            type="BindingHandler" />
+            type="BindingHandler"/>
     </data>
 
     <RelativeLayout
         style="@style/Item"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/selector_item_select_bg"
         android:onClick="@{handler!=null?handler.onClickItem:message.getHandler().onClickMessage}">
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -33,7 +33,7 @@
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{message.icon}"
             app:riv_corner_radius="@dimen/icon_radius"
-            tools:src="@drawable/bg_sign_complete" />
+            tools:src="@drawable/bg_sign_complete"/>
 
         <TextView
             android:id="@+id/name"
@@ -45,17 +45,7 @@
             android:text="@{message.title}"
             android:textColor="@color/color_text_title"
             android:textSize="16dp"
-            tools:text="咸蛋超人" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@{message.time}"
-            android:textColor="@color/color_text_append"
-            android:textSize="12dp"
-            tools:text="3小时" />
+            tools:text="咸蛋超人"/>
 
 
         <TextView
@@ -64,12 +54,24 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
             android:layout_below="@+id/name"
-            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginTop="@dimen/padding_min"
             android:text="@{message.content}"
             android:textColor="@color/color_text_content"
+            android:singleLine="true"
             android:textSize="14dp"
-            tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
+            tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。"/>
 
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/text"
+            android:layout_below="@+id/text"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="@{message.time}"
+            android:textColor="@color/color_text_append"
+            android:textSize="12dp"
+            tools:text="3小时"/>
 
     </RelativeLayout>
 </layout>

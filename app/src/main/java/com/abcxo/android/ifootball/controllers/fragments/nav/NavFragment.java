@@ -43,6 +43,7 @@ public class NavFragment extends Fragment {
     private void syncToolbar() {
         getNavActivity().setSupportActionBar(toolbar);
         getNavActivity().getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(null);
         if (isSelect) {
             getNavActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -58,6 +58,7 @@ dependencies {
     compile('com.mikepenz:materialdrawer:4.6.3@aar') {
         transitive = true
     }
+    compile 'com.github.zhaokaiqiang.klog:library:1.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'

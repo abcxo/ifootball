@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.BindingHandler" />
+        <import type="com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.BindingHandler"/>
 
         <variable
             name="handler"
-            type="BindingHandler" />
+            type="BindingHandler"/>
 
 
     </data>
@@ -20,6 +20,7 @@
         tools:context=".controllers.activities.NavActivity">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarDark">
@@ -31,57 +32,67 @@
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupLight">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|end"
-                    android:orientation="horizontal">
+                    android:paddingRight="@dimen/padding">
 
-
-                    <android.support.design.widget.TabLayout
-                        android:id="@+id/tabs"
+                    <android.support.v7.widget.SearchView
+                        android:id="@+id/searchview"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        app:tabIndicatorColor="@color/color_icon_light"
-                        app:tabMode="scrollable"
-                        app:tabSelectedTextColor="@color/color_text_highlight"
-                        app:tabTextColor="@color/color_text_light" />
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding"
+                        android:layout_toLeftOf="@+id/ifv_message"
+                        android:queryHint="@string/menu_item_search"/>
 
-                    <!--<ImageView-->
-                        <!--android:id="@+id/search"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:clickable="true"-->
-                        <!--android:onClick="@{handler.onClickSearch}"-->
-                        <!--android:paddingLeft="@dimen/padding_small"-->
-                        <!--android:paddingRight="@dimen/padding"-->
-                        <!--android:src="@drawable/ic_search"-->
-                        <!--android:tint="@color/color_icon_highlight" />-->
+                    <com.abcxo.android.ifootball.views.IconFontView
+                        android:id="@+id/ifv_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/padding"
+                        android:layout_toLeftOf="@+id/ifv_person"
+                        android:text="@string/iconfont.notification"
+                        android:textSize="18sp"/>
 
-                    <!--<ImageView-->
-                        <!--android:id="@+id/message"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:clickable="true"-->
-                        <!--android:onClick="@{handler.onClickMessage}"-->
-                        <!--android:paddingLeft="@dimen/padding"-->
-                        <!--android:paddingRight="@dimen/padding_small"-->
-                        <!--android:src="@drawable/ic_message"-->
-                        <!--android:tint="@color/color_icon_highlight" />-->
+                    <com.abcxo.android.ifootball.views.IconFontView
+                        android:id="@+id/ifv_person"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/iconfont.person"
+                        android:textSize="18sp"/>
 
-
-                </LinearLayout>
+                </RelativeLayout>
 
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:tabIndicatorColor="@color/color_icon_light"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/color_primary"
+                app:tabTextColor="@color/color_text_empty"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
@@ -92,7 +103,7 @@
             android:onClick="@{handler.onClickFab}"
             android:src="@drawable/ic_add"
             android:tint="@color/color_icon_highlight"
-            app:backgroundTint="@color/color_accent_text" />
+            app:backgroundTint="@color/color_accent_text"/>
 
 
     </android.support.design.widget.CoordinatorLayout>

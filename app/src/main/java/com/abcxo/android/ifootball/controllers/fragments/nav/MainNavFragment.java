@@ -9,15 +9,20 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.activities.AddTeamActivity;
 import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
+import com.abcxo.android.ifootball.controllers.activities.NavActivity;
 import com.abcxo.android.ifootball.controllers.fragments.main.DiscoverUserFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.LiveFragment;
@@ -29,6 +34,7 @@ import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
+import com.abcxo.android.ifootball.views.IconFontView;
 
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.DISCOVER;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.HOME;
@@ -73,9 +79,39 @@ public class MainNavFragment extends NavFragment {
 
         viewPager.setOffscreenPageLimit(5);
 
-
         viewPager.setAdapter(new MainAdapter(getChildFragmentManager(), getActivity()));
         tabLayout.setupWithViewPager(viewPager);
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//            tabLayout.getTabAt(i).setIcon(R.drawable.ic_avatar);
+            LinearLayout tab = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.tab_main, null);
+            TextView tv_tab = (TextView) tab.findViewById(R.id.tv_tab);
+            tv_tab.setText(tabLayout.getTabAt(i).getText());
+
+            IconFontView ifv_tab = (IconFontView) tab.findViewById(R.id.ifv_tab);
+
+            switch (i) {
+                case 0:
+                    ifv_tab.setText(R.string.iconfont_follow);
+                    break;
+                case 1:
+                    ifv_tab.setText(R.string.iconfont_team);
+                    break;
+                case 2:
+                    ifv_tab.setText(R.string.iconfont_follow);
+                    break;
+                case 3:
+                    ifv_tab.setText(R.string.iconfont_video);
+                    break;
+                case 4:
+                    ifv_tab.setText(R.string.iconfont_follow);
+                    break;
+                case 5:
+                    ifv_tab.setText(R.string.iconfont_data);
+                    break;
+            }
+
+            tabLayout.getTabAt(i).setCustomView(tab);
+        }
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -116,7 +152,28 @@ public class MainNavFragment extends NavFragment {
             }
         });
 
+        view.findViewById(R.id.searchview).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((NavActivity)getActivity()).toSearch();
+            }
+        });
 
+        view.findViewById(R.id.ifv_message).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((NavActivity)getActivity()).toMessage();
+            }
+        });
+
+        view.findViewById(R.id.ifv_person).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // open right drawer
+                DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+                drawer.openDrawer(GravityCompat.END);
+            }
+        });
     }
 
 

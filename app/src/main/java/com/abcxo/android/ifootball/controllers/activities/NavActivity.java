@@ -241,8 +241,8 @@ public class NavActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else if (selectedItemId != R.id.nav_item_main) {
             onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
         } else {
@@ -254,7 +254,7 @@ public class NavActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
 
         final int groupId = item.getGroupId();
         final int id = item.getItemId();
@@ -318,7 +318,7 @@ public class NavActivity extends AppCompatActivity
 
     }
 
-    private void toMessage() {
+    public void toMessage() {
         if (messageFg == null) {
             messageFg = MessageNavFragment.newInstance();
         }
@@ -327,13 +327,11 @@ public class NavActivity extends AppCompatActivity
     }
 
 
-    private void toSearch() {
+    public void toSearch() {
         if (searchFg == null) {
             searchFg = SearchNavFragment.newInstance();
         }
         toNav(searchFg);
-
-
     }
 
     private void toNav(Fragment fg) {

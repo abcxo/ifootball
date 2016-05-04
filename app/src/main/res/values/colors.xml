@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--主色调-->
-    <color name="color_primary">#009688</color>
+    <color name="color_primary">#415894</color>
     <!--暗黑主色调-->
     <color name="color_primary_dark">#00786C</color>
     <!--明亮主色调-->

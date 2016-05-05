@@ -41,6 +41,7 @@
                         android:id="@+id/searchview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:iconifiedByDefault="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/padding"
                         android:layout_toLeftOf="@+id/ifv_message"
@@ -106,7 +107,15 @@
             android:onClick="@{handler.onClickFab}"
             android:src="@drawable/ic_add"
             android:tint="@color/color_icon_highlight"
-            app:backgroundTint="@color/color_accent_text"/>
+            app:backgroundTint="@color/color_primary"/>
+
+        <com.abcxo.android.ifootball.views.IconFontView
+            android:text="@string/iconfont.write.twitter"
+            android:id="@+id/ifv_write_twitter"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            android:layout_height="wrap_content"/>
 
 
     </android.support.design.widget.CoordinatorLayout>

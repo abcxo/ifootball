@@ -3,6 +3,7 @@ package com.abcxo.android.ifootball.controllers.fragments.nav;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -127,14 +128,14 @@ public class MainNavFragment extends NavFragment {
         view.findViewById(R.id.searchview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((NavActivity)getActivity()).toSearch();
+                ((NavActivity) getActivity()).toSearch();
             }
         });
 
         view.findViewById(R.id.ifv_message).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((NavActivity)getActivity()).toMessage();
+                ((NavActivity) getActivity()).toMessage();
             }
         });
 
@@ -144,6 +145,23 @@ public class MainNavFragment extends NavFragment {
                 // open right drawer
                 DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
                 drawer.openDrawer(GravityCompat.END);
+            }
+        });
+
+        final IconFontView ifv_write_twitter = (IconFontView) view.findViewById(R.id.ifv_write_twitter);
+        ifv_write_twitter.post(new Runnable() {
+            @Override
+            public void run() {
+                ifv_write_twitter.setDrawingCacheEnabled(true);
+
+                ifv_write_twitter.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                ifv_write_twitter.layout(0, 0, ifv_write_twitter.getMeasuredWidth(), ifv_write_twitter.getMeasuredHeight());
+
+                ifv_write_twitter.buildDrawingCache(true);
+                Bitmap b = Bitmap.createBitmap(ifv_write_twitter.getDrawingCache());
+                fab.setImageBitmap(b);
+                ifv_write_twitter.setDrawingCacheEnabled(false); // clear drawing cache
             }
         });
     }
@@ -200,7 +218,7 @@ public class MainNavFragment extends NavFragment {
                 return LiveFragment.newInstance(bundle);
             } else if (position == NEWS.getIndex()) {
                 return NewsTweetFragment.newInstance(bundle);
-            }else if (position == VIDEO.getIndex()) {
+            } else if (position == VIDEO.getIndex()) {
                 return VideoTweetFragment.newInstance(bundle);
             } else if (position == DISCOVER.getIndex()) {
                 return DiscoverUserFragment.newInstance(bundle);
@@ -273,7 +291,7 @@ public class MainNavFragment extends NavFragment {
             if (UserRestful.INSTANCE.isLogin()) {
                 if (currentIndex == HOME.getIndex()) {
                     startActivity(new Intent(getActivity(), AddTweetActivity.class));
-                } else if (currentIndex == TEAM.getIndex()||currentIndex == LIVE.getIndex()) {
+                } else if (currentIndex == TEAM.getIndex() || currentIndex == LIVE.getIndex()) {
                     startActivity(new Intent(getActivity(), AddTeamActivity.class));
                 } else if (currentIndex == NEWS.getIndex()) {
                 } else if (currentIndex == DISCOVER.getIndex()) {

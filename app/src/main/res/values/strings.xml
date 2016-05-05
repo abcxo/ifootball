@@ -292,6 +292,9 @@
 
     <string name="iconfont.notification">&#xe606;</string>
     <string name="iconfont.news">&#xe610;</string>
+    <string name="iconfont.write.twitter">&#xe614;</string>
+
+    <string name="iconfont.add.team">&#xe613;</string>
 
 
 </resources>

@@ -39,8 +39,12 @@ public class TweetRestful {
     private TweetService tweetService;
 
     private TweetRestful() {
+//        OkHttpClient client = new OkHttpClient();
+//        client.interceptors().add(new DecryptedPayloadInterceptor());
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.HOST)
+//                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         tweetService = retrofit.create(TweetService.class);

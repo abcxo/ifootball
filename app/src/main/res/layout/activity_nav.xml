@@ -19,18 +19,19 @@
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:background="@color/color_dark_blue"
+        app:menu="@menu/menu_drawer"
         android:fitsSystemWindows="true">
 
-        <com.abcxo.android.ifootball.views.IconFontView
-            android:layout_marginRight="@dimen/padding"
-            android:id="@+id/ifv_write_twitter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="50dp"
-            android:text="@string/iconfont.setting"
-            android:textColor="@color/color_white"
-            android:textSize="35sp"/>
+        <!--<com.abcxo.android.ifootball.views.IconFontView-->
+            <!--android:layout_marginRight="@dimen/padding"-->
+            <!--android:id="@+id/ifv_write_twitter"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:layout_marginTop="50dp"-->
+            <!--android:text="@string/iconfont.setting"-->
+            <!--android:textColor="@color/color_white"-->
+            <!--android:textSize="35sp"/>-->
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

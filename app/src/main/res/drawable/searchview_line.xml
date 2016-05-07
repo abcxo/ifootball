@@ -2,21 +2,21 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
     <item>
         <shape >
-            <solid android:color="#ffffff" />
+            <solid android:color="#ccffffff" />
         </shape>
     </item>
 
     <!-- main color -->
-    <item android:bottom="1.5dp"
-          android:left="1.5dp"
-          android:right="1.5dp">
+    <item android:bottom="3dp"
+          android:left="3dp"
+          android:right="3dp">
         <shape >
             <solid android:color="@color/color_primary" />
         </shape>
     </item>
 
     <!-- draw another block to cut-off the left and right bars -->
-    <item android:bottom="18.0dp">
+    <item android:bottom="1dp">
         <shape >
             <solid android:color="@color/color_primary" />
         </shape>

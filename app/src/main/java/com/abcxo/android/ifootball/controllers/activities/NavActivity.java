@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
@@ -91,10 +93,10 @@ public class NavActivity extends AppCompatActivity
 
         registerBroadcastReceiver();
         //设置Nav页面
-//        View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
-//        navHeaderMainBinding = DataBindingUtil.bind(navHeaderView);
-//        User user = UserRestful.INSTANCE.me();
-//        navHeaderMainBinding.setUser(user);
+        View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        navHeaderMainBinding = DataBindingUtil.bind(navHeaderView);
+        User user = UserRestful.INSTANCE.me();
+        navHeaderMainBinding.setUser(user);
 
         if (!Boolean.valueOf(FileUtils.getPreference(Constants.PREFERENCE_FIRST))) {
             startActivity(new Intent(this, WelcomeActivity.class));

@@ -226,8 +226,8 @@ public class LiveFragment extends Fragment {
 
         public enum GameSectionType {
 
-            NORMAL(0),
-            FOCUS(1);
+            NORMAL(100),
+            FOCUS(101);
 
             private int index;
 
@@ -303,7 +303,6 @@ public class LiveFragment extends Fragment {
                 return LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_gamesection_normal, parent, false);
             }
-
         }
 
 

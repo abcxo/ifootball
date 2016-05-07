@@ -27,7 +27,6 @@ public class NavFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        KLog.e("onCreate()");
         Bundle args = getArguments();
         if (args != null) {
             isSelect = args.getBoolean(Constants.KEY_IS_SELECT);
@@ -37,16 +36,9 @@ public class NavFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        KLog.e("onViewCreated()");
         toolbar = (Toolbar) getView().findViewById(R.id.toolbar);
         drawer = (DrawerLayout) getNavActivity().findViewById(R.id.drawer_layout);
         syncToolbar();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        KLog.e("onResume()");
     }
 
     private void syncToolbar() {

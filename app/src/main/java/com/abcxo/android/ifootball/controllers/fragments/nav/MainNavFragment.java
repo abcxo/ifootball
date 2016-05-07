@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
 import com.abcxo.android.ifootball.controllers.activities.NavActivity;
 import com.abcxo.android.ifootball.controllers.fragments.main.DiscoverUserFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
-import com.abcxo.android.ifootball.controllers.fragments.main.LiveFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.NewsTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.TeamTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.VideoTweetFragment;
@@ -39,7 +39,6 @@ import com.abcxo.android.ifootball.views.IconFontView;
 
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.DISCOVER;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.HOME;
-import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.LIVE;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.NEWS;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.TEAM;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.VIDEO;
@@ -49,6 +48,7 @@ public class MainNavFragment extends NavFragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FloatingActionButton fab;
+    private IconFontView ifv_write_twitter;
     private int currentIndex;
 
     public static MainNavFragment newInstance() {
@@ -75,6 +75,7 @@ public class MainNavFragment extends NavFragment {
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        ifv_write_twitter = (IconFontView) view.findViewById(R.id.ifv_write_twitter);
 
         viewPager.setOffscreenPageLimit(5);
 
@@ -92,16 +93,20 @@ public class MainNavFragment extends NavFragment {
                 ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
 
                 if (position == HOME.getIndex()) { // represents transition from page 0 to page 1 (horizontal shift)
-                    int translationX = (int) ((-(width - lp.leftMargin - lp.rightMargin - fab.getWidth()) / 2f) * positionOffset);
-                    fab.setTranslationX(translationX);
-                } else if (position == TEAM.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
-
-
-                } else if (position == LIVE.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
-                    fab.setScaleX(1 - positionOffset);
-                    fab.setScaleY(1 - positionOffset);
+                    setFabBackground(R.string.iconfont_write_twitter);
                     fab.setVisibility(View.VISIBLE);
-                } else if (position == NEWS.getIndex() || position == DISCOVER.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
+//                    int translationX = (int) ((-(width - lp.leftMargin - lp.rightMargin - fab.getWidth()) / 2f) * positionOffset);
+//                    fab.setTranslationX(translationX);
+                } else if (position == TEAM.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
+                    setFabBackground(R.string.iconfont_add_team);
+                    fab.setVisibility(View.VISIBLE);
+                }
+//                else if (position == LIVE.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
+//                    fab.setScaleX(1 - positionOffset);
+//                    fab.setScaleY(1 - positionOffset);
+//                    fab.setVisibility(View.VISIBLE);
+//                }
+                else if (position == VIDEO.getIndex() ||  position == NEWS.getIndex() || position == DISCOVER.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
 //                    fab.setScaleX(positionOffset);
 //                    fab.setScaleY(positionOffset);
 //                    int translationX = (int) ((-(width - lp.leftMargin - lp.rightMargin - fab.getWidth()) / 2f) * (1 - positionOffset));
@@ -148,22 +153,27 @@ public class MainNavFragment extends NavFragment {
             }
         });
 
-        final IconFontView ifv_write_twitter = (IconFontView) view.findViewById(R.id.ifv_write_twitter);
         ifv_write_twitter.post(new Runnable() {
             @Override
             public void run() {
-                ifv_write_twitter.setDrawingCacheEnabled(true);
-
-                ifv_write_twitter.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-                ifv_write_twitter.layout(0, 0, ifv_write_twitter.getMeasuredWidth(), ifv_write_twitter.getMeasuredHeight());
-
-                ifv_write_twitter.buildDrawingCache(true);
-                Bitmap b = Bitmap.createBitmap(ifv_write_twitter.getDrawingCache());
-                fab.setImageBitmap(b);
-                ifv_write_twitter.setDrawingCacheEnabled(false); // clear drawing cache
+                setFabBackground(R.string.iconfont_write_twitter);
             }
         });
+    }
+
+    private void setFabBackground(int stringResID) {
+        ifv_write_twitter.setText(stringResID);
+        ifv_write_twitter.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+        ifv_write_twitter.setDrawingCacheEnabled(true);
+
+        ifv_write_twitter.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        ifv_write_twitter.layout(0, 0, ifv_write_twitter.getMeasuredWidth(), ifv_write_twitter.getMeasuredHeight());
+
+        ifv_write_twitter.buildDrawingCache(true);
+        Bitmap b = Bitmap.createBitmap(ifv_write_twitter.getDrawingCache());
+        fab.setImageBitmap(b);
+        ifv_write_twitter.setDrawingCacheEnabled(false); // clear drawing cache
     }
 
 
@@ -172,10 +182,10 @@ public class MainNavFragment extends NavFragment {
 
         HOME(0),
         TEAM(1),
-        LIVE(2),
-        VIDEO(3),
-        NEWS(4),
-        DISCOVER(5);
+//        LIVE(2),
+        VIDEO(2),
+        NEWS(3),
+        DISCOVER(4);
         private int index;
 
         PageType(int index) {
@@ -214,9 +224,11 @@ public class MainNavFragment extends NavFragment {
                 return HomeTweetFragment.newInstance(bundle);
             } else if (position == TEAM.getIndex()) {
                 return TeamTweetFragment.newInstance(bundle);
-            } else if (position == LIVE.getIndex()) {
-                return LiveFragment.newInstance(bundle);
-            } else if (position == NEWS.getIndex()) {
+            }
+//            else if (position == LIVE.getIndex()) {
+//                return LiveFragment.newInstance(bundle);
+//            }
+            else if (position == NEWS.getIndex()) {
                 return NewsTweetFragment.newInstance(bundle);
             } else if (position == VIDEO.getIndex()) {
                 return VideoTweetFragment.newInstance(bundle);
@@ -265,17 +277,17 @@ public class MainNavFragment extends NavFragment {
                     ifv_tab.setText(R.string.iconfont_team);
                     break;
                 case 2:
-                    ifv_tab.setText(R.string.iconfont_follow);
-                    break;
-                case 3:
                     ifv_tab.setText(R.string.iconfont_video);
                     break;
-                case 4:
+                case 3:
                     if (hasNews()) {
                         ifv_tab.setText(R.string.iconfont_news);
                     } else {
                         ifv_tab.setText(R.string.iconfont_data);
                     }
+                    break;
+                case 4:
+                    ifv_tab.setText(R.string.iconfont_data);
                     break;
                 case 5:
                     ifv_tab.setText(R.string.iconfont_data);
@@ -291,7 +303,9 @@ public class MainNavFragment extends NavFragment {
             if (UserRestful.INSTANCE.isLogin()) {
                 if (currentIndex == HOME.getIndex()) {
                     startActivity(new Intent(getActivity(), AddTweetActivity.class));
-                } else if (currentIndex == TEAM.getIndex() || currentIndex == LIVE.getIndex()) {
+                } else if (currentIndex == TEAM.getIndex()
+//                        || currentIndex == LIVE.getIndex()
+                        ) {
                     startActivity(new Intent(getActivity(), AddTeamActivity.class));
                 } else if (currentIndex == NEWS.getIndex()) {
                 } else if (currentIndex == DISCOVER.getIndex()) {

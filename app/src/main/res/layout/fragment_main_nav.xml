@@ -43,7 +43,6 @@
                         android:layout_height="wrap_content"
                         android:iconifiedByDefault="true"
                         android:layout_centerVertical="true"
-                        android:background="@drawable/searchview_line"
                         android:layout_marginRight="@dimen/padding"
                         android:layout_toLeftOf="@+id/ifv_message"
                         android:queryHint="@string/menu_item_search"/>

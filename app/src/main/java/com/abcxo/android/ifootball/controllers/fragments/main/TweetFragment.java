@@ -4,6 +4,8 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +16,7 @@ import android.view.ViewGroup;
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.fragments.main.LiveFragment.GameSection;
+import com.abcxo.android.ifootball.databinding.ItemBannerBinding;
 import com.abcxo.android.ifootball.models.Game;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.GameRestful;
@@ -35,7 +37,7 @@ import java.util.List;
 public class TweetFragment extends Fragment {
 
     protected List<Tweet> mTweetList = new ArrayList<>();
-    protected List<LiveFragment.GameSection> mGameList = new ArrayList<>();
+    protected List<Game> mGameList = new ArrayList<>();
     protected long uid;
 
     protected SuperRecyclerView recyclerView;
@@ -148,12 +150,11 @@ public class TweetFragment extends Fragment {
                     @Override
                     public void onSuccess(List<Game> games) {
                         mGameList.clear();
-                        List<GameSection> gameSections = gamesToGameSections(games);
-                        if (gameSections != null && gameSections.size() > 0) {
-                            // 拿到最多三条直播数据
-                            for (int i = 0; i < gameSections.size(); i++) {
-                                if (i < 3) {
-                                    mGameList.add(gameSections.get(i));
+                        if (games != null && games.size() > 0) {
+                            // 拿到最多四条直播数据
+                            for (int i = 0; i < games.size(); i++) {
+                                if (i < 4) {
+                                    mGameList.add(games.get(i));
                                 } else {
                                     break;
                                 }
@@ -237,35 +238,36 @@ public class TweetFragment extends Fragment {
 
         private List<Tweet> tweetsList;
 
+        private int BANNER_INDEX = 0x99;
+
         public TweetAdapter(List<Tweet> tweetsList) {
             this.tweetsList = tweetsList;
         }
 
         public class BindingHolder extends RecyclerView.ViewHolder {
-            public ViewDataBinding binding;
+            public ViewDataBinding viewDataBinding;
             public View view;
 
-            public BindingHolder(View rowView) {
+            public BindingHolder(View rowView, int type) {
                 super(rowView);
-                binding = DataBindingUtil.bind(rowView);
+                if (type != BANNER_INDEX) {
+                    viewDataBinding = DataBindingUtil.bind(rowView);
+                }
                 view = rowView;
             }
         }
 
         @Override
         public BindingHolder onCreateViewHolder(ViewGroup parent, int type) {
-            BindingHolder holder = new BindingHolder(getItemLayoutView(parent, type));
+            BindingHolder holder = new BindingHolder(getItemLayoutView(parent, type), type);
             return holder;
         }
 
         public View getItemLayoutView(ViewGroup parent, int type) {
 
-            if (type == GameSection.GameSectionType.FOCUS.getIndex()) {
+            if (type == BANNER_INDEX) {
                 return LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_gamesection_focus, parent, false);
-            } else if (type == GameSection.GameSectionType.NORMAL.getIndex()) {
-                return LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_gamesection_normal, parent, false);
+                        .inflate(R.layout.item_tweet_banner, parent, false);
             } else if (type == Tweet.TweetMainType.TEAM.getIndex()) {
                 return LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_tweet_team, parent, false);
@@ -283,28 +285,31 @@ public class TweetFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(BindingHolder holder, int position) {
-            if (getGetsType() == TweetRestful.GetsType.HOME && position < mGameList.size()) {
-                final GameSection gameSection = mGameList.get(position);
-                holder.binding.setVariable(BR.gameSection, gameSection);
-                boolean showIndex = true;
-                if (position > 0) {
-                    GameSection previousSection = mGameList.get(position - 1);
-                    if (gameSection.title.equals(previousSection.title)) {
-                        showIndex = false;
+            if (getGetsType() == TweetRestful.GetsType.HOME && position == 0) {
+                // 宽高比 4 : 1
+                int screen_width = ViewUtils.screenWidth();
+                holder.view.getLayoutParams().height = screen_width / 4;
+
+                final ViewPager viewPager = (ViewPager) holder.view.findViewById(R.id.view_pager);
+
+                viewPager.setOffscreenPageLimit(4);
+                viewPager.post(new Runnable() {  // 等item加载完成之后,再设置adapter
+                    @Override
+                    public void run() {
+                        viewPager.setAdapter(new BannerAdapter());
                     }
-                }
-                holder.binding.setVariable(BR.showIndex, showIndex);
+                });
             } else {
                 final Tweet tweet = tweetsList.get(position);
-                holder.binding.setVariable(BR.tweet, tweet);
+                holder.viewDataBinding.setVariable(BR.tweet, tweet);
             }
         }
 
 
         @Override
         public int getItemViewType(int position) {
-            if (getGetsType() == TweetRestful.GetsType.HOME && position < mGameList.size()) {
-                return mGameList.get(position).type.getIndex();
+            if (getGetsType() == TweetRestful.GetsType.HOME && position == 0) {
+                return BANNER_INDEX;
             }
 
             Tweet tweet = tweetsList.get(position);
@@ -314,39 +319,61 @@ public class TweetFragment extends Fragment {
         @Override
         public int getItemCount() {
             if (getGetsType() == TweetRestful.GetsType.HOME) {
-                return mGameList.size() + tweetsList.size();
+                return 1 + tweetsList.size();
             }
             return tweetsList.size();
         }
     }
 
-    private List<LiveFragment.GameSection> gamesToGameSections(List<Game> games) {
-        List<GameSection> gameSections = new ArrayList<>();
-        GameSection gameSection = null;
-        for (int i = 0; i < games.size(); i++) {
-            Game game = games.get(i);
-            if (gameSection == null || !game.section.equals(gameSection.title) || gameSection.game2 != null || !game.focus) {
-                if (gameSection != null) {
-                    gameSections.add(gameSection);
-                }
-                gameSection = new GameSection();
-                gameSection.game = game;
-                if (game.focus) {
-                    gameSection.title = game.section;
-                    gameSection.type = GameSection.GameSectionType.FOCUS;
-                } else {
-                    gameSection.title = Utils.date(game.date);
-                    game.time = Utils.time(game.date);
-                    gameSection.type = GameSection.GameSectionType.NORMAL;
-                }
+    private class BannerAdapter extends PagerAdapter {
 
-            } else {
-                gameSection.game2 = game;
+        @Override
+        public int getCount() {
+            return mGameList.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view.equals(object);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            ItemBannerBinding layout = DataBindingUtil.inflate(LayoutInflater.from(getContext())
+                    , R.layout.item_banner, container, false);
+            ViewDataBinding binding = DataBindingUtil.bind(layout.getRoot());
+            Game game = mGameList.get(position);
+            binding.setVariable(BR.game, game);
+
+            View root = layout.getRoot();
+
+            container.addView(root);
+
+            switch (position) {
+                case 0:
+                    root.setBackgroundResource(R.drawable.banner1);
+                    break;
+                case 1:
+                    root.setBackgroundResource(R.drawable.banner2);
+                    break;
+                case 2:
+                    root.setBackgroundResource(R.drawable.banner3);
+                    break;
+                case 3:
+                    root.setBackgroundResource(R.drawable.banner4);
+                    break;
             }
+
+            return root;
+
+//            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_banner, container, false);
+//            container.addView(view);
+//            return view;
         }
-        if (gameSection != null) {
-            gameSections.add(gameSection);
+
+        @Override
+        public void destroyItem(View container, int position, Object object) {
+            ((ViewPager) container).removeView((View) object);
         }
-        return gameSections;
     }
 }

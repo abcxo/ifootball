@@ -17,15 +17,13 @@ import okio.Buffer;
 public class DecryptedPayloadInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
-        KLog.e("DecryptedPayloadInterceptor intercept()");
-
         Request originalRequest = chain.request();
         Response originalResponse;
 
         if (originalRequest.body() != null) {
             RequestBody newBody = RequestBody.create(originalRequest.body().contentType(), requestBodyToString(originalRequest.body()));
 
-            KLog.e("RequestBody是 : " + requestBodyToString(originalRequest.body()));
+//            KLog.e("RequestBody是 : " + requestBodyToString(originalRequest.body()));
 
             // Request customization: add request headers
             Request.Builder requestBuilder = originalRequest.newBuilder()
@@ -38,7 +36,11 @@ public class DecryptedPayloadInterceptor implements Interceptor {
             originalResponse =  chain.proceed(originalRequest);
         }
 
-        Response newResponse = originalResponse.newBuilder().body(ResponseBody.create(originalResponse.body().contentType(), new Buffer().write(originalResponse.body().bytes()).readUtf8())).build();
+        String responseContent = new Buffer().write(originalResponse.body().bytes()).readUtf8();
+
+        KLog.e("请求返回的内容 : " + responseContent);
+
+        Response newResponse = originalResponse.newBuilder().body(ResponseBody.create(originalResponse.body().contentType(), responseContent)).build();
 
         return newResponse;
     }

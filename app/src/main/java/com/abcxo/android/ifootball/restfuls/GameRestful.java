@@ -4,7 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Game;
-import com.socks.library.KLog;
+import com.abcxo.android.ifootball.restfuls.interceptor.DecryptedPayloadInterceptor;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.List;
 
@@ -31,8 +32,12 @@ public class GameRestful {
 
 
     private GameRestful() {
+        OkHttpClient client = new OkHttpClient();
+        client.interceptors().add(new DecryptedPayloadInterceptor());
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.HOST)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         gameService = retrofit.create(GameService.class);
@@ -51,7 +56,6 @@ public class GameRestful {
 
     //获取直播列表
     public void gets(long uid, int pageIndex, @NonNull final OnGameRestfulList onList) {
-        KLog.e("获取直播列表");
         Call<List<Game>> call = gameService.gets(uid, pageIndex, Constants.PAGE_SIZE);
         call.enqueue(new OnRestful<List<Game>>() {
             @Override

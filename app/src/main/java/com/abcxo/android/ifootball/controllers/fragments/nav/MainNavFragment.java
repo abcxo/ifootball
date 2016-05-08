@@ -25,7 +25,7 @@ import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.activities.AddTeamActivity;
 import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
 import com.abcxo.android.ifootball.controllers.activities.NavActivity;
-import com.abcxo.android.ifootball.controllers.fragments.main.DiscoverUserFragment;
+import com.abcxo.android.ifootball.controllers.fragments.detail.DataDetailFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.NewsTweetFragment;
 import com.abcxo.android.ifootball.controllers.fragments.main.TeamTweetFragment;
@@ -37,7 +37,7 @@ import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.views.IconFontView;
 
-import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.DISCOVER;
+import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.DATA;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.HOME;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.NEWS;
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.TEAM;
@@ -106,7 +106,7 @@ public class MainNavFragment extends NavFragment {
 //                    fab.setScaleY(1 - positionOffset);
 //                    fab.setVisibility(View.VISIBLE);
 //                }
-                else if (position == VIDEO.getIndex() ||  position == NEWS.getIndex() || position == DISCOVER.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
+                else if (position == VIDEO.getIndex() ||  position == NEWS.getIndex() || position == DATA.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
 //                    fab.setScaleX(positionOffset);
 //                    fab.setScaleY(positionOffset);
 //                    int translationX = (int) ((-(width - lp.leftMargin - lp.rightMargin - fab.getWidth()) / 2f) * (1 - positionOffset));
@@ -119,7 +119,7 @@ public class MainNavFragment extends NavFragment {
             @Override
             public void onPageSelected(int position) {
                 currentIndex = position;
-                if (position == DISCOVER.getIndex()) {
+                if (position == DATA.getIndex()) {
                     LocationUtils.saveLocation();
                 }
             }
@@ -185,7 +185,7 @@ public class MainNavFragment extends NavFragment {
 //        LIVE(2),
         VIDEO(2),
         NEWS(3),
-        DISCOVER(4);
+        DATA(4);
         private int index;
 
         PageType(int index) {
@@ -232,8 +232,9 @@ public class MainNavFragment extends NavFragment {
                 return NewsTweetFragment.newInstance(bundle);
             } else if (position == VIDEO.getIndex()) {
                 return VideoTweetFragment.newInstance(bundle);
-            } else if (position == DISCOVER.getIndex()) {
-                return DiscoverUserFragment.newInstance(bundle);
+            } else if (position == DATA.getIndex()) {
+//                return DiscoverUserFragment.newInstance(bundle);
+                return DataDetailFragment.newInstance(bundle);
             }
             return null;
         }
@@ -308,7 +309,7 @@ public class MainNavFragment extends NavFragment {
                         ) {
                     startActivity(new Intent(getActivity(), AddTeamActivity.class));
                 } else if (currentIndex == NEWS.getIndex()) {
-                } else if (currentIndex == DISCOVER.getIndex()) {
+                } else if (currentIndex == DATA.getIndex()) {
 
                 }
             } else {

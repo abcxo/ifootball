@@ -1,37 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout android:id="@+id/drawer_layout"
-                                        xmlns:android="http://schemas.android.com/apk/res/android"
-                                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                                        xmlns:tools="http://schemas.android.com/tools"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:fitsSystemWindows="true"
-                                        tools:openDrawer="right">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
-        android:id="@+id/content"
+    <data>
+
+        <import type="com.abcxo.android.ifootball.models.User"/>
+
+        <import type="com.abcxo.android.ifootball.utils.NavUtils"/>
+
+        <variable
+            name="user"
+            type="User"/>
+    </data>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/activity_navigationview"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:background="@color/color_dark_blue"
-        app:menu="@menu/menu_drawer"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        tools:openDrawer="right">
 
-        <!--<com.abcxo.android.ifootball.views.IconFontView-->
-            <!--android:layout_marginRight="@dimen/padding"-->
-            <!--android:id="@+id/ifv_write_twitter"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="right"-->
-            <!--android:layout_marginTop="50dp"-->
-            <!--android:text="@string/iconfont.setting"-->
-            <!--android:textColor="@color/color_white"-->
-            <!--android:textSize="35sp"/>-->
-    </android.support.design.widget.NavigationView>
+        <FrameLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-</android.support.v4.widget.DrawerLayout>
+        <android.support.design.widget.NavigationView
+            android:id="@+id/activity_navigationview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="@color/color_dark_blue"
+            android:fitsSystemWindows="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.abcxo.android.ifootball.views.IconFontView
+                    android:id="@+id/ifv_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="@dimen/padding"
+                    android:onClick="toSetting"
+                    android:layout_marginRight="@dimen/padding"
+                    android:layout_marginTop="@dimen/padding"
+                    android:text="@string/iconfont.setting"
+                    android:textColor="@color/color_white"
+                    android:textSize="24sp"/>
+
+                <View
+                    style="@style/DividerSlide"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{user!=null?user.getHandler().onClickUser:NavUtils.toSign}">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/riv_avatar"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:scaleType="centerCrop"
+                        app:error="@{@drawable/ic_avatar}"
+                        app:imageUrl="@{user.avatar}"
+                        app:riv_border_width="1dp"
+                        app:riv_corner_radius="@dimen/icon_radius_mid"
+                        tools:src="@drawable/ic_avatar"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:layout_toRightOf="@+id/riv_avatar"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{user!=null? user.name:@string/nav_header_name }"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/text"
+                            tools:text="莹尔儿"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_min"
+                            android:text="@string/check_personal_info"
+                            android:textColor="@color/color_primary"
+                            android:textSize="@dimen/text"/>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    style="@style/DividerSlide"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:onClick="toNearby"
+                    android:layout_height="wrap_content">
+
+                    <com.abcxo.android.ifootball.views.IconFontView
+                        android:id="@+id/ifv_discovery"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:gravity="center"
+                        android:text="@string/iconfont.discovery"
+                        android:textColor="#A24578"
+                        android:textSize="30sp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:layout_toRightOf="@+id/ifv_discovery"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/text"
+                            tools:text="@string/people_nearby"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_min"
+                            android:text="@string/check_who_nearby"
+                            android:textColor="@color/color_slide_divider"
+                            android:textSize="@dimen/text"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
+        </android.support.design.widget.NavigationView>
+
+    </android.support.v4.widget.DrawerLayout>
+
+</layout>

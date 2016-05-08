@@ -179,5 +179,9 @@ public class Game implements Parcelable, Serializable {
                         }).show();
             }
         }
+
+        public void clickGameOnBanner(View view) {
+            NavUtils.toLive(view.getContext());
+        }
     }
 }

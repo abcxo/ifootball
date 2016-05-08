@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.abcxo.android.ifootball.models.User"/>
+
+        <import type="com.abcxo.android.ifootball.utils.NavUtils"/>
+
+        <variable
+            name="user"
+            type="User"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{user.getHandler().onClickUser}"
+        tools:background="@color/color_slide_divider">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/riv_avatar"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:scaleType="centerCrop"
+            app:error="@{@drawable/ic_avatar}"
+            app:imageUrl="@{user.avatar}"
+            app:riv_border_width="1dp"
+            app:riv_corner_radius="@dimen/icon_radius_mid"
+            tools:src="@drawable/ic_avatar"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@{user!=null? user.name:@string/nav_header_name }"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_toRightOf="@+id/riv_avatar"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text"
+            tools:text="222"/>
+
+    </RelativeLayout>
+</layout>

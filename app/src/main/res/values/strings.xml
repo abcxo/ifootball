@@ -231,6 +231,11 @@
 
     <string name="welcome_begin">开始</string>
 
+    <string name="check_personal_info">查看个人主页</string>
+    <string name="people_nearby">周边好友</string>
+    <string name="check_who_nearby">看看谁在附近...</string>
+
+    <string name="live">直播</string>
 
     <string name="about_title">足球狗 1.0</string>
 

@@ -13,6 +13,7 @@ import com.abcxo.android.ifootball.controllers.activities.ChatDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.ContactActivity;
 import com.abcxo.android.ifootball.controllers.activities.DataDetailActivity;
 import com.abcxo.android.ifootball.controllers.activities.ImageActivity;
+import com.abcxo.android.ifootball.controllers.activities.LiveActivity;
 import com.abcxo.android.ifootball.controllers.activities.MessageActivity;
 import com.abcxo.android.ifootball.controllers.activities.SearchActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
@@ -50,6 +51,11 @@ public class NavUtils {
         bundle.putString(Constants.KEY_URL, url);
         bundle.putString(Constants.KEY_TITLE, title);
         intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+
+    public static void toLive(Context context) {
+        Intent intent = new Intent(context, LiveActivity.class);
         context.startActivity(intent);
     }
 

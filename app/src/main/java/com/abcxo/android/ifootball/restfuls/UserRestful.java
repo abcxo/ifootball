@@ -9,8 +9,10 @@ import android.text.TextUtils;
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.User;
+import com.abcxo.android.ifootball.restfuls.interceptor.DecryptedPayloadInterceptor;
 import com.abcxo.android.ifootball.utils.FileUtils;
 import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.RequestBody;
 import com.umeng.message.UmengRegistrar;
 
@@ -44,67 +46,71 @@ public class UserRestful {
 
     public interface UserService {
 
-        @GET(Constants.PATH+"/user/password")
+        @GET(Constants.PATH + "/user/password")
         Call<User> password(@Query("email") String email);
 
-        @GET(Constants.PATH+"/user/login")
+        @GET(Constants.PATH + "/user/login")
         Call<User> login(@Query("email") String email, @Query("password") String password, @Query("deviceToken") String deviceToken);
 
-        @GET(Constants.PATH+"/user/logout")
+        @GET(Constants.PATH + "/user/logout")
         Call<Object> logout(@Query("uid") long uid);
 
-        @POST(Constants.PATH+"/user/register")
+        @POST(Constants.PATH + "/user/register")
         Call<User> register(@Query("email") String email, @Query("password") String password, @Query("deviceToken") String deviceToken);
 
-        @POST(Constants.PATH+"/user/loginsso")
+        @POST(Constants.PATH + "/user/loginsso")
         Call<User> loginsso(@Query("email") String email, @Query("password") String password,
                             @Query("name") String name, @Query("avatar") String avatar,
                             @Query("gender") User.GenderType gender,
                             @Query("deviceToken") String deviceToken);
 
 
-        @PUT(Constants.PATH+"/user")
+        @PUT(Constants.PATH + "/user")
         Call<User> edit(@Body User user);
 
         @Multipart
-        @POST(Constants.PATH+"/user/avatar")
+        @POST(Constants.PATH + "/user/avatar")
         Call<User> avatar(@Query("uid") long uid, @Part("image\"; filename=\"avatar.jpg\" ") RequestBody image);
 
         @Multipart
-        @POST(Constants.PATH+"/user/cover")
+        @POST(Constants.PATH + "/user/cover")
         Call<User> cover(@Query("uid") long uid, @Part("image\"; filename=\"cover.jpg\" ") RequestBody image);
 
-        @GET(Constants.PATH+"/user")
+        @GET(Constants.PATH + "/user")
         Call<User> get(@Query("uid") long uid, @Query("uid2") long uid2);
 
-        @GET(Constants.PATH+"/user/name")
+        @GET(Constants.PATH + "/user/name")
         Call<User> get(@Query("uid") long uid, @Query("name") String name);
 
-        @GET(Constants.PATH+"/user/list")
+        @GET(Constants.PATH + "/user/list")
         Call<List<User>> gets(@Query("getsType") GetsType type,
                               @Query("uid") long uid,
                               @Query("keyword") String keyword,
                               @Query("pageIndex") int pageIndex,
                               @Query("pageSize") int pageSize);
 
-        @GET(Constants.PATH+"/user/team/list")
+        @GET(Constants.PATH + "/user/team/list")
         Call<List<User>> getTeams(@Query("uid") long uid,
                                   @Query("groupName") String name);
 
 
-        @POST(Constants.PATH+"/user/team/focus")
+        @POST(Constants.PATH + "/user/team/focus")
         Call<Object> focusTeams(@Query("uid") long uid, @Query("uid2s") String uid2s);
 
 
-        @POST(Constants.PATH+"/user/focus")
+        @POST(Constants.PATH + "/user/focus")
         Call<Object> focus(@Query("uid") long uid, @Query("uid2") long uid2, @Query("focus") boolean focus);
 
 
     }
 
     private UserRestful() {
+//        OkHttpClient client = new OkHttpClient();
+//        client.interceptors().add(new DecryptedPayloadInterceptor());
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.HOST)
+//                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         userService = retrofit.create(UserService.class);
@@ -206,7 +212,7 @@ public class UserRestful {
 
     //注册
     public void loginsso(String email, String password, String name, String avatar, User.GenderType gender, @NonNull final OnUserRestfulGet onGet) {
-        Call<User> call = userService.loginsso(email, password, name, avatar,gender, UmengRegistrar.getRegistrationId(Application.INSTANCE));
+        Call<User> call = userService.loginsso(email, password, name, avatar, gender, UmengRegistrar.getRegistrationId(Application.INSTANCE));
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {
@@ -225,7 +231,6 @@ public class UserRestful {
             }
         });
     }
-
 
 
     //注册

@@ -35,7 +35,6 @@ import static com.abcxo.android.ifootball.models.User.UserMainType.DISCOVER;
 
 public class UserFragment extends Fragment {
 
-
     protected List<User> list = new ArrayList<>();
 
     protected SuperRecyclerView recyclerView;

@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Game;
-import com.abcxo.android.ifootball.restfuls.interceptor.DecryptedPayloadInterceptor;
-import com.squareup.okhttp.OkHttpClient;
 
 import java.util.List;
 
@@ -32,12 +30,12 @@ public class GameRestful {
 
 
     private GameRestful() {
-        OkHttpClient client = new OkHttpClient();
-        client.interceptors().add(new DecryptedPayloadInterceptor());
+//        OkHttpClient client = new OkHttpClient();
+//        client.interceptors().add(new DecryptedPayloadInterceptor());
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.HOST)
-                .client(client)
+//                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         gameService = retrofit.create(GameService.class);

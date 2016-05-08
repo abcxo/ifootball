@@ -16,20 +16,24 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.adapters.slidebar.SlidebarAdapter;
+import com.abcxo.android.ifootball.controllers.adapters.slidebar.SlidebarHeader;
 import com.abcxo.android.ifootball.controllers.fragments.nav.ContactNavFragment;
 import com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment;
 import com.abcxo.android.ifootball.controllers.fragments.nav.MessageNavFragment;
 import com.abcxo.android.ifootball.controllers.fragments.nav.NavFragment;
-import com.abcxo.android.ifootball.controllers.fragments.nav.SearchNavFragment;
-import com.abcxo.android.ifootball.databinding.NavHeaderMainBinding;
+import com.abcxo.android.ifootball.databinding.ActivityNavBinding;
 import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.models.User;
+import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.FileUtils;
 import com.abcxo.android.ifootball.utils.LocationUtils;
@@ -43,6 +47,7 @@ import com.tencent.smtt.sdk.TbsDownloader;
 import com.tencent.smtt.sdk.TbsListener;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 
 import cn.sharesdk.framework.ShareSDK;
@@ -63,16 +68,26 @@ public class NavActivity extends AppCompatActivity
 
     private Fragment currentFg;
 
-    private NavHeaderMainBinding navHeaderMainBinding;
+    private ActivityNavBinding mActivityNavBinding;
 
     private boolean mIsMainFragment;
 
     private NavigationView navigationView;
 
+    private RecyclerView recyclerview;
+
+    private SlidebarAdapter mAdapter;
+
+    private List<User> mFriendsList, mFocusList, mFanList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nav);
+
+        mActivityNavBinding = DataBindingUtil.setContentView(this, R.layout.activity_nav);
+        User user = UserRestful.INSTANCE.me();
+        mActivityNavBinding.setUser(user);
+//        setContentView(R.layout.activity_nav);
         FragmentManager fragmentManager = getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
         if (fragments != null) {
@@ -81,22 +96,29 @@ public class NavActivity extends AppCompatActivity
             }
         }
 
+        findViewById(R.id.ifv_setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toSetting(v);
+            }
+        });
+
+        getFriendData(UserRestful.GetsType.FRIEND);
+
+        recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
+
         init();
         navigationView = (NavigationView) findViewById(R.id.activity_navigationview);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        if (getIntent().getExtras() == null) {
-        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
-//        } else {
-//            onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_message));
-//        }
+        toMain();
 
         registerBroadcastReceiver();
         //设置Nav页面
-        View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        navHeaderMainBinding = DataBindingUtil.bind(navHeaderView);
-        User user = UserRestful.INSTANCE.me();
-        navHeaderMainBinding.setUser(user);
+//        View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+//        navHeaderMainBinding = DataBindingUtil.bind(navHeaderView);
+//        User user = UserRestful.INSTANCE.me();
+//        navHeaderMainBinding.setUser(user);
 
         if (!Boolean.valueOf(FileUtils.getPreference(Constants.PREFERENCE_FIRST))) {
             startActivity(new Intent(this, WelcomeActivity.class));
@@ -156,7 +178,7 @@ public class NavActivity extends AppCompatActivity
             @Override
             public void onReceive(Context context, Intent intent) {
                 User user = UserRestful.INSTANCE.me();
-                navHeaderMainBinding.setUser(user);
+                mActivityNavBinding.setUser(user);
                 LocationUtils.saveLocation();
                 reset();
             }
@@ -167,7 +189,7 @@ public class NavActivity extends AppCompatActivity
             @Override
             public void onReceive(Context context, Intent intent) {
                 User user = UserRestful.INSTANCE.me();
-                navHeaderMainBinding.setUser(user);
+                mActivityNavBinding.setUser(user);
             }
         }, Constants.ACTION_EDIT);
 
@@ -175,7 +197,7 @@ public class NavActivity extends AppCompatActivity
             @Override
             public void onReceive(Context context, Intent intent) {
                 User user = UserRestful.INSTANCE.me();
-                navHeaderMainBinding.setUser(user);
+                mActivityNavBinding.setUser(user);
                 reset();
             }
         }, Constants.ACTION_LOGOUT);
@@ -195,7 +217,7 @@ public class NavActivity extends AppCompatActivity
                     Intent i = new Intent(context, NavActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
-                    onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_message));
+//                    onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_message));
                 }
 
 
@@ -225,7 +247,8 @@ public class NavActivity extends AppCompatActivity
             searchFg = null;
         }
 
-        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
+        toMain();
+//        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
     }
 
     @Override
@@ -234,7 +257,7 @@ public class NavActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
         } else if (!mIsMainFragment) {
-            onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
+//            onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
         } else {
             super.onBackPressed();
         }
@@ -318,10 +341,11 @@ public class NavActivity extends AppCompatActivity
 
     public void toSearch() {
         mIsMainFragment = false;
-        if (searchFg == null) {
-            searchFg = SearchNavFragment.newInstance();
-        }
-        toNav(searchFg);
+//        if (searchFg == null) {
+//            searchFg = SearchNavFragment.newInstance();
+//        }
+//        toNav(searchFg);
+        startActivity(new Intent(this, SearchActivity.class));
     }
 
     private void toNav(Fragment fg) {
@@ -339,14 +363,74 @@ public class NavActivity extends AppCompatActivity
         }
         transaction.commitAllowingStateLoss();
         currentFg = fg;
+    }
 
+    public void toSetting(View view) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.END);
+        if (UserRestful.INSTANCE.isLogin()) {
+            toAppend(SettingActivity.class);
+        } else {
+            NavUtils.toSign(NavActivity.this);
+        }
+//        toContact();
+    }
 
+    public void toNearby(View v) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.END);
+        toAppend(NearbyActivity.class);
     }
 
     private void toAppend(Class<? extends Activity> to) {
         Intent intent = new Intent();
         intent.setClass(this, to);
         startActivity(intent);
+    }
 
+    private void getFriendData(final UserRestful.GetsType type) {
+        UserRestful.INSTANCE.gets(UserRestful.GetsType.FRIEND, UserRestful.INSTANCE.meId(), "", 0, new UserRestful.OnUserRestfulList() {
+            @Override
+            public void onSuccess(List<User> users) {
+                if (type == UserRestful.GetsType.FRIEND) {
+                    mFriendsList = users;
+                } else if (type == UserRestful.GetsType.FOCUS) {
+                    mFocusList = users;
+                } else if (type == UserRestful.GetsType.FANS) {
+                    mFanList = users;
+                }
+            }
+
+            @Override
+            public void onError(RestfulError error) {
+                ViewUtils.toast(error.msg);
+            }
+
+            @Override
+            public void onFinish() {
+                if (type == UserRestful.GetsType.FRIEND) {
+                    getFriendData(UserRestful.GetsType.FOCUS);
+                } else if (type == UserRestful.GetsType.FOCUS) {
+                    getFriendData(UserRestful.GetsType.FANS);
+                } else if (type == UserRestful.GetsType.FANS) {
+                    SlidebarHeader friend = new SlidebarHeader(
+                            getApplicationContext().getResources().getString(R.string.menu_item_contact), mFriendsList);
+
+                    SlidebarHeader focus = new SlidebarHeader(
+                            getApplicationContext().getResources().getString(R.string.focus_text), mFocusList);
+
+                    SlidebarHeader fans = new SlidebarHeader(
+                            getApplicationContext().getResources().getString(R.string.fans_text), mFanList);
+
+                    List<SlidebarHeader> recipes = Arrays.asList(friend, focus, fans);
+
+                    mAdapter = new SlidebarAdapter(getBaseContext(), recipes);
+
+                    recyclerview.setAdapter(mAdapter);
+
+                    recyclerview.setLayoutManager(new LinearLayoutManager(NavActivity.this));
+                }
+            }
+        });
     }
 }

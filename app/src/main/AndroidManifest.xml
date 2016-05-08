@@ -156,6 +156,14 @@
             android:name=".controllers.activities.SearchActivity"
             android:label="@string/activity_search"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controllers.activities.NearbyActivity"
+            android:label="@string/people_nearby"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controllers.activities.LiveActivity"
+            android:label="@string/live"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".controllers.activities.MessageActivity"

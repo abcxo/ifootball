@@ -19,7 +19,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_tweet_bg"
+        android:background="?attr/selectableItemBackground"
         android:onClick="@{game!=null?game.getHandler().onClickGame:null}"
         android:paddingBottom="@dimen/padding_small"
         android:paddingTop="@dimen/padding_small"
@@ -28,7 +28,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_centerVertical="true"
             android:singleLine="true"
             android:text="@{game.title}"

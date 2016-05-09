@@ -35,6 +35,12 @@
         <item name="android:layout_height">1dp</item>
     </style>
 
+    <style name="Big_Divider">
+        <item name="android:background">@drawable/ic_divider</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">12dp</item>
+    </style>
+
     <style name="DividerSlide">
         <item name="android:background">@color/color_slide_divider</item>
         <item name="android:layout_width">match_parent</item>

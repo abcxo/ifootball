@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="com.abcxo.android.ifootball.controllers.fragments.main.LiveFragment.GameSection" />
+        <import type="com.abcxo.android.ifootball.controllers.fragments.main.LiveFragment.GameSection"/>
 
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
 
         <variable
             name="gameSection"
-            type="GameSection" />
+            type="GameSection"/>
 
         <variable
             name="showIndex"
-            type="Boolean" />
+            type="Boolean"/>
     </data>
 
     <LinearLayout
@@ -24,29 +24,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="@dimen/padding_tiny"
-        android:paddingLeft="@dimen/padding"
-        android:paddingRight="@dimen/padding"
         android:paddingTop="@{showIndex?@dimen/padding_empty:@dimen/padding_tiny}">
+
+        <View
+            style="@style/Big_Divider"
+            android:visibility="@{showIndex?View.VISIBLE:View.GONE}"/>
 
         <TextView
             android:id="@+id/index"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
             android:gravity="center"
             android:singleLine="true"
             android:text="@{gameSection.title}"
-            android:textColor="@color/color_primary"
+            android:textColor="@color/color_dark"
             android:textSize="@dimen/text_title"
             android:visibility="@{showIndex?View.VISIBLE:View.GONE}"
-            tools:text="2015年1月30日" />
+            tools:text="2015年1月30日"/>
 
         <View
-            style="@style/Divider"
-            android:visibility="@{!showIndex?View.VISIBLE:View.GONE}"></View>
+            style="@style/Divider"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding_mid"
             android:orientation="horizontal">
 
             <include
@@ -54,10 +59,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                bind:game="@{gameSection.game}" />
+                bind:game="@{gameSection.game}"/>
 
         </LinearLayout>
-
 
     </LinearLayout>
 </layout>

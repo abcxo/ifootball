@@ -19,14 +19,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/selector_tweet_bg"
+        android:background="?attr/selectableItemBackground"
         android:onClick="@{game!=null?game.getHandler().onClickGame:null}"
         android:paddingLeft="@dimen/padding_tiny"
         android:paddingRight="@dimen/padding_tiny"
         android:visibility="@{game!=null?View.VISIBLE:View.INVISIBLE}">
 
         <com.abcxo.android.ifootball.views.SquareRelativeLayout
-            android:background="@drawable/bg_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

@@ -44,27 +44,30 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/ifvMessage">
 
-                        <ImageView
-                            android:id="@+id/ivSearch"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            android:src="@android:drawable/ic_menu_search"/>
+                        <com.abcxo.android.ifootball.views.IconFontView
+                            android:id="@+id/ifvSearch"
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/color_white"
+                            android:layout_height="wrap_content"
+                            android:text="@string/iconfont.search"
+                            android:textSize="18sp"/>
 
                         <TextView
+                            android:id="@+id/tvSearch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tvSearch"
-                            android:layout_marginLeft="@dimen/padding_half"
-                            android:layout_toRightOf="@+id/ivSearch"
-                            android:text="@string/activity_search"
+                            android:layout_marginLeft="@dimen/padding_small"
+                            android:layout_toRightOf="@+id/ifvSearch"
+                            android:textColor="@color/color_white"
+                            android:hint="@string/activity_search"
                             android:textSize="@dimen/text_mid"/>
 
                         <View
                             android:layout_width="match_parent"
-                            android:background="@color/color_gray"
+                            android:layout_height="1dp"
                             android:layout_below="@+id/tvSearch"
                             android:layout_marginTop="6dp"
-                            android:layout_height="1dp"/>
+                            android:background="#6077AA"/>
 
                     </RelativeLayout>
 
@@ -76,6 +79,7 @@
                         android:layout_marginRight="@dimen/padding_small"
                         android:layout_toLeftOf="@+id/ifvPerson"
                         android:gravity="center"
+                        android:textColor="@color/color_white"
                         android:padding="@dimen/padding_small"
                         android:text="@string/iconfont.notification"
                         android:textSize="18sp"/>
@@ -85,6 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:textColor="@color/color_white"
                         android:layout_centerVertical="true"
                         android:padding="@dimen/padding_small"
                         android:text="@string/iconfont.person"

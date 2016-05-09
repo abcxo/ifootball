@@ -25,7 +25,7 @@
     <LinearLayout
         style="@style/Item"
         android:gravity="center_vertical"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/selector_tweet_bg"
         android:onClick="@{isSelect?null:user.getHandler().onClickUser}"
         android:orientation="horizontal">
 

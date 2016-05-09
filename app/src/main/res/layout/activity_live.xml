@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".controllers.activities.NearbyActivity">
+    tools:context=".controllers.activities.LiveActivity">
 
     <FrameLayout
         android:id="@+id/content"

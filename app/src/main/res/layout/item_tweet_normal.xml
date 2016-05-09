@@ -18,7 +18,7 @@
 
     <RelativeLayout
         style="@style/Item"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/selector_tweet_bg"
         android:onClick="@{tweet.getHandler().onClickTweet}">
 
         <com.makeramen.roundedimageview.RoundedImageView

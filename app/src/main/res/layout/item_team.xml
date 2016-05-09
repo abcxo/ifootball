@@ -22,7 +22,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="@dimen/padding_min">
 
         <com.abcxo.android.ifootball.views.SquareRelativeLayout
@@ -74,7 +74,6 @@
             android:layout_below="@id/avatar_layout"
             android:layout_centerHorizontal="true"
             android:text="@{user.name}" />
-
 
     </RelativeLayout>
 

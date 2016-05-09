@@ -68,6 +68,7 @@
         </com.abcxo.android.ifootball.views.SquareRelativeLayout>
 
         <TextView
+            android:layout_marginTop="@dimen/padding_min"
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

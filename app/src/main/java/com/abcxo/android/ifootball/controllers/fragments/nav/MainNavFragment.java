@@ -45,6 +45,7 @@ import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragm
 
 public class MainNavFragment extends NavFragment {
 
+    private FragmentMainNavBinding mDataBinding;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FloatingActionButton fab;
@@ -70,8 +71,8 @@ public class MainNavFragment extends NavFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        FragmentMainNavBinding binding = DataBindingUtil.bind(view);
-        binding.setHandler(new BindingHandler());
+        mDataBinding = DataBindingUtil.bind(view);
+        mDataBinding.setHandler(new BindingHandler());
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -130,21 +131,22 @@ public class MainNavFragment extends NavFragment {
             }
         });
 
-        view.findViewById(R.id.searchview).setOnClickListener(new View.OnClickListener() {
+
+        mDataBinding.rltSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((NavActivity) getActivity()).toSearch();
             }
         });
 
-        view.findViewById(R.id.ifv_message).setOnClickListener(new View.OnClickListener() {
+        mDataBinding.ifvMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((NavActivity) getActivity()).toMessage();
             }
         });
 
-        view.findViewById(R.id.ifv_person).setOnClickListener(new View.OnClickListener() {
+        mDataBinding.ifvPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // open right drawer

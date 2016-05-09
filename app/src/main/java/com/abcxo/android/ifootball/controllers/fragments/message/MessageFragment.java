@@ -43,7 +43,6 @@ import static com.abcxo.android.ifootball.models.Message.MessageMainType.STAR;
 
 public class MessageFragment extends Fragment {
 
-
     protected List<Message> list = new ArrayList<>();
     protected SwipeRefreshLayout.OnRefreshListener onRefreshListener;
 

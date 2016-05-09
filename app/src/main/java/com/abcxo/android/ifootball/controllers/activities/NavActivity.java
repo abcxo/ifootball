@@ -28,7 +28,6 @@ import com.abcxo.android.ifootball.controllers.adapters.slidebar.SlidebarAdapter
 import com.abcxo.android.ifootball.controllers.adapters.slidebar.SlidebarHeader;
 import com.abcxo.android.ifootball.controllers.fragments.nav.ContactNavFragment;
 import com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment;
-import com.abcxo.android.ifootball.controllers.fragments.nav.MessageNavFragment;
 import com.abcxo.android.ifootball.controllers.fragments.nav.NavFragment;
 import com.abcxo.android.ifootball.databinding.ActivityNavBinding;
 import com.abcxo.android.ifootball.models.Message;
@@ -331,11 +330,11 @@ public class NavActivity extends AppCompatActivity
 
     public void toMessage() {
         mIsMainFragment = false;
-        if (messageFg == null) {
-            messageFg = MessageNavFragment.newInstance();
-        }
-        toNav(messageFg);
-
+//        if (messageFg == null) {
+//            messageFg = MessageNavFragment.newInstance();
+//        }
+//        toNav(messageFg);
+        startActivity(new Intent(this, MessageActivity.class));
     }
 
 

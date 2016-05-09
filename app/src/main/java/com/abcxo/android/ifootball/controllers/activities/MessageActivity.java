@@ -14,7 +14,7 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_message);
         Bundle bundle = new Bundle();
         bundle.putBoolean(Constants.KEY_IS_SELECT, true);
         getSupportFragmentManager().beginTransaction().replace(R.id.content, MessageNavFragment.newInstance(bundle)).commit();

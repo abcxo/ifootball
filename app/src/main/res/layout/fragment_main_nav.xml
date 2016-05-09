@@ -37,35 +37,56 @@
                     android:layout_height="match_parent"
                     android:paddingRight="@dimen/padding">
 
-                    <android.support.v7.widget.SearchView
-                        android:id="@+id/searchview"
+                    <RelativeLayout
+                        android:id="@+id/rltSearch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:iconifiedByDefault="false"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/padding"
-                        android:layout_toLeftOf="@+id/ifv_message"
-                        android:queryHint="@string/menu_item_search"/>
+                        android:layout_toLeftOf="@+id/ifvMessage">
+
+                        <ImageView
+                            android:id="@+id/ivSearch"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@android:drawable/ic_menu_search"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvSearch"
+                            android:layout_marginLeft="@dimen/padding_half"
+                            android:layout_toRightOf="@+id/ivSearch"
+                            android:text="@string/activity_search"
+                            android:textSize="@dimen/text_mid"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:background="@color/color_gray"
+                            android:layout_below="@+id/tvSearch"
+                            android:layout_marginTop="6dp"
+                            android:layout_height="1dp"/>
+
+                    </RelativeLayout>
 
                     <com.abcxo.android.ifootball.views.IconFontView
-                        android:id="@+id/ifv_message"
+                        android:id="@+id/ifvMessage"
                         android:layout_width="wrap_content"
-                        android:padding="@dimen/padding_small"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/padding_small"
-                        android:layout_toLeftOf="@+id/ifv_person"
+                        android:layout_toLeftOf="@+id/ifvPerson"
+                        android:gravity="center"
+                        android:padding="@dimen/padding_small"
                         android:text="@string/iconfont.notification"
                         android:textSize="18sp"/>
 
                     <com.abcxo.android.ifootball.views.IconFontView
-                        android:id="@+id/ifv_person"
+                        android:id="@+id/ifvPerson"
                         android:layout_width="wrap_content"
-                        android:padding="@dimen/padding_small"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:padding="@dimen/padding_small"
                         android:text="@string/iconfont.person"
                         android:textSize="18sp"/>
 
@@ -85,7 +106,7 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:tabIndicatorColor="@color/color_icon_light"
+                app:tabIndicatorColor="@color/color_transparent"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/color_primary"
                 app:tabTextColor="@color/color_text_empty"/>
@@ -110,13 +131,13 @@
             app:backgroundTint="@color/color_primary"/>
 
         <com.abcxo.android.ifootball.views.IconFontView
-            android:text="@string/iconfont.write.twitter"
             android:id="@+id/ifv_write_twitter"
-            android:textSize="35sp"
-            android:textColor="@color/color_white"
             android:layout_width="wrap_content"
-            android:visibility="invisible"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/iconfont.write.twitter"
+            android:textColor="@color/color_white"
+            android:textSize="35sp"
+            android:visibility="invisible"/>
 
 
     </android.support.design.widget.CoordinatorLayout>

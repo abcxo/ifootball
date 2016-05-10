@@ -69,8 +69,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/padding_min"
-            android:paddingLeft="@dimen/padding_small"
-            android:paddingRight="@dimen/padding_small"
+            android:paddingLeft="@dimen/padding_mid"
             android:paddingTop="@dimen/padding_min">
 
             <EditText
@@ -86,7 +85,7 @@
 
             <com.abcxo.android.ifootball.views.IconFontView
                 android:id="@+id/send"
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:onClick="@{handler.onClickSend}"

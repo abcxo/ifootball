@@ -47,10 +47,11 @@
                         <com.abcxo.android.ifootball.views.IconFontView
                             android:id="@+id/ifvSearch"
                             android:layout_width="wrap_content"
-                            android:textColor="@color/color_white"
-                            android:layout_marginTop="@dimen/padding_min"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/padding_tiny"
+                            android:layout_marginTop="@dimen/padding_min"
                             android:text="@string/iconfont.search"
+                            android:textColor="@color/color_white"
                             android:textSize="18sp"/>
 
                         <TextView
@@ -59,10 +60,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/padding_small"
                             android:layout_toRightOf="@+id/ifvSearch"
-                            android:layout_alignTop="@+id/ifvSearch"
-                            android:textColor="@color/color_white"
                             android:hint="@string/activity_search"
-                            android:textSize="@dimen/text_mid"/>
+                            android:textColor="@color/color_white"
+                            android:textSize="@dimen/text_big"/>
 
                         <View
                             android:layout_width="match_parent"
@@ -81,9 +81,9 @@
                         android:layout_marginRight="@dimen/padding_small"
                         android:layout_toLeftOf="@+id/ifvPerson"
                         android:gravity="center"
-                        android:textColor="@color/color_white"
                         android:padding="@dimen/padding_small"
                         android:text="@string/iconfont.notification"
+                        android:textColor="@color/color_white"
                         android:textSize="18sp"/>
 
                     <com.abcxo.android.ifootball.views.IconFontView
@@ -91,10 +91,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:textColor="@color/color_white"
                         android:layout_centerVertical="true"
                         android:padding="@dimen/padding_small"
                         android:text="@string/iconfont.person"
+                        android:textColor="@color/color_white"
                         android:textSize="18sp"/>
 
                 </RelativeLayout>
@@ -113,8 +113,8 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:tabIndicatorColor="@color/color_transparent"
                 android:background="@color/color_white"
+                app:tabIndicatorColor="@color/color_transparent"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/color_primary"
                 app:tabTextColor="@color/color_text_empty"/>

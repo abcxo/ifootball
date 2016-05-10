@@ -202,7 +202,6 @@
                 app:imageUrl="@{user.avatar}"
                 app:riv_border_color="@color/color_white"
                 app:riv_border_width="2dp"
-                app:riv_corner_radius="@dimen/icon_radius_max"
                 tools:src="@drawable/bg_sign_complete" />
 
             <com.makeramen.roundedimageview.RoundedImageView
@@ -250,9 +249,10 @@
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:tabIndicatorColor="@color/color_primary"
+                    android:background="@color/color_white"
+                    app:tabIndicatorColor="@color/color_transparent"
                     app:tabSelectedTextColor="@color/color_primary"
-                    app:tabTextColor="@color/color_primary_light" />
+                    app:tabTextColor="@color/color_text_empty" />
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewpager"

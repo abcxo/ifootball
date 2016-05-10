@@ -4,10 +4,10 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.view.View;
 import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.views.IconFontView;
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ParentViewHolder;
 
 public class HeaderViewHolder extends ParentViewHolder {
@@ -15,18 +15,18 @@ public class HeaderViewHolder extends ParentViewHolder {
     private static final float INITIAL_POSITION = 0.0f;
     private static final float ROTATED_POSITION = 180f;
 
-    private final ImageView iv_arrow;
-    private TextView tv_header;
+    private final IconFontView ifvArrow;
+    private TextView tvHeader;
 
     public HeaderViewHolder(View itemView) {
         super(itemView);
-        tv_header = (TextView) itemView.findViewById(R.id.tv_header);
+        tvHeader = (TextView) itemView.findViewById(R.id.tvHeader);
 
-        iv_arrow = (ImageView) itemView.findViewById(R.id.iv_arrow);
+        ifvArrow = (IconFontView) itemView.findViewById(R.id.ifvArrow);
     }
 
     public void bind(SlidebarHeader headerModel) {
-        tv_header.setText(headerModel.getmTitle());
+        tvHeader.setText(headerModel.getmTitle());
     }
 
     @SuppressLint("NewApi")
@@ -35,9 +35,9 @@ public class HeaderViewHolder extends ParentViewHolder {
         super.setExpanded(expanded);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             if (expanded) {
-                iv_arrow.setRotation(ROTATED_POSITION);
+                ifvArrow.setRotation(ROTATED_POSITION);
             } else {
-                iv_arrow.setRotation(INITIAL_POSITION);
+                ifvArrow.setRotation(INITIAL_POSITION);
             }
         }
     }
@@ -61,7 +61,7 @@ public class HeaderViewHolder extends ParentViewHolder {
 
             rotateAnimation.setDuration(200);
             rotateAnimation.setFillAfter(true);
-            iv_arrow.startAnimation(rotateAnimation);
+            ifvArrow.startAnimation(rotateAnimation);
         }
     }
 }

@@ -28,7 +28,6 @@ import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.DividerItemDecoration;
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.socks.library.KLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +87,7 @@ public class TweetFragment extends Fragment {
         adapter = new TweetAdapter(mTweetList);
         recyclerView.setAdapter(adapter);
 
-        recyclerView.setRefreshingColorResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
+        recyclerView.setRefreshingColorResources(R.color.color_primary, R.color.color_primary, R.color.color_primary, R.color.color_primary);
         onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -246,6 +246,7 @@ public class NavActivity extends AppCompatActivity
             searchFg = null;
         }
 
+        getFriendData(UserRestful.GetsType.FRIEND);
         toMain();
 //        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
     }
@@ -392,10 +393,19 @@ public class NavActivity extends AppCompatActivity
             @Override
             public void onSuccess(List<User> users) {
                 if (type == UserRestful.GetsType.FRIEND) {
+                    if(mFriendsList != null) {
+                        mFriendsList.clear();
+                    }
                     mFriendsList = users;
                 } else if (type == UserRestful.GetsType.FOCUS) {
+                    if(mFocusList != null) {
+                        mFocusList.clear();
+                    }
                     mFocusList = users;
                 } else if (type == UserRestful.GetsType.FANS) {
+                    if(mFanList != null) {
+                        mFanList.clear();
+                    }
                     mFanList = users;
                 }
             }

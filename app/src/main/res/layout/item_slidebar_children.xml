@@ -29,7 +29,6 @@
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{user.avatar}"
             app:riv_border_width="1dp"
-            app:riv_corner_radius="@dimen/icon_radius_mid"
             tools:src="@drawable/ic_avatar"/>
 
         <TextView

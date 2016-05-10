@@ -66,7 +66,6 @@
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{message.icon}"
-            app:riv_corner_radius="@dimen/icon_radius"
             tools:src="@drawable/bg_sign_complete" />
 
     </RelativeLayout>

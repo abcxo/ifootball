@@ -21,16 +21,44 @@
             android:paddingRight="@dimen/padding"
             app:popupTheme="@style/AppTheme.PopupLight">
 
-            <EditText
-                android:id="@+id/input"
+            <RelativeLayout
+                android:id="@+id/rltSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/search_input_hint"
-                android:imeOptions="actionSearch"
-                android:singleLine="true"
-                android:textColor="@color/color_text_highlight"
-                android:textSize="@dimen/text_input"/>
+                android:layout_marginTop="15dp">
+
+                <com.abcxo.android.ifootball.views.IconFontView
+                    android:id="@+id/ifvSearch"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/color_white"
+                    android:layout_marginTop="@dimen/padding_half"
+                    android:layout_marginLeft="@dimen/padding_min"
+                    android:layout_height="wrap_content"
+                    android:text="@string/iconfont.search"
+                    android:textSize="14sp"/>
+
+                <EditText
+                    android:id="@+id/input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/activity_search"
+                    android:imeOptions="actionSearch"
+                    android:layout_toRightOf="@+id/ifvSearch"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:singleLine="true"
+                    android:textColor="@color/color_text_highlight"
+                    android:textSize="@dimen/text_big"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/ifvSearch"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:background="#6077AA"/>
+
+            </RelativeLayout>
+
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout

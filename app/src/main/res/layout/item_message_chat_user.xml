@@ -23,7 +23,6 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:scaleType="centerCrop"
-            app:riv_corner_radius="@dimen/icon_radius"
             app:imageUrl="@{message.icon}"
             app:error="@{@drawable/ic_avatar}"
             tools:src="@drawable/bg_sign_complete" />

@@ -30,7 +30,6 @@ public class DataDetailFragment extends Fragment {
         return fragment;
     }
 
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
 

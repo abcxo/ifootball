@@ -88,7 +88,7 @@
         <!--<item>直播</item>-->
         <item>视频</item>
         <item>新闻</item>
-        <item>发现</item>
+        <item>数据</item>
     </string-array>
 
     <string-array name="contact_page_list">
@@ -302,5 +302,8 @@
     <string name="iconfont.add.team">&#xe613;</string>
     <string name="iconfont.search">&#xe616;</string>
 
+    <string name="iconfont.arrow.right">&#xe615;</string>
+    <string name="iconfont.arrow.up">&#xe611;</string>
+    <string name="iconfont.arrow.down">&#xe612;</string>
 
 </resources>

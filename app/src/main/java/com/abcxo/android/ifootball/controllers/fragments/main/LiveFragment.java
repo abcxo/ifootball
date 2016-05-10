@@ -119,7 +119,7 @@ public class LiveFragment extends Fragment {
         adapter = new LiveAdapter(list);
         recyclerView.setAdapter(adapter);
 
-        recyclerView.setRefreshingColorResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
+        recyclerView.setRefreshingColorResources(R.color.color_primary, R.color.color_primary, R.color.color_primary, R.color.color_primary);
         onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

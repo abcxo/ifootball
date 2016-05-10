@@ -66,7 +66,7 @@ public class DataFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         webView = (WebView) view.findViewById(R.id.webview);
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshlayout);
-        refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
+        refreshLayout.setColorSchemeResources(R.color.color_primary);
 
         onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override

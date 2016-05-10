@@ -119,7 +119,7 @@ public class TweetDetailFragment extends DetailFragment {
         binding.setTweet(tweet);
         webView = (WebView) view.findViewById(R.id.webview);
         final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshlayout);
-        refreshLayout.setColorSchemeResources(R.color.color_refresh_1, R.color.color_refresh_2, R.color.color_refresh_3, R.color.color_refresh_4);
+        refreshLayout.setColorSchemeResources(R.color.color_primary);
 
         final SwipeRefreshLayout.OnRefreshListener listener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override

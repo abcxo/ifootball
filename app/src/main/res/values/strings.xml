@@ -210,7 +210,7 @@
     <string name="gender_female_text">女</string>
 
 
-    <string name="detail_tweet_text_hint">评论一下？</string>
+    <string name="detail_tweet_text_hint">写评论...</string>
     <string name="detail_tweet_send_text">回复</string>
 
     <string name="detail_tweet_comment_text">更多评论</string>

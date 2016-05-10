@@ -106,7 +106,7 @@
         <activity
             android:name=".controllers.activities.WelcomeActivity"
             android:label="@string/activity_welcome"
-            android:theme="@style/AppTheme.NoActionBar.NoStatusBar.NoNavigationBar">
+            android:theme="@style/AppTheme.NoActionBar.NoStatusBar.NoNavigationBair">
 
         </activity>
 

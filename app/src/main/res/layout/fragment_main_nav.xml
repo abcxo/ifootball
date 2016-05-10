@@ -48,6 +48,7 @@
                             android:id="@+id/ifvSearch"
                             android:layout_width="wrap_content"
                             android:textColor="@color/color_white"
+                            android:layout_marginTop="@dimen/padding_min"
                             android:layout_height="wrap_content"
                             android:text="@string/iconfont.search"
                             android:textSize="18sp"/>
@@ -58,6 +59,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/padding_small"
                             android:layout_toRightOf="@+id/ifvSearch"
+                            android:layout_alignTop="@+id/ifvSearch"
                             android:textColor="@color/color_white"
                             android:hint="@string/activity_search"
                             android:textSize="@dimen/text_mid"/>
@@ -66,7 +68,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_below="@+id/tvSearch"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="@dimen/padding_tiny"
                             android:background="#6077AA"/>
 
                     </RelativeLayout>

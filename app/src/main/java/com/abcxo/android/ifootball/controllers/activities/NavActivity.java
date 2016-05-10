@@ -69,8 +69,6 @@ public class NavActivity extends AppCompatActivity
 
     private ActivityNavBinding mActivityNavBinding;
 
-    private boolean mIsMainFragment;
-
     private NavigationView navigationView;
 
     private RecyclerView recyclerview;
@@ -86,7 +84,6 @@ public class NavActivity extends AppCompatActivity
         mActivityNavBinding = DataBindingUtil.setContentView(this, R.layout.activity_nav);
         User user = UserRestful.INSTANCE.me();
         mActivityNavBinding.setUser(user);
-//        setContentView(R.layout.activity_nav);
         FragmentManager fragmentManager = getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
         if (fragments != null) {
@@ -113,12 +110,6 @@ public class NavActivity extends AppCompatActivity
         toMain();
 
         registerBroadcastReceiver();
-        //设置Nav页面
-//        View navHeaderView = navigationView.inflateHeaderView(R.layout.nav_header_main);
-//        navHeaderMainBinding = DataBindingUtil.bind(navHeaderView);
-//        User user = UserRestful.INSTANCE.me();
-//        navHeaderMainBinding.setUser(user);
-
         if (!Boolean.valueOf(FileUtils.getPreference(Constants.PREFERENCE_FIRST))) {
             startActivity(new Intent(this, WelcomeActivity.class));
             overridePendingTransition(0, 0);
@@ -216,7 +207,6 @@ public class NavActivity extends AppCompatActivity
                     Intent i = new Intent(context, NavActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
-//                    onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_message));
                 }
 
 
@@ -247,21 +237,9 @@ public class NavActivity extends AppCompatActivity
         }
 
         toMain();
-//        onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.END)) {
-            drawer.closeDrawer(GravityCompat.END);
-        } else if (!mIsMainFragment) {
-//            onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_item_main));
-        } else {
-            super.onBackPressed();
-        }
 
-    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -310,7 +288,6 @@ public class NavActivity extends AppCompatActivity
 
 
     private void toMain() {
-        mIsMainFragment = true;
         if (mainFg == null) {
             mainFg = MainNavFragment.newInstance();
         }
@@ -319,7 +296,6 @@ public class NavActivity extends AppCompatActivity
     }
 
     private void toContact() {
-        mIsMainFragment = false;
         if (contactFg == null) {
             contactFg = ContactNavFragment.newInstance();
 
@@ -329,21 +305,11 @@ public class NavActivity extends AppCompatActivity
     }
 
     public void toMessage() {
-        mIsMainFragment = false;
-//        if (messageFg == null) {
-//            messageFg = MessageNavFragment.newInstance();
-//        }
-//        toNav(messageFg);
         startActivity(new Intent(this, MessageActivity.class));
     }
 
 
     public void toSearch() {
-        mIsMainFragment = false;
-//        if (searchFg == null) {
-//            searchFg = SearchNavFragment.newInstance();
-//        }
-//        toNav(searchFg);
         startActivity(new Intent(this, SearchActivity.class));
     }
 
@@ -372,7 +338,6 @@ public class NavActivity extends AppCompatActivity
         } else {
             NavUtils.toSign(NavActivity.this);
         }
-//        toContact();
     }
 
     public void toNearby(View v) {

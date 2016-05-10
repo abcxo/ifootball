@@ -24,7 +24,7 @@ import android.view.View;
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.adapters.slidebar.SlidebarAdapter;
+import com.abcxo.android.ifootball.controllers.adapters.slidebar.SidebarAdapter;
 import com.abcxo.android.ifootball.controllers.adapters.slidebar.SlidebarHeader;
 import com.abcxo.android.ifootball.controllers.fragments.nav.ContactNavFragment;
 import com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment;
@@ -73,7 +73,7 @@ public class NavActivity extends AppCompatActivity
 
     private RecyclerView recyclerview;
 
-    private SlidebarAdapter mAdapter;
+    private SidebarAdapter mAdapter;
 
     private List<User> mFriendsList, mFocusList, mFanList;
 
@@ -388,7 +388,7 @@ public class NavActivity extends AppCompatActivity
 
                     List<SlidebarHeader> recipes = Arrays.asList(friend, focus, fans);
 
-                    mAdapter = new SlidebarAdapter(getBaseContext(), recipes);
+                    mAdapter = new SidebarAdapter(getBaseContext(), recipes);
 
                     recyclerview.setAdapter(mAdapter);
 

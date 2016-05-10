@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:backgroundTint="@color/color_button_minor"
+                    android:backgroundTint="@color/color_button_accent"
                     android:onClick="@{handler.onClickSend}"
                     android:text="@string/add_tweet_send_text"
                     android:textColor="@color/color_text_highlight" />

@@ -3,9 +3,9 @@
     <!--主色调-->
     <color name="color_primary">#3B5999</color>
     <!--暗黑主色调-->
-    <color name="color_primary_dark">#000000</color>
+    <color name="color_primary_dark">#2F477A</color>
     <!--明亮主色调-->
-    <color name="color_primary_light">#89009688</color>
+    <color name="color_primary_light">#893E50B4</color>
 
     <color name="color_dark_blue">#32394B</color>
 
@@ -23,8 +23,8 @@
     <color name="color_accent_search">#5490FF</color>
 
 
-    <color name="color_button_accent">#009688</color>
-    <color name="color_button_minor">#4A90E2</color>
+    <color name="color_button_accent">@color/color_primary</color>
+    <color name="color_button_minor">#009688</color>
 
 
     <!--高亮图标-->
@@ -71,10 +71,10 @@
 
     <color name="color_divider">#10000000</color>
 
-    <color name="color_refresh_1">#FF3910</color>
-    <color name="color_refresh_2">#FFC6D6</color>
-    <color name="color_refresh_3">#4ADECE</color>
-    <color name="color_refresh_4">#FFBD52</color>
+    <color name="color_refresh_1">@color/color_primary</color>
+    <color name="color_refresh_2">@color/color_primary</color>
+    <color name="color_refresh_3">@color/color_primary</color>
+    <color name="color_refresh_4">@color/color_primary</color>
 
 
     <color name="color_male">#98BEED</color>

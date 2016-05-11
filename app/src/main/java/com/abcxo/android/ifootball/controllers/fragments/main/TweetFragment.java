@@ -291,7 +291,7 @@ public class TweetFragment extends Fragment {
 
                 final ViewPager viewPager = (ViewPager) holder.view.findViewById(R.id.view_pager);
 
-                viewPager.setOffscreenPageLimit(4);
+//                viewPager.setOffscreenPageLimit(4);
                 viewPager.post(new Runnable() {  // 等item加载完成之后,再设置adapter
                     @Override
                     public void run() {
@@ -326,8 +326,14 @@ public class TweetFragment extends Fragment {
 
     private class BannerAdapter extends PagerAdapter {
 
+        private boolean doNotifyDataSetChangedOnce = false;
+
         @Override
         public int getCount() {
+            if (doNotifyDataSetChangedOnce) {
+                doNotifyDataSetChangedOnce = false;
+                notifyDataSetChanged();
+            }
             return mGameList.size();
         }
 

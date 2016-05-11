@@ -83,8 +83,9 @@ public class UserFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
+
         recyclerView.addItemDecoration(new DividerItemDecoration(
-                getActivity(), DividerItemDecoration.VERTICAL));
+                getActivity(), false, DividerItemDecoration.VERTICAL));
 
         adapter = new UserAdapter(list);
         recyclerView.setAdapter(adapter);
@@ -108,7 +109,6 @@ public class UserFragment extends Fragment {
         if (needFirstRefresh()) {
             load();
         }
-
 
         if (isSelect) {
             recyclerView.addOnItemTouchListener(
@@ -216,7 +216,6 @@ public class UserFragment extends Fragment {
     protected UserRestful.GetsType getGetsType() {
         return UserRestful.GetsType.DISCOVER;
     }
-
 
     public class UserAdapter extends RecyclerView.Adapter<UserAdapter.BindingHolder> {
 

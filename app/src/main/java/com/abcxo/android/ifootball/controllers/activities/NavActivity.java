@@ -216,7 +216,6 @@ public class NavActivity extends AppCompatActivity
         localBroadcastManager.registerReceiver(messageClickReceiver, new IntentFilter(Constants.ACTION_MESSAGE_CLICK));
     }
 
-
     private void reset() {
         final FragmentManager fragmentManager = getSupportFragmentManager();
         if (mainFg != null) {

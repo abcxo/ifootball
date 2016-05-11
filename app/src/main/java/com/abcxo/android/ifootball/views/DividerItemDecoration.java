@@ -23,8 +23,12 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private int mOrientation;
 
-    public DividerItemDecoration(Context context, int orientation) {
-        mDivider = context.getResources().getDrawable(R.drawable.ic_recyclerview_divider);
+    public DividerItemDecoration(Context context, boolean isbigDivider, int orientation) {
+        if (isbigDivider) {
+            mDivider = context.getResources().getDrawable(R.drawable.ic_recyclerview_divider);
+        } else {
+            mDivider = context.getResources().getDrawable(R.drawable.ic_divider);
+        }
         setOrientation(orientation);
     }
 
@@ -45,7 +49,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         }
 
     }
-
 
     public void drawVertical(Canvas c, RecyclerView parent) {
         final int left = parent.getPaddingLeft();

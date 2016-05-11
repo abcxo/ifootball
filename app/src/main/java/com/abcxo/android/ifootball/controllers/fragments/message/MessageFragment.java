@@ -105,7 +105,7 @@ public class MessageFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(
-                getActivity(), DividerItemDecoration.VERTICAL));
+                getActivity(), false, DividerItemDecoration.VERTICAL));
 
         adapter = new MessageAdapter(list);
         recyclerView.setAdapter(adapter);

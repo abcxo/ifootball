@@ -82,7 +82,7 @@ public class TweetFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(
-                getActivity(), DividerItemDecoration.VERTICAL));
+                getActivity(), true, DividerItemDecoration.VERTICAL));
 
         adapter = new TweetAdapter(mTweetList);
         recyclerView.setAdapter(adapter);

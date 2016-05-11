@@ -14,12 +14,12 @@
 
     <RelativeLayout
         style="@style/Item"
-        android:background="@drawable/selector_tweet_bg"
+        android:background="@drawable/ripple_tweet_bg"
         android:onClick="@{message.getHandler().onClickMessage}">
 
         <LinearLayout
             android:id="@+id/icon_layout"
-            android:background="@drawable/selector_tweet_bg"
+            android:background="@drawable/ripple_tweet_bg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 

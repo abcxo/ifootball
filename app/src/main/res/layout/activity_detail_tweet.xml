@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity.BindingHandler" />
+        <import type="com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity.BindingHandler"/>
 
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
 
         <variable
             name="handler"
-            type="BindingHandler" />
+            type="BindingHandler"/>
 
         <variable
             name="isComment"
-            type="Boolean" />
+            type="Boolean"/>
 
     </data>
 
@@ -46,20 +46,21 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/color_text_highlight"
-            app:tabIndicatorColor="@color/color_icon_light"
             android:layout_marginTop="?attr/actionBarSize"
+            android:background="@color/color_text_highlight"
             android:visibility="@{isComment?View.GONE:View.VISIBLE}"
+            app:tabIndicatorColor="@color/color_icon_light"
             app:tabSelectedTextColor="@color/color_accent_search"
-            app:tabTextColor="@color/color_text_empty" />
+            app:tabTextColor="@color/color_text_empty"
+            app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="?attr/actionBarSize"
             android:paddingBottom="48dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,7 +82,7 @@
                 android:hint="@string/detail_tweet_text_hint"
                 android:textColor="@color/color_text_input"
                 android:textColorHint="@color/color_text_append"
-                android:textSize="@dimen/text_input" />
+                android:textSize="@dimen/text_input"/>
 
             <com.abcxo.android.ifootball.views.IconFontView
                 android:id="@+id/send"
@@ -91,7 +92,7 @@
                 android:onClick="@{handler.onClickSend}"
                 android:text="@string/iconfont.send"
                 android:textColor="@color/color_accent_search"
-                android:textSize="@dimen/text_huge" />
+                android:textSize="@dimen/text_huge"/>
         </LinearLayout>
 
 

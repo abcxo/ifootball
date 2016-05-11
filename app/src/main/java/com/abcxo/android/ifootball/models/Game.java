@@ -154,6 +154,18 @@ public class Game implements Parcelable, Serializable {
         }
     }
 
+    public String getGameState() {
+        switch (stateType) {
+            case PREPARE:
+                return "正式开战";
+            case ING:
+                return "直播中";
+            case END:
+                return "已结束";
+        }
+        return "已结束";
+    }
+
     public class BindingHandler {
 
         public void onClickGame(final View view) {

@@ -115,6 +115,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/color_white"
                 app:tabIndicatorColor="@color/color_transparent"
+                app:titleTextAppearance="@style/Toolbar.TitleText"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/color_primary"
                 app:tabTextColor="@color/color_text_empty"/>

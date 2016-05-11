@@ -13,7 +13,7 @@
     </data>
 
     <RelativeLayout style="@style/Item"
-        android:background="@drawable/selector_tweet_bg"
+        android:background="@drawable/ripple_tweet_bg"
         android:onClick="@{message.getHandler().onClickMessage}"
         >
 

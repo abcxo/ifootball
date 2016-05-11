@@ -16,7 +16,7 @@
 
     <RelativeLayout
         style="@style/Item"
-        android:background="@drawable/selector_tweet_bg"
+        android:background="@drawable/ripple_tweet_bg"
         android:onClick="@{tweet.getHandler().onClickTweet}">
 
         <TextView

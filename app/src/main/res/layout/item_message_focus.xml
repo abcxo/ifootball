@@ -14,7 +14,7 @@
 
     <RelativeLayout
         android:onClick="@{message.getHandler().onClickMessage}"
-        android:background="@drawable/selector_tweet_bg"
+        android:background="@drawable/ripple_tweet_bg"
         style="@style/Item">
 
         <LinearLayout

@@ -16,7 +16,7 @@
 
     <RelativeLayout
         style="@style/Item"
-        android:background="@drawable/selector_tweet_bg"
+        android:background="@drawable/ripple_tweet_bg"
         android:onClick="@{user.getHandler().onClickUser}">
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -25,7 +25,6 @@
             android:layout_height="48dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{user.avatar}"
-            app:riv_corner_radius="@dimen/icon_radius"
             tools:src="@drawable/bg_sign_complete" />
 
         <TextView

@@ -18,7 +18,7 @@
 
     <RelativeLayout
         style="@style/Item"
-        android:background="@drawable/selector_tweet_bg"
+        android:background="@drawable/ripple_tweet_bg"
         android:onClick="@{tweet.getHandler().onClickTweet}">
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -192,7 +192,7 @@
                     android:layout_width="wrap_content"
                     android:text="@string/iconfont.star"
                     android:textSize="17sp"
-                    android:textColor="@{tweet.star?@color/color_icon_yellow:@color/color_icon_light_o}"
+                    android:textColor="@{tweet.star?@color/color_primary:@android:color/tab_indicator_text}"
                     android:layout_height="wrap_content"/>
 
                 <TextView

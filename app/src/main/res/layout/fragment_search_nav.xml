@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:background="@color/color_icon_highlight"
             app:tabIndicatorColor="@color/color_icon_light"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
             app:tabSelectedTextColor="@color/color_accent_search"
             app:tabTextColor="@color/color_text_empty"/>
 

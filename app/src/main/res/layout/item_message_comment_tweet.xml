@@ -27,7 +27,7 @@
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/selector_tweet_bg"
+            android:background="@drawable/ripple_tweet_bg"
             android:onClick="@{message.getHandler().onClickUser}"
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"

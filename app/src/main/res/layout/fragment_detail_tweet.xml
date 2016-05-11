@@ -54,6 +54,7 @@
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/color_divider"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <RelativeLayout
@@ -61,13 +62,14 @@
                     android:layout_height="match_parent"
                     android:background="@color/color_white"
                     android:paddingLeft="@dimen/padding"
+                    android:layout_marginTop="@dimen/padding"
                     android:paddingRight="@dimen/padding"
                     android:paddingTop="@dimen/padding">
-
 
                     <RelativeLayout
                         android:id="@+id/title_layout"
                         android:layout_width="match_parent"
+                        android:layout_below="@+id/top_divider"
                         android:layout_height="wrap_content"
                         android:onClick="@{tweet.getHandler().onClickUser}">
 
@@ -277,7 +279,7 @@
                                 android:layout_width="wrap_content"
                                 android:text="@string/iconfont.star"
                                 android:textSize="17sp"
-                                android:textColor="@{tweet.star?@color/color_icon_yellow:@color/color_icon_light_o}"
+                                android:textColor="@{tweet.star?@color/color_primary:@android:color/tab_indicator_text}"
                                 android:layout_height="wrap_content"/>
 
                         </LinearLayout>
@@ -385,8 +387,6 @@
                 </RelativeLayout>
 
             </android.support.v4.widget.NestedScrollView>
-
-
         </android.support.v4.widget.SwipeRefreshLayout>
     </android.support.design.widget.CoordinatorLayout>
 

@@ -48,7 +48,7 @@
                     android:layout_marginLeft="@dimen/padding_small"
                     android:singleLine="true"
                     android:textColor="@color/color_text_highlight"
-                    android:textSize="@dimen/text_big"/>
+                    android:textSize="@dimen/text_mid"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -66,6 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/color_icon_highlight"
+            app:tabTextAppearance="@style/MyCustomTabText"
             app:tabIndicatorColor="@color/color_icon_light"
             app:titleTextAppearance="@style/Toolbar.TitleText"
             app:tabSelectedTextColor="@color/color_accent_search"

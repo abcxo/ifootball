@@ -49,7 +49,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/padding_tiny"
-                            android:layout_marginTop="@dimen/padding_min"
+                            android:layout_marginTop="1dp"
                             android:text="@string/iconfont.search"
                             android:textColor="@color/color_white"
                             android:textSize="18sp"/>
@@ -62,13 +62,13 @@
                             android:layout_toRightOf="@+id/ifvSearch"
                             android:hint="@string/activity_search"
                             android:textColor="@color/color_white"
-                            android:textSize="@dimen/text_big"/>
+                            android:textSize="@dimen/text_mid"/>
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_below="@+id/tvSearch"
-                            android:layout_marginTop="@dimen/padding_tiny"
+                            android:layout_marginTop="@dimen/padding_min"
                             android:background="#6077AA"/>
 
                     </RelativeLayout>

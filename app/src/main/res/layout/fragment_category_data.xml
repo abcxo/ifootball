@@ -31,6 +31,7 @@
                 android:layout_height="40dp"
                 android:background="@color/color_white"
                 app:titleTextAppearance="@style/Toolbar.TitleText"
+                app:tabTextAppearance="@style/MyCustomTabText"
                 app:tabIndicatorColor="@color/color_primary"
                 app:tabSelectedTextColor="@color/color_primary"
                 app:tabTextColor="@color/color_primary_light" />

@@ -292,11 +292,11 @@
                             android:onClick="@{tweet.getHandler().onClickShare}"
                             android:padding="@dimen/padding">
 
-                            <ImageView
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@drawable/ic_share"
-                                android:tint="@color/color_icon_light" />
+                            <com.abcxo.android.ifootball.views.IconFontView
+                                android:layout_width="wrap_content"
+                                android:text="@string/iconfont.share"
+                                android:textSize="19sp"
+                                android:layout_height="wrap_content"/>
 
                         </LinearLayout>
                     </LinearLayout>

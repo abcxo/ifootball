@@ -5,19 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Spinner;
 
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
-import com.abcxo.android.ifootball.controllers.adapters.SpinnerAdapter;
 import com.abcxo.android.ifootball.controllers.fragments.message.ChatMessageFragment;
 import com.abcxo.android.ifootball.controllers.fragments.message.CommentMessageFragment;
 import com.abcxo.android.ifootball.controllers.fragments.message.FocusMessageFragment;
@@ -62,6 +63,9 @@ public class MessageNavFragment extends NavFragment {
             return index;
         }
     }
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     private BroadcastReceiver receiver;
 
@@ -142,42 +146,17 @@ public class MessageNavFragment extends NavFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner);
-        String[] array = getActivity().getResources().getStringArray(R.array.message_page_list);
-        for (int i = 0; i < array.length; i++) {
-            array[i] = "      " + array[i] + "      ";
-        }
-        spinner.setAdapter(new SpinnerAdapter(
-                toolbar.getContext(),
-                array
-        ));
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == ALL.getIndex()) {
-                    toAll();
-                } else if (position == CHAT.getIndex()) {
-                    toChat();
-                } else if (position == COMMENT.getIndex()) {
-                    toComment();
-                } else if (position == PROMPT.getIndex()) {
-                    toPrompt();
-                } else if (position == FOCUS.getIndex()) {
-                    toFocus();
-                } else if (position == STAR.getIndex()) {
-                    toStar();
-                } else if (position == OTHER.getIndex()) {
-                    toOther();
-                }
-            }
+        getNavActivity().getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
 
+        viewPager.setOffscreenPageLimit(7);
 
+        MessageAdapter adapter = new MessageAdapter(getChildFragmentManager(), getActivity());
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
 
@@ -271,6 +250,49 @@ public class MessageNavFragment extends NavFragment {
         currentFg = fg;
 
 
+    }
+
+    public class MessageAdapter extends FragmentPagerAdapter {
+
+        private String[] titles;
+
+        public MessageAdapter(FragmentManager fm, Context context) {
+            super(fm);
+            titles = context.getResources().getStringArray(R.array.message_page_list);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Bundle bundle = new Bundle();
+            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
+
+            if (position == ALL.getIndex()) {
+                return MessageFragment.newInstance(bundle);
+            } else if (position == CHAT.getIndex()) {
+                return ChatMessageFragment.newInstance(bundle);
+            } else if (position == COMMENT.getIndex()) {
+                return CommentMessageFragment.newInstance(bundle);
+            } else if (position == PROMPT.getIndex()) {
+                return PromptMessageFragment.newInstance(bundle);
+            } else if (position == FOCUS.getIndex()) {
+                return FocusMessageFragment.newInstance(bundle);
+            } else if (position == STAR.getIndex()) {
+                return StarMessageFragment.newInstance(bundle);
+            } else if (position == OTHER.getIndex()) {
+                return OtherMessageFragment.newInstance(bundle);
+            }
+            return null;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+
+        @Override
+        public int getCount() {
+            return titles.length;
+        }
     }
 
 

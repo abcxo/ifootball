@@ -48,6 +48,7 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_marginTop="?attr/actionBarSize"
             android:background="@color/color_text_highlight"
+            app:tabTextAppearance="@style/MyCustomTabText"
             android:visibility="@{isComment?View.GONE:View.VISIBLE}"
             app:tabIndicatorColor="@color/color_icon_light"
             app:tabSelectedTextColor="@color/color_accent_search"

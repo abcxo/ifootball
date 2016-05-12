@@ -68,7 +68,6 @@
                         android:scaleType="centerCrop"
                         app:error="@{@drawable/ic_avatar}"
                         app:imageUrl="@{user.avatar}"
-                        app:riv_border_width="1dp"
                         tools:src="@drawable/ic_avatar"/>
 
                     <LinearLayout
@@ -139,7 +138,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/color_white"
                             android:textSize="@dimen/text"
-                            tools:text="@string/people_nearby"/>
+                            android:text="@string/people_nearby"/>
 
                         <TextView
                             android:layout_width="wrap_content"

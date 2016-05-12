@@ -304,7 +304,6 @@ public class TweetFragment extends Fragment {
             }
         }
 
-
         @Override
         public int getItemViewType(int position) {
             if (getGetsType() == TweetRestful.GetsType.HOME && position == 0) {

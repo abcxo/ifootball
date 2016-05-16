@@ -5,8 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
-import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Data;
@@ -16,8 +17,6 @@ import com.abcxo.android.ifootball.utils.FileUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.SwipeRefreshLayout;
-import com.tencent.smtt.sdk.WebView;
-import com.tencent.smtt.sdk.WebViewClient;
 
 public class DataFragment extends Fragment {
 
@@ -27,11 +26,6 @@ public class DataFragment extends Fragment {
     protected String name;
     protected String category;
     protected long uid;
-
-    public DataFragment() {
-        Application.packageName = ViewUtils.isX5() ? Constants.PACKAGE_NAME_X5 : Constants.PACKAGE_NAME;
-    }
-
 
     public static DataFragment newInstance() {
         return newInstance(null);
@@ -88,10 +82,10 @@ public class DataFragment extends Fragment {
         refreshLayout.setCanChildScrollUpCallback(new SwipeRefreshLayout.CanChildScrollUpCallback() {
             @Override
             public boolean canSwipeRefreshChildScrollUp() {
-                return webView.getView().getScrollY() > 0;
+                return webView.getScrollY() > 0;
             }
         });
-        refresh();
+//        refresh();
 
     }
 
@@ -150,11 +144,9 @@ public class DataFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Application.packageName = ViewUtils.isX5() ? Constants.PACKAGE_NAME_X5 : Constants.PACKAGE_NAME;
         if (webView != null) {
             webView.onResume();
         }
-
     }
 
 
@@ -164,16 +156,13 @@ public class DataFragment extends Fragment {
         if (webView != null) {
             webView.onPause();
         }
-        Application.packageName = Constants.PACKAGE_NAME;
     }
 
     @Override
     public void onDestroy() {
-
         if (webView != null) {
             webView.destroy();
         }
-        Application.packageName = Constants.PACKAGE_NAME;
         super.onDestroy();
     }
 

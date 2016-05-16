@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.abcxo.android.ifootball.views.x5.WebView
+        <WebView
             android:id="@+id/webview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -58,7 +58,7 @@ public class DataCategoryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        viewPager.setOffscreenPageLimit(4);
+//        viewPager.setOffscreenPageLimit(4);
 
         adapter = new DataCategoryAdapter(getChildFragmentManager(), getActivity());
         viewPager.setAdapter(adapter);

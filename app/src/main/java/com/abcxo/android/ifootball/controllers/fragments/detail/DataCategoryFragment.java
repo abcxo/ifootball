@@ -97,8 +97,5 @@ public class DataCategoryFragment extends Fragment {
             return titles.length;
         }
 
-
     }
-
-
 }

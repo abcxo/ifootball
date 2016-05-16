@@ -9,7 +9,6 @@
 
         <import type="com.abcxo.android.ifootball.controllers.fragments.detail.DataDetailFragment.BindingHandlers"/>
 
-
         <variable
             name="handlers"
             type="BindingHandlers"/>
@@ -25,22 +24,13 @@
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarDark">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:tabIndicatorColor="@color/color_icon_light"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/color_text_highlight"
-                app:tabTextAppearance="@style/MyCustomTabText"
-                app:tabTextColor="@color/color_text_light"/>
-
         </android.support.design.widget.AppBarLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/padding"
+            android:background="@color/color_white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
@@ -54,19 +44,79 @@
                     android:orientation="horizontal">
 
                     <com.abcxo.android.ifootball.views.SquareRelativeLayout
-                        android:onClick=""
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:onClick="@{handlers.toPremierLeague}">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="@dimen/_padding"
+                                android:src="@drawable/premier_league"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/padding"
+                                android:text="@{(@stringArray/data_page_list)[0]}"
+                                android:textColor="@color/color_dark"
+                                android:textSize="@dimen/text_big"
+                                tools:text="英超"/>
+
+                        </LinearLayout>
 
                     </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_divider"/>
 
                     <com.abcxo.android.ifootball.views.SquareRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:onClick="@{handlers.toLFP2}">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="@dimen/_padding"
+                                android:src="@drawable/lfp2"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/padding"
+                                android:text="@{(@stringArray/data_page_list)[1]}"
+                                android:textColor="@color/color_dark"
+                                android:textSize="@dimen/text_big"
+                                tools:text="英超"/>
+
+                        </LinearLayout>
+
                     </com.abcxo.android.ifootball.views.SquareRelativeLayout>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/ic_divider"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,15 +126,77 @@
                     <com.abcxo.android.ifootball.views.SquareRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:onClick="@{handlers.toUEFA}">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="@dimen/_padding"
+                                android:src="@drawable/uefa"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/padding"
+                                android:text="@{(@stringArray/data_page_list)[2]}"
+                                android:textColor="@color/color_dark"
+                                android:textSize="@dimen/text_big"
+                                tools:text="英超"/>
+
+                        </LinearLayout>
+
                     </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_divider"/>
 
                     <com.abcxo.android.ifootball.views.SquareRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:onClick="@{handlers.toLiga}">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="@dimen/_padding"
+                                android:src="@drawable/liga"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/padding"
+                                android:text="@{(@stringArray/data_page_list)[3]}"
+                                android:textColor="@color/color_dark"
+                                android:textSize="@dimen/text_big"
+                                tools:text="英超"/>
+
+                        </LinearLayout>
+
                     </com.abcxo.android.ifootball.views.SquareRelativeLayout>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/ic_divider"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -94,15 +206,77 @@
                     <com.abcxo.android.ifootball.views.SquareRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:onClick="@{handlers.toSerieA}">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="@dimen/_padding"
+                                android:src="@drawable/seriea"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/padding"
+                                android:text="@{(@stringArray/data_page_list)[4]}"
+                                android:textColor="@color/color_dark"
+                                android:textSize="@dimen/text_big"
+                                tools:text="英超"/>
+
+                        </LinearLayout>
+
                     </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_divider"/>
 
                     <com.abcxo.android.ifootball.views.SquareRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:onClick="@{handlers.toLFP1}">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="@dimen/_padding"
+                                android:src="@drawable/lfp1"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/padding"
+                                android:text="@{(@stringArray/data_page_list)[5]}"
+                                android:textColor="@color/color_dark"
+                                android:textSize="@dimen/text_big"
+                                tools:text="英超"/>
+
+                        </LinearLayout>
+
                     </com.abcxo.android.ifootball.views.SquareRelativeLayout>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/ic_divider"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -112,13 +286,69 @@
                     <com.abcxo.android.ifootball.views.SquareRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:onClick="@{handlers.toCSL}">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="@dimen/_padding"
+                                android:src="@drawable/csl"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/padding"
+                                android:text="@{(@stringArray/data_page_list)[6]}"
+                                android:textColor="@color/color_dark"
+                                android:textSize="@dimen/text_big"
+                                tools:text="英超"/>
+                        </LinearLayout>
+
                     </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ic_divider"/>
 
                     <com.abcxo.android.ifootball.views.SquareRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:onClick="@{handlers.toAFC}">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_marginTop="@dimen/_padding"
+                                android:src="@drawable/afc"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/padding"
+                                android:text="@{(@stringArray/data_page_list)[7]}"
+                                android:textColor="@color/color_dark"
+                                android:textSize="@dimen/text_big"
+                                tools:text="英超"/>
+
+                        </LinearLayout>
+
                     </com.abcxo.android.ifootball.views.SquareRelativeLayout>
                 </LinearLayout>
             </LinearLayout>

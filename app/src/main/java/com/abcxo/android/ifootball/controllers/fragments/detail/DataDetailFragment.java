@@ -35,8 +35,6 @@ public class DataDetailFragment extends Fragment {
 
     private DataDetailAdapter adapter;
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +55,11 @@ public class DataDetailFragment extends Fragment {
 
     }
 
+    //region ACTION
+    public class BindingHandlers {
+
+    }
+    //endregion
 
     public class DataDetailAdapter extends FragmentPagerAdapter {
 

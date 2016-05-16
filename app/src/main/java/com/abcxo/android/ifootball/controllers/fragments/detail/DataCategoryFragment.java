@@ -32,7 +32,6 @@ public class DataCategoryFragment extends Fragment {
         return fragment;
     }
 
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
 

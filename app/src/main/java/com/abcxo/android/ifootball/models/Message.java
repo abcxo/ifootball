@@ -1,11 +1,17 @@
 package com.abcxo.android.ifootball.models;
 
+import android.content.DialogInterface;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.restfuls.MessageRestful;
+import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
+import com.abcxo.android.ifootball.utils.ViewUtils;
 
 import java.io.Serializable;
 

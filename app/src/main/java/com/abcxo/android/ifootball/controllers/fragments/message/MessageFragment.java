@@ -1,11 +1,13 @@
 package com.abcxo.android.ifootball.controllers.fragments.message;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -320,9 +322,37 @@ public class MessageFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(BindingHolder holder, int position) {
-            Message message = messages.get(position);
+            final Message message = messages.get(position);
             holder.binding.setVariable(BR.message, message);
+            holder.binding.getRoot().setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    new AlertDialog.Builder(v.getContext())
+                            .setItems(R.array.op_list, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(final DialogInterface dialog, int which) {
+                                    MessageRestful.INSTANCE.delete(message.id, new MessageRestful.OnMessageRestfulDo() {
+                                        @Override
+                                        public void onSuccess() {
+                                            refresh();
+                                        }
 
+                                        @Override
+                                        public void onError(RestfulError error) {
+                                            ViewUtils.toast(R.string.error_message_delete);
+                                        }
+
+                                        @Override
+                                        public void onFinish() {
+                                            dialog.dismiss();
+                                        }
+                                    });
+
+                                }
+                            }).show();
+                    return false;
+                }
+            });
         }
 
 

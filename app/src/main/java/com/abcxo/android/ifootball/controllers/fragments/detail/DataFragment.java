@@ -85,7 +85,7 @@ public class DataFragment extends Fragment {
                 return webView.getScrollY() > 0;
             }
         });
-//        refresh();
+        refresh();
 
     }
 

@@ -13,6 +13,8 @@
     <string name="message_comment">评论了你</string>
     <string name="message_prompt">\&#064;了你</string>
 
+    <string name="error_message_delete">删除消息失败</string>
+
 
     <string name="error_game_url">比赛连接失败</string>
     <string name="error_game_none">比赛暂时没有直播</string>
@@ -163,6 +165,10 @@
         <item>女</item>
     </string-array>
 
+
+    <string-array name="op_list">
+        <item>删除</item>
+    </string-array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

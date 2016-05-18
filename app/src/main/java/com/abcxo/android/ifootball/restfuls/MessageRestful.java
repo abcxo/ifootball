@@ -11,6 +11,7 @@ import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.http.Body;
+import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Query;
@@ -23,7 +24,7 @@ public class MessageRestful {
     private MessageService messageService;
 
     public interface MessageService {
-        @GET(Constants.PATH+"/message/list")
+        @GET(Constants.PATH + "/message/list")
         Call<List<Message>> gets(@Query("getsType") GetsType type,
                                  @Query("uid") long uid,
                                  @Query("uid2") long uid2,
@@ -31,8 +32,12 @@ public class MessageRestful {
                                  @Query("pageIndex") int pageIndex,
                                  @Query("pageSize") int pageSize);
 
-        @POST(Constants.PATH+"/message/chat")
+        @POST(Constants.PATH + "/message/chat")
         Call<Object> chat(@Body Message message);
+
+
+        @DELETE(Constants.PATH + "/message")
+        Call<Object> delete(@Query("mid") long mid);
 
     }
 
@@ -165,5 +170,25 @@ public class MessageRestful {
         });
     }
 
+
+    public void delete(long mid, @NonNull final OnMessageRestfulDo onDo) {
+        Call<Object> call = messageService.delete(mid);
+        call.enqueue(new OnRestful<Object>() {
+            @Override
+            void onSuccess(Object object) {
+                onDo.onSuccess();
+            }
+
+            @Override
+            void onError(RestfulError error) {
+                onDo.onError(error);
+            }
+
+            @Override
+            void onFinish() {
+                onDo.onFinish();
+            }
+        });
+    }
 
 }

@@ -83,7 +83,6 @@
     <string name="activity_about">关于足球狗</string>
     <string name="activity_web"></string>
 
-
     <string-array name="main_page_list">
         <item>关注</item>
         <item>球队</item>

@@ -1,25 +1,33 @@
 package com.abcxo.android.ifootball.controllers.fragments.detail;
 
 import android.content.Context;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.activities.DataDetailActivity;
+import com.abcxo.android.ifootball.databinding.FragmentDetailDataBinding;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 
 /**
  * Created by shadow on 15/11/4.
  */
 public class DataDetailFragment extends Fragment {
+
+    private FragmentDetailDataBinding mDataBinding;
+
+    private String[] titles;
+
     public static DataDetailFragment newInstance() {
         return newInstance(null);
     }
@@ -30,33 +38,67 @@ public class DataDetailFragment extends Fragment {
         return fragment;
     }
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
-    private DataDetailAdapter adapter;
-
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_detail_data, container, false);
+        mDataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_data, container, false);
+        return mDataBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        viewPager.setOffscreenPageLimit(8);
+        mDataBinding.setVariable(BR.handlers, new BindingHandlers());
 
-        adapter = new DataDetailAdapter(getChildFragmentManager(), getActivity());
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+        titles = getResources().getStringArray(R.array.data_page_list);
 
     }
 
+    //region ACTION
+    public class BindingHandlers {
+        public void toPremierLeague(View view) {
+            toDataDetailActivity(titles[0]);
+        }
+
+        public void toLFP2(View view) {
+            toDataDetailActivity(titles[1]);
+        }
+
+        public void toUEFA(View view) {
+            toDataDetailActivity(titles[2]);
+        }
+
+        public void toLiga(View view) {
+            toDataDetailActivity(titles[3]);
+        }
+
+        public void toSerieA(View view) {
+            toDataDetailActivity(titles[4]);
+        }
+
+        public void toLFP1(View view) {
+            toDataDetailActivity(titles[5]);
+        }
+
+        public void toCSL(View view) {
+            toDataDetailActivity(titles[6]);
+        }
+
+        public void toAFC(View view) {
+            toDataDetailActivity(titles[7]);
+        }
+
+        private void toDataDetailActivity(String title) {
+            Intent intent = new Intent(getActivity(), DataDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString(Constants.KEY_NAME, title);
+            bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    }
+    //endregion
 
     public class DataDetailAdapter extends FragmentPagerAdapter {
 
@@ -89,6 +131,5 @@ public class DataDetailFragment extends Fragment {
 
 
     }
-
 
 }

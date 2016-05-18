@@ -32,7 +32,6 @@ public class DataCategoryFragment extends Fragment {
         return fragment;
     }
 
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -98,8 +97,5 @@ public class DataCategoryFragment extends Fragment {
             return titles.length;
         }
 
-
     }
-
-
 }

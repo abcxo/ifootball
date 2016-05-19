@@ -353,20 +353,20 @@ public class TweetFragment extends Fragment {
 
             container.addView(root);
 
-            switch (position) {
-                case 0:
-                    root.setBackgroundResource(R.drawable.banner1);
-                    break;
-                case 1:
-                    root.setBackgroundResource(R.drawable.banner2);
-                    break;
-                case 2:
-                    root.setBackgroundResource(R.drawable.banner3);
-                    break;
-                case 3:
-                    root.setBackgroundResource(R.drawable.banner4);
-                    break;
-            }
+//            switch (position) {
+//                case 0:
+//                    root.setBackgroundResource(R.drawable.banner1);
+//                    break;
+//                case 1:
+//                    root.setBackgroundResource(R.drawable.banner2);
+//                    break;
+//                case 2:
+//                    root.setBackgroundResource(R.drawable.banner3);
+//                    break;
+//                case 3:
+//                    root.setBackgroundResource(R.drawable.banner4);
+//                    break;
+//            }
 
             return root;
 

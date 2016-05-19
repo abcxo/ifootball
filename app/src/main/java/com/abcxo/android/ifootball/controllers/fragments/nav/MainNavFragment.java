@@ -17,6 +17,8 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,6 +37,7 @@ import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.LocationUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
+import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.IconFontView;
 
 import static com.abcxo.android.ifootball.controllers.fragments.nav.MainNavFragment.PageType.DATA;
@@ -95,24 +98,15 @@ public class MainNavFragment extends NavFragment {
 
                 if (position == HOME.getIndex()) { // represents transition from page 0 to page 1 (horizontal shift)
                     setFabBackground(R.string.iconfont_write_twitter);
-                    fab.setVisibility(View.VISIBLE);
-//                    int translationX = (int) ((-(width - lp.leftMargin - lp.rightMargin - fab.getWidth()) / 2f) * positionOffset);
-//                    fab.setTranslationX(translationX);
+                    fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
                 } else if (position == TEAM.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
                     setFabBackground(R.string.iconfont_add_team);
-                    fab.setVisibility(View.VISIBLE);
+                    fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
                 }
 //                else if (position == LIVE.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
-//                    fab.setScaleX(1 - positionOffset);
-//                    fab.setScaleY(1 - positionOffset);
-//                    fab.setVisibility(View.VISIBLE);
 //                }
                 else if (position == VIDEO.getIndex() ||  position == NEWS.getIndex() || position == DATA.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
-//                    fab.setScaleX(positionOffset);
-//                    fab.setScaleY(positionOffset);
-//                    int translationX = (int) ((-(width - lp.leftMargin - lp.rightMargin - fab.getWidth()) / 2f) * (1 - positionOffset));
-//                    fab.setTranslationX(translationX);
-                    fab.setVisibility(View.GONE);
+                    fab.animate().translationY(fab.getHeight() + ViewUtils.dp2px(16)).setInterpolator(new AccelerateInterpolator(2)).start();
                 }
 
             }

@@ -25,9 +25,41 @@
         android:onClick="@{game!=null?game.getHandler().clickGameOnBanner:null}"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/padding_min"
-        tools:background="@color/color_refresh_4"
         android:paddingTop="@dimen/padding_small"
         android:visibility="@{game!=null?View.VISIBLE:View.INVISIBLE}">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/padding_big"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/index"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@{DateUtils.getYearMonthDayWithChinese(game.date)}"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_min"
+                tools:text="2015年1月30日" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/padding_tiny"
+                android:singleLine="true"
+                android:text="@{DateUtils.getHourMinuteWithColon(game.date)}"
+                android:textColor="@color/color_text_title"
+                android:textSize="@dimen/text_big"
+                tools:text="20:30"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -61,7 +93,7 @@
                     android:maxLength="4"
                     android:singleLine="true"
                     android:text="@{game.name}"
-                    android:textColor="@color/color_icon_highlight"
+                    android:textColor="@color/color_text_title"
                     android:textSize="@dimen/text_mid"
                     tools:text="曼联"/>
             </LinearLayout>
@@ -74,7 +106,7 @@
                 android:singleLine="true"
                 android:text="@{game.score}"
                 android:layout_marginTop="@dimen/padding_small"
-                android:textColor="@color/color_icon_highlight"
+                android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_big"
                 tools:text="2"/>
 
@@ -84,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text=" - "
-                android:textColor="@color/color_icon_highlight"
+                android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_big"/>
 
             <TextView
@@ -94,7 +126,7 @@
                 android:layout_marginTop="@dimen/padding_small"
                 android:singleLine="true"
                 android:text="@{game.score2}"
-                android:textColor="@color/color_icon_highlight"
+                android:textColor="@color/color_text_title"
                 android:textSize="@dimen/text_big"
                 tools:text="0"/>
 
@@ -121,45 +153,12 @@
                     android:maxLength="4"
                     android:singleLine="true"
                     android:text="@{game.name2}"
-                    android:textColor="@color/color_icon_highlight"
+                    android:textColor="@color/color_text_title"
                     android:textSize="@dimen/text_mid"
                     tools:text="切尔西"/>
             </LinearLayout>
         </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="@dimen/padding_big"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/index"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="@{DateUtils.getYearMonthDayWithChinese(game.date)}"
-                android:textColor="@color/color_icon_highlight"
-                android:textSize="@dimen/text_min"
-                tools:text="2015年1月30日" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/padding_tiny"
-                android:singleLine="true"
-                android:text="@{DateUtils.getHourMinuteWithColon(game.date)}"
-                android:textColor="@color/color_icon_highlight"
-                android:textSize="@dimen/text_big"
-                tools:text="20:30"/>
-
-        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

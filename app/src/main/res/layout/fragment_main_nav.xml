@@ -50,7 +50,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/padding_tiny"
-                            android:layout_marginTop="1dp"
                             android:text="@string/iconfont.search"
                             android:textColor="@color/color_white"
                             android:textSize="18sp"/>

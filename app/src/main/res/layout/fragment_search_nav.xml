@@ -32,7 +32,7 @@
                     android:id="@+id/ifvSearch"
                     android:layout_width="wrap_content"
                     android:textColor="@color/color_white"
-                    android:layout_marginTop="@dimen/padding_half"
+                    android:layout_marginTop="@dimen/padding_tiny"
                     android:layout_marginLeft="@dimen/padding_min"
                     android:layout_height="wrap_content"
                     android:text="@string/iconfont.search"

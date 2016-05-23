@@ -98,15 +98,15 @@ public class MainNavFragment extends NavFragment {
 
                 if (position == HOME.getIndex()) { // represents transition from page 0 to page 1 (horizontal shift)
                     setFabBackground(R.string.iconfont_write_twitter);
-                    fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+                    fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(4)).start();
                 } else if (position == TEAM.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
                     setFabBackground(R.string.iconfont_add_team);
-                    fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+                    fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(4)).start();
                 }
 //                else if (position == LIVE.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
 //                }
                 else if (position == VIDEO.getIndex() ||  position == NEWS.getIndex() || position == DATA.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
-                    fab.animate().translationY(fab.getHeight() + ViewUtils.dp2px(16)).setInterpolator(new AccelerateInterpolator(2)).start();
+                    fab.animate().translationY(fab.getHeight() + ViewUtils.dp2px(16)).setInterpolator(new AccelerateInterpolator(4)).start();
                 }
 
             }

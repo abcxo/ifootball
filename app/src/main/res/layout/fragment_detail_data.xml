@@ -45,10 +45,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.abcxo.android.ifootball.views.SquareRelativeLayout
+                    <com.abcxo.android.ifootball.views.FlexibleRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        app:ratio="0.7"
                         android:onClick="@{handlers.toPremierLeague}">
 
                         <LinearLayout
@@ -60,14 +61,12 @@
                             <ImageView
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:layout_marginTop="@dimen/_padding"
                                 android:src="@drawable/premier_league"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/padding"
                                 android:text="@{(@stringArray/data_page_list)[0]}"
                                 android:textColor="@color/color_dark"
                                 android:textSize="@dimen/text_big"
@@ -75,17 +74,18 @@
 
                         </LinearLayout>
 
-                    </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+                    </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_divider"/>
 
-                    <com.abcxo.android.ifootball.views.SquareRelativeLayout
+                    <com.abcxo.android.ifootball.views.FlexibleRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        app:ratio="0.7"
                         android:onClick="@{handlers.toLFP2}">
 
                         <LinearLayout
@@ -97,14 +97,12 @@
                             <ImageView
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:layout_marginTop="@dimen/_padding"
                                 android:src="@drawable/lfp2"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/padding"
                                 android:text="@{(@stringArray/data_page_list)[1]}"
                                 android:textColor="@color/color_dark"
                                 android:textSize="@dimen/text_big"
@@ -112,7 +110,7 @@
 
                         </LinearLayout>
 
-                    </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+                    </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
                 </LinearLayout>
 
                 <View
@@ -125,9 +123,10 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.abcxo.android.ifootball.views.SquareRelativeLayout
+                    <com.abcxo.android.ifootball.views.FlexibleRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        app:ratio="0.7"
                         android:layout_weight="1"
                         android:onClick="@{handlers.toUEFA}">
 
@@ -147,7 +146,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/padding"
                                 android:text="@{(@stringArray/data_page_list)[2]}"
                                 android:textColor="@color/color_dark"
                                 android:textSize="@dimen/text_big"
@@ -155,15 +153,16 @@
 
                         </LinearLayout>
 
-                    </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+                    </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_divider"/>
 
-                    <com.abcxo.android.ifootball.views.SquareRelativeLayout
+                    <com.abcxo.android.ifootball.views.FlexibleRelativeLayout
                         android:layout_width="match_parent"
+                        app:ratio="0.7"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="@{handlers.toLiga}">
@@ -184,7 +183,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/padding"
                                 android:text="@{(@stringArray/data_page_list)[3]}"
                                 android:textColor="@color/color_dark"
                                 android:textSize="@dimen/text_big"
@@ -192,7 +190,7 @@
 
                         </LinearLayout>
 
-                    </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+                    </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
                 </LinearLayout>
 
                 <View
@@ -205,10 +203,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.abcxo.android.ifootball.views.SquareRelativeLayout
+                    <com.abcxo.android.ifootball.views.FlexibleRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        app:ratio="0.7"
                         android:onClick="@{handlers.toSerieA}">
 
                         <LinearLayout
@@ -227,7 +226,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/padding"
                                 android:text="@{(@stringArray/data_page_list)[4]}"
                                 android:textColor="@color/color_dark"
                                 android:textSize="@dimen/text_big"
@@ -235,15 +233,16 @@
 
                         </LinearLayout>
 
-                    </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+                    </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_divider"/>
 
-                    <com.abcxo.android.ifootball.views.SquareRelativeLayout
+                    <com.abcxo.android.ifootball.views.FlexibleRelativeLayout
                         android:layout_width="match_parent"
+                        app:ratio="0.7"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="@{handlers.toLFP1}">
@@ -264,7 +263,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/padding"
                                 android:text="@{(@stringArray/data_page_list)[5]}"
                                 android:textColor="@color/color_dark"
                                 android:textSize="@dimen/text_big"
@@ -272,7 +270,7 @@
 
                         </LinearLayout>
 
-                    </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+                    </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
                 </LinearLayout>
 
                 <View
@@ -285,10 +283,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.abcxo.android.ifootball.views.SquareRelativeLayout
+                    <com.abcxo.android.ifootball.views.FlexibleRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        app:ratio="0.7"
                         android:onClick="@{handlers.toCSL}">
 
                         <LinearLayout
@@ -307,23 +306,23 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/padding"
                                 android:text="@{(@stringArray/data_page_list)[6]}"
                                 android:textColor="@color/color_dark"
                                 android:textSize="@dimen/text_big"
                                 tools:text="英超"/>
                         </LinearLayout>
 
-                    </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+                    </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
 
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_divider"/>
 
-                    <com.abcxo.android.ifootball.views.SquareRelativeLayout
+                    <com.abcxo.android.ifootball.views.FlexibleRelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        app:ratio="0.7"
                         android:layout_weight="1"
                         android:onClick="@{handlers.toAFC}">
 
@@ -343,7 +342,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/padding"
                                 android:text="@{(@stringArray/data_page_list)[7]}"
                                 android:textColor="@color/color_dark"
                                 android:textSize="@dimen/text_big"
@@ -351,7 +349,7 @@
 
                         </LinearLayout>
 
-                    </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+                    </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
                 </LinearLayout>
             </LinearLayout>
 

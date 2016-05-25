@@ -34,6 +34,15 @@
     <uses-permission android:name="android.permission.READ_SMS" />
 
     <application android:allowBackup="true" >
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="565465fce0f55a849e003de9" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="4f1fdf9b34b64b58ffb14925e56bf9e9" >
+        </meta-data>
+
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
             android:exported="false" >

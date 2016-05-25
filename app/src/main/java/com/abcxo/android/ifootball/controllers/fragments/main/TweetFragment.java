@@ -110,6 +110,13 @@ public class TweetFragment extends Fragment {
         }
     }
 
+    public void scrollToTopAndRefresh() {
+        if (recyclerView != null) {
+            recyclerView.getRecyclerView().scrollToPosition(0);
+            refresh();
+        }
+    }
+
     protected void load() {
         ArrayList<Tweet> tweets = (ArrayList<Tweet>) FileUtils.getObject(getKey());
         if (tweets != null && tweets.size() > 0) {

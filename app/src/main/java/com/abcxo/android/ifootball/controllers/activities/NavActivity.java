@@ -222,7 +222,7 @@ public class NavActivity extends AppCompatActivity
                 Message message = intent.getParcelableExtra("message");
                 //Fuck me robinhood 添加小红点
 
-
+                ((MainNavFragment)mainFg).showMessageBadge();
             }
         };
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);

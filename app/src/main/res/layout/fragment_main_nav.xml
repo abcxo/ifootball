@@ -28,10 +28,10 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                app:titleTextAppearance="@style/Toolbar.TitleText"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupLight">
+                app:popupTheme="@style/AppTheme.PopupLight"
+                app:titleTextAppearance="@style/Toolbar.TitleText">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/ifvMessage">
+                        android:layout_toLeftOf="@+id/rltMessage">
 
                         <com.abcxo.android.ifootball.views.IconFontView
                             android:id="@+id/ifvSearch"
@@ -73,18 +73,37 @@
 
                     </RelativeLayout>
 
-                    <com.abcxo.android.ifootball.views.IconFontView
-                        android:id="@+id/ifvMessage"
+
+                    <RelativeLayout
+                        android:id="@+id/rltMessage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/padding_small"
-                        android:layout_toLeftOf="@+id/ifvPerson"
-                        android:gravity="center"
-                        android:padding="@dimen/padding_small"
-                        android:text="@string/iconfont.notification"
-                        android:textColor="@color/color_white"
-                        android:textSize="18sp"/>
+                        android:layout_toLeftOf="@+id/ifvPerson">
+
+                        <com.abcxo.android.ifootball.views.IconFontView
+                            android:id="@+id/ifvMessage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:padding="@dimen/padding_small"
+                            android:text="@string/iconfont.notification"
+                            android:textColor="@color/color_white"
+                            android:textSize="18sp"/>
+
+                        <View
+                            android:id="@+id/viewRedCircle"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_alignRight="@+id/ifvMessage"
+                            android:layout_alignTop="@+id/ifvMessage"
+                            android:visibility="invisible"
+                            android:layout_marginRight="@dimen/padding_min"
+                            android:layout_marginTop="@dimen/padding_min"
+                            android:background="@drawable/shape_little_circle"/>
+                    </RelativeLayout>
 
                     <com.abcxo.android.ifootball.views.IconFontView
                         android:id="@+id/ifvPerson"
@@ -115,10 +134,10 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/color_white"
                 app:tabIndicatorColor="@color/color_transparent"
-                app:titleTextAppearance="@style/Toolbar.TitleText"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/color_primary"
-                app:tabTextColor="@color/color_text_empty"/>
+                app:tabTextColor="@color/color_text_empty"
+                app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewpager"

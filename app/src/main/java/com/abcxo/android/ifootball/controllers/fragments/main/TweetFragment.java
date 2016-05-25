@@ -286,26 +286,23 @@ public class TweetFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(BindingHolder holder, int position) {
-            if (getGetsType() == TweetRestful.GetsType.HOME && position == 0) {
-                // 宽高比 4 : 1
-                int screen_width = ViewUtils.screenWidth();
-                holder.view.getLayoutParams().height = screen_width / 4;
-
-                final ViewPager viewPager = (ViewPager) holder.view.findViewById(R.id.view_pager);
-
-//                viewPager.setOffscreenPageLimit(4);
-//                viewPager.post(new Runnable() {  // 等item加载完成之后,再设置adapter
-//                    @Override
-//                    public void run() {
-//                        viewPager.setAdapter(new BannerAdapter());
-//                    }
-//                });
-                if (bannerAdapter == null) {
-                    bannerAdapter = new BannerAdapter();
-                    viewPager.setAdapter(bannerAdapter);
+            if (getGetsType() == TweetRestful.GetsType.HOME) {
+                if (position == 0) {
+                    // 宽高比 4 : 1
+                    int screen_width = ViewUtils.screenWidth();
+                    holder.view.getLayoutParams().height = screen_width / 4;
+                    final ViewPager viewPager = (ViewPager) holder.view.findViewById(R.id.view_pager);
+                    if (bannerAdapter == null) {
+                        bannerAdapter = new BannerAdapter();
+                        viewPager.setAdapter(bannerAdapter);
+                    } else {
+                        bannerAdapter.notifyDataSetChanged();
+                    }
                 } else {
-                    bannerAdapter.notifyDataSetChanged();
+                    final Tweet tweet = tweetsList.get(position - 1);
+                    holder.viewDataBinding.setVariable(BR.tweet, tweet);
                 }
+
             } else {
                 final Tweet tweet = tweetsList.get(position);
                 holder.viewDataBinding.setVariable(BR.tweet, tweet);
@@ -314,12 +311,19 @@ public class TweetFragment extends Fragment {
 
         @Override
         public int getItemViewType(int position) {
-            if (getGetsType() == TweetRestful.GetsType.HOME && position == 0) {
-                return BANNER_INDEX;
+            if (getGetsType() == TweetRestful.GetsType.HOME) {
+                if (position == 0) {
+                    return BANNER_INDEX;
+                } else {
+                    Tweet tweet = tweetsList.get(position - 1);
+                    return tweet.getMainType().getIndex();
+                }
+            } else {
+                Tweet tweet = tweetsList.get(position);
+                return tweet.getMainType().getIndex();
             }
 
-            Tweet tweet = tweetsList.get(position);
-            return tweet.getMainType().getIndex();
+
         }
 
         @Override

@@ -46,6 +46,8 @@ public class TweetFragment extends Fragment {
 
     protected int pageIndex;
 
+    protected BannerAdapter bannerAdapter;
+
     public static TweetFragment newInstance() {
         return newInstance(null);
     }
@@ -145,7 +147,7 @@ public class TweetFragment extends Fragment {
     // 加载直播数据
     private void loadLiveData() {
         GameRestful.INSTANCE.gets(uid,
-                pageIndex, new GameRestful.OnGameRestfulList() {
+                0, new GameRestful.OnGameRestfulList() {
                     @Override
                     public void onSuccess(List<Game> games) {
                         mGameList.clear();
@@ -292,12 +294,18 @@ public class TweetFragment extends Fragment {
                 final ViewPager viewPager = (ViewPager) holder.view.findViewById(R.id.view_pager);
 
 //                viewPager.setOffscreenPageLimit(4);
-                viewPager.post(new Runnable() {  // 等item加载完成之后,再设置adapter
-                    @Override
-                    public void run() {
-                        viewPager.setAdapter(new BannerAdapter());
-                    }
-                });
+//                viewPager.post(new Runnable() {  // 等item加载完成之后,再设置adapter
+//                    @Override
+//                    public void run() {
+//                        viewPager.setAdapter(new BannerAdapter());
+//                    }
+//                });
+                if (bannerAdapter == null) {
+                    bannerAdapter = new BannerAdapter();
+                    viewPager.setAdapter(bannerAdapter);
+                } else {
+                    bannerAdapter.notifyDataSetChanged();
+                }
             } else {
                 final Tweet tweet = tweetsList.get(position);
                 holder.viewDataBinding.setVariable(BR.tweet, tweet);
@@ -325,14 +333,8 @@ public class TweetFragment extends Fragment {
 
     private class BannerAdapter extends PagerAdapter {
 
-        private boolean doNotifyDataSetChangedOnce = false;
-
         @Override
         public int getCount() {
-            if (doNotifyDataSetChangedOnce) {
-                doNotifyDataSetChangedOnce = false;
-                notifyDataSetChanged();
-            }
             return mGameList.size();
         }
 

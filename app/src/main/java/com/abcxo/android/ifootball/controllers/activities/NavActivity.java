@@ -58,6 +58,8 @@ public class NavActivity extends AppCompatActivity
     private BroadcastReceiver loginReceiver;
     private BroadcastReceiver editReceiver;
     private BroadcastReceiver logoutReceiver;
+    private BroadcastReceiver messageReceiver;
+
     private BroadcastReceiver messageClickReceiver;
 
     private NavFragment mainFg;
@@ -161,6 +163,8 @@ public class NavActivity extends AppCompatActivity
         Utils.unregisterBroadcastReceiver(loginReceiver);
         Utils.unregisterBroadcastReceiver(editReceiver);
         Utils.unregisterBroadcastReceiver(logoutReceiver);
+        Utils.unregisterBroadcastReceiver(messageReceiver);
+        Utils.unregisterBroadcastReceiver(messageClickReceiver);
     }
 
     private void registerBroadcastReceiver() {
@@ -211,8 +215,19 @@ public class NavActivity extends AppCompatActivity
 
             }
         };
+
+        messageReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context contextcontext, Intent intent) {
+                Message message = intent.getParcelableExtra("message");
+                //Fuck me robinhood 添加小红点
+
+
+            }
+        };
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
         localBroadcastManager.registerReceiver(messageClickReceiver, new IntentFilter(Constants.ACTION_MESSAGE_CLICK));
+        localBroadcastManager.registerReceiver(messageReceiver, new IntentFilter(Constants.ACTION_MESSAGE));
     }
 
     private void reset() {

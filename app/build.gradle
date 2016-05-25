@@ -69,7 +69,7 @@ dependencies {
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.malinskiy:superrecyclerview:1.1.1'
-    compile project(':push')
+    compile project(':PushSDK')
     compile project(':library')
     //    compile project(':share')
 //    compile project(':crosswalkwebview164542119arm')

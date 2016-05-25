@@ -9,10 +9,8 @@ import android.text.TextUtils;
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.User;
-import com.abcxo.android.ifootball.restfuls.interceptor.DecryptedPayloadInterceptor;
 import com.abcxo.android.ifootball.utils.FileUtils;
 import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.RequestBody;
 import com.umeng.message.UmengRegistrar;
 

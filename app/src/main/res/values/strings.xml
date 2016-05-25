@@ -136,7 +136,7 @@
     <string-array name="data_category_page_list">
         <item>积分榜</item>
         <item>射手榜</item>
-        <item>助攻版</item>
+        <item>助攻榜</item>
         <item>赛程表</item>
     </string-array>
 

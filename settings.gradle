@@ -1,2 +1,2 @@
-include ':app', ':push',":library"
+include ':app',":library",":PushSDK"
 //include ':crosswalkwebview164542119arm'

@@ -195,17 +195,18 @@ public class NavActivity extends AppCompatActivity
 
         messageClickReceiver = new BroadcastReceiver() {
             @Override
-            public void onReceive(Context context, Intent intent) {
+            public void onReceive(Context contextcontext, Intent intent) {
                 Message message = intent.getParcelableExtra("message");
                 if (message.messageType == Message.MessageType.CHAT) {
                     if (!ChatDetailActivity.isChatting(message.uid, message.uid2)) {
-                        NavUtils.toChatDetail(context, message.uid2, message.uid);
+                        NavUtils.toChatDetail(NavActivity.this, message.uid2, message.uid);
                     } else {
 
                     }
                 } else {
-                    Intent i = new Intent(context, NavActivity.class);
+                    Intent i = new Intent(NavActivity.this, MessageActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(i);
                 }
 
@@ -353,7 +354,7 @@ public class NavActivity extends AppCompatActivity
     }
 
     private void getFriendData(final UserRestful.GetsType type) {
-        UserRestful.INSTANCE.gets(UserRestful.GetsType.FRIEND, UserRestful.INSTANCE.meId(), "", 0, new UserRestful.OnUserRestfulList() {
+        UserRestful.INSTANCE.gets(type, UserRestful.INSTANCE.meId(), "", 0, new UserRestful.OnUserRestfulList() {
             @Override
             public void onSuccess(List<User> users) {
                 if (type == UserRestful.GetsType.FRIEND) {

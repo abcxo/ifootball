@@ -67,17 +67,6 @@ public class MessageNavFragment extends NavFragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    private BroadcastReceiver receiver;
-
-    private MessageFragment allFg;
-    private MessageFragment chatFg;
-    private MessageFragment commentFg;
-    private MessageFragment promptFg;
-    private MessageFragment focusFg;
-    private MessageFragment starFg;
-    private MessageFragment otherFg;
-
-    private Fragment currentFg;
 
     public static MessageNavFragment newInstance() {
         return newInstance(null);
@@ -87,53 +76,6 @@ public class MessageNavFragment extends NavFragment {
         MessageNavFragment fragment = new MessageNavFragment();
         if (args != null) fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Message message = intent.getParcelableExtra("message");
-                allFg.refresh();
-                MessageFragment fragment;
-                switch (message.messageType) {
-                    case FOCUS:
-                        fragment = focusFg;
-                        break;
-                    case STAR:
-                        fragment = starFg;
-                        break;
-                    case PROMPT:
-                        fragment = promptFg;
-                        break;
-                    case COMMENT:
-                        fragment = commentFg;
-                        break;
-                    case CHAT:
-                        fragment = chatFg;
-                        break;
-                    default:
-                        fragment = otherFg;
-                        break;
-                }
-
-                if (fragment != null) {
-                    fragment.refresh();
-                }
-
-            }
-        };
-        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
-        localBroadcastManager.registerReceiver(receiver, new IntentFilter(Constants.ACTION_MESSAGE));
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
-        localBroadcastManager.unregisterReceiver(receiver);
     }
 
 
@@ -159,98 +101,6 @@ public class MessageNavFragment extends NavFragment {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-
-    private void toAll() {
-        if (allFg == null) {
-            Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
-            allFg = MessageFragment.newInstance(bundle);
-        }
-        toMessage(allFg);
-
-    }
-
-
-    private void toChat() {
-        if (chatFg == null) {
-            Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
-            chatFg = ChatMessageFragment.newInstance(bundle);
-        }
-        toMessage(chatFg);
-
-    }
-
-    private void toComment() {
-        if (commentFg == null) {
-            Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
-            commentFg = CommentMessageFragment.newInstance(bundle);
-        }
-        toMessage(commentFg);
-
-    }
-
-
-    private void toPrompt() {
-        if (promptFg == null) {
-            Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
-            promptFg = PromptMessageFragment.newInstance(bundle);
-        }
-        toMessage(promptFg);
-
-    }
-
-
-    private void toFocus() {
-        if (focusFg == null) {
-            Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
-            focusFg = FocusMessageFragment.newInstance(bundle);
-        }
-        toMessage(focusFg);
-
-    }
-
-
-    private void toStar() {
-        if (starFg == null) {
-            Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
-            starFg = StarMessageFragment.newInstance(bundle);
-        }
-        toMessage(starFg);
-
-    }
-
-    private void toOther() {
-        if (otherFg == null) {
-            Bundle bundle = new Bundle();
-            bundle.putLong(Constants.KEY_UID2, UserRestful.INSTANCE.meId());
-            otherFg = OtherMessageFragment.newInstance(bundle);
-        }
-        toMessage(otherFg);
-
-    }
-
-
-    private void toMessage(Fragment fg) {
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        if (!fg.isAdded()) {
-            transaction.add(R.id.content, fg);
-        } else {
-            transaction.show(fg);
-        }
-        if (currentFg != null) {
-            transaction.hide(currentFg);
-        }
-        transaction.commit();
-        currentFg = fg;
-
-
-    }
 
     public class MessageAdapter extends FragmentPagerAdapter {
 

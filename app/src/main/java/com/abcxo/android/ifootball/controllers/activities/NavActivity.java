@@ -205,8 +205,6 @@ public class NavActivity extends AppCompatActivity
                     }
                 } else {
                     Intent i = new Intent(NavActivity.this, MessageActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(i);
                 }
 

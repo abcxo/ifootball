@@ -130,15 +130,32 @@ public class MainNavFragment extends NavFragment {
                 else if (position == VIDEO.getIndex() || position == NEWS.getIndex() || position == DATA.getIndex()) { // represents transition from page 1 to page 2 (vertical shift)
                     fab.animate().translationY(fab.getHeight() + ViewUtils.dp2px(16)).setInterpolator(new AccelerateInterpolator(4)).start();
                 }
-
-                if (position < mTweetFragmentArrayList.size() - 1) {
-                    ((TweetFragment)mTweetFragmentArrayList.get(position)).scrollToTopAndRefresh();
-                }
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+
+                if (position < mTweetFragmentArrayList.size() - 1) {
+                    ((TweetFragment)mTweetFragmentArrayList.get(position)).scrollToTopAndRefresh();
+                }
             }
         });
 

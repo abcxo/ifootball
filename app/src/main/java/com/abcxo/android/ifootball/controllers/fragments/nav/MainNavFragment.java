@@ -98,10 +98,10 @@ public class MainNavFragment extends NavFragment {
         bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
         mTweetFragmentArrayList.add(HomeTweetFragment.newInstance(bundle));
         mTweetFragmentArrayList.add(TeamTweetFragment.newInstance(bundle));
+        mTweetFragmentArrayList.add(VideoTweetFragment.newInstance(bundle));
         if (hasNews()) {
             mTweetFragmentArrayList.add(NewsTweetFragment.newInstance(bundle));
         }
-        mTweetFragmentArrayList.add(VideoTweetFragment.newInstance(bundle));
         mTweetFragmentArrayList.add(DataDetailFragment.newInstance(bundle));
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

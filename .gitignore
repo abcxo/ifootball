@@ -50,7 +50,9 @@ out/
 
 # MAVEN COMPILE Files
 target/
+PushSDK/build
 
 .gradle/2.4/taskArtifacts/cache.properties.lock
 
 .gradle/2.4/taskArtifacts/fileHashes.bin
+

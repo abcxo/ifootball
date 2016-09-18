@@ -46,6 +46,7 @@ import com.tencent.smtt.sdk.TbsDownloader;
 import com.tencent.smtt.sdk.TbsListener;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class NavActivity extends AppCompatActivity
 
     private SidebarAdapter mAdapter;
 
-    private List<User> mFriendsList, mFocusList, mFanList;
+    private List<User> mFriendsList = new ArrayList<>(), mFocusList = new ArrayList<>(), mFanList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,7 +223,7 @@ public class NavActivity extends AppCompatActivity
                 Message message = intent.getParcelableExtra("message");
                 //Fuck me robinhood 添加小红点
 
-                ((MainNavFragment)mainFg).showMessageBadge();
+                ((MainNavFragment) mainFg).showMessageBadge();
             }
         };
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
@@ -254,7 +255,6 @@ public class NavActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -264,16 +264,16 @@ public class NavActivity extends AppCompatActivity
         final int id = item.getItemId();
 
         if (groupId == R.id.nav_group_nav) {
-                item.setChecked(true);
-                if (id == R.id.nav_item_main) {
-                    toMain();
-                } else if (id == R.id.nav_item_contact) {
-                    toContact();
-                } else if (id == R.id.nav_item_message) {
-                    toMessage();
-                } else if (id == R.id.nav_item_search) {
-                    toSearch();
-                }
+            item.setChecked(true);
+            if (id == R.id.nav_item_main) {
+                toMain();
+            } else if (id == R.id.nav_item_contact) {
+                toContact();
+            } else if (id == R.id.nav_item_message) {
+                toMessage();
+            } else if (id == R.id.nav_item_search) {
+                toSearch();
+            }
         } else if (groupId == R.id.nav_group_append) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -371,20 +371,20 @@ public class NavActivity extends AppCompatActivity
             @Override
             public void onSuccess(List<User> users) {
                 if (type == UserRestful.GetsType.FRIEND) {
-                    if(mFriendsList != null) {
+                    if (mFriendsList != null) {
                         mFriendsList.clear();
                     }
-                    mFriendsList = users;
+                    mFriendsList.addAll(users);
                 } else if (type == UserRestful.GetsType.FOCUS) {
-                    if(mFocusList != null) {
+                    if (mFocusList != null) {
                         mFocusList.clear();
                     }
-                    mFocusList = users;
+                    mFocusList.addAll(users);
                 } else if (type == UserRestful.GetsType.FANS) {
-                    if(mFanList != null) {
+                    if (mFanList != null) {
                         mFanList.clear();
                     }
-                    mFanList = users;
+                    mFanList.addAll(users);
                 }
             }
 

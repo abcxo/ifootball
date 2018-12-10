@@ -149,12 +149,11 @@ public class NavActivity extends AppCompatActivity
                 QbSdk.setDownloadWithoutWifi(false);
                 TbsDownloader.startDownload(this);
             }
-            ShareSDK.initSDK(this);
-            PushUtil.enable(this);
-            LocationUtils.saveLocation();
         } catch (Throwable e) {
             e.printStackTrace();
         }
+        ShareSDK.initSDK(this);
+        LocationUtils.saveLocation();
     }
 
 

@@ -12,7 +12,7 @@ import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.utils.FileUtils;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
-import com.umeng.message.UmengRegistrar;
+import com.umeng.message.PushAgent;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -186,7 +186,7 @@ public class UserRestful {
 
     //注册
     public void register(String email, String password, @NonNull final OnUserRestfulGet onGet) {
-        Call<User> call = userService.register(email, password, UmengRegistrar.getRegistrationId(Application.INSTANCE));
+        Call<User> call = userService.register(email, password, PushAgent.getInstance(Application.INSTANCE).getRegistrationId());
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {
@@ -209,7 +209,7 @@ public class UserRestful {
 
     //注册
     public void loginsso(String email, String password, String name, String avatar, User.GenderType gender, @NonNull final OnUserRestfulGet onGet) {
-        Call<User> call = userService.loginsso(email, password, name, avatar, gender, UmengRegistrar.getRegistrationId(Application.INSTANCE));
+        Call<User> call = userService.loginsso(email, password, name, avatar, gender, PushAgent.getInstance(Application.INSTANCE).getRegistrationId());
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {
@@ -254,7 +254,7 @@ public class UserRestful {
 
     //登录
     public void login(String email, String password, @NonNull final OnUserRestfulGet onGet) {
-        Call<User> call = userService.login(email, password, UmengRegistrar.getRegistrationId(Application.INSTANCE));
+        Call<User> call = userService.login(email, password, PushAgent.getInstance(Application.INSTANCE).getRegistrationId());
         call.enqueue(new OnRestful<User>() {
             @Override
             void onSuccess(User user) {

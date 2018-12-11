@@ -136,7 +136,7 @@ public class CompleteSignFragment extends Fragment {
                             });
                         } else {
                             ViewUtils.dismiss();
-                            startActivity(new Intent(getActivity(), AddTeamActivity.class));
+//                            startActivity(new Intent(getActivity(), AddTeamActivity.class));//TODO:shadow
                             getActivity().finish();
                         }
 

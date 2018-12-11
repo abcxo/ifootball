@@ -97,12 +97,13 @@ public class MainNavFragment extends NavFragment {
         Bundle bundle = new Bundle();
         bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
         mTweetFragmentArrayList.add(HomeTweetFragment.newInstance(bundle));
-        mTweetFragmentArrayList.add(TeamTweetFragment.newInstance(bundle));
-        mTweetFragmentArrayList.add(VideoTweetFragment.newInstance(bundle));
-        if (hasNews()) {
-            mTweetFragmentArrayList.add(NewsTweetFragment.newInstance(bundle));
-        }
-        mTweetFragmentArrayList.add(DataDetailFragment.newInstance(bundle));
+        //TODO:shadow
+//        mTweetFragmentArrayList.add(TeamTweetFragment.newInstance(bundle));
+//        mTweetFragmentArrayList.add(VideoTweetFragment.newInstance(bundle));
+//        if (hasNews()) {
+//            mTweetFragmentArrayList.add(NewsTweetFragment.newInstance(bundle));
+//        }
+//        mTweetFragmentArrayList.add(DataDetailFragment.newInstance(bundle));
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -212,7 +213,8 @@ public class MainNavFragment extends NavFragment {
     }
 
     public boolean hasNews() {
-        return UserRestful.INSTANCE.isLogin() && UserRestful.INSTANCE.me().userType == User.UserType.SPECIAL;
+//        return UserRestful.INSTANCE.isLogin() && UserRestful.INSTANCE.me().userType == User.UserType.SPECIAL;//TODO:shadow
+        return false;
     }
 
     //获取用户列表

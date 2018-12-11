@@ -318,26 +318,28 @@ public class TweetFragment extends Fragment {
 
         @Override
         public int getItemViewType(int position) {
-            if (getGetsType() == TweetRestful.GetsType.HOME) {
-                if (position == 0) {
-                    return BANNER_INDEX;
-                } else {
-                    Tweet tweet = tweetsList.get(position - 1);
-                    return tweet.getMainType().getIndex();
-                }
-            } else {
+            //TODO:shadow
+//            if (getGetsType() == TweetRestful.GetsType.HOME) {
+//                if (position == 0) {
+//                    return BANNER_INDEX;
+//                } else {
+//                    Tweet tweet = tweetsList.get(position - 1);
+//                    return tweet.getMainType().getIndex();
+//                }
+//            } else {
                 Tweet tweet = tweetsList.get(position);
                 return tweet.getMainType().getIndex();
-            }
+//            }
 
 
         }
 
         @Override
         public int getItemCount() {
-            if (getGetsType() == TweetRestful.GetsType.HOME) {
-                return 1 + tweetsList.size();
-            }
+            //TODO:shadow
+//            if (getGetsType() == TweetRestful.GetsType.HOME) {
+//                return 1 + tweetsList.size();
+//            }
             return tweetsList.size();
         }
     }

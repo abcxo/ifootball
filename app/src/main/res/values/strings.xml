@@ -85,11 +85,11 @@
 
     <string-array name="main_page_list">
         <item>关注</item>
-        <item>球队</item>
+        <!--<item>球队</item>//TODO:shadow-->
         <!--<item>直播</item>-->
-        <item>视频</item>
+        <!--<item>视频</item>-->
         <item>新闻</item>
-        <item>数据</item>
+        <!--<item>数据</item>-->
     </string-array>
 
     <string-array name="contact_page_list">

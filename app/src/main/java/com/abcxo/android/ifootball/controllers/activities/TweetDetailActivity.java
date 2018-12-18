@@ -232,7 +232,7 @@ public class TweetDetailActivity extends AppCompatActivity {
 
                         @Override
                         public void onLoaded(List<Message> messages) {
-                            if (tweetDetailFragment != null) {
+                            if (tweetDetailFragment != null && tweetDetailFragment.binding != null) {
                                 tweetDetailFragment.binding.setHandler(handler);
                                 if (messages.size() > 0) {
                                     tweetDetailFragment.binding.setMessage0(messages.get(0));

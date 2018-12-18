@@ -121,37 +121,38 @@ public class NavActivity extends AppCompatActivity
 
 
     private void init() {
-        try {
-            if (!ViewUtils.isX5()) {
-                Class<?> clazz = Class.forName("com.tencent.smtt.sdk.TbsDownloader");
-                Method method = clazz.getDeclaredMethod("a", Context.class);
-                method.setAccessible(true);
-                method.invoke(null, this);
-                Application.packageName = Constants.PACKAGE_NAME_X5;
-                QbSdk.setTbsListener(new TbsListener() {
-                    @Override
-                    public void onDownloadFinish(int i) {
-                        LogUtils.d("download");
-                    }
-
-                    @Override
-                    public void onInstallFinish(int i) {
-                        LogUtils.d("install");
-                        Application.packageName = Constants.PACKAGE_NAME;
-                        FileUtils.setPreference(Constants.PREFERENCE_X5, "1");
-                    }
-
-                    @Override
-                    public void onDownloadProgress(int i) {
-                        LogUtils.d("progress");
-                    }
-                });
-                QbSdk.setDownloadWithoutWifi(false);
-                TbsDownloader.startDownload(this);
-            }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+        //TODO:shadow
+//        try {
+//            if (!ViewUtils.isX5()) {
+//                Class<?> clazz = Class.forName("com.tencent.smtt.sdk.TbsDownloader");
+//                Method method = clazz.getDeclaredMethod("a", Context.class);
+//                method.setAccessible(true);
+//                method.invoke(null, this);
+//                Application.packageName = Constants.PACKAGE_NAME_X5;
+//                QbSdk.setTbsListener(new TbsListener() {
+//                    @Override
+//                    public void onDownloadFinish(int i) {
+//                        LogUtils.d("download");
+//                    }
+//
+//                    @Override
+//                    public void onInstallFinish(int i) {
+//                        LogUtils.d("install");
+//                        Application.packageName = Constants.PACKAGE_NAME;
+//                        FileUtils.setPreference(Constants.PREFERENCE_X5, "1");
+//                    }
+//
+//                    @Override
+//                    public void onDownloadProgress(int i) {
+//                        LogUtils.d("progress");
+//                    }
+//                });
+//                QbSdk.setDownloadWithoutWifi(false);
+//                TbsDownloader.startDownload(this);
+//            }
+//        } catch (Throwable e) {
+//            e.printStackTrace();
+//        }
         ShareSDK.initSDK(this);
         LocationUtils.saveLocation();
     }

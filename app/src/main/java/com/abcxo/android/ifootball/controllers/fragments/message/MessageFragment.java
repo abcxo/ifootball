@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -128,7 +129,12 @@ public class MessageFragment extends Fragment {
                 loadData(false);
             }
         }, Constants.MAX_LEFT_MORE);
-        load();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                load();
+            }
+        },1000);
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {

@@ -293,27 +293,28 @@ public class TweetFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(BindingHolder holder, int position) {
-            if (getGetsType() == TweetRestful.GetsType.HOME) {
-                if (position == 0) {
-                    // 宽高比 4 : 1
-                    int screen_width = ViewUtils.screenWidth();
-                    holder.view.getLayoutParams().height = screen_width / 4;
-                    final ViewPager viewPager = (ViewPager) holder.view.findViewById(R.id.view_pager);
-                    if (bannerAdapter == null) {
-                        bannerAdapter = new BannerAdapter();
-                        viewPager.setAdapter(bannerAdapter);
-                    } else {
-                        bannerAdapter.notifyDataSetChanged();
-                    }
-                } else {
-                    final Tweet tweet = tweetsList.get(position - 1);
-                    holder.viewDataBinding.setVariable(BR.tweet, tweet);
-                }
-
-            } else {
+            //TODO:shadow
+//            if (getGetsType() == TweetRestful.GetsType.HOME) {
+//                if (position == 0) {
+//                    // 宽高比 4 : 1
+//                    int screen_width = ViewUtils.screenWidth();
+//                    holder.view.getLayoutParams().height = screen_width / 4;
+//                    final ViewPager viewPager = (ViewPager) holder.view.findViewById(R.id.view_pager);
+//                    if (bannerAdapter == null) {
+//                        bannerAdapter = new BannerAdapter();
+//                        viewPager.setAdapter(bannerAdapter);
+//                    } else {
+//                        bannerAdapter.notifyDataSetChanged();
+//                    }
+//                } else {
+//                    final Tweet tweet = tweetsList.get(position - 1);
+//                    holder.viewDataBinding.setVariable(BR.tweet, tweet);
+//                }
+//
+//            } else {
                 final Tweet tweet = tweetsList.get(position);
                 holder.viewDataBinding.setVariable(BR.tweet, tweet);
-            }
+//            }
         }
 
         @Override

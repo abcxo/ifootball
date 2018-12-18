@@ -133,6 +133,7 @@
                     android:textSize="@dimen/text_hint" />
 
                 <LinearLayout
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/forget_password"
@@ -163,3 +164,4 @@
 
     </FrameLayout>
 </layout>
+    <!--TODO:shadow 注释掉第三方登录逻辑-->

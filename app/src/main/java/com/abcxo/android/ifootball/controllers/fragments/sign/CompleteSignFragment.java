@@ -118,7 +118,8 @@ public class CompleteSignFragment extends Fragment {
                                 public void onSuccess(User user) {
                                     LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_EDIT));
                                     ViewUtils.dismiss();
-                                    startActivity(new Intent(getActivity(), AddTeamActivity.class));
+                                    //TODO:shadow
+//                                    startActivity(new Intent(getActivity(), AddTeamActivity.class));
                                     getActivity().finish();
 
                                 }

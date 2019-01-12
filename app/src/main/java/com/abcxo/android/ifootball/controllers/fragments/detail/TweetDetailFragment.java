@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
 import android.widget.FrameLayout;
 
-import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.databinding.FragmentDetailTweetBinding;
@@ -58,9 +57,6 @@ public class TweetDetailFragment extends DetailFragment {
         return fragment;
     }
 
-    public TweetDetailFragment() {
-        Application.packageName = ViewUtils.isX5() ? Constants.PACKAGE_NAME_X5 : Constants.PACKAGE_NAME;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -238,7 +234,6 @@ public class TweetDetailFragment extends DetailFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Application.packageName = ViewUtils.isX5() ? Constants.PACKAGE_NAME_X5 : Constants.PACKAGE_NAME;
         if (webView != null) {
             webView.onResume();
         }
@@ -252,7 +247,6 @@ public class TweetDetailFragment extends DetailFragment {
         if (webView != null) {
             webView.onPause();
         }
-        Application.packageName = Constants.PACKAGE_NAME;
     }
 
     @Override
@@ -261,7 +255,6 @@ public class TweetDetailFragment extends DetailFragment {
         if (webView != null) {
             webView.destroy();
         }
-        Application.packageName = Constants.PACKAGE_NAME;
         super.onDestroy();
     }
 }

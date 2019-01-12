@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.utils.NavUtils;
@@ -39,9 +38,6 @@ public class WebActivity extends AppCompatActivity {
     private SwipeRefreshLayout refreshLayout;
     private SwipeRefreshLayout.OnRefreshListener listener;
 
-    public WebActivity() {
-        Application.packageName = ViewUtils.isX5() ? Constants.PACKAGE_NAME_X5 : Constants.PACKAGE_NAME;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,7 +211,6 @@ public class WebActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Application.packageName = ViewUtils.isX5() ? Constants.PACKAGE_NAME_X5 : Constants.PACKAGE_NAME;
         if (webView != null) {
             webView.onResume();
         }
@@ -229,7 +224,6 @@ public class WebActivity extends AppCompatActivity {
         if (webView != null) {
             webView.onPause();
         }
-        Application.packageName = Constants.PACKAGE_NAME;
     }
 
     @Override
@@ -238,7 +232,6 @@ public class WebActivity extends AppCompatActivity {
         if (webView != null) {
             webView.destroy();
         }
-        Application.packageName = Constants.PACKAGE_NAME;
         super.onDestroy();
     }
 

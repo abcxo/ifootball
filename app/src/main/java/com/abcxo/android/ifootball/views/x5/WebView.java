@@ -9,7 +9,6 @@ import com.abcxo.android.ifootball.constants.Constants;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.WebSettings;
 
-import java.lang.reflect.Field;
 import java.util.Map;
 
 /**
@@ -71,14 +70,15 @@ public class WebView extends com.tencent.smtt.sdk.WebView {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setCookies() {
-        try {
-            CookieManager.getInstance().setAcceptThirdPartyCookies(true);
-            Field field= Class.forName("com.tencent.smtt.sdk.WebView").getDeclaredField("h");
-            field.setAccessible(true);
-            android.webkit.CookieManager.getInstance().setAcceptThirdPartyCookies((android.webkit.WebView) field.get(this),true);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+        //TODO:shadow
+//        try {
+//            CookieManager.getInstance().setAcceptThirdPartyCookies(true);
+//            Field field= Class.forName("com.tencent.smtt.sdk.WebView").getDeclaredField("h");
+//            field.setAccessible(true);
+//            android.webkit.CookieManager.getInstance().setAcceptThirdPartyCookies((android.webkit.WebView) field.get(this),true);
+//        } catch (Throwable e) {
+//            e.printStackTrace();
+//        }
 
     }
 

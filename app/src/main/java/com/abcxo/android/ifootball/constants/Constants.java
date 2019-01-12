@@ -58,8 +58,4 @@ public final class Constants {
 
     public static String PREFERENCE = "ifootball";
     public static String PREFERENCE_FIRST = "first";
-    public static String PREFERENCE_X5 = "x5";
-
-    public static String PACKAGE_NAME_X5 = "com.tencent.x5sdk.demo";
-    public static String PACKAGE_NAME = "com.abcxo.android.ifootball";
 }

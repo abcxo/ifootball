@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -121,38 +122,22 @@ public class NavActivity extends AppCompatActivity
 
 
     private void init() {
-        //TODO:shadow
-//        try {
-//            if (!ViewUtils.isX5()) {
-//                Class<?> clazz = Class.forName("com.tencent.smtt.sdk.TbsDownloader");
-//                Method method = clazz.getDeclaredMethod("a", Context.class);
-//                method.setAccessible(true);
-//                method.invoke(null, this);
-//                Application.packageName = Constants.PACKAGE_NAME_X5;
-//                QbSdk.setTbsListener(new TbsListener() {
-//                    @Override
-//                    public void onDownloadFinish(int i) {
-//                        LogUtils.d("download");
-//                    }
-//
-//                    @Override
-//                    public void onInstallFinish(int i) {
-//                        LogUtils.d("install");
-//                        Application.packageName = Constants.PACKAGE_NAME;
-//                        FileUtils.setPreference(Constants.PREFERENCE_X5, "1");
-//                    }
-//
-//                    @Override
-//                    public void onDownloadProgress(int i) {
-//                        LogUtils.d("progress");
-//                    }
-//                });
-//                QbSdk.setDownloadWithoutWifi(false);
-//                TbsDownloader.startDownload(this);
-//            }
-//        } catch (Throwable e) {
-//            e.printStackTrace();
-//        }
+        QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
+            @Override
+            public void onViewInitFinished(boolean arg0) {
+                // TODO Auto-generated method stub
+                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+                LogUtils.d(" onViewInitFinished is " + arg0);
+            }
+
+            @Override
+            public void onCoreInitFinished() {
+                // TODO Auto-generated method stub
+                LogUtils.d(" onCoreInitFinished");
+            }
+        };
+        //x5内核初始化接口
+        QbSdk.initX5Environment(getApplicationContext(),  cb);
         ShareSDK.initSDK(this);
         LocationUtils.saveLocation();
     }

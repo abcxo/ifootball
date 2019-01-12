@@ -361,7 +361,6 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
                 Picasso.with(Application.INSTANCE).load(cover).into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        Application.packageName = Constants.PACKAGE_NAME;
                         String path = FileUtils.saveImage(bitmap, Constants.DIR_TWEET_SHARE, Utils.md5(cover));
                         OnekeyShare oks = new OnekeyShare();
                         //关闭sso授权

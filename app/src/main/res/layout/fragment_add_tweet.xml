@@ -40,7 +40,8 @@
             android:layout_width="match_parent"
             app:titleTextAppearance="@style/Toolbar.TitleText"
             android:layout_height="?attr/actionBarSize"
-            android:theme="@style/AppTheme.AppBarLight">
+            app:elevation="1dp"
+        android:theme="@style/AppTheme.AppBarLight">
 
             <LinearLayout
                 android:layout_width="match_parent"

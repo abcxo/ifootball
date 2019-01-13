@@ -11,7 +11,8 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarDark">
+        app:elevation="1dp"
+        android:theme="@style/AppTheme.AppBarLight">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -31,7 +32,7 @@
                 <com.abcxo.android.ifootball.views.IconFontView
                     android:id="@+id/ifvSearch"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/color_white"
+                    android:textColor="@color/color_dark"
                     android:layout_marginTop="@dimen/padding_tiny"
                     android:layout_marginLeft="@dimen/padding_min"
                     android:layout_height="wrap_content"
@@ -48,7 +49,7 @@
                     android:layout_toRightOf="@+id/ifvSearch"
                     android:layout_marginLeft="@dimen/padding_small"
                     android:singleLine="true"
-                    android:textColor="@color/color_text_highlight"
+                    android:textColor="@color/color_text_dark"
                     android:textSize="@dimen/text_mid"/>
 
                 <View
@@ -56,7 +57,7 @@
                     android:layout_height="1dp"
                     android:layout_below="@+id/ifvSearch"
                     android:layout_marginTop="@dimen/padding_small"
-                    android:background="#6077AA"/>
+                    android:background="@color/color_text_dark"/>
 
             </RelativeLayout>
 
@@ -70,8 +71,11 @@
             app:tabTextAppearance="@style/MyCustomTabText"
             app:tabIndicatorColor="@color/color_icon_light"
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:tabSelectedTextColor="@color/color_accent_search"
-            app:tabTextColor="@color/color_text_empty"/>
+            app:tabIndicatorHeight="0dp"
+            app:tabSelectedTextColor="@color/color_primary"
+            app:tabTextColor="@color/color_primary_light"/>
+
+
 
     </android.support.design.widget.AppBarLayout>
 

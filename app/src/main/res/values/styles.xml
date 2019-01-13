@@ -1,19 +1,33 @@
 <resources>
 
+
+
+
+
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimary">@color/color_primary_bright</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_primary</item>
 
         <item name="android:textColorHint">@color/color_text_slightLight</item>
         <item name="colorControlNormal">@color/color_text_slightLight</item>
+
+        <item name="actionBarSize">@dimen/nav_height</item>
     </style>
+
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <!--parent设置为启动页的theme-->
+    <style name="AppTheme.LauncherTheme" parent="AppTheme.NoActionBar">
+        <item name="android:windowBackground">@drawable/img_welcome0</item>
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
@@ -26,12 +40,14 @@
 
     <style name="AppTheme.NoActionBar.NoStatusBar" parent="AppTheme.NoActionBar"></style>
 
+
     <style name="AppTheme.NoActionBar.NoStatusBar.NoNavigationBar" parent="AppTheme.NoActionBar.NoStatusBar"></style>
 
 
     <style name="AppTheme.AppBarDark" parent="ThemeOverlay.AppCompat.Dark.ActionBar"></style>
 
-    <style name="AppTheme.AppBarLight" parent="ThemeOverlay.AppCompat.ActionBar"></style>
+    <style name="AppTheme.AppBarLight" parent="ThemeOverlay.AppCompat.ActionBar">
+    </style>
 
     <style name="AppTheme.PopupLight" parent="ThemeOverlay.AppCompat.Light" />
 
@@ -94,6 +110,7 @@
         <item name="android:paddingTop">@dimen/padding_small</item>
         <item name="android:paddingBottom">@dimen/padding_small</item>
     </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

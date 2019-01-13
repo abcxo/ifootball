@@ -36,7 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:titleTextAppearance="@style/Toolbar.TitleText"
-                android:theme="@style/AppTheme.AppBarDark" />
+                app:elevation="1dp"
+        android:theme="@style/AppTheme.AppBarLight" />
         </FrameLayout>
 
 

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_selected="false" android:color="@color/color_text_empty"/>
+    <item android:state_selected="false" android:color="@color/color_primary_light"/>
+    <item android:state_selected="false" android:textStyle="normal"/>
     <item android:state_selected="true" android:color="@color/color_primary"/>
+    <item android:state_selected="true" android:textStyle="bold"/>
 
 </selector>

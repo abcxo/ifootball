@@ -29,7 +29,8 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarDark">
+            app:elevation="1dp"
+        android:theme="@style/AppTheme.AppBarLight">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -52,9 +53,11 @@
             app:tabTextAppearance="@style/MyCustomTabText"
             android:visibility="@{isComment?View.GONE:View.VISIBLE}"
             app:tabIndicatorColor="@color/color_icon_light"
-            app:tabSelectedTextColor="@color/color_accent_search"
-            app:tabTextColor="@color/color_text_empty"
-            app:titleTextAppearance="@style/Toolbar.TitleText"/>
+            app:tabSelectedTextColor="@color/color_primary"
+            app:tabTextColor="@color/color_primary_light"
+            app:tabIndicatorHeight="0dp"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
@@ -93,7 +96,7 @@
                 android:gravity="center"
                 android:onClick="@{handler.onClickSend}"
                 android:text="@string/iconfont.send"
-                android:textColor="@color/color_accent_search"
+                android:textColor="@color/color_primary"
                 android:textSize="@dimen/text_huge"/>
         </LinearLayout>
 

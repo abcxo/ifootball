@@ -9,7 +9,8 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarDark">
+        app:elevation="1dp"
+        android:theme="@style/AppTheme.AppBarLight">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -36,15 +37,21 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             app:tabIndicatorHeight="0dp"
-            app:tabMode="fixed"
-            app:tabBackground="@android:color/transparent"/>
+            app:tabMode="fixed" />
+
+        <View
+            android:id="@+id/action_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/tabs"
+            android:background="@color/color_divider" />
 
         <com.abcxo.android.ifootball.views.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentTop="true"
-            android:layout_above="@id/tabs"
+            android:layout_above="@id/action_divider"
             android:background="@android:color/white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     </RelativeLayout>

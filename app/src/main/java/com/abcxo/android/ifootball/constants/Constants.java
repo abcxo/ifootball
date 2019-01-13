@@ -10,6 +10,8 @@ public final class Constants {
     public static final int REQUEST_CAMERA = 1000;
     public static final int REQUEST_PHOTO = 1001;
     public static final int REQUEST_CONTACT = 1002;
+    public static final int REQUEST_ADD = 1003;
+    public static final int REQUEST_SIGN = 1004;
 
     public static final String ACTION_LOGIN = "login";
     public static final String ACTION_EDIT = "edit";

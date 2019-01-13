@@ -83,6 +83,9 @@
     <string name="activity_about">关于足球狗</string>
     <string name="activity_web"></string>
 
+    <string name="title_love">love</string>
+    <string name="title_look">look</string>
+
     <string-array name="main_page_list">
         <item>关注</item>
         <!--<item>球队</item>//TODO:shadow-->
@@ -312,5 +315,12 @@
     <string name="iconfont.arrow.down">&#xe612;</string>
 
     <string name="iconfont.share">&#xe617;</string>
+
+
+    <string name="iconfont.tab.love">&#xe6d9;</string>
+    <string name="iconfont.tab.look">&#xe6d8;</string>
+    <string name="iconfont.tab.add">&#xe6d5;</string>
+    <string name="iconfont.tab.search">&#xe6d6;</string>
+    <string name="iconfont.tab.discover">&#xe6d7;</string>
 
 </resources>

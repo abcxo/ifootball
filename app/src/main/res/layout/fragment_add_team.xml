@@ -24,7 +24,8 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarDark">
+            app:elevation="1dp"
+        android:theme="@style/AppTheme.AppBarLight">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -65,8 +66,9 @@
                 app:tabIndicatorColor="@color/color_icon_light"
                 app:tabTextAppearance="@style/MyCustomTabText"
                 app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/color_accent_search"
-                app:tabTextColor="@color/color_text_empty"/>
+                app:tabIndicatorHeight="0dp"
+                app:tabSelectedTextColor="@color/color_primary"
+                app:tabTextColor="@color/color_primary_light"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewpager"

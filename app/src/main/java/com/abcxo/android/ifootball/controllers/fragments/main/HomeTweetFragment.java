@@ -50,4 +50,8 @@ public class HomeTweetFragment extends TweetFragment {
         return TweetRestful.GetsType.HOME;
     }
 
+    @Override
+    protected String getKeyword() {
+        return getArguments().getString(Constants.KEY_TITLE);
+    }
 }

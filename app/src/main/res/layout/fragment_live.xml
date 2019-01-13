@@ -24,7 +24,8 @@
             android:id="@+id/barlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarDark">
+            app:elevation="1dp"
+        android:theme="@style/AppTheme.AppBarLight">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

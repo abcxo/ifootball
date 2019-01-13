@@ -10,7 +10,12 @@
 
     <style name="AppTheme.NoActionBar.NoStatusBar" parent="AppTheme.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
+    </style>
 
+    <style name="AppTheme.NoActionBar.StatusBar" parent="AppTheme.NoActionBar">
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/white</item>
     </style>
 
     <style name="AppTheme.NoActionBar.NoStatusBar.NoNavigationBar" parent="AppTheme.NoActionBar.NoStatusBar">

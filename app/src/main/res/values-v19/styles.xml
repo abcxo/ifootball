@@ -3,7 +3,6 @@
 
     <style name="AppTheme.NoActionBar.NoStatusBar" parent="AppTheme.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
-
     </style>
 
     <style name="AppTheme.NoActionBar.NoStatusBar.NoNavigationBar" parent="AppTheme.NoActionBar.NoStatusBar">

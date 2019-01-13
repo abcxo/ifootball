@@ -37,7 +37,7 @@ public class TabActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         registerBroadcastReceiver();
-        setTheme(R.style.AppTheme_NoActionBar);
+        setTheme(R.style.AppTheme_NoActionBar_NoStatusBar);
         setContentView(R.layout.activity_tab);
         Bundle bundle = new Bundle();
         bundle.putBoolean(Constants.KEY_IS_SELECT, true);

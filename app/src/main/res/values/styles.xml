@@ -26,7 +26,7 @@
     </style>
 
     <!--parent设置为启动页的theme-->
-    <style name="AppTheme.LauncherTheme" parent="AppTheme.NoActionBar">
+    <style name="AppTheme.LauncherTheme" parent="AppTheme.NoActionBar.NoStatusBar">
         <item name="android:windowBackground">@drawable/img_welcome0</item>
     </style>
 

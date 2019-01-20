@@ -33,7 +33,7 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="@dimen/tab_height"
             android:background="@color/color_white"
             app:titleTextAppearance="@style/Toolbar.TitleText"
             app:tabMode="fixed"

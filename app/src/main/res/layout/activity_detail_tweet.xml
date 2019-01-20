@@ -47,7 +47,7 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="@dimen/tab_height"
             android:layout_marginTop="?attr/actionBarSize"
             android:background="@color/color_text_highlight"
             app:tabTextAppearance="@style/MyCustomTabText"

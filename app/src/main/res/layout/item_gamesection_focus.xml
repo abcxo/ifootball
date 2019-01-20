@@ -61,7 +61,7 @@
                 bind:game="@{gameSection.game}" />
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/ic_divider"/>
 

@@ -78,7 +78,7 @@
                     </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
 
                     <View
-                        android:layout_width="1dp"
+                        android:layout_width="0.5dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_divider"/>
 
@@ -116,7 +116,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@drawable/ic_divider"/>
 
                 <LinearLayout
@@ -157,7 +157,7 @@
                     </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
 
                     <View
-                        android:layout_width="1dp"
+                        android:layout_width="0.5dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_divider"/>
 
@@ -196,7 +196,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@drawable/ic_divider"/>
 
                 <LinearLayout
@@ -237,7 +237,7 @@
                     </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
 
                     <View
-                        android:layout_width="1dp"
+                        android:layout_width="0.5dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_divider"/>
 
@@ -276,7 +276,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@drawable/ic_divider"/>
 
                 <LinearLayout
@@ -316,7 +316,7 @@
                     </com.abcxo.android.ifootball.views.FlexibleRelativeLayout>
 
                     <View
-                        android:layout_width="1dp"
+                        android:layout_width="0.5dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_divider"/>
 

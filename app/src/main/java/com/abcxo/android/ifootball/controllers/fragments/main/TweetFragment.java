@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.databinding.ItemBannerBinding;
 import com.abcxo.android.ifootball.models.Game;
 import com.abcxo.android.ifootball.models.Tweet;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TweetFragment extends Fragment {
+public class TweetFragment extends CommonFragment {
 
     protected List<Tweet> mTweetList = new ArrayList<>();
     protected List<Game> mGameList = new ArrayList<>();

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.adapters.BindingAdapter;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
 
@@ -29,7 +30,7 @@ import uk.co.senab.photoview.PhotoView;
 /**
  * Created by shadow on 15/11/4.
  */
-public class ImageFragment extends Fragment {
+public class ImageFragment extends CommonFragment {
 
     private List<Image> images = new ArrayList<>();
     private int currentIndex;

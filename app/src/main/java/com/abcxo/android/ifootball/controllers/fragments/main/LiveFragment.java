@@ -23,6 +23,7 @@ import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.databinding.FragmentLiveBinding;
 import com.abcxo.android.ifootball.models.Game;
 import com.abcxo.android.ifootball.restfuls.GameRestful;
@@ -37,7 +38,7 @@ import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LiveFragment extends Fragment {
+public class LiveFragment extends CommonFragment {
     private BroadcastReceiver receiver;
 
     protected List<GameSection> list = new ArrayList<>();

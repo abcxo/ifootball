@@ -11,7 +11,7 @@ import com.abcxo.android.ifootball.restfuls.UserRestful;
 /**
  * Created by shadow on 15/11/4.
  */
-public class LiveActivity extends AppCompatActivity {
+public class LiveActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

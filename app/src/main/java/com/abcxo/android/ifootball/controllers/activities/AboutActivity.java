@@ -12,7 +12,7 @@ import com.abcxo.android.ifootball.utils.NavUtils;
 /**
  * Created by shadow on 15/11/4.
  */
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

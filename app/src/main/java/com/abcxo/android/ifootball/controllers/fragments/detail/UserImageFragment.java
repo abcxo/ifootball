@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
@@ -28,7 +29,7 @@ import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserImageFragment extends Fragment {
+public class UserImageFragment extends CommonFragment {
 
 
     protected long uid;

@@ -14,7 +14,7 @@ import com.abcxo.android.ifootball.R;
 /**
  * Created by shadow on 15/11/4.
  */
-public class HelpActivity extends AppCompatActivity {
+public class HelpActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

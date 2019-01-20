@@ -245,7 +245,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/iconfont.comment"
-                                android:textSize="17sp"/>
+                                android:textSize="17dp"/>
 
                         </LinearLayout>
 
@@ -261,7 +261,7 @@
                             <com.abcxo.android.ifootball.views.IconFontView
                                 android:layout_width="wrap_content"
                                 android:text="@string/iconfont.forward"
-                                android:textSize="17sp"
+                                android:textSize="17dp"
                                 android:layout_height="wrap_content"/>
 
                         </LinearLayout>
@@ -278,7 +278,7 @@
                             <com.abcxo.android.ifootball.views.IconFontView
                                 android:layout_width="wrap_content"
                                 android:text="@string/iconfont.star"
-                                android:textSize="17sp"
+                                android:textSize="17dp"
                                 android:textColor="@{tweet.star?@color/color_primary:@android:color/tab_indicator_text}"
                                 android:layout_height="wrap_content"/>
 
@@ -296,7 +296,7 @@
                             <com.abcxo.android.ifootball.views.IconFontView
                                 android:layout_width="wrap_content"
                                 android:text="@string/iconfont.share"
-                                android:textSize="19sp"
+                                android:textSize="19dp"
                                 android:layout_height="wrap_content"/>
 
                         </LinearLayout>

@@ -70,10 +70,14 @@
     <!--附加-->
     <color name="color_text_append">#60000000</color>
 
-    <color name="color_text_empty">#20000000</color>
+    <color name="color_text_hint">#999999</color>
+
+    <color name="color_text_empty">#eeeeee</color>
+
+    <color name="color_input_empty">#f2f2f2</color>
 
 
-    <color name="color_divider">#10000000</color>
+    <color name="color_divider">#c9c9c9</color>
 
     <color name="color_refresh_1">@color/color_primary</color>
     <color name="color_refresh_2">@color/color_primary</color>
@@ -95,5 +99,7 @@
 
 
     <color name="color_activity_bg">#CFD0D5</color>
+
+    <color name="color_empty">#ffffff</color>
 
 </resources>

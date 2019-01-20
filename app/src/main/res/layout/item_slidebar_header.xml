@@ -14,7 +14,7 @@
         android:layout_marginLeft="@dimen/padding"
         android:layout_centerVertical="true"
         android:textColor="@color/color_slide_divider"
-        android:textSize="16sp"
+        android:textSize="16dp"
         tools:text="2222"/>
 
     <com.abcxo.android.ifootball.views.IconFontView

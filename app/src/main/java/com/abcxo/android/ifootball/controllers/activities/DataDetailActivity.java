@@ -12,7 +12,7 @@ import com.abcxo.android.ifootball.controllers.fragments.detail.DataCategoryFrag
 /**
  * Created by shadow on 15/11/4.
  */
-public class DataDetailActivity extends AppCompatActivity {
+public class DataDetailActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

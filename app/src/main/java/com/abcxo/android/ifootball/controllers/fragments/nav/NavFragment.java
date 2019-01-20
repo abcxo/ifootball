@@ -13,12 +13,13 @@ import android.view.View;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.socks.library.KLog;
 
 /**
  * Created by shadow on 15/11/1.
  */
-public class NavFragment extends Fragment {
+public class NavFragment extends CommonFragment {
 
 
     protected Toolbar toolbar;

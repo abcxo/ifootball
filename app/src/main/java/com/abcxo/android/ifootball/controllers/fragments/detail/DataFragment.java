@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.models.Data;
 import com.abcxo.android.ifootball.restfuls.DataRestful;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
@@ -18,7 +19,7 @@ import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.SwipeRefreshLayout;
 
-public class DataFragment extends Fragment {
+public class DataFragment extends CommonFragment {
 
     private WebView webView;
     private SwipeRefreshLayout refreshLayout;

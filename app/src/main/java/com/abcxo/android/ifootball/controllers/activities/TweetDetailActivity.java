@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * Created by shadow on 15/11/4.
  */
-public class TweetDetailActivity extends AppCompatActivity {
+public class TweetDetailActivity extends CommonActivity {
 
     private Tweet tweet;
     private long tid;

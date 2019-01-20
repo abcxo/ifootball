@@ -17,6 +17,7 @@ import android.widget.EditText;
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.databinding.FragmentSignLoginBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
@@ -36,7 +37,7 @@ import cn.sharesdk.tencent.qq.QQ;
 /**
  * Created by shadow on 15/11/4.
  */
-public class LoginSignFragment extends Fragment {
+public class LoginSignFragment extends CommonFragment {
 
     public EditText emailET;
     public EditText passwordET;

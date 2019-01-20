@@ -53,7 +53,7 @@
                             android:layout_marginLeft="@dimen/padding_tiny"
                             android:text="@string/iconfont.search"
                             android:textColor="@color/color_white"
-                            android:textSize="18sp"/>
+                            android:textSize="18dp"/>
 
                         <TextView
                             android:id="@+id/tvSearch"
@@ -92,7 +92,7 @@
                             android:padding="@dimen/padding_small"
                             android:text="@string/iconfont.notification"
                             android:textColor="@color/color_white"
-                            android:textSize="18sp"/>
+                            android:textSize="18dp"/>
 
                         <View
                             android:id="@+id/viewRedCircle"
@@ -115,7 +115,7 @@
                         android:padding="@dimen/padding_small"
                         android:text="@string/iconfont.person"
                         android:textColor="@color/color_white"
-                        android:textSize="18sp"/>
+                        android:textSize="18dp"/>
 
                 </RelativeLayout>
 
@@ -134,9 +134,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/color_white"
-                app:tabIndicatorColor="@color/color_transparent"
                 app:tabMode="fixed"
-                app:tabIndicatorHeight="0dp"
+                app:tabIndicatorHeight="1dp"
+                app:tabIndicatorColor="@color/color_primary"
                 app:tabSelectedTextColor="@color/color_primary"
                 app:tabTextColor="@color/color_primary_light"
                 app:titleTextAppearance="@style/Toolbar.TitleText"/>
@@ -166,7 +166,7 @@
             android:layout_height="wrap_content"
             android:text="@string/iconfont.write.twitter"
             android:textColor="@color/color_white"
-            android:textSize="35sp"
+            android:textSize="35dp"
             android:visibility="invisible"/>
 
 

@@ -63,10 +63,10 @@
                 android:layout_width="match_parent"
                 android:background="@color/color_text_highlight"
                 android:layout_height="?attr/actionBarSize"
-                app:tabIndicatorColor="@color/color_icon_light"
                 app:tabTextAppearance="@style/MyCustomTabText"
                 app:tabMode="scrollable"
-                app:tabIndicatorHeight="0dp"
+                app:tabIndicatorHeight="1dp"
+                app:tabIndicatorColor="@color/color_primary"
                 app:tabSelectedTextColor="@color/color_primary"
                 app:tabTextColor="@color/color_primary_light"/>
 

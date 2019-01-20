@@ -6,9 +6,9 @@
                 android:layout_height="match_parent">
 
     <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:background="@color/color_empty"
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/padding"
         android:layout_height="match_parent"
         android:layout_below="@+id/barlayout"
         app:layout_empty="@layout/view_empty"

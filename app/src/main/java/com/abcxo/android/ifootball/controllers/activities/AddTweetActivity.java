@@ -9,7 +9,7 @@ import com.abcxo.android.ifootball.controllers.fragments.add.AddTweetFragment;
 /**
  * Created by shadow on 15/11/4.
  */
-public class AddTweetActivity extends AppCompatActivity {
+public class AddTweetActivity extends CommonActivity {
     private AddTweetFragment addTweetFragment;
 
     @Override

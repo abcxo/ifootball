@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
@@ -33,7 +34,7 @@ import java.util.List;
 import static com.abcxo.android.ifootball.models.User.UserMainType.CONTACT;
 import static com.abcxo.android.ifootball.models.User.UserMainType.DISCOVER;
 
-public class UserFragment extends Fragment {
+public class UserFragment extends CommonFragment {
 
     protected List<User> list = new ArrayList<>();
 

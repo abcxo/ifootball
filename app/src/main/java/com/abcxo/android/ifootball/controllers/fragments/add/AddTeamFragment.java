@@ -24,6 +24,7 @@ import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.databinding.FragmentAddTeamBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
@@ -38,7 +39,7 @@ import java.util.List;
 /**
  * Created by shadow on 15/11/4.
  */
-public class AddTeamFragment extends Fragment {
+public class AddTeamFragment extends CommonFragment {
     public static AddTeamFragment newInstance() {
         return newInstance(null);
     }

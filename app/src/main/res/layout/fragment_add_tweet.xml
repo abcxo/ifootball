@@ -52,6 +52,7 @@
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    app:riv_corner_radius="16dp"
                     android:background="?attr/selectableItemBackground"
                     android:onClick="@{user.getHandler().onClickUser}"
                     android:scaleType="centerCrop"
@@ -159,7 +160,7 @@
             <View
                 android:id="@+id/action_divider"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="1px"
                 android:layout_above="@id/action_layout"
                 android:background="@color/color_divider" />
 

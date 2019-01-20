@@ -10,7 +10,7 @@ import com.abcxo.android.ifootball.controllers.fragments.nav.ContactNavFragment;
 /**
  * Created by shadow on 15/11/4.
  */
-public class ContactActivity extends AppCompatActivity {
+public class ContactActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

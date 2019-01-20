@@ -26,52 +26,57 @@
             <RelativeLayout
                 android:id="@+id/rltSearch"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:background="@drawable/bg_input"
+                android:layout_margin="@dimen/padding_half"
+                android:paddingLeft="@dimen/padding_small"
+                android:layout_height="wrap_content">
 
                 <com.abcxo.android.ifootball.views.IconFontView
                     android:id="@+id/ifvSearch"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/color_dark"
+                    android:textColor="@color/color_text_hint"
                     android:layout_marginTop="@dimen/padding_tiny"
                     android:layout_marginLeft="@dimen/padding_min"
                     android:layout_height="wrap_content"
                     android:text="@string/iconfont.search"
-                    android:textSize="14sp"/>
+                    android:layout_centerVertical="true"
+                    android:textSize="14dp"/>
 
                 <EditText
                     android:id="@+id/input"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:layout_toRightOf="@+id/ifvSearch"
                     android:background="@null"
                     android:hint="@string/activity_search"
                     android:imeOptions="actionSearch"
-                    android:layout_toRightOf="@+id/ifvSearch"
-                    android:layout_marginLeft="@dimen/padding_small"
                     android:singleLine="true"
                     android:textColor="@color/color_text_dark"
-                    android:textSize="@dimen/text_mid"/>
+                    android:textColorHint="@color/color_text_hint"
+                    android:textSize="@dimen/text_mid" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/ifvSearch"
-                    android:layout_marginTop="@dimen/padding_small"
-                    android:background="@color/color_text_dark"/>
+
 
             </RelativeLayout>
 
+
         </android.support.v7.widget.Toolbar>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_divider" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/tab_height"
             android:background="@color/color_icon_highlight"
             app:tabTextAppearance="@style/MyCustomTabText"
-            app:tabIndicatorColor="@color/color_icon_light"
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:tabIndicatorHeight="0dp"
+            app:tabIndicatorHeight="1dp"
+            app:tabIndicatorColor="@color/color_primary"
             app:tabSelectedTextColor="@color/color_primary"
             app:tabTextColor="@color/color_primary_light"/>
 

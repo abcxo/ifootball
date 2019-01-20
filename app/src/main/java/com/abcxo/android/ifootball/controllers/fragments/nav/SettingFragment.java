@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.databinding.FragmentSettingBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
@@ -35,7 +36,7 @@ import com.abcxo.android.ifootball.utils.ViewUtils;
 /**
  * Created by shadow on 15/12/11.
  */
-public class SettingFragment extends Fragment {
+public class SettingFragment extends CommonFragment {
 
     public static SettingFragment newInstance() {
         return newInstance(null);

@@ -16,13 +16,14 @@ import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.activities.DataDetailActivity;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.databinding.FragmentDetailDataBinding;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 
 /**
  * Created by shadow on 15/11/4.
  */
-public class DataDetailFragment extends Fragment {
+public class DataDetailFragment extends CommonFragment {
 
     private FragmentDetailDataBinding mDataBinding;
 

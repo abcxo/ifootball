@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.models.Message;
 import com.abcxo.android.ifootball.restfuls.MessageRestful;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
@@ -44,7 +45,7 @@ import static com.abcxo.android.ifootball.models.Message.MessageMainType.PROMPT;
 import static com.abcxo.android.ifootball.models.Message.MessageMainType.SPECIAL;
 import static com.abcxo.android.ifootball.models.Message.MessageMainType.STAR;
 
-public class MessageFragment extends Fragment {
+public class MessageFragment extends CommonFragment {
 
     protected List<Message> list = new ArrayList<>();
     protected SwipeRefreshLayout.OnRefreshListener onRefreshListener;

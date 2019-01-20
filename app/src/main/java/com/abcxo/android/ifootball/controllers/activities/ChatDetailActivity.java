@@ -12,7 +12,7 @@ import java.util.Stack;
 /**
  * Created by shadow on 15/11/4.
  */
-public class ChatDetailActivity extends AppCompatActivity {
+public class ChatDetailActivity extends CommonActivity {
     private static Stack<String> chatIds = new Stack<>();
 
     @Override

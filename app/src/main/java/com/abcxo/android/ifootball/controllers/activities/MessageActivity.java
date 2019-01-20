@@ -10,7 +10,7 @@ import com.abcxo.android.ifootball.controllers.fragments.nav.MessageNavFragment;
 /**
  * Created by shadow on 15/11/4.
  */
-public class MessageActivity extends AppCompatActivity {
+public class MessageActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

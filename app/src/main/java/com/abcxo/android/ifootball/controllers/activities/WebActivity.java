@@ -24,7 +24,7 @@ import com.tencent.smtt.sdk.WebViewClient;
 /**
  * Created by shadow on 15/11/4.
  */
-public class WebActivity extends AppCompatActivity {
+public class WebActivity extends CommonActivity {
 
     private View customView;
     private int originalSystemUiVisibility;

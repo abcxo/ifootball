@@ -12,7 +12,7 @@ import com.abcxo.android.ifootball.models.User;
 /**
  * Created by shadow on 15/11/4.
  */
-public class UserDetailActivity extends AppCompatActivity {
+public class UserDetailActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

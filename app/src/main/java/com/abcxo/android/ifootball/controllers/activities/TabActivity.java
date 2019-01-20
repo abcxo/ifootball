@@ -25,7 +25,7 @@ import com.abcxo.android.ifootball.utils.Utils;
 /**
  * Created by shadow on 15/11/4.
  */
-public class TabActivity extends AppCompatActivity {
+public class TabActivity extends CommonActivity {
 
     private BroadcastReceiver loginReceiver;
     private BroadcastReceiver editReceiver;

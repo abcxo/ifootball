@@ -22,6 +22,7 @@ import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.activities.AddTeamActivity;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.databinding.FragmentSignCompleteBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.models.User.GenderType;
@@ -35,7 +36,7 @@ import com.abcxo.android.ifootball.utils.ViewUtils;
 /**
  * Created by shadow on 15/11/4.
  */
-public class CompleteSignFragment extends Fragment {
+public class CompleteSignFragment extends CommonFragment {
 
     private User user;
 

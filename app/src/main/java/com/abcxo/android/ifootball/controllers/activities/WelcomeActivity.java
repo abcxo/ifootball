@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.controllers.fragments.nav.WelcomeFragment;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -13,12 +13,13 @@ import android.widget.ImageView;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.utils.FileUtils;
 
 /**
  * Created by shadow on 15/11/4.
  */
-public class WelcomeFragment extends Fragment {
+public class WelcomeFragment extends CommonFragment {
 
     private ViewPager viewPager;
 

@@ -9,7 +9,7 @@ import com.abcxo.android.ifootball.controllers.fragments.detail.ImageFragment;
 /**
  * Created by shadow on 15/11/20.
  */
-public class ImageActivity extends AppCompatActivity {
+public class ImageActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

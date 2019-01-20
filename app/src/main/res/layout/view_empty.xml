@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <com.abcxo.android.ifootball.views.IconFontView
+        android:id="@+id/ifvSearch"
+        android:layout_width="wrap_content"
+        android:textColor="@color/color_text_empty"
+        android:layout_height="wrap_content"
+        android:text="@string/iconfont.empty"
+        android:textSize="80dp"/>
+
     <TextView
+        android:layout_margin="@dimen/padding_mid"
         android:textColor="@color/color_text_empty"
         android:textSize="@dimen/text_empty"
         android:layout_width="wrap_content"
@@ -10,4 +21,4 @@
         android:text="暂无数据"
         android:layout_gravity="center"/>
 
-</FrameLayout>
+</LinearLayout>

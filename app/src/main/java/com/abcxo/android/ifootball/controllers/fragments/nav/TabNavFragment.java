@@ -21,6 +21,7 @@ import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.abcxo.android.ifootball.views.IconFontView;
+import com.abcxo.android.ifootball.views.SelectIconFontView;
 import com.abcxo.android.ifootball.views.ViewPager;
 
 import java.util.ArrayList;
@@ -154,22 +155,22 @@ public class TabNavFragment extends NavFragment {
 
         public View getTabView(int position) {
             LinearLayout tab = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.item_tab, null);
-            IconFontView ifv_tab = (IconFontView) tab.findViewById(R.id.ifv_tab);
+            SelectIconFontView ifv_tab = (SelectIconFontView) tab.findViewById(R.id.ifv_tab);
             switch (position) {
                 case 0:
-                    ifv_tab.setText(R.string.iconfont_tab_love);
+                    ifv_tab.setText(R.string.iconfont_tab_love,R.string.iconfont_tab_look);
                     break;
                 case 1:
-                    ifv_tab.setText(R.string.iconfont_tab_look);
+                    ifv_tab.setText(R.string.iconfont_tab_look,R.string.iconfont_tab_look);
                     break;
                 case 2:
-                    ifv_tab.setText(R.string.iconfont_tab_add);
+                    ifv_tab.setText(R.string.iconfont_tab_add,R.string.iconfont_tab_look);
                     break;
                 case 3:
-                    ifv_tab.setText(R.string.iconfont_tab_search);
+                    ifv_tab.setText(R.string.iconfont_tab_search,R.string.iconfont_tab_look);
                     break;
                 case 4:
-                    ifv_tab.setText(R.string.iconfont_tab_discover);
+                    ifv_tab.setText(R.string.iconfont_tab_discover,R.string.iconfont_tab_look);
                     break;
             }
             return tab;

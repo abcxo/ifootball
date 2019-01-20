@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.databinding.FragmentDetailUserBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
@@ -27,7 +28,7 @@ import com.abcxo.android.ifootball.utils.ViewUtils;
 /**
  * Created by shadow on 15/11/4.
  */
-public class UserDetailFragment extends Fragment {
+public class UserDetailFragment extends CommonFragment {
     private User user;
     private long uid;
     private String name;

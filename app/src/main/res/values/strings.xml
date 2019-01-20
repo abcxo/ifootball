@@ -316,6 +316,8 @@
 
     <string name="iconfont.share">&#xe617;</string>
 
+    <string name="iconfont.empty">&#xe6e1;</string>
+
 
     <string name="iconfont.tab.love">&#xe6d9;</string>
     <string name="iconfont.tab.look">&#xe6d8;</string>

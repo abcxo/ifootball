@@ -10,7 +10,7 @@ import com.abcxo.android.ifootball.controllers.fragments.nav.SearchNavFragment;
 /**
  * Created by shadow on 15/11/4.
  */
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends CommonActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

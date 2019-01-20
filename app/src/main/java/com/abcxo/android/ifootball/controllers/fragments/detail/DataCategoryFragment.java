@@ -14,11 +14,12 @@ import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 
 /**
  * Created by shadow on 15/11/4.
  */
-public class DataCategoryFragment extends Fragment {
+public class DataCategoryFragment extends CommonFragment {
     protected String name;
     protected long uid;
 

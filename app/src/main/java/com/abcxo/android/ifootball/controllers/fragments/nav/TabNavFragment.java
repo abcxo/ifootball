@@ -16,11 +16,8 @@ import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
 import com.abcxo.android.ifootball.controllers.activities.SignActivity;
-import com.abcxo.android.ifootball.controllers.fragments.main.DiscoverUserFragment;
-import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.ViewUtils;
-import com.abcxo.android.ifootball.views.IconFontView;
 import com.abcxo.android.ifootball.views.SelectIconFontView;
 import com.abcxo.android.ifootball.views.ViewPager;
 
@@ -69,7 +66,7 @@ public class TabNavFragment extends NavFragment {
         mFragments.add(HomeNavFragment.newInstance(lookBundle));
         mFragments.add(EmptyNavFragment.newInstance(bundle));
         mFragments.add(SearchNavFragment.newInstance(bundle));
-        mFragments.add(DiscoverUserFragment.newInstance(bundle));
+        mFragments.add(DiscoverNavFragment.newInstance(bundle));
 
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setScrollable(false);
@@ -158,19 +155,19 @@ public class TabNavFragment extends NavFragment {
             SelectIconFontView ifv_tab = (SelectIconFontView) tab.findViewById(R.id.ifv_tab);
             switch (position) {
                 case 0:
-                    ifv_tab.setText(R.string.iconfont_tab_love,R.string.iconfont_tab_look);
+                    ifv_tab.setText(R.string.iconfont_tab_love,R.string.iconfont_tab_love_select);
                     break;
                 case 1:
-                    ifv_tab.setText(R.string.iconfont_tab_look,R.string.iconfont_tab_look);
+                    ifv_tab.setText(R.string.iconfont_tab_look,R.string.iconfont_tab_look_select);
                     break;
                 case 2:
-                    ifv_tab.setText(R.string.iconfont_tab_add,R.string.iconfont_tab_look);
+                    ifv_tab.setText(R.string.iconfont_tab_add,R.string.iconfont_tab_add_select);
                     break;
                 case 3:
-                    ifv_tab.setText(R.string.iconfont_tab_search,R.string.iconfont_tab_look);
+                    ifv_tab.setText(R.string.iconfont_tab_search,R.string.iconfont_tab_search_select);
                     break;
                 case 4:
-                    ifv_tab.setText(R.string.iconfont_tab_discover,R.string.iconfont_tab_look);
+                    ifv_tab.setText(R.string.iconfont_tab_discover,R.string.iconfont_tab_discover_select);
                     break;
             }
             return tab;

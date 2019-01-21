@@ -24,6 +24,7 @@
             android:id="@+id/icon"
             android:layout_width="34dp"
             android:layout_height="34dp"
+            app:riv_corner_radius="17dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{tweet.icon}"
             tools:src="@drawable/bg_sign_complete"/>

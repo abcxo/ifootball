@@ -17,7 +17,7 @@
         android:background="@drawable/ripple_tweet_bg"
         android:onClick="@{message.getHandler().onClickMessage}">
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/icon_layout"
             android:background="@drawable/ripple_tweet_bg"
             android:layout_width="wrap_content"
@@ -25,8 +25,9 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/icon"
-                android:layout_width="23.5dp"
+                android:layout_width="48dp"
                 android:layout_height="48dp"
+                app:riv_corner_radius="24dp"
                 android:scaleType="centerCrop"
                 app:error="@{@drawable/ic_avatar}"
                 app:imageUrl="@{message.icon}"
@@ -34,15 +35,16 @@
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/icon2"
-                android:layout_width="23.5dp"
+                android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginLeft="0.5dp"
+                app:riv_corner_radius="24dp"
+                android:layout_marginLeft="20dp"
                 android:scaleType="centerCrop"
                 app:error="@{@drawable/ic_avatar}"
                 app:imageUrl="@{message.icon2}"
                 tools:src="@drawable/bg_sign_login" />
 
-        </LinearLayout>
+        </FrameLayout>
 
         <TextView
             android:id="@+id/name"

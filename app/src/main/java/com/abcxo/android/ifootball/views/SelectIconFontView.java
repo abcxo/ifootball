@@ -28,11 +28,14 @@ public class SelectIconFontView extends IconFontView{
     @Override
     public void setSelected(boolean selected) {
         super.setSelected(selected);
-        if (selected){
-            setText(selectText);
-        }else {
-            setText(text);
+        if (selectText>0){
+            if (selected){
+                setText(selectText);
+            }else {
+                setText(text);
+            }
         }
+
     }
 
 }

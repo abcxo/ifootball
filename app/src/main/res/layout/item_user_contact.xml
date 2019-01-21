@@ -45,6 +45,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="@dimen/padding_big"
+            app:riv_corner_radius="20dp"
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{user.avatar}"

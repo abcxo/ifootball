@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.abcxo.android.ifootball.controllers.fragments.nav.DiscoverNavFragment.BindingHandler" />
+        <variable
+            name="handler"
+            type="BindingHandler" />
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".controllers.activities.NavActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarLight"
+            app:elevation="1dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:contentInsetStart="0dp"
+                app:popupTheme="@style/AppTheme.PopupLight"
+                app:titleTextAppearance="@style/Toolbar.TitleText">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/padding">
+
+                    <com.abcxo.android.ifootball.views.IconFontView
+                        android:id="@+id/ifv_notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/iconfont.notification"
+                        android:textColor="@color/color_primary"
+                        android:onClick="@{handler.onClickNotification}"
+                        android:textSize="@dimen/text_max" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/discover_title"
+                        android:textColor="@color/color_primary"
+                        android:textSize="@dimen/text_title" />
+
+                    <com.abcxo.android.ifootball.views.IconFontView
+                        android:id="@+id/ifv_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/iconfont.setting"
+                        android:textColor="@color/color_primary"
+                        android:onClick="@{handler.onClickSetting}"
+                        android:textSize="@dimen/text_max" />
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </FrameLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
+
+
+

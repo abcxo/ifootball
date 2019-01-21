@@ -25,7 +25,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_image"
+            android:background="@drawable/bg_image_rect"
             android:onClick="@{handler.onClickImage}"
             android:scaleType="centerCrop"
             app:imageUrl="@{image.url}" />

@@ -65,6 +65,7 @@
                         android:id="@+id/riv_avatar"
                         android:layout_width="54dp"
                         android:layout_height="54dp"
+                        app:riv_corner_radius="27dp"
                         android:scaleType="centerCrop"
                         app:error="@{@drawable/ic_avatar}"
                         app:imageUrl="@{user.avatar}"

@@ -197,6 +197,7 @@
                 android:id="@+id/icon"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                app:riv_corner_radius="40dp"
                 android:background="?attr/selectableItemBackground"
                 android:onClick="@{user.getHandler().onClickAvatar}"
                 android:scaleType="centerCrop"
@@ -210,6 +211,7 @@
                 android:id="@+id/team"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                app:riv_corner_radius="15dp"
                 android:layout_marginBottom="@dimen/padding"
                 android:layout_marginLeft="@dimen/padding"
                 android:scaleType="centerCrop"
@@ -254,10 +256,15 @@
                     app:titleTextAppearance="@style/Toolbar.TitleText"
                     android:background="@color/color_white"
                     app:tabTextAppearance="@style/MyCustomTabText"
-                    app:tabIndicatorHeight="1dp"
+                    app:tabIndicatorHeight="0dp"
                     app:tabIndicatorColor="@color/color_primary"
-                    app:tabSelectedTextColor="@color/color_primary"
+                    app:tabSelectedTextColor="@color/color_primary_blue"
                     app:tabTextColor="@color/color_primary_light" />
+                <View
+                    android:id="@+id/action_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_divider" />
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewpager"

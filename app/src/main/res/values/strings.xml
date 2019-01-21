@@ -273,6 +273,8 @@
     <string name="setting_sign_hint">签名？</string>
     <string name="setting_position_hint">场上位置？</string>
 
+    <string name="discover_title">发现</string>
+
     <string name="ok_text">确定</string>
     <string name="cancel_text">取消</string>
 
@@ -280,6 +282,8 @@
     <string name="loading_video">加载中...</string>
 
     <string name="from">来自</string>
+
+
 
     <!-- iconfont资源-->
 
@@ -299,11 +303,11 @@
     <string name="iconfont.team">&#xe601;</string>
     <string name="iconfont.video">&#xe602;</string>
 
-    <string name="iconfont.setting">&#xe603;</string>
+    <string name="iconfont.setting">&#xe6e6;</string>
     <string name="iconfont.send">&#xe604;</string>
     <string name="iconfont.add">&#xe605;</string>
 
-    <string name="iconfont.notification">&#xe606;</string>
+    <string name="iconfont.notification">&#xe6e5;</string>
     <string name="iconfont.news">&#xe610;</string>
     <string name="iconfont.write.twitter">&#xe614;</string>
 
@@ -318,11 +322,19 @@
 
     <string name="iconfont.empty">&#xe6e1;</string>
 
+    <string name="iconfont.user.tweet">&#xe6e0;</string>
+    <string name="iconfont.user.image">&#xe6df;</string>
 
     <string name="iconfont.tab.love">&#xe6d9;</string>
     <string name="iconfont.tab.look">&#xe6d8;</string>
     <string name="iconfont.tab.add">&#xe6d5;</string>
     <string name="iconfont.tab.search">&#xe6d6;</string>
     <string name="iconfont.tab.discover">&#xe6d7;</string>
+
+    <string name="iconfont.tab.love.select">&#xe6e8;</string>
+    <string name="iconfont.tab.look.select">&#xe6ea;</string>
+    <string name="iconfont.tab.add.select">&#xe6ec;</string>
+    <string name="iconfont.tab.search.select">&#xe6eb;</string>
+    <string name="iconfont.tab.discover.select">&#xe6e7;</string>
 
 </resources>

@@ -27,7 +27,7 @@
 
     <!--parent设置为启动页的theme-->
     <style name="AppTheme.LauncherTheme" parent="AppTheme.NoActionBar.NoStatusBar">
-        <item name="android:windowBackground">@drawable/img_welcome0</item>
+        <item name="android:windowBackground">@drawable/img_launcher</item>
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
@@ -55,7 +55,7 @@
     <style name="Divider">
         <item name="android:background">@drawable/ic_divider</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_height">0.5dp</item>
     </style>
 
     <style name="Big_Divider">
@@ -67,7 +67,7 @@
     <style name="DividerSlide">
         <item name="android:background">@color/color_slide_divider</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_height">0.5dp</item>
     </style>
 
     <style name="TextInputLayout" parent="TextAppearance.AppCompat">

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="@color/color_primary"
+        android:textColor="@drawable/sel_tab"
         android:layout_centerVertical="true"
         android:text="@string/iconfont.follow"
         android:textSize="20dp"/>

@@ -30,6 +30,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                app:riv_corner_radius="24dp"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{message.icon}"
                 app:error="@{@drawable/ic_avatar}"

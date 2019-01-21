@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
@@ -23,6 +24,8 @@ import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.ViewUtils;
+import com.abcxo.android.ifootball.views.IconFontView;
+import com.abcxo.android.ifootball.views.SelectIconFontView;
 
 
 /**
@@ -124,8 +127,13 @@ public class UserDetailFragment extends CommonFragment {
 
     public void bindData() {
         binding.setUser(user);
-        viewPager.setAdapter(new UserDetailAdapter(getChildFragmentManager(), getActivity(), user != null ? user.id : uid));
+        UserDetailAdapter adapter = new UserDetailAdapter(getChildFragmentManager(), getActivity(), user != null ? user.id : uid);
+        viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            tabLayout.getTabAt(i).setCustomView(adapter.getTabView(i));  // 设置tab图片和文字
+        }
+        tabLayout.getTabAt(0).getCustomView().setSelected(true);
     }
 
 
@@ -184,6 +192,19 @@ public class UserDetailFragment extends CommonFragment {
             return titles.length;
         }
 
+        public View getTabView(int position) {
+            LinearLayout tab = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.item_tab_nav, null);
+            IconFontView ifv_tab = (IconFontView) tab.findViewById(R.id.ifv_tab);
+            switch (position) {
+                case 0:
+                    ifv_tab.setText(R.string.iconfont_user_tweet);
+                    break;
+                case 1:
+                    ifv_tab.setText(R.string.iconfont_user_image);
+                    break;
+            }
+            return tab;
+        }
 
     }
 

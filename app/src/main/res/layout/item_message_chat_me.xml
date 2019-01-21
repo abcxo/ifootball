@@ -62,6 +62,7 @@
             android:background="?attr/selectableItemBackground"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            app:riv_corner_radius="24dp"
             android:layout_alignParentRight="true"
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"

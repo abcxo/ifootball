@@ -80,6 +80,7 @@
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    app:riv_corner_radius="20dp"
                     android:scaleType="centerCrop"
                     android:visibility="@{game.icon!=null?View.VISIBLE:View.GONE}"
                     app:imageUrl="@{game.icon}"
@@ -140,6 +141,7 @@
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    app:riv_corner_radius="20dp"
                     android:scaleType="centerCrop"
                     android:visibility="@{game.icon!=null?View.VISIBLE:View.GONE}"
                     app:imageUrl="@{game.icon2}"

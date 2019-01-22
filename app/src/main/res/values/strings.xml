@@ -2,9 +2,12 @@
 
 
     <string name="chat_text">私信</string>
+    <string name="tweets_text">推文</string>
     <string name="fans_text">粉丝</string>
     <string name="focus_text">关注</string>
     <string name="unfocus_text">取消</string>
+    <string name="focus_text_btn">+ 关注</string>
+    <string name="unfocus_text_btn">x 取消</string>
     <string name="repeat_text">转推</string>
     <string name="star_text">个赞</string>
 
@@ -288,15 +291,15 @@
     <!-- iconfont资源-->
 
     <string name="iconfont.at">&#xe607;</string>
-    <string name="iconfont.comment">&#xe608;</string>
-    <string name="iconfont.forward">&#xe609;</string>
+    <string name="iconfont.comment">&#xe6dc;</string>
+    <string name="iconfont.forward">&#xe6de;</string>
 
     <string name="iconfont.location">&#xe60a;</string>
     <string name="iconfont.face">&#xe60b;</string>
     <string name="iconfont.follow">&#xe60c;</string>
 
     <string name="iconfont.person">&#xe60d;</string>
-    <string name="iconfont.star">&#xe60e;</string>
+    <string name="iconfont.star">&#xe6d9;</string>
     <string name="iconfont.discovery">&#xe60f;</string>
 
     <string name="iconfont.data">&#xe600;</string>
@@ -318,7 +321,7 @@
     <string name="iconfont.arrow.up">&#xe611;</string>
     <string name="iconfont.arrow.down">&#xe612;</string>
 
-    <string name="iconfont.share">&#xe617;</string>
+    <string name="iconfont.share">&#xe6dd;</string>
 
     <string name="iconfont.empty">&#xe6e1;</string>
 

@@ -14,7 +14,7 @@
 
     <RelativeLayout
         android:onClick="@{message.getHandler().onClickMessage}"
-        android:background="@drawable/ripple_tweet_bg"
+        android:background="@drawable/ripple_rect_bg"
         style="@style/Item">
 
         <LinearLayout
@@ -25,7 +25,7 @@
             android:layout_marginTop="@dimen/padding_small">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:background="?attr/selectableItemBackground"
+                android:background="@drawable/ripple_oval_bg"
                 android:onClick="@{message.getHandler().onClickUser}"
                 android:id="@+id/icon"
                 android:layout_width="48dp"

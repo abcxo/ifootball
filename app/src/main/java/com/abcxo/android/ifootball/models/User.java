@@ -35,6 +35,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
 
     public double lon;
     public double lat;
+    public int tweetsCount;
     public int focusCount;
     public int fansCount;
 
@@ -77,6 +78,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         teamIcon= in.readString();
         lon = in.readDouble();
         lat = in.readDouble();
+        tweetsCount = in.readInt();
         focusCount = in.readInt();
         fansCount = in.readInt();
         focus = in.readByte() != 0;
@@ -135,6 +137,7 @@ public class User extends BaseObservable implements Parcelable, Serializable {
         dest.writeString(teamIcon);
         dest.writeDouble(lon);
         dest.writeDouble(lat);
+        dest.writeInt(tweetsCount);
         dest.writeInt(focusCount);
         dest.writeInt(fansCount);
         dest.writeByte((byte) (focus ? 1 : 0));

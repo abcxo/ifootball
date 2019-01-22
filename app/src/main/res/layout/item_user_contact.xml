@@ -25,7 +25,7 @@
     <LinearLayout
         style="@style/Item"
         android:gravity="center_vertical"
-        android:background="@drawable/ripple_tweet_bg"
+        android:background="@drawable/ripple_rect_bg"
         android:onClick="@{isSelect?null:user.getHandler().onClickUser}"
         android:orientation="horizontal">
 

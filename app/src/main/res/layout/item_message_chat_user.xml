@@ -13,12 +13,12 @@
     </data>
 
     <RelativeLayout style="@style/Item"
-        android:background="@drawable/ripple_tweet_bg"
+        android:background="@drawable/ripple_rect_bg"
         android:onClick="@{message.getHandler().onClickMessage}">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:onClick="@{message.getHandler().onClickUser}"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/ripple_oval_bg"
             android:id="@+id/icon"
             android:layout_width="48dp"
             android:layout_height="48dp"

@@ -74,7 +74,7 @@
                         android:onClick="@{tweet.getHandler().onClickUser}">
 
                         <com.makeramen.roundedimageview.RoundedImageView
-                            android:background="?attr/selectableItemBackground"
+                            android:background="@drawable/ripple_oval_bg"
                             android:id="@+id/icon"
                             android:layout_width="48dp"
                             android:layout_height="48dp"

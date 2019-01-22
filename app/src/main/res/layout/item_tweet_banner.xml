@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="0dp"
-    android:background="@drawable/ripple_tweet_bg">
+    android:background="@drawable/ripple_rect_bg">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

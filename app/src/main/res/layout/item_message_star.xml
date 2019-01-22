@@ -13,7 +13,7 @@
     </data>
 
     <RelativeLayout
-        android:background="@drawable/ripple_tweet_bg"
+        android:background="@drawable/ripple_rect_bg"
         android:onClick="@{message.getHandler().onClickMessage}"
         style="@style/Item">
 
@@ -27,7 +27,7 @@
             <com.makeramen.roundedimageview.RoundedImageView
                 android:onClick="@{message.getHandler().onClickUser}"
                 android:id="@+id/icon"
-                android:background="?attr/selectableItemBackground"
+                android:background="@drawable/ripple_oval_bg"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 app:riv_corner_radius="24dp"

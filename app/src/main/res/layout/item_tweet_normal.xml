@@ -7,7 +7,6 @@
     <data>
 
         <import type="com.abcxo.android.ifootball.models.Tweet" />
-
         <import type="android.view.View" />
 
         <variable
@@ -17,19 +16,24 @@
     </data>
 
     <RelativeLayout
-        style="@style/Item"
-        android:background="@drawable/ripple_tweet_bg"
-        android:onClick="@{tweet.getHandler().onClickTweet}">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_rect_bg"
+        android:onClick="@{tweet.getHandler().onClickTweet}"
+        android:paddingTop="@dimen/padding"
+        android:paddingBottom="@dimen/padding">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:riv_corner_radius="20dp"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
             android:onClick="@{tweet.getHandler().onClickUser}"
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{tweet.icon}"
+            app:riv_corner_radius="20dp"
             tools:src="@drawable/bg_sign_complete" />
 
         <TextView
@@ -42,40 +46,29 @@
             android:singleLine="true"
             android:text="@{tweet.name}"
             android:textColor="@color/color_text_title"
-            android:textSize="16dp"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold"
             tools:text="咸蛋超人" />
 
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{tweet.time}"
             android:layout_below="@+id/name"
             android:layout_alignLeft="@+id/name"
-            android:textColor="@color/color_text_append"
-            android:textSize="12dp"
+            android:text="@{tweet.time}"
+            android:textColor="@color/color_primary_light"
+            android:textSize="@dimen/text_append"
             tools:text="3小时" />
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/icon"
-            android:layout_below="@+id/icon"
-            android:layout_marginTop="@dimen/padding_small"
-            android:text="@{tweet.getSummary()}"
-            android:textColor="@color/color_text_content"
-            android:textSize="14dp"
-            tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
 
-        <FrameLayout
+        <com.abcxo.android.ifootball.views.SquareRelativeLayout
             android:id="@+id/images_layout"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_alignLeft="@+id/icon"
-            android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}"
-            android:layout_below="@+id/text"
-            android:layout_marginTop="@dimen/padding_small">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icon"
+            android:layout_marginTop="@dimen/padding_small"
+            android:visibility="@{tweet.cover!=null?View.VISIBLE:View.GONE}">
 
             <ImageView
                 android:id="@+id/images"
@@ -85,23 +78,32 @@
                 android:scaleType="centerCrop"
                 app:imageUrl="@{tweet.cover}"
                 tools:src="@drawable/bg_sign_complete" />
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:visibility="@{tweet.tweetContentType==Tweet.TweetContentType.VIDEO?View.VISIBLE:View.GONE}"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_video"/>
-        </FrameLayout>
+        </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/images_layout"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginRight="@dimen/padding"
+            android:maxLines="2"
+            android:text="@{tweet.getSummary()}"
+            android:textColor="@color/color_text_title"
+            android:textSize="14dp"
+            tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
+
 
         <include
             android:id="@+id/repeat_content"
             layout="@layout/content_tweet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/icon"
-            android:layout_below="@id/images_layout"
+            android:layout_below="@id/text"
+            android:layout_marginLeft="@dimen/padding"
             android:layout_marginTop="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
             bind:tweet="@{tweet.originTweet}" />
 
 
@@ -109,14 +111,15 @@
             android:id="@+id/location_tv"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_alignLeft="@+id/icon"
             android:layout_below="@+id/repeat_content"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
             android:drawableLeft="@drawable/ic_location_mini"
             android:drawablePadding="@dimen/padding_small"
             android:drawableTint="@color/color_icon_light_o"
             android:gravity="center_vertical"
-            android:paddingBottom="@dimen/padding"
             android:paddingTop="@dimen/padding"
+            android:paddingBottom="@dimen/padding"
             android:singleLine="true"
             android:text="@{tweet.location}"
             android:textColor="@color/color_text_append"
@@ -124,88 +127,80 @@
             android:visibility="@{tweet.location!=null?View.VISIBLE:View.GONE}"
             tools:text="中国浙江省杭州市区" />
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/action_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/icon"
             android:layout_below="@+id/location_tv"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:padding="@dimen/padding">
+                android:gravity="center_vertical"
+                android:layout_alignParentLeft="true"
+                android:orientation="horizontal">
+
+                <com.abcxo.android.ifootball.views.IconFontView
+                    android:layout_width="@dimen/tab_height"
+                    android:layout_height="@dimen/tab_height"
+                    android:background="@drawable/ripple_oval_bg"
+                    android:gravity="center"
+                    android:onClick="@{tweet.getHandler().onClickStar}"
+                    android:text="@{tweet.star?@string/iconfont_tab_love_select:@string/iconfont_tab_love}"
+                    android:textColor="@color/color_text_title"
+                    android:textSize="20dp" />
 
                 <com.abcxo.android.ifootball.views.IconFontView
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple_oval_bg"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:gravity="center"
                     android:text="@string/iconfont.comment"
-                    android:textSize="17dp"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_small"
-                    android:text="@{String.valueOf(tweet.commentCount)}"
-                    android:textColor="@color/color_text_append"
-                    android:textSize="12dp"
-                    tools:text="307" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:onClick="@{tweet.getHandler().onClickRepeat}"
-                android:padding="@dimen/padding">
+                    android:textColor="@color/color_text_title"
+                    android:textSize="20dp" />
 
                 <com.abcxo.android.ifootball.views.IconFontView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/tab_height"
+                    android:layout_height="@dimen/tab_height"
+                    android:background="@drawable/ripple_oval_bg"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:gravity="center"
+                    android:onClick="@{tweet.getHandler().onClickRepeat}"
+                    android:textColor="@color/color_text_title"
                     android:text="@string/iconfont.forward"
-                    android:textSize="17sp"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_small"
-                    android:text="@{String.valueOf(tweet.repeatCount)}"
-                    android:textColor="@color/color_text_append"
-                    android:textSize="12dp"
-                    tools:text="284" />
+                    android:textSize="20dp" />
             </LinearLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
+            <com.abcxo.android.ifootball.views.IconFontView
+                android:layout_width="@dimen/tab_height"
+                android:layout_height="@dimen/tab_height"
+                android:background="@drawable/ripple_oval_bg"
                 android:gravity="center"
-                android:onClick="@{tweet.getHandler().onClickStar}"
-                android:padding="@dimen/padding">
+                android:layout_alignParentRight="true"
+                android:onClick="@{tweet.getHandler().onClickShare}"
+                android:text="@string/iconfont.share"
+                android:textColor="@color/color_text_title"
+                android:textSize="20dp" />
 
-                <com.abcxo.android.ifootball.views.IconFontView
-                    android:layout_width="wrap_content"
-                    android:text="@string/iconfont.star"
-                    android:textSize="17sp"
-                    android:textColor="@{tweet.star?@color/color_primary:@android:color/tab_indicator_text}"
-                    android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_small"
-                    android:text="@{String.valueOf(tweet.starCount)}"
-                    android:textColor="@color/color_text_append"
-                    android:textSize="12dp"
-                    tools:text="97" />
-            </LinearLayout>
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/action_layout"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginRight="@dimen/padding"
+            android:textColor="@color/color_primary_light"
+            android:text="@{tweet.starCount+`次赞，`+tweet.commentCount+`条评论`}"
+            android:textSize="@dimen/text"
+            tools:text="1805次赞，1285条评论" />
 
 
     </RelativeLayout>

@@ -35,130 +35,215 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                >
 
-                <ImageView
-                    android:id="@+id/cover"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/nav_header_height"
-                    android:background="@color/color_bg"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    app:imageUrl="@{user.cover}"
-                    app:layout_collapseMode="parallax"
-                    tools:src="@drawable/bg_sign_complete" />
-
-
-                <RelativeLayout
-                    android:id="@+id/layout"
+                <LinearLayout
+                    android:layout_marginTop="?actionBarSize"
+                    android:paddingTop="@dimen/padding_mid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/nav_header_height"
-                    android:background="@color/color_white"
-                    android:paddingLeft="@dimen/padding"
-                    android:paddingRight="@dimen/padding"
-                    android:paddingTop="@dimen/padding">
+
+                    android:orientation="vertical"
+                    >
 
                     <RelativeLayout
-                        android:id="@+id/header_layout"
+                        android:id="@+id/layout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:background="@color/color_white"
+                        android:layout_marginTop="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding"
+                        android:paddingRight="@dimen/padding"
+                        >
 
                         <LinearLayout
-                            android:id="@+id/do_layout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:visibility="@{user.canDo()?View.VISIBLE:View.INVISIBLE}">
+                            >
 
-                            <Button
-                                android:id="@+id/focus_btn"
-                                android:layout_width="60dp"
-                                android:layout_height="40dp"
-                                android:backgroundTint="@{user.focus?@color/color_icon_red:@color/color_button_minor}"
-                                android:onClick="@{user.getHandler().onClickFocus}"
-                                android:text="@{user.focus?@string/unfocus_text:@string/focus_text}"
-                                android:textColor="@color/color_text_highlight" />
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/icon"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                app:riv_corner_radius="40dp"
+                                android:background="@drawable/ripple_oval_bg"
+                                android:onClick="@{user.getHandler().onClickAvatar}"
+                                android:scaleType="centerCrop"
+                                app:error="@{@drawable/ic_avatar}"
+                                app:imageUrl="@{user.avatar}"
+                                app:riv_border_color="@color/color_white"
+                                app:riv_border_width="2dp"
+                                tools:src="@drawable/bg_sign_complete" />
 
-                            <Button
-                                android:id="@+id/chat_btn"
-                                android:layout_width="60dp"
-                                android:layout_height="40dp"
-                                android:backgroundTint="@color/color_button_accent"
-                                android:onClick="@{user.getHandler().onClickChat}"
-                                android:text="@string/chat_text"
-                                android:textColor="@color/color_text_highlight"
-                                android:visibility="@{user.canChat()?View.VISIBLE:View.GONE}" />
+
+                            <RelativeLayout
+                                android:id="@+id/fans_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                >
+                                <LinearLayout
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+                                        <TextView
+                                            android:id="@+id/tweets"
+                                            android:textStyle="bold"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@{String.valueOf(user.tweetsCount)}"
+                                            android:textColor="@color/color_text_title"
+                                            android:textSize="@dimen/text_title"
+                                            tools:text="17" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/tweets_text"
+                                            android:textColor="@color/color_text_hint"
+                                            android:textSize="@dimen/text" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_marginLeft="@dimen/padding_great"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:layout_gravity="center_horizontal"
+                                        android:orientation="vertical">
+                                        <TextView
+                                            android:id="@+id/fans"
+                                            android:textStyle="bold"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@{String.valueOf(user.fansCount)}"
+                                            android:textColor="@color/color_text_title"
+                                            android:textSize="@dimen/text_title"
+                                            tools:text="17" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/fans_text"
+                                            android:textColor="@color/color_text_hint"
+                                            android:textSize="@dimen/text" />
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_marginLeft="@dimen/padding_great"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:layout_gravity="center_horizontal"
+                                        android:orientation="vertical">
+                                        <TextView
+                                            android:id="@+id/focus"
+                                            android:textStyle="bold"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@{String.valueOf(user.focusCount)}"
+                                            android:textColor="@color/color_text_title"
+                                            android:textSize="@dimen/text_title"
+                                            tools:text="17" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/focus_text"
+                                            android:textColor="@color/color_text_hint"
+                                            android:textSize="@dimen/text" />
+
+                                    </LinearLayout>
+
+
+
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_alignParentBottom="true"
+                                    android:id="@+id/do_layout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="@dimen/padding"
+                                    android:orientation="horizontal"
+                                    android:visibility="@{user.canDo()?View.VISIBLE:View.INVISIBLE}">
+
+                                    <Button
+                                        android:id="@+id/focus_btn"
+                                        android:layout_width="100dp"
+                                        android:layout_height="30dp"
+                                        android:textStyle="bold"
+                                        android:onClick="@{user.getHandler().onClickFocus}"
+                                        android:text="@{user.focus?@string/unfocus_text_btn:@string/focus_text_btn}"
+                                        android:textColor="@color/color_primary_blue"
+                                        android:background="@drawable/bg_button_focus"/>
+
+                                    <Button
+                                        android:layout_marginLeft="@dimen/padding_small"
+                                        android:id="@+id/chat_btn"
+                                        android:layout_width="100dp"
+                                        android:layout_height="30dp"
+                                        android:onClick="@{user.getHandler().onClickChat}"
+                                        android:text="@string/chat_text"
+                                        android:textColor="@color/color_text_title"
+                                        android:visibility="@{user.canChat()?View.VISIBLE:View.GONE}"
+                                        android:background="@drawable/bg_button"/>
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+
                         </LinearLayout>
+
+
+
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/header_layout"
+                        android:layout_margin="@dimen/padding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/do_layout"
                             android:singleLine="true"
                             android:text="@{user.name}"
+                            android:textStyle="bold"
                             android:textColor="@color/color_text_title"
                             android:textSize="@dimen/text_title"
                             tools:text="咸蛋超人" />
 
-
-                    </RelativeLayout>
-
-
-                    <TextView
-                        android:id="@+id/sign"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/header_layout"
-                        android:layout_marginTop="@dimen/padding_small"
-                        android:text="@{user.sign}"
-                        android:textColor="@color/color_text_content"
-                        android:textSize="14dp"
-                        android:visibility="@{user.sign!=null?View.VISIBLE:View.GONE}"
-                        tools:text="娱乐圈有很多的明星都有同班同学，有的大红大紫成为一线，有的则籍籍无名十八线，还有的还在跑龙套，地位和身价天壤之别，令人感叹“同班不同命”。下面小编就为大家盘点一下北电96级12大美女的发展现状。" />
-
-                    <LinearLayout
-                        android:id="@+id/fans_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/sign"
-                        android:layout_marginTop="@dimen/padding">
-
                         <TextView
+                            android:id="@+id/sign"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{String.valueOf(user.focusCount)}"
-                            android:textColor="@color/color_text_indicate"
-                            android:textSize="@dimen/text_small"
-                            tools:text="284" />
+                            android:layout_marginTop="@dimen/padding_small"
+                            android:text="@{user.sign}"
+                            android:textColor="@color/color_text_title"
+                            android:textSize="@dimen/text"
+                            android:singleLine="true"
+                            android:visibility="@{user.sign!=null?View.VISIBLE:View.GONE}"
+                            tools:text="总裁入门捡球小弟子" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/padding_small"
-                            android:text="@string/focus_text"
-                            android:textColor="@color/color_text_append"
-                            android:textSize="@dimen/text_small" />
 
-                        <TextView
-                            android:id="@+id/fans"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/padding"
-                            android:text="@{String.valueOf(user.fansCount)}"
-                            android:textColor="@color/color_text_indicate"
-                            android:textSize="@dimen/text_small"
-                            tools:text="17" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/padding_small"
-                            android:text="@string/fans_text"
-                            android:textColor="@color/color_text_append"
-                            android:textSize="@dimen/text_small" />
 
                     </LinearLayout>
 
@@ -168,9 +253,8 @@
                         style="@style/Divider"
                         android:layout_below="@id/fans_layout"
                         android:layout_marginTop="@dimen/padding" />
+                </LinearLayout>
 
-
-                </RelativeLayout>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -182,58 +266,6 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/padding_mid"
-            app:layout_anchor="@id/layout"
-            app:layout_anchorGravity="top|left"
-            app:layout_behavior="com.abcxo.android.ifootball.views.ViewVisiblityBehavior">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/icon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:riv_corner_radius="40dp"
-                android:background="?attr/selectableItemBackground"
-                android:onClick="@{user.getHandler().onClickAvatar}"
-                android:scaleType="centerCrop"
-                app:error="@{@drawable/ic_avatar}"
-                app:imageUrl="@{user.avatar}"
-                app:riv_border_color="@color/color_white"
-                app:riv_border_width="2dp"
-                tools:src="@drawable/bg_sign_complete" />
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/team"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:riv_corner_radius="15dp"
-                android:layout_marginBottom="@dimen/padding"
-                android:layout_marginLeft="@dimen/padding"
-                android:scaleType="centerCrop"
-                android:visibility="@{user.teamIcon!=null?View.VISIBLE:View.GONE}"
-                app:imageUrl="@{user.teamIcon}"
-                app:riv_oval="true"
-                tools:src="@drawable/bg_sign_complete" />
-
-            <TextView
-                android:id="@+id/postion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/do_layout"
-                android:layout_marginBottom="@dimen/padding"
-                android:layout_marginLeft="@dimen/padding"
-                android:singleLine="true"
-                android:text="@{user.position}"
-                android:textColor="@color/color_text_highlight"
-                android:textSize="@dimen/text_title"
-                tools:text="前锋" />
-
-        </LinearLayout>
 
 
         <android.support.design.widget.CoordinatorLayout

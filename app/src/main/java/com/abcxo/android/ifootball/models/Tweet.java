@@ -22,6 +22,7 @@ import com.abcxo.android.ifootball.utils.FileUtils;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
+import com.abcxo.android.ifootball.views.IconFontView;
 import com.abcxo.android.ifootball.views.ReverseInterpolator;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -332,7 +333,6 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
                 }
                 notifyPropertyChanged(BR.star);
                 notifyPropertyChanged(BR.starCount);
-                view.animate().scaleX(2).scaleY(2).setInterpolator(new ReverseInterpolator(new LinearInterpolator())).start();
                 TweetRestful.INSTANCE.star(id, star, new TweetRestful.OnTweetRestfulDo() {
                     @Override
                     public void onSuccess() {

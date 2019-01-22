@@ -60,7 +60,7 @@
     <color name="color_text_dark">#000000</color>
 
     <!--标题-->
-    <color name="color_text_title">#DD000000</color>
+    <color name="color_text_title">#000000</color>
     <!--输入-->
     <color name="color_text_input">#B2000000</color>
     <!--内容-->

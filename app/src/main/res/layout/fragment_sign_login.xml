@@ -20,11 +20,6 @@
         android:fitsSystemWindows="false"
         tools:context=".controllers.activities.SignActivity">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_sign_login" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -44,7 +39,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/padding_big"
+            android:layout_marginTop="@dimen/padding_great"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"
             android:padding="@dimen/padding">
@@ -54,11 +49,28 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true">
 
+
+                <TextView
+                    android:id="@+id/logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/app_name"
+                    android:drawableLeft="@drawable/ic_launcher"
+                    android:drawablePadding="@dimen/padding_min"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_big"
+                    android:textColor="@color/color_primary"/>
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/name_layout"
+                    android:layout_below="@id/logo"
+                    android:layout_marginTop="@dimen/padding_big"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:hintTextAppearance="@style/TextInputLayout">
+                    app:hintTextAppearance="@style/TextInputLayout"
+                    android:theme="@style/TextInputLayout">
 
 
                     <EditText
@@ -69,17 +81,19 @@
                         android:inputType="textEmailAddress"
                         android:paddingTop="@dimen/padding"
                         android:singleLine="true"
-                        android:textColor="@color/color_text_highlight"
+                        android:textColorHint="@color/color_primary_light"
+                        android:textColor="@color/color_primary"
                         android:textSize="@dimen/text_input" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:layout_marginTop="@dimen/padding"
+                    android:layout_marginTop="@dimen/padding_big"
                     android:id="@+id/password_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/name_layout"
-                    app:hintTextAppearance="@style/TextInputLayout">
+                    app:hintTextAppearance="@style/TextInputLayout"
+                    android:theme="@style/TextInputLayout">
 
                     <EditText
                         android:id="@+id/password"
@@ -89,15 +103,17 @@
                         android:inputType="textPassword"
                         android:paddingTop="@dimen/padding"
                         android:singleLine="true"
-                        android:textColor="@color/color_text_highlight"
+                        android:textColorHint="@color/color_primary_light"
+                        android:textColor="@color/color_primary"
                         android:textSize="@dimen/text_input" />
                 </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
                     android:id="@+id/action_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/tab_height"
                     android:layout_below="@+id/password_layout"
+                    android:layout_marginTop="@dimen/padding_great"
                     android:orientation="horizontal">
 
                     <Button
@@ -105,20 +121,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:backgroundTint="@color/color_button_accent"
+                        android:background="@drawable/bg_button_focus"
                         android:onClick="@{handler.onClickLogin}"
                         android:text="@string/sign_login_login_text"
-                        android:textColor="@color/color_text_highlight" />
+                        android:textStyle="bold"
+                        android:textColor="@color/color_primary_blue" />
 
                     <Button
                         android:id="@+id/register"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:backgroundTint="@color/color_button_minor"
+                        android:layout_marginLeft="@dimen/padding_normal"
+                        android:background="@drawable/bg_button"
                         android:onClick="@{handler.onClickRegister}"
                         android:text="@string/sign_login_register_text"
-                        android:textColor="@color/color_text_highlight" />
+                        android:textColor="@color/color_primary_light" />
                 </LinearLayout>
 
                 <TextView
@@ -130,7 +148,7 @@
                     android:layout_marginTop="@dimen/padding"
                     android:onClick="@{handler.onClickForgetPassword}"
                     android:text="@string/sign_login_forget_password_text"
-                    android:textColor="@color/color_text_slightLight"
+                    android:textColor="@color/color_primary_light"
                     android:textSize="@dimen/text_hint" />
 
                 <LinearLayout

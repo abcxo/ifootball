@@ -71,8 +71,12 @@
     </style>
 
     <style name="TextInputLayout" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/color_text_slightLight</item>
+        <item name="android:textColorHint">@color/color_primary_light</item>
+        <item name="android:textColor">@color/color_primary</item>
         <item name="android:textSize">@dimen/text_input</item>
+        <item name="colorAccent">@color/color_primary</item>
+        <item name="colorControlNormal">@color/color_primary_light</item>
+        <item name="colorControlActivated">@color/color_primary</item>
     </style>
 
 

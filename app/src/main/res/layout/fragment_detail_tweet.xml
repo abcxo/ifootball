@@ -152,7 +152,7 @@
                         android:paddingTop="@dimen/padding"
                         android:singleLine="true"
                         android:text="@{tweet.location}"
-                        android:textColor="@color/color_text_append"
+                        android:textColor="@color/color_primary_light"
                         android:textSize="@dimen/text_append"
                         android:visibility="@{tweet.location!=null?View.VISIBLE:View.GONE}"
                         tools:text="中国浙江省杭州市区" />
@@ -164,7 +164,7 @@
                         android:layout_below="@+id/location_tv"
                         android:layout_marginTop="@dimen/padding_small"
                         android:text="@{tweet.time}"
-                        android:textColor="@color/color_text_append"
+                        android:textColor="@color/color_primary_light"
                         android:textSize="12dp"
                         tools:text="2015-11-11 20:00" />
 
@@ -193,7 +193,7 @@
                         android:layout_marginLeft="@dimen/padding_small"
                         android:layout_toRightOf="@id/repeat"
                         android:text="@string/repeat_text"
-                        android:textColor="@color/color_text_append"
+                        android:textColor="@color/color_primary_light"
                         android:textSize="12dp"
                         tools:text="转推" />
 
@@ -216,7 +216,7 @@
                         android:layout_marginLeft="@dimen/padding_small"
                         android:layout_toRightOf="@id/star"
                         android:text="@string/star_text"
-                        android:textColor="@color/color_text_append"
+                        android:textColor="@color/color_primary_light"
                         android:textSize="12dp"
                         tools:text="个赞" />
 

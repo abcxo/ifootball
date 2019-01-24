@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="@{user.distance}"
-            android:textColor="@color/color_text_append"
+            android:textColor="@color/color_primary_light"
             android:textSize="12dp"
             tools:text="500m" />
 

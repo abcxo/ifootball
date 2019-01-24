@@ -181,7 +181,7 @@
                 android:paddingTop="@dimen/padding"
                 android:singleLine="true"
                 android:text="@{tweet.location}"
-                android:textColor="@color/color_text_append"
+                android:textColor="@color/color_primary_light"
                 android:textSize="@dimen/text_append"
                 android:visibility="@{tweet.location!=null?View.VISIBLE:View.GONE}"
                 tools:text="中国浙江省杭州市区" />
@@ -226,7 +226,7 @@
                 android:paddingLeft="@dimen/padding"
                 android:paddingRight="@dimen/padding"
                 android:textColor="@color/color_text_input"
-                android:textColorHint="@color/color_text_append"
+                android:textColorHint="@color/color_primary_light"
                 android:textSize="@dimen/text_input" />
 
 

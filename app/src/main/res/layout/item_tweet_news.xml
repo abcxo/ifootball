@@ -37,7 +37,7 @@
             android:text="@{tweet.time}"
             android:layout_below="@+id/title"
             android:layout_alignLeft="@+id/title"
-            android:textColor="@color/color_text_append"
+            android:textColor="@color/color_primary_light"
             android:textSize="12dp"
             tools:text="3小时" />
 
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/padding_small"
                 android:text="@{String.valueOf(tweet.commentCount)}"
-                android:textColor="@color/color_text_append"
+                android:textColor="@color/color_primary_light"
                 android:textSize="12dp"
                 tools:text="307"/>
         </LinearLayout>

@@ -69,6 +69,9 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
 
     public Tweet originTweet;
 
+
+    public List<Message> messages;
+
     @Bindable
     public boolean star;
     public TweetType tweetType = TweetType.NORMAL;
@@ -107,6 +110,7 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
         lat = in.readDouble();
         location = in.readString();
         originTweet = in.readParcelable(Tweet.class.getClassLoader());
+        messages = in.readArrayList(Message.class.getClassLoader());
         star = in.readByte() != 0;
         tweetType = TweetType.valueOf(in.readString());
         tweetContentType = TweetContentType.valueOf(in.readString());
@@ -149,6 +153,19 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
 
     public SpannableString getSummary() {
         return ViewUtils.getPromptString(summary);
+    }
+
+
+    public Message message() {
+        return messages != null && messages.size() > 0 ? messages.get(0) : null;
+    }
+
+    public Message message1() {
+        return messages != null && messages.size() > 1 ? messages.get(1) : null;
+    }
+
+    public Message message2() {
+        return messages != null && messages.size() > 2 ? messages.get(2) : null;
     }
 
     public String cover() {
@@ -216,6 +233,7 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
         dest.writeDouble(lat);
         dest.writeString(location);
         dest.writeParcelable(originTweet, flags);
+        dest.writeList(messages);
         dest.writeByte((byte) (star ? 1 : 0));
         dest.writeString(tweetType.name());
         dest.writeString(tweetContentType.name());
@@ -402,8 +420,6 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
             } else {
                 NavUtils.toSign(view.getContext());
             }
-
-
         }
     }
 }

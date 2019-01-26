@@ -56,14 +56,8 @@ public class TabNavFragment extends NavFragment {
         Bundle bundle = new Bundle();
         bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
 
-        Bundle loveBundle = new Bundle(bundle);
-        loveBundle.putString(Constants.KEY_TITLE,getString(R.string.title_love));
-
-        Bundle lookBundle = new Bundle(bundle);
-        loveBundle.putString(Constants.KEY_TITLE,getString(R.string.title_look));
-
-        mFragments.add(HomeNavFragment.newInstance(loveBundle));
-        mFragments.add(HomeNavFragment.newInstance(lookBundle));
+        mFragments.add(HomeNavFragment.newInstance(bundle));
+        mFragments.add(ProNavFragment.newInstance(bundle));
         mFragments.add(EmptyNavFragment.newInstance(bundle));
         mFragments.add(SearchNavFragment.newInstance(bundle));
         mFragments.add(DiscoverNavFragment.newInstance(bundle));

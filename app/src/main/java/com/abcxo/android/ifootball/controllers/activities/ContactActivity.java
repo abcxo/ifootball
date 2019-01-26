@@ -1,5 +1,6 @@
 package com.abcxo.android.ifootball.controllers.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -16,7 +17,7 @@ public class ContactActivity extends CommonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         Bundle bundle = new Bundle();
-        bundle.putBoolean(Constants.KEY_IS_SELECT, true);
+        bundle.putBoolean(Constants.KEY_IS_SELECT, getIntent().getBooleanExtra(Constants.KEY_IS_SELECT,false));
         getSupportFragmentManager().beginTransaction().replace(R.id.content, ContactNavFragment.newInstance(bundle)).commit();
     }
 

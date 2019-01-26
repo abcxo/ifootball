@@ -83,13 +83,10 @@ public class TweetDetailActivity extends CommonActivity {
         });
 
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setVisibility(isComment ? View.GONE : View.VISIBLE);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(2);
 
         viewPager.setAdapter(new TweetDetailNavAdapter(getSupportFragmentManager(), this));
-        tabLayout.setupWithViewPager(viewPager);
 
         inputET = (EditText) findViewById(R.id.input);
     }

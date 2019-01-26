@@ -179,6 +179,7 @@ public class TweetRestful {
             callPhoto.enqueue(new OnRestful<Tweet>() {
                 @Override
                 void onSuccess(Tweet tweet) {
+                    UserRestful.INSTANCE.update();
                     onGet.onSuccess(tweet);
                 }
 
@@ -229,6 +230,7 @@ public class TweetRestful {
         call.enqueue(new OnRestful<Object>() {
             @Override
             void onSuccess(Object object) {
+                UserRestful.INSTANCE.update();
                 onDo.onSuccess();
             }
 
@@ -246,11 +248,12 @@ public class TweetRestful {
 
     public enum GetsType {
         HOME(0),
-        TEAM(1),
-        VIDEO(2),
-        NEWS(3),
-        USER(4),
-        SEARCH(5);
+        PRO(1),
+        TEAM(2),
+        VIDEO(3),
+        NEWS(4),
+        USER(5),
+        SEARCH(6);
         private int index;
 
         GetsType(int index) {

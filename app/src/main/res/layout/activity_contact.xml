@@ -7,8 +7,9 @@
     android:fitsSystemWindows="true"
     tools:context=".controllers.activities.SignActivity">
 
-    <FrameLayout
+    <android.support.design.widget.CoordinatorLayout
         android:id="@+id/content"
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </android.support.design.widget.CoordinatorLayout>

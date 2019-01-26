@@ -21,7 +21,7 @@
     </data>
 
     <android.support.design.widget.CoordinatorLayout
-
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".controllers.activities.AboutActivity">
@@ -42,6 +42,14 @@
 
         </android.support.design.widget.AppBarLayout>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:background="@color/color_white">
+
+        </FrameLayout>
+
         <com.abcxo.android.ifootball.views.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -55,7 +63,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="@{handler.onClickCover}"
+                    android:background="@drawable/ripple_rect_bg"
+                    android:onClick="@{handler.onClickMe}"
                     android:padding="@dimen/padding">
 
                     <TextView
@@ -64,20 +73,24 @@
 
                         android:layout_centerVertical="true"
                         android:singleLine="true"
-                        android:text="@string/setting_cover_text"
+                        android:text="@string/setting_tweet_text"
                         android:textColor="@color/color_text_title"
                         android:textSize="@dimen/text_title" />
 
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:layout_width="100dp"
+
+
+                    <com.abcxo.android.ifootball.views.IconFontView
+                        android:layout_width="wrap_content"
                         android:layout_height="48dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:background="@color/color_bg"
-                        android:scaleType="centerCrop"
-                        app:imageUrl="@{user.cover}"
-                        app:riv_corner_radius="@dimen/icon_radius"
-                        tools:src="@drawable/bg_sign_complete" />
+                        android:gravity="center_vertical"
+                        android:text="@string/iconfont.arrow.right"
+                        android:textColor="@color/color_text_title"
+                        android:textSize="16dp"
+                         />
+
+
 
 
                 </RelativeLayout>
@@ -87,6 +100,44 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/ripple_rect_bg"
+                    android:onClick="@{handler.onClickContact}"
+                    android:padding="@dimen/padding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_centerVertical="true"
+                        android:singleLine="true"
+                        android:text="@string/setting_contact_text"
+                        android:textColor="@color/color_text_title"
+                        android:textSize="@dimen/text_title" />
+
+
+
+                    <com.abcxo.android.ifootball.views.IconFontView
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:text="@string/iconfont.arrow.right"
+                        android:textColor="@color/color_text_title"
+                        android:textSize="16dp"
+                        />
+
+
+
+
+                </RelativeLayout>
+
+                <View style="@style/Divider" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple_rect_bg"
                     android:onClick="@{handler.onClickAvatar}"
                     android:padding="@dimen/padding">
 
@@ -120,6 +171,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/ripple_rect_bg"
                     android:gravity="center_vertical"
                     android:padding="@dimen/padding">
 
@@ -138,7 +190,7 @@
                         android:gravity="center_vertical|right"
                         android:minHeight="48dp"
                         android:text="@{user.email}"
-                        android:textColor="@color/color_text_content"
+                        android:textColor="@color/color_text_title"
                         android:textSize="@dimen/text_title"
                         tools:text="243344@qq.com" />
 
@@ -150,6 +202,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/ripple_rect_bg"
                     android:gravity="center_vertical"
                     android:onClick="@{handler.onClickName}"
                     android:padding="@dimen/padding">
@@ -169,7 +222,7 @@
                         android:gravity="center_vertical|right"
                         android:minHeight="48dp"
                         android:text="@{user.name}"
-                        android:textColor="@color/color_text_content"
+                        android:textColor="@color/color_text_title"
                         android:textSize="@dimen/text_title"
                         tools:text="超人第X" />
 
@@ -180,6 +233,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/ripple_rect_bg"
                     android:gravity="center_vertical"
                     android:onClick="@{handler.onClickSign}"
                     android:padding="@dimen/padding">
@@ -199,7 +253,7 @@
                         android:gravity="center_vertical|right"
                         android:minHeight="48dp"
                         android:text="@{user.sign}"
-                        android:textColor="@color/color_text_content"
+                        android:textColor="@color/color_text_title"
                         android:textSize="@dimen/text_title"
                         tools:text="wewe" />
 
@@ -208,6 +262,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/ripple_rect_bg"
                     android:gravity="center_vertical"
                     android:onClick="@{handler.onClickPosition}"
                     android:padding="@dimen/padding">
@@ -227,7 +282,7 @@
                         android:gravity="center_vertical|right"
                         android:minHeight="48dp"
                         android:text="@{user.position}"
-                        android:textColor="@color/color_text_content"
+                        android:textColor="@color/color_text_title"
                         android:textSize="@dimen/text_title"
                         tools:text="前锋" />
 
@@ -238,6 +293,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/ripple_rect_bg"
                     android:gravity="center_vertical"
                     android:onClick="@{handler.onClickGender}"
                     android:padding="@dimen/padding">
@@ -258,7 +314,7 @@
                         android:minHeight="48dp"
                         android:singleLine="true"
                         android:text="@{user.gender == User.GenderType.MALE?@string/gender_male_text:@string/gender_female_text}"
-                        android:textColor="@color/color_text_content"
+                        android:textColor="@color/color_text_title"
                         android:textSize="@dimen/text_title"
                         tools:text="男" />
 
@@ -266,14 +322,18 @@
 
                 <View style="@style/Divider" />
 
+
                 <Button
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/padding"
-                    android:backgroundTint="@color/color_icon_red"
                     android:onClick="@{handler.onClickLogout}"
                     android:text="@string/setting_logout_text"
-                    android:textColor="@color/color_text_highlight" />
+                    android:background="@drawable/bg_button_red"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_primary_red"
+                    />
+
 
 
             </LinearLayout>

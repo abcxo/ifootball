@@ -24,12 +24,14 @@ import android.widget.TextView;
 import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.activities.ContactActivity;
 import com.abcxo.android.ifootball.controllers.fragments.CommonFragment;
 import com.abcxo.android.ifootball.databinding.FragmentSettingBinding;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.FileUtils;
+import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 
@@ -208,6 +210,15 @@ public class SettingFragment extends CommonFragment {
             requestType = RequestType.COVER;
             ViewUtils.image(SettingFragment.this);
         }
+
+        public void onClickMe(View view) {
+            NavUtils.toUserDetail(view.getContext(),UserRestful.INSTANCE.meId());
+        }
+        public void onClickContact(View view) {
+            Intent intent = new Intent(view.getContext(), ContactActivity.class);
+            view.getContext().startActivity(intent);
+        }
+
 
         public void onClickAvatar(View view) {
             requestType = RequestType.AVATAR;

@@ -263,6 +263,8 @@
     <string name="about_feedback">勾搭</string>
 
     <string name="setting_cover_text">足球封面</string>
+    <string name="setting_tweet_text">我的推文</string>
+    <string name="setting_contact_text">我的朋友</string>
     <string name="setting_avatar_text">我的头像</string>
     <string name="setting_email_text">邮箱</string>
     <string name="setting_name_text">昵称</string>

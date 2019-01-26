@@ -11,15 +11,15 @@ import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 
-public class HomeTweetFragment extends TweetFragment {
+public class ProTweetFragment extends TweetFragment {
     private BroadcastReceiver receiver;
 
-    public static HomeTweetFragment newInstance() {
+    public static ProTweetFragment newInstance() {
         return newInstance(null);
     }
 
-    public static HomeTweetFragment newInstance(Bundle args) {
-        HomeTweetFragment fragment = new HomeTweetFragment();
+    public static ProTweetFragment newInstance(Bundle args) {
+        ProTweetFragment fragment = new ProTweetFragment();
         if (args != null) fragment.setArguments(args);
         return fragment;
     }
@@ -47,7 +47,6 @@ public class HomeTweetFragment extends TweetFragment {
 
     @Override
     protected TweetRestful.GetsType getGetsType() {
-        return TweetRestful.GetsType.HOME;
+        return TweetRestful.GetsType.PRO;
     }
-
 }

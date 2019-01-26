@@ -44,31 +44,38 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+        <!--<android.support.design.widget.TabLayout-->
+            <!--android:id="@+id/tabs"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/tab_height"-->
+            <!--android:layout_marginTop="?attr/actionBarSize"-->
+            <!--android:background="@color/color_text_highlight"-->
+            <!--app:tabTextAppearance="@style/MyCustomTabText"-->
+            <!--android:visibility="gone"-->
+            <!--app:tabIndicatorHeight="1dp"-->
+            <!--app:tabIndicatorColor="@color/color_primary"-->
+            <!--app:tabTextColor="@color/color_primary_light"-->
+            <!--app:titleTextAppearance="@style/Toolbar.TitleText"-->
+            <!--/>-->
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/tab_height"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:background="@color/color_text_highlight"
-            app:tabTextAppearance="@style/MyCustomTabText"
-            android:visibility="@{isComment?View.GONE:View.VISIBLE}"
-            app:tabIndicatorHeight="1dp"
-            app:tabIndicatorColor="@color/color_primary"
-            app:tabTextColor="@color/color_primary_light"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            />
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:background="@color/color_white">
+
+        </FrameLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:paddingBottom="48dp"
+            android:paddingBottom="@dimen/nav_height"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/nav_height"
             android:layout_gravity="bottom"
             android:background="@color/color_text_highlight"
             android:gravity="center_vertical"

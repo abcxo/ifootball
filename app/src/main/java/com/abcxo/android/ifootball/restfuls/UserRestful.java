@@ -355,6 +355,24 @@ public class UserRestful {
         });
     }
 
+    public void update(){
+        get(meId(), new OnUserRestfulGet() {
+            @Override
+            public void onSuccess(User user) {
+                updateMe(user);
+            }
+
+            @Override
+            public void onError(RestfulError error) {
+
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        });
+    }
 
     //获取单个用户
     public void get(long uid, @NonNull final OnUserRestfulGet onGet) {

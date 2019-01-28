@@ -12,7 +12,6 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/padding"
         app:layout_empty="@layout/view_empty"
         app:layout_moreProgress="@layout/view_loadmore"/>
 

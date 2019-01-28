@@ -15,6 +15,7 @@ import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.BR;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
+import com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
 import com.abcxo.android.ifootball.restfuls.UserRestful;

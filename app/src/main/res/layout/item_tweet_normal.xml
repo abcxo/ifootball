@@ -28,6 +28,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="@dimen/padding"
+            android:background="@drawable/ripple_oval_bg"
             android:onClick="@{tweet.getHandler().onClickUser}"
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"
@@ -159,6 +160,7 @@
                     android:gravity="center"
                     android:text="@string/iconfont.comment"
                     android:textColor="@color/color_text_title"
+                    android:onClick="@{tweet.getHandler().onClickComment}"
                     android:textSize="20dp" />
 
                 <com.abcxo.android.ifootball.views.IconFontView

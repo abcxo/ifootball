@@ -28,7 +28,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             app:riv_corner_radius="24dp"
-            android:background="@drawable/ripple_rect_bg"
+            android:background="@drawable/ripple_oval_bg"
             android:onClick="@{message.getHandler().onClickUser}"
             android:scaleType="centerCrop"
             app:error="@{@drawable/ic_avatar}"

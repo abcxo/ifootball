@@ -25,17 +25,6 @@
 
         <import type="com.abcxo.android.ifootball.models.Message" />
 
-        <variable
-            name="message0"
-            type="Message" />
-
-        <variable
-            name="message1"
-            type="Message" />
-
-        <variable
-            name="message2"
-            type="Message" />
 
     </data>
 
@@ -54,76 +43,77 @@
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/color_divider"
+                android:background="@color/color_white"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/color_white"
-                    android:padding="@dimen/padding"
-                    >
+                    android:paddingTop="@dimen/padding"
+                    android:paddingBottom="@dimen/padding">
 
-                    <RelativeLayout
-                        android:id="@+id/title_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{tweet.getHandler().onClickUser}">
-
-                        <com.makeramen.roundedimageview.RoundedImageView
-                            android:background="@drawable/ripple_oval_bg"
-                            android:id="@+id/icon"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            app:riv_corner_radius="24dp"
-                            android:scaleType="centerCrop"
-                            app:error="@{@drawable/ic_avatar}"
-                            app:imageUrl="@{tweet.icon}"
-                            tools:src="@drawable/bg_sign_complete" />
-
-                        <TextView
-                            android:id="@+id/name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/padding"
-                            android:layout_toRightOf="@id/icon"
-                            android:singleLine="true"
-                            android:text="@{tweet.name}"
-                            android:textColor="@color/color_text_title"
-                            android:textSize="16dp"
-                            tools:text="咸蛋超人" />
-
-                        <TextView
-                            android:id="@+id/source"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignLeft="@+id/name"
-                            android:layout_below="@+id/name"
-                            android:text="@{tweet.source}"
-                            android:textColor="@color/color_text_special"
-                            android:textSize="14dp"
-                            tools:text="新浪微博" />
-                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/title_layout"
-                        android:layout_marginTop="@dimen/padding_small"
+                        android:layout_marginLeft="@dimen/padding"
+                        android:layout_marginRight="@dimen/padding"
                         android:text="@{tweet.title}"
                         android:textColor="@color/color_text_title"
                         android:textSize="16dp"
+                        android:textStyle="bold"
                         android:visibility="@{tweet.title!=null?View.VISIBLE:View.GONE}"
                         tools:text="咸蛋超wefwefwef人" />
 
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/title"
+                        android:layout_marginLeft="@dimen/padding"
+                        android:background="@drawable/ripple_oval_bg"
+                        android:onClick="@{tweet.getHandler().onClickUser}"
+                        android:scaleType="centerCrop"
+                        app:error="@{@drawable/ic_avatar}"
+                        app:imageUrl="@{tweet.icon}"
+                        app:riv_corner_radius="20dp"
+                        tools:src="@drawable/bg_sign_complete" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/title"
+                        android:layout_marginLeft="@dimen/padding"
+                        android:layout_toRightOf="@id/icon"
+                        android:singleLine="true"
+                        android:text="@{tweet.name}"
+                        android:textColor="@color/color_text_title"
+                        android:textSize="@dimen/text_title"
+                        android:textStyle="bold"
+                        tools:text="咸蛋超人" />
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/name"
+                        android:layout_alignLeft="@+id/name"
+                        android:text="@{tweet.time}"
+                        android:textColor="@color/color_primary_light"
+                        android:textSize="@dimen/text_append"
+                        tools:text="3小时" />
 
                     <com.abcxo.android.ifootball.views.x5.WebView
                         android:id="@+id/webview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@id/title"
+                        android:layout_below="@id/icon"
                         android:layout_marginTop="@dimen/padding_small" />
+
 
                     <include
                         android:id="@+id/repeat_content"
@@ -131,257 +121,175 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/webview"
+                        android:layout_marginLeft="@dimen/padding"
                         android:layout_marginTop="@dimen/padding"
+                        android:layout_marginRight="@dimen/padding"
                         bind:tweet="@{tweet.originTweet}" />
+
 
                     <TextView
                         android:id="@+id/location_tv"
                         android:layout_width="wrap_content"
-                        android:layout_height="48dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/repeat_content"
+                        android:layout_marginLeft="@dimen/padding"
                         android:layout_marginTop="@dimen/padding_small"
+                        android:layout_marginRight="@dimen/padding"
                         android:drawableLeft="@drawable/ic_location_mini"
-                        android:drawablePadding="@dimen/padding_small"
                         android:drawableTint="@color/color_icon_light_o"
                         android:gravity="center_vertical"
-                        android:onClick="@{tweet.getHandler().onClickLocation}"
-                        android:paddingBottom="@dimen/padding"
-                        android:paddingTop="@dimen/padding"
                         android:singleLine="true"
                         android:text="@{tweet.location}"
                         android:textColor="@color/color_primary_light"
-                        android:textSize="@dimen/text_append"
+                        android:textSize="@dimen/text"
                         android:visibility="@{tweet.location!=null?View.VISIBLE:View.GONE}"
                         tools:text="中国浙江省杭州市区" />
 
-                    <TextView
-                        android:id="@+id/time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/location_tv"
-                        android:layout_marginTop="@dimen/padding_small"
-                        android:text="@{tweet.time}"
-                        android:textColor="@color/color_primary_light"
-                        android:textSize="12dp"
-                        tools:text="2015-11-11 20:00" />
-
-                    <View
-                        android:id="@+id/divider"
-                        style="@style/Divider"
-                        android:layout_below="@+id/time"
-                        android:layout_marginTop="@dimen/padding" />
-
-                    <TextView
-                        android:id="@+id/repeat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/divider"
-                        android:layout_marginTop="@dimen/padding"
-                        android:text="@{String.valueOf(tweet.repeatCount)}"
-                        android:textColor="@color/color_text_content"
-                        android:textSize="12dp"
-                        tools:text="284" />
-
-                    <TextView
-                        android:id="@+id/unit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@id/repeat"
-                        android:layout_marginLeft="@dimen/padding_small"
-                        android:layout_toRightOf="@id/repeat"
-                        android:text="@string/repeat_text"
-                        android:textColor="@color/color_primary_light"
-                        android:textSize="12dp"
-                        tools:text="转推" />
-
-                    <TextView
-                        android:id="@+id/star"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@id/unit"
-                        android:layout_marginLeft="@dimen/padding"
-                        android:layout_toRightOf="@id/unit"
-                        android:text="@{String.valueOf(tweet.starCount)}"
-                        android:textColor="@color/color_text_content"
-                        android:textSize="12dp"
-                        tools:text="17" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@id/repeat"
-                        android:layout_marginLeft="@dimen/padding_small"
-                        android:layout_toRightOf="@id/star"
-                        android:text="@string/star_text"
-                        android:textColor="@color/color_primary_light"
-                        android:textSize="12dp"
-                        tools:text="个赞" />
-
-                    <View
-                        android:id="@+id/divider2"
-                        style="@style/Divider"
-                        android:layout_below="@+id/repeat"
-                        android:layout_marginTop="@dimen/padding" />
-
-                    <LinearLayout
+                    <RelativeLayout
                         android:id="@+id/action_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/divider2"
+                        android:layout_below="@+id/location_tv"
+                        android:layout_marginLeft="@dimen/padding"
+                        android:layout_marginTop="@dimen/padding"
+                        android:layout_marginRight="@dimen/padding"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:onClick="@{handler.onClickComment}"
-                            android:padding="@dimen/padding">
+                            android:layout_alignParentLeft="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
                             <com.abcxo.android.ifootball.views.IconFontView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:background="@drawable/ripple_oval_bg"
+                                android:gravity="center"
+                                android:onClick="@{tweet.getHandler().onClickStar}"
+                                android:text="@{tweet.star?@string/iconfont_tab_love_select:@string/iconfont_tab_love}"
+                                android:textColor="@color/color_text_title"
+                                android:textSize="20dp" />
+
+                            <com.abcxo.android.ifootball.views.IconFontView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/padding_normal"
+                                android:background="@drawable/ripple_oval_bg"
+                                android:gravity="center"
+                                android:onClick="@{handler.onClickComment}"
                                 android:text="@string/iconfont.comment"
-                                android:textSize="17dp"/>
-
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:onClick="@{tweet.getHandler().onClickRepeat}"
-                            android:padding="@dimen/padding">
+                                android:textColor="@color/color_text_title"
+                                android:textSize="20dp" />
 
                             <com.abcxo.android.ifootball.views.IconFontView
                                 android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/padding_normal"
+                                android:background="@drawable/ripple_oval_bg"
+                                android:gravity="center"
+                                android:onClick="@{tweet.getHandler().onClickRepeat}"
                                 android:text="@string/iconfont.forward"
-                                android:textSize="17dp"
-                                android:layout_height="wrap_content"/>
-
+                                android:textColor="@color/color_text_title"
+                                android:textSize="20dp" />
                         </LinearLayout>
 
 
-                        <LinearLayout
+                        <com.abcxo.android.ifootball.views.IconFontView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:onClick="@{tweet.getHandler().onClickStar}"
-                            android:padding="@dimen/padding">
-
-                            <com.abcxo.android.ifootball.views.IconFontView
-                                android:layout_width="wrap_content"
-                                android:text="@string/iconfont.star"
-                                android:textSize="17dp"
-                                android:textColor="@{tweet.star?@color/color_primary:@android:color/tab_indicator_text}"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:visibility="gone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/ripple_oval_bg"
                             android:gravity="center"
                             android:onClick="@{tweet.getHandler().onClickShare}"
-                            android:padding="@dimen/padding">
+                            android:text="@string/iconfont.share"
+                            android:textColor="@color/color_text_title"
+                            android:textSize="20dp" />
 
-                            <com.abcxo.android.ifootball.views.IconFontView
-                                android:layout_width="wrap_content"
-                                android:text="@string/iconfont.share"
-                                android:textSize="19dp"
-                                android:layout_height="wrap_content"/>
+                    </RelativeLayout>
 
-                        </LinearLayout>
-                    </LinearLayout>
-
-
-                    <View
-                        android:id="@+id/divider3"
-                        style="@style/Divider"
-                        android:layout_below="@id/action_layout" />
+                    <TextView
+                        android:id="@+id/comment_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/action_layout"
+                        android:layout_marginLeft="@dimen/padding"
+                        android:layout_marginTop="@dimen/padding_small"
+                        android:layout_marginRight="@dimen/padding"
+                        android:text="@{tweet.starCount+`次赞，`+tweet.commentCount+`条评论`}"
+                        android:textColor="@color/color_primary_light"
+                        android:textSize="@dimen/text"
+                        tools:text="1805次赞，1285条评论" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/divider3"
-                        android:layout_marginLeft="@dimen/_padding"
-                        android:layout_marginRight="@dimen/_padding"
+                        android:layout_below="@id/comment_text"
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:id="@+id/comment_item0"
+                            android:id="@+id/comment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="@{message0!=null? View.VISIBLE : View.GONE}">
+                            android:layout_below="@id/comment_text"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal"
+                            android:visibility="@{tweet.message()!=null? View.VISIBLE : View.GONE}">
 
                             <include
+                                android:id="@+id/comment_item"
                                 layout="@layout/item_message_comment_tweet"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 bind:handler="@{handler}"
-                                bind:message="@{message0}" />
-
-                            <View style="@style/Divider" />
-
+                                bind:message="@{tweet.message()}" />
                         </LinearLayout>
 
+                        <View style="@style/Divider" />
 
                         <LinearLayout
-                            android:id="@+id/comment_item1"
+                            android:id="@+id/comment1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="@{message1!=null? View.VISIBLE : View.GONE}">
+                            android:layout_below="@id/comment"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal"
+                            android:visibility="@{tweet.message1()!=null? View.VISIBLE : View.GONE}">
 
                             <include
+                                android:id="@+id/comment_item1"
                                 layout="@layout/item_message_comment_tweet"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 bind:handler="@{handler}"
-                                bind:message="@{message1}" />
-
-                            <View style="@style/Divider" />
-
+                                bind:message="@{tweet.message1()}" />
                         </LinearLayout>
+
+                        <View style="@style/Divider" />
 
                         <LinearLayout
-                            android:id="@+id/comment_item2"
+                            android:id="@+id/comment2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="@{message2!=null? View.VISIBLE : View.GONE}">
+                            android:layout_below="@id/comment1"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal"
+                            android:visibility="@{tweet.message2()!=null? View.VISIBLE : View.GONE}">
 
                             <include
+                                android:id="@+id/comment_item2"
                                 layout="@layout/item_message_comment_tweet"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 bind:handler="@{handler}"
-                                bind:message="@{message2}" />
-
-                            <View style="@style/Divider" />
-
-                            <Button
-                                android:layout_width="match_parent"
-                                android:layout_height="56dp"
-                                android:layout_marginBottom="@dimen/padding"
-                                android:layout_marginLeft="@dimen/padding_big"
-                                android:layout_marginRight="@dimen/padding_big"
-                                android:layout_marginTop="@dimen/padding"
-                                android:backgroundTint="@color/color_button_minor"
-                                android:onClick="@{handler.onClickComment}"
-                                android:text="@string/detail_tweet_comment_text"
-                                android:textColor="@color/color_text_highlight" />
+                                bind:message="@{tweet.message2()}" />
                         </LinearLayout>
-
+                        <View style="@style/Divider" />
 
                     </LinearLayout>
+
 
                 </RelativeLayout>
 

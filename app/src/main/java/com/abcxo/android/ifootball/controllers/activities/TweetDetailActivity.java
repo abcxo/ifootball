@@ -3,18 +3,20 @@ package com.abcxo.android.ifootball.controllers.activities;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
@@ -43,6 +45,8 @@ public class TweetDetailActivity extends CommonActivity {
     private long tid;
     private EditText inputET;
     private ViewPager viewPager;
+    private TextView commentTV;
+    private TextView titleTV;
 
     private TweetDetailFragment tweetDetailFragment;
     private CommentTweetMessageFragment commentTweetMessageFragment;
@@ -55,6 +59,7 @@ public class TweetDetailActivity extends CommonActivity {
 
     private BindingHandler handler = new BindingHandler();
 
+    private int commentCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +69,13 @@ public class TweetDetailActivity extends CommonActivity {
             tweet = (Tweet) args.get(Constants.KEY_TWEET);
             tid = args.getLong(Constants.KEY_TID);
             isComment = args.getBoolean(Constants.KEY_IS_COMMENT);
-
+            commentCount = tweet.commentCount;
         }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_tweet);
-        binding.setIsComment(isComment);
         binding.setHandler(handler);
+        binding.setUser(UserRestful.INSTANCE.me());
+        binding.setCommentCount(commentCount);
+        binding.setIsComment(isComment);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -88,13 +95,42 @@ public class TweetDetailActivity extends CommonActivity {
 
         viewPager.setAdapter(new TweetDetailNavAdapter(getSupportFragmentManager(), this));
 
+        viewPager.addOnPageChangeListener(new com.abcxo.android.ifootball.views.ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                animComment(position == PageType.DETAIL.getIndex() ? true : false);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         inputET = (EditText) findViewById(R.id.input);
+        inputET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    handler.onClickSend(inputET);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        commentTV = (TextView) findViewById(R.id.commentTV);
+        titleTV = (TextView) findViewById(R.id.titleTV);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (tweet != null &&
+        if (!isComment && tweet != null &&
                 (tweet.uid == UserRestful.INSTANCE.meId() ||
                         (UserRestful.INSTANCE.isLogin() && UserRestful.INSTANCE.me().userType == User.UserType.SPECIAL))) {
             menu.add(R.string.menu_item_tweet_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
@@ -177,7 +213,6 @@ public class TweetDetailActivity extends CommonActivity {
             Bundle bundle = new Bundle();
             bundle.putLong(Constants.KEY_UID, UserRestful.INSTANCE.meId());
             if (isComment) {
-
                 bundle.putLong(Constants.KEY_TID, getTid());
                 commentTweetMessageFragment = CommentTweetMessageFragment.newInstance(bundle);
                 commentTweetMessageFragment.setListener(new MessageFragment.Listener() {
@@ -186,25 +221,10 @@ public class TweetDetailActivity extends CommonActivity {
                         if (message.uid != UserRestful.INSTANCE.meId()) {
                             clearText(true, message);
                         }
-
                     }
 
                     @Override
                     public void onLoaded(List<Message> messages) {
-                        if (tweetDetailFragment != null) {
-                            tweetDetailFragment.binding.setHandler(handler);
-                            if (messages.size() > 0) {
-                                tweetDetailFragment.binding.setMessage0(messages.get(0));
-                            }
-
-                            if (messages.size() > 1) {
-                                tweetDetailFragment.binding.setMessage1(messages.get(1));
-                            }
-
-                            if (messages.size() > 2) {
-                                tweetDetailFragment.binding.setMessage2(messages.get(2));
-                            }
-                        }
                     }
                 });
                 return commentTweetMessageFragment;
@@ -229,21 +249,7 @@ public class TweetDetailActivity extends CommonActivity {
 
                         @Override
                         public void onLoaded(List<Message> messages) {
-                            if (tweetDetailFragment != null && tweetDetailFragment.binding != null) {
-                                tweetDetailFragment.binding.setHandler(handler);
-                                if (messages.size() > 0) {
-                                    tweetDetailFragment.binding.setMessage0(messages.get(0));
-                                }
-
-                                if (messages.size() > 1) {
-                                    tweetDetailFragment.binding.setMessage1(messages.get(1));
-                                }
-
-                                if (messages.size() > 2) {
-                                    tweetDetailFragment.binding.setMessage2(messages.get(2));
-                                }
-
-                            }
+                            tweet.messages = messages;
                         }
                     });
                     return commentTweetMessageFragment;
@@ -271,17 +277,28 @@ public class TweetDetailActivity extends CommonActivity {
         return tweet != null ? tweet.id : tid;
     }
 
+
+    public void animComment(boolean visable) {
+        if (visable) {
+            titleTV.animate().alpha(0).setInterpolator(new DecelerateInterpolator(4)).setDuration(500).start();
+            commentTV.animate().translationX(0).alpha(1).setInterpolator(new DecelerateInterpolator(4)).setDuration(500).start();
+        } else {
+            titleTV.animate().alpha(1).setInterpolator(new DecelerateInterpolator(4)).setDuration(500).start();
+            commentTV.animate().translationX(-100).alpha(0).setInterpolator(new DecelerateInterpolator(4)).setDuration(500).start();
+        }
+    }
+
     public class BindingHandler {
 
         public void onClickItem(View view) {
             Message message = null;
             View parent = (View) view.getParent();
-            if (parent.getId() == R.id.comment_item0) {
-                message = commentTweetMessageFragment.adapter.messages.get(0);
+            if (parent.getId() == R.id.comment_item) {
+                message = tweet.message();
             } else if (parent.getId() == R.id.comment_item1) {
-                message = commentTweetMessageFragment.adapter.messages.get(1);
+                message = tweet.message1();
             } else if (parent.getId() == R.id.comment_item2) {
-                message = commentTweetMessageFragment.adapter.messages.get(2);
+                message = tweet.message2();
             }
             if (message != null && message.uid != UserRestful.INSTANCE.meId()) {
                 clearText(true, message);
@@ -289,8 +306,10 @@ public class TweetDetailActivity extends CommonActivity {
         }
 
         public void onClickComment(View view) {
+            animComment(false);
             viewPager.setCurrentItem(PageType.COMMENT.getIndex());
         }
+
 
         public void onClickSend(View view) {
             if (UserRestful.INSTANCE.isLogin()) {
@@ -298,7 +317,7 @@ public class TweetDetailActivity extends CommonActivity {
                 if (TextUtils.isEmpty(input)) {
                     ViewUtils.toast(R.string.error_chat);
                 } else {
-                    long uid2 = selectedMessage != null ? selectedMessage.uid : tweetDetailFragment.getUid();
+                    long uid2 = selectedMessage != null ? selectedMessage.uid : isComment ? tweet.uid : tweetDetailFragment.getUid();
                     if (uid2 > 0) {
                         Message message = new Message();
                         message.uid = UserRestful.INSTANCE.meId();
@@ -317,7 +336,7 @@ public class TweetDetailActivity extends CommonActivity {
                         TweetRestful.INSTANCE.comment(message, new TweetRestful.OnTweetRestfulDo() {
                             @Override
                             public void onSuccess() {
-
+                                commentCount++;
                             }
 
                             @Override

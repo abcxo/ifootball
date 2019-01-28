@@ -157,7 +157,7 @@ public class ViewUtils {
 
     public static void closeKeyboard(Activity context) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (context.getCurrentFocus() != null) {
+        if (context != null && context.getCurrentFocus() != null) {
             imm.hideSoftInputFromWindow(context.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }

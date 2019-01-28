@@ -19,8 +19,10 @@ import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.databinding.FragmentDetailTweetBinding;
 import com.abcxo.android.ifootball.models.Image;
 import com.abcxo.android.ifootball.models.Tweet;
+import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.restfuls.RestfulError;
 import com.abcxo.android.ifootball.restfuls.TweetRestful;
+import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
@@ -44,6 +46,7 @@ public class TweetDetailFragment extends DetailFragment {
 
     public WebView webView;
     private Tweet tweet;
+    private User user;
     private long tid;
     public FragmentDetailTweetBinding binding;
 
@@ -81,29 +84,50 @@ public class TweetDetailFragment extends DetailFragment {
         super.onViewCreated(view, savedInstanceState);
         binding = DataBindingUtil.bind(view);
         if (tweet != null) {
-            bindData(view);
+            loadUser(view, tweet.uid);
         } else {
             ViewUtils.loading(getActivity());
             TweetRestful.INSTANCE.get(tid, new TweetRestful.OnTweetRestfulGet() {
                 @Override
                 public void onSuccess(Tweet tweet) {
                     TweetDetailFragment.this.tweet = tweet;
-                    bindData(view);
+                    loadUser(view, tweet.uid);
                 }
 
                 @Override
                 public void onError(RestfulError error) {
                     ViewUtils.toast(error.msg);
+                    ViewUtils.dismiss();
                 }
 
                 @Override
                 public void onFinish() {
-                    ViewUtils.dismiss();
+
                 }
             });
 
         }
 
+    }
+
+    public void loadUser(final View view, long uid) {
+        UserRestful.INSTANCE.get(uid, new UserRestful.OnUserRestfulGet() {
+            @Override
+            public void onSuccess(User user) {
+                TweetDetailFragment.this.user = user;
+                bindData(view);
+            }
+
+            @Override
+            public void onError(RestfulError error) {
+                ViewUtils.toast(error.msg);
+            }
+
+            @Override
+            public void onFinish() {
+                ViewUtils.dismiss();
+            }
+        });
     }
 
 
@@ -113,6 +137,7 @@ public class TweetDetailFragment extends DetailFragment {
 
     public void bindData(View view) {
         binding.setTweet(tweet);
+        binding.setUser(user);
         webView = (WebView) view.findViewById(R.id.webview);
         final SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshlayout);
         refreshLayout.setColorSchemeResources(R.color.color_primary);

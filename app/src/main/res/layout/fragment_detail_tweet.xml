@@ -22,6 +22,12 @@
             name="tweet"
             type="Tweet" />
 
+        <import type="com.abcxo.android.ifootball.models.User" />
+
+        <variable
+            name="user"
+            type="User" />
+
 
         <import type="com.abcxo.android.ifootball.models.Message" />
 
@@ -95,6 +101,22 @@
                         android:textSize="@dimen/text_title"
                         android:textStyle="bold"
                         tools:text="咸蛋超人" />
+
+                    <Button
+                        android:id="@+id/focus_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="@dimen/padding"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/title"
+                        android:textStyle="bold"
+                        android:onClick="@{user.getHandler().onClickFocus}"
+                        android:text="@{user.focus?@string/unfocus_text_btn:@string/focus_text_btn}"
+                        android:textColor="@color/color_primary_blue"
+                        android:textSize="@dimen/text_append"
+                        android:background="@drawable/bg_button_focus2"
+                        tools:text="+  关注"/>
 
                     <TextView
                         android:id="@+id/time"

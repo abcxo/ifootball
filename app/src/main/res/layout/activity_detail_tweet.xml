@@ -10,6 +10,7 @@
         <import type="android.view.View" />
 
         <import type="com.abcxo.android.ifootball.models.User" />
+        <import type="com.abcxo.android.ifootball.models.Tweet" />
 
         <variable
             name="user"
@@ -18,10 +19,6 @@
         <variable
             name="handler"
             type="BindingHandler" />
-
-        <variable
-            name="commentCount"
-            type="Integer" />
 
         <variable
             name="isComment"
@@ -77,7 +74,7 @@
                         android:gravity="center"
                         android:onClick="@{handler.onClickComment}"
                         android:singleLine="true"
-                        android:text="@{`    `+commentCount+`评论    `}"
+                        android:text="@{`    `+handler.tweet.commentCount+`评论    `}"
                         android:textColor="@color/color_primary"
                         android:textSize="@dimen/text_append"
                         tools:text="   12555   " />

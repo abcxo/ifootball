@@ -115,6 +115,7 @@
                         android:text="@{user.focus?@string/unfocus_text_btn:@string/focus_text_btn}"
                         android:textColor="@{user.focus?@color/color_primary_light:@color/color_primary_blue}"
                         android:textSize="@dimen/text_append"
+                        android:visibility="@{user.canDo()?View.VISIBLE:View.GONE}"
                         android:background="@drawable/bg_button_focus2"
                         tools:text="+  关注"/>
 

@@ -1,6 +1,8 @@
 package com.abcxo.android.ifootball.controllers.activities;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,6 +35,7 @@ import com.abcxo.android.ifootball.restfuls.UserRestful;
 import com.abcxo.android.ifootball.utils.NavUtils;
 import com.abcxo.android.ifootball.utils.Utils;
 import com.abcxo.android.ifootball.utils.ViewUtils;
+import com.abcxo.android.ifootball.BR;
 
 import java.util.List;
 
@@ -41,7 +44,6 @@ import java.util.List;
  */
 public class TweetDetailActivity extends CommonActivity {
 
-    private Tweet tweet;
     private long tid;
     private EditText inputET;
     private ViewPager viewPager;
@@ -59,22 +61,18 @@ public class TweetDetailActivity extends CommonActivity {
 
     private BindingHandler handler = new BindingHandler();
 
-    private int commentCount;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getIntent().getExtras();
         if (args != null) {
-            tweet = (Tweet) args.get(Constants.KEY_TWEET);
+            handler.tweet = (Tweet) args.get(Constants.KEY_TWEET);
             tid = args.getLong(Constants.KEY_TID);
             isComment = args.getBoolean(Constants.KEY_IS_COMMENT);
-            commentCount = tweet.commentCount;
         }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_tweet);
         binding.setHandler(handler);
         binding.setUser(UserRestful.INSTANCE.me());
-        binding.setCommentCount(commentCount);
         binding.setIsComment(isComment);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -130,8 +128,8 @@ public class TweetDetailActivity extends CommonActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!isComment && tweet != null &&
-                (tweet.uid == UserRestful.INSTANCE.meId() ||
+        if (!isComment && handler.tweet != null &&
+                (handler.tweet.uid == UserRestful.INSTANCE.meId() ||
                         (UserRestful.INSTANCE.isLogin() && UserRestful.INSTANCE.me().userType == User.UserType.SPECIAL))) {
             menu.add(R.string.menu_item_tweet_delete).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
         }
@@ -151,7 +149,7 @@ public class TweetDetailActivity extends CommonActivity {
 
     public void deleteTweet() {
         ViewUtils.loading(this);
-        TweetRestful.INSTANCE.delete(tweet.id, new TweetRestful.OnTweetRestfulDo() {
+        TweetRestful.INSTANCE.delete(handler.tweet.id, new TweetRestful.OnTweetRestfulDo() {
             @Override
             public void onSuccess() {
                 ViewUtils.dismiss();
@@ -232,9 +230,15 @@ public class TweetDetailActivity extends CommonActivity {
 
             } else {
                 if (position == PageType.DETAIL.getIndex()) {
-                    bundle.putParcelable(Constants.KEY_TWEET, tweet);
+                    bundle.putParcelable(Constants.KEY_TWEET, handler.tweet);
                     bundle.putLong(Constants.KEY_TID, getTid());
                     tweetDetailFragment = tweetDetailFragment.newInstance(bundle);
+                    tweetDetailFragment.setListener(new TweetDetailFragment.Listener() {
+                        @Override
+                        public void onLoaded(Tweet tweet, User user) {
+                            handler.tweet = tweet;
+                        }
+                    });
                     return tweetDetailFragment;
                 } else {
                     bundle.putLong(Constants.KEY_TID, getTid());
@@ -249,7 +253,8 @@ public class TweetDetailActivity extends CommonActivity {
 
                         @Override
                         public void onLoaded(List<Message> messages) {
-                            tweet.messages = messages;
+                            handler.tweet.messages = messages;
+                            handler.tweet.notifyChange();
                         }
                     });
                     return commentTweetMessageFragment;
@@ -274,7 +279,7 @@ public class TweetDetailActivity extends CommonActivity {
     }
 
     public long getTid() {
-        return tweet != null ? tweet.id : tid;
+        return handler.tweet != null ? handler.tweet.id : tid;
     }
 
 
@@ -289,6 +294,8 @@ public class TweetDetailActivity extends CommonActivity {
     }
 
     public class BindingHandler {
+
+        public Tweet tweet;
 
         public void onClickItem(View view) {
             Message message = null;
@@ -336,7 +343,8 @@ public class TweetDetailActivity extends CommonActivity {
                         TweetRestful.INSTANCE.comment(message, new TweetRestful.OnTweetRestfulDo() {
                             @Override
                             public void onSuccess() {
-                                commentCount++;
+                                handler.tweet.commentCount++;
+                                handler.tweet.notifyChange();
                             }
 
                             @Override

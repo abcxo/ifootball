@@ -45,10 +45,20 @@ public class TweetDetailFragment extends DetailFragment {
 
 
     public WebView webView;
-    private Tweet tweet;
+    public Tweet tweet;
     private User user;
     private long tid;
     public FragmentDetailTweetBinding binding;
+
+    private Listener listener;
+
+    public Listener getListener() {
+        return listener;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
 
     public static TweetDetailFragment newInstance() {
         return newInstance(null);
@@ -281,5 +291,9 @@ public class TweetDetailFragment extends DetailFragment {
             webView.destroy();
         }
         super.onDestroy();
+    }
+
+    public interface Listener {
+        void onLoaded(Tweet tweet, User user);
     }
 }

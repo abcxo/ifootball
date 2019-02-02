@@ -14,7 +14,10 @@ import com.abcxo.android.ifootball.constants.Constants;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -141,5 +144,42 @@ public class FileUtils {
         return data;
     }
 
+    public static void copyFilesFromRaw(Context context, int id, String path) {
+        InputStream inputStream = context.getResources().openRawResource(id);
+        readInputStream(path, inputStream);
+    }
+
+
+    /**
+     * 读取输入流中的数据写入输出流
+     *
+     * @param storagePath 目标文件路径
+     * @param inputStream 输入流
+     */
+    public static void readInputStream(String storagePath, InputStream inputStream) {
+        File file = new File(storagePath);
+        try {
+            if (!file.exists()) {
+                // 1.建立通道对象
+                FileOutputStream fos = new FileOutputStream(file);
+                // 2.定义存储空间
+                byte[] buffer = new byte[inputStream.available()];
+                // 3.开始读文件
+                int lenght = 0;
+                while ((lenght = inputStream.read(buffer)) != -1) {// 循环从输入流读取buffer字节
+                    // 将Buffer中的数据写到outputStream对象中
+                    fos.write(buffer, 0, lenght);
+                }
+                fos.flush();// 刷新缓冲区
+                // 4.关闭流
+                fos.close();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

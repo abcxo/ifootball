@@ -60,6 +60,8 @@
 
     <string name="app_name">足球狗</string>
 
+    <string name="app_share">更多精彩内容，点击下载</string>
+
     <string name="activity_nav">足球狗</string>
     <string name="activity_welcome">足球狗</string>
 

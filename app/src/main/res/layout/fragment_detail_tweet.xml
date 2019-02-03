@@ -70,6 +70,7 @@
                         android:textColor="@color/color_text_title"
                         android:textSize="16dp"
                         android:textStyle="bold"
+                        android:layout_marginBottom="@dimen/padding_small"
                         android:visibility="@{tweet.title!=null?View.VISIBLE:View.GONE}"
                         tools:text="咸蛋超wefwefwef人" />
 
@@ -258,19 +259,20 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/comment_text"
                             android:layout_centerVertical="true"
-                            android:orientation="horizontal"
+                            android:orientation="vertical"
                             android:visibility="@{tweet.message()!=null? View.VISIBLE : View.GONE}">
 
                             <include
                                 android:id="@+id/comment_item"
-                                layout="@layout/item_message_comment_tweet"
+                                layout="@layout/item_message_comment_tweet2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 bind:handler="@{handler}"
                                 bind:message="@{tweet.message()}" />
+                            <View style="@style/Divider" />
                         </LinearLayout>
 
-                        <View style="@style/Divider" />
+
 
                         <LinearLayout
                             android:id="@+id/comment1"
@@ -278,19 +280,20 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/comment"
                             android:layout_centerVertical="true"
-                            android:orientation="horizontal"
+                            android:orientation="vertical"
                             android:visibility="@{tweet.message1()!=null? View.VISIBLE : View.GONE}">
 
                             <include
                                 android:id="@+id/comment_item1"
-                                layout="@layout/item_message_comment_tweet"
+                                layout="@layout/item_message_comment_tweet2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 bind:handler="@{handler}"
                                 bind:message="@{tweet.message1()}" />
+                            <View style="@style/Divider" />
                         </LinearLayout>
 
-                        <View style="@style/Divider" />
+
 
                         <LinearLayout
                             android:id="@+id/comment2"
@@ -298,18 +301,19 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/comment1"
                             android:layout_centerVertical="true"
-                            android:orientation="horizontal"
+                            android:orientation="vertical"
                             android:visibility="@{tweet.message2()!=null? View.VISIBLE : View.GONE}">
 
                             <include
                                 android:id="@+id/comment_item2"
-                                layout="@layout/item_message_comment_tweet"
+                                layout="@layout/item_message_comment_tweet2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 bind:handler="@{handler}"
                                 bind:message="@{tweet.message2()}" />
+                            <View style="@style/Divider" />
                         </LinearLayout>
-                        <View style="@style/Divider" />
+
 
                     </LinearLayout>
 

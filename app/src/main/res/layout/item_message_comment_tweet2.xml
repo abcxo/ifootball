@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.abcxo.android.ifootball.models.Message"/>
+
+        <variable
+            name="message"
+            type="Message"/>
+
+        <import type="com.abcxo.android.ifootball.controllers.activities.TweetDetailActivity.BindingHandler"/>
+
+        <variable
+            name="handler"
+            type="BindingHandler"/>
+    </data>
+
+    <RelativeLayout
+        style="@style/Item"
+        android:background="@drawable/selector_item_select_bg"
+        android:onClick="@{handler!=null?handler.onClickItem:message.getHandler().onClickMessage}">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            app:riv_corner_radius="18dp"
+            android:background="@drawable/ripple_oval_bg"
+            android:onClick="@{message.getHandler().onClickUser}"
+            android:scaleType="centerCrop"
+            app:error="@{@drawable/ic_avatar}"
+            app:imageUrl="@{message.icon}"
+            tools:src="@drawable/bg_sign_complete"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_toRightOf="@id/icon"
+            android:singleLine="true"
+            android:text="@{message.title}"
+            android:textStyle="bold"
+            android:textColor="@color/color_text_title"
+            android:textSize="@dimen/text_append"
+            tools:text="咸蛋超人"/>
+
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/name"
+            android:layout_below="@+id/name"
+            android:layout_marginTop="@dimen/padding_min"
+            android:text="@{message.content}"
+            android:textColor="@color/color_text_content"
+            android:maxLines="2"
+            android:textSize="@dimen/text_append"
+            tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。"/>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/name"
+            android:layout_below="@+id/text"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="@{message.time}"
+            android:textColor="@color/color_primary_light"
+            android:textSize="12dp"
+            tools:text="3小时"/>
+
+    </RelativeLayout>
+</layout>

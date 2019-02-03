@@ -100,6 +100,7 @@ public class NavUtils {
 
     public static void toContact(Fragment context, int requestCode) {
         Intent intent = new Intent(context.getActivity(), ContactActivity.class);
+        intent.putExtra(Constants.KEY_IS_SELECT, true);
         context.startActivityForResult(intent, requestCode);
     }
 

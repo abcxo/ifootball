@@ -77,6 +77,7 @@
                         android:text="@{`    `+handler.tweet.commentCount+`评论    `}"
                         android:textColor="@color/color_primary"
                         android:textSize="@dimen/text_append"
+                        android:layout_marginRight="@dimen/padding"
                         tools:text="   12555   " />
                 </RelativeLayout>
 

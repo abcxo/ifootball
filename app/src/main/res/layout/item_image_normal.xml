@@ -25,7 +25,7 @@
             android:background="@drawable/bg_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            app:riv_corner_radius="10dp"
+            app:riv_corner_radius="6dp"
             android:layout_marginLeft="@dimen/padding_min"
             android:layout_marginRight="@dimen/padding_min"
             android:onClick="@{handler.onClickImage}"

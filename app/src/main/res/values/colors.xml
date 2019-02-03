@@ -81,7 +81,8 @@
     <color name="color_input_empty">#f2f2f2</color>
 
 
-    <color name="color_divider">#c9c9c9</color>
+    <color name="color_divider_action">#c9c9c9</color>
+    <color name="color_divider">#eeeeee</color>
 
     <color name="color_refresh_1">@color/color_primary</color>
     <color name="color_refresh_2">@color/color_primary</color>

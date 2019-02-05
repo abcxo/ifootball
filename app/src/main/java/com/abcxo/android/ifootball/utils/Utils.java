@@ -75,7 +75,7 @@ public class Utils {
                 buf.append(Integer.toHexString(i));
             }
 
-            return buf.toString().substring(8, 24);
+            return buf.toString()/*.substring(8, 24)*/;
         } catch (Throwable e) {
         }
         return "";

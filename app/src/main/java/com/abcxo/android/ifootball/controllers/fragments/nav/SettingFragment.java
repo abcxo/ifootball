@@ -212,8 +212,9 @@ public class SettingFragment extends CommonFragment {
         }
 
         public void onClickMe(View view) {
-            NavUtils.toUserDetail(view.getContext(),UserRestful.INSTANCE.meId());
+            NavUtils.toUserDetail(view.getContext(), UserRestful.INSTANCE.meId());
         }
+
         public void onClickContact(View view) {
             Intent intent = new Intent(view.getContext(), ContactActivity.class);
             view.getContext().startActivity(intent);
@@ -377,8 +378,25 @@ public class SettingFragment extends CommonFragment {
         }
 
         public void onClickLogout(View view) {
-            UserRestful.INSTANCE.logout();
-            getActivity().finish();
+            ViewUtils.loading(view.getContext());
+            UserRestful.INSTANCE.logout(new UserRestful.OnUserRestfulGet() {
+                @Override
+                public void onSuccess(User user) {
+
+                }
+
+                @Override
+                public void onError(RestfulError error) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    ViewUtils.dismiss();
+                    getActivity().finish();
+                }
+            });
+
         }
 
 

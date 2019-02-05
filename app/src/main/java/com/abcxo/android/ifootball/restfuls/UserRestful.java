@@ -163,19 +163,22 @@ public class UserRestful {
 
 
     //退出
-    public boolean logout() {
+    public boolean logout(final OnUserRestfulGet onGet) {
         Call<Object> call = userService.logout(meId());
         call.enqueue(new OnRestful<Object>() {
             @Override
             void onSuccess(Object object) {
+                onGet.onSuccess(null);
             }
 
             @Override
             void onError(RestfulError error) {
+                onGet.onError(error);
             }
 
             @Override
             void onFinish() {
+                onGet.onFinish();
             }
         });
         user = null;

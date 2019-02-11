@@ -288,11 +288,12 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
     public enum TweetMainType {
 
         NORMAL(0),
-        TEAM(1),
-        NEWS(2),
-        IMAGE(3),
-        PUBLIC(3),
-        SPECIAL(4);
+        PRO(1),
+        TEAM(2),
+        NEWS(3),
+        IMAGE(4),
+        PUBLIC(5),
+        SPECIAL(6);
         private int index;
 
         TweetMainType(int index) {

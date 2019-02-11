@@ -24,6 +24,7 @@
             android:layout_height="48dp"
             app:riv_corner_radius="24dp"
             android:scaleType="centerCrop"
+            app:error="@{@drawable/ic_avatar}"
             app:imageUrl="@{user.avatar}"
             tools:src="@drawable/bg_sign_complete" />
 

@@ -8,8 +8,8 @@ android {
         applicationId "com.abcxo.android.ifootball"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 111
+        versionName "1.1.1"
         multiDexEnabled true
     }
 

@@ -35,7 +35,7 @@ public class ProTweetFragment extends TweetFragment {
             }
         };
         LocalBroadcastManager localBroadcastManager = LocalBroadcastManager.getInstance(Application.INSTANCE);
-        localBroadcastManager.registerReceiver(receiver, new IntentFilter(Constants.ACTION_REFRESH_HOME));
+        localBroadcastManager.registerReceiver(receiver, new IntentFilter(Constants.ACTION_REFRESH_PRO));
     }
 
     @Override

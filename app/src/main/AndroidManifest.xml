@@ -41,6 +41,7 @@
         android:targetSdkVersion="22"/>
 
     <application
+        android:hardwareAccelerated="true"
         android:name=".Application"
         android:debuggable="true"
         android:largeHeap="true"
@@ -194,6 +195,10 @@
             android:name=".controllers.activities.SettingActivity"
             android:label="@string/activity_setting"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".controllers.activities.DiscoverActivity"
+            android:label="@string/activity_discover"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".controllers.activities.WebActivity"
@@ -221,6 +226,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <service  android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+
+            android:label="dexopt"
+
+            android:process=":dexopt"/>
 
     </application>
 

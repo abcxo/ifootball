@@ -78,16 +78,6 @@ public class SettingFragment extends CommonFragment {
         binding = DataBindingUtil.bind(view);
         binding.setUser(user);
         binding.setHandler(new BindingHandler());
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
     }
 
 

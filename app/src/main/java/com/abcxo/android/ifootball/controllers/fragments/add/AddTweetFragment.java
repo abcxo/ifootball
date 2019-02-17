@@ -368,6 +368,8 @@ public class AddTweetFragment extends CommonFragment implements EmojiconGridFrag
         public void onClickSend(final View view) {
             if (TextUtils.isEmpty(inputET.getText().toString()) && originTweet == null) {
                 ViewUtils.toast(R.string.add_tweet_send_error);
+            } else if (adapter.images.size() <= 0 && originTweet == null) {
+                ViewUtils.toast(R.string.add_tweet_send_image_empty_error);
             } else {
                 tweet.uid = UserRestful.INSTANCE.meId();
                 tweet.icon = UserRestful.INSTANCE.me().avatar;

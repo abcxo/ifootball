@@ -171,13 +171,22 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
 
     public String cover() {
         String cover = null;
-        if (!TextUtils.isEmpty(images)) {
-            List<String> list = Arrays.asList(images.split(";"));
-            cover = list.get(0);
+        if (originTweet != null) {
+            cover = originTweet.cover();
+        } else {
+            if (!TextUtils.isEmpty(images)) {
+                List<String> list = Arrays.asList(images.split(";"));
+                cover = list.get(0);
+            }
         }
+
         return cover;
     }
 
+
+    public String getTitle() {
+        return title;
+    }
 
     public boolean hasImage(String url) {
         List<Image> imageList = imageList();
@@ -335,7 +344,7 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
 
         public void onClickRepeat(View view) {
             if (UserRestful.INSTANCE.isLogin()) {
-                NavUtils.toAddTweet(view.getContext(), Tweet.this);
+                NavUtils.toAddTweet(view.getContext(), originTweet != null ? originTweet : Tweet.this);
             } else {
                 NavUtils.toSign(view.getContext());
             }

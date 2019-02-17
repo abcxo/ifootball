@@ -11,12 +11,14 @@ import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.User;
 import com.abcxo.android.ifootball.utils.FileUtils;
 import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.RequestBody;
 import com.umeng.message.PushAgent;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
@@ -103,12 +105,14 @@ public class UserRestful {
     }
 
     private UserRestful() {
-//        OkHttpClient client = new OkHttpClient();
-//        client.interceptors().add(new DecryptedPayloadInterceptor());
 
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(20, TimeUnit.SECONDS);
+        okHttpClient.setReadTimeout(20, TimeUnit.SECONDS);
+        okHttpClient.setWriteTimeout(20, TimeUnit.SECONDS);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.HOST)
-//                .client(client)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         userService = retrofit.create(UserService.class);

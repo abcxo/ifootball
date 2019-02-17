@@ -7,15 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
-import com.abcxo.android.ifootball.controllers.fragments.main.DiscoverUserFragment;
 
-public class DiscoverNavFragment extends NavFragment {
-    public static DiscoverNavFragment newInstance() {
+public class SettingNavFragment extends NavFragment {
+    public static SettingNavFragment newInstance() {
         return newInstance(null);
     }
 
-    public static DiscoverNavFragment newInstance(Bundle args) {
-        DiscoverNavFragment fragment = new DiscoverNavFragment();
+    public static SettingNavFragment newInstance(Bundle args) {
+        SettingNavFragment fragment = new SettingNavFragment();
         if (args != null) fragment.setArguments(args);
         return fragment;
     }
@@ -23,17 +22,20 @@ public class DiscoverNavFragment extends NavFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_discover_nav, container, false);
+        return inflater.inflate(R.layout.fragment_setting_nav, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getNavActivity().getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getNavActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getNavActivity().getSupportActionBar().setDisplayUseLogoEnabled(true);
         getChildFragmentManager().beginTransaction()
-                .replace(R.id.content, DiscoverUserFragment.newInstance(getArguments()))
+                .replace(R.id.content, SettingFragment.newInstance(getArguments()))
                 .commit();
     }
+
 
 
 }

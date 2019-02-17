@@ -151,6 +151,9 @@ public class MessageFragment extends CommonFragment {
     }
 
     protected void loadData(final boolean first) {
+        if (first){
+            recyclerView.getRecyclerView().scrollToPosition(0);
+        }
         MessageRestful.INSTANCE.gets(getGetsType(), uid, uid2, tid, pageIndex, new MessageRestful.OnMessageRestfulList() {
             @Override
             public void onSuccess(List<Message> messages) {

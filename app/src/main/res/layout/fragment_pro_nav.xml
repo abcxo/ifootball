@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".controllers.activities.NavActivity">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.abcxo.android.ifootball.controllers.fragments.nav.ProNavFragment.BindingHandler" />
+
+        <variable
+            name="handler"
+            type="BindingHandler" />
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".controllers.activities.NavActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -17,8 +31,44 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:contentInsetStart="0dp"
+            app:logo="@drawable/ic_logo"
+            app:title="@string/activity_pro"
             app:popupTheme="@style/AppTheme.PopupLight"
             app:titleTextAppearance="@style/Toolbar.TitleText">
+
+            <LinearLayout
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|end"
+                android:orientation="horizontal">
+
+                <com.abcxo.android.ifootball.views.IconFontView
+                    android:id="@+id/ifv_notification"
+                    android:layout_width="@dimen/tab_height"
+                    android:layout_height="@dimen/tab_height"
+                    android:background="@drawable/ripple_oval_bg"
+                    android:gravity="center"
+                    android:onClick="@{handler.onClickNotification}"
+                    android:text="@string/iconfont.notification"
+                    android:textColor="@color/color_primary"
+                    android:textSize="@dimen/text_max" />
+
+
+                <com.abcxo.android.ifootball.views.IconFontView
+                    android:id="@+id/ifv_setting"
+                    android:layout_width="@dimen/tab_height"
+                    android:layout_height="@dimen/tab_height"
+                    android:background="@drawable/ripple_oval_bg"
+                    android:gravity="center"
+                    android:onClick="@{handler.onClickDiscover}"
+                    android:text="@string/iconfont.discover"
+                    android:textColor="@color/color_primary"
+                    android:textSize="@dimen/text_max" />
+
+
+            </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
 
@@ -34,4 +84,4 @@
 
 </android.support.design.widget.CoordinatorLayout>
 
-
+</layout>

@@ -4,8 +4,10 @@ import android.support.annotation.NonNull;
 
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.models.Game;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
@@ -30,12 +32,13 @@ public class GameRestful {
 
 
     private GameRestful() {
-//        OkHttpClient client = new OkHttpClient();
-//        client.interceptors().add(new DecryptedPayloadInterceptor());
-
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(20, TimeUnit.SECONDS);
+        okHttpClient.setReadTimeout(20, TimeUnit.SECONDS);
+        okHttpClient.setWriteTimeout(20, TimeUnit.SECONDS);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.HOST)
-//                .client(client)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         gameService = retrofit.create(GameService.class);

@@ -80,10 +80,13 @@
     <string name="activity_search">搜索</string>
     <string name="activity_message">消息</string>
 
+    <string name="activity_pro">热门分析</string>
+
 
     <string name="activity_image">图片</string>
     <string name="activity_sign">登录/注册</string>
     <string name="activity_setting">设置</string>
+    <string name="activity_discover">发现附近</string>
     <string name="activity_help">帮助&#038;反馈</string>
     <string name="activity_about">关于足球狗</string>
     <string name="activity_web"></string>
@@ -118,8 +121,8 @@
     </string-array>
 
     <string-array name="search_page_list">
-        <item>用户</item>
         <item>推文</item>
+        <item>用户</item>
     </string-array>
 
     <string-array name="team_page_list">
@@ -234,6 +237,7 @@
     <string name="add_tweet_text_hint">有趣的事情呢？</string>
     <string name="add_tweet_send_text">推文</string>
     <string name="add_tweet_send_error">请写些内容</string>
+    <string name="add_tweet_send_image_empty_error">请添加图片</string>
     <string name="add_tweet_send_image_error">添加图片出错</string>
     <string name="add_tweet_send_image_max_error">最多添加9张图片</string>
 
@@ -327,21 +331,25 @@
 
     <string name="iconfont.share">&#xe6dd;</string>
 
+    <string name="iconfont.discover">&#xe7a1;</string>
+
+    <string name="iconfont.more">&#xe6ed;</string>
+
     <string name="iconfont.empty">&#xe6e1;</string>
 
     <string name="iconfont.user.tweet">&#xe6e0;</string>
     <string name="iconfont.user.image">&#xe6df;</string>
 
     <string name="iconfont.tab.love">&#xe6d9;</string>
-    <string name="iconfont.tab.look">&#xe6d8;</string>
+    <string name="iconfont.tab.pro">&#xe6ee;</string>
     <string name="iconfont.tab.add">&#xe6d5;</string>
     <string name="iconfont.tab.search">&#xe6d6;</string>
-    <string name="iconfont.tab.discover">&#xe6d7;</string>
+    <string name="iconfont.tab.me">&#xe6d7;</string>
 
     <string name="iconfont.tab.love.select">&#xe6e8;</string>
-    <string name="iconfont.tab.look.select">&#xe6ea;</string>
+    <string name="iconfont.tab.pro.select">&#xe6ef;</string>
     <string name="iconfont.tab.add.select">&#xe6ec;</string>
     <string name="iconfont.tab.search.select">&#xe6eb;</string>
-    <string name="iconfont.tab.discover.select">&#xe6e7;</string>
+    <string name="iconfont.tab.me.select">&#xe6e7;</string>
 
 </resources>

@@ -160,6 +160,9 @@ public class UserFragment extends CommonFragment {
     }
 
     protected void loadData(final boolean first) {
+        if (first){
+            recyclerView.getRecyclerView().scrollToPosition(0);
+        }
         UserRestful.INSTANCE.gets(getGetsType(), uid, getKeyword(), pageIndex, new UserRestful.OnUserRestfulList() {
             @Override
             public void onSuccess(List<User> users) {

@@ -105,8 +105,8 @@ public class SearchNavFragment extends NavFragment {
     //获取用户列表
     public enum PageType {
 
-        USER(0),
-        TWEET(1);
+        TWEET(0),
+        USER(1);
         private int index;
 
         PageType(int index) {

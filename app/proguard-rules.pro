@@ -47,6 +47,8 @@
 -keep class com.ut.**{*;}
 -keep class com.ta.**{*;}
 
+-keep class com.tencent.smtt.**{*;}
+
 -keep public class **.R$*{
    public static final int *;
 }

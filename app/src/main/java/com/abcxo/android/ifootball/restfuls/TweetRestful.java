@@ -10,6 +10,7 @@ import com.abcxo.android.ifootball.models.Tweet;
 import com.abcxo.android.ifootball.utils.ViewUtils;
 import com.google.gson.Gson;
 import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.RequestBody;
 
 import java.io.File;
@@ -17,6 +18,7 @@ import java.io.FileInputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
@@ -39,12 +41,13 @@ public class TweetRestful {
     private TweetService tweetService;
 
     private TweetRestful() {
-//        OkHttpClient client = new OkHttpClient();
-//        client.interceptors().add(new DecryptedPayloadInterceptor());
-
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(20, TimeUnit.SECONDS);
+        okHttpClient.setReadTimeout(20, TimeUnit.SECONDS);
+        okHttpClient.setWriteTimeout(20, TimeUnit.SECONDS);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.HOST)
-//                .client(client)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         tweetService = retrofit.create(TweetService.class);

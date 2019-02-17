@@ -4,11 +4,9 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         tools:context=".controllers.activities.NavActivity">
 
         <android.support.design.widget.AppBarLayout
@@ -22,20 +20,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
+                app:contentInsetStart="0dp"
+                app:logo="@drawable/ic_logo"
                 app:popupTheme="@style/AppTheme.PopupLight"
+                app:title="@string/activity_setting"
                 app:titleTextAppearance="@style/Toolbar.TitleText">
 
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:background="@color/color_white">
-
-        </FrameLayout>
 
         <FrameLayout
             android:id="@+id/content"

@@ -7,11 +7,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.abcxo.android.ifootball.Application;
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
 import com.abcxo.android.ifootball.controllers.activities.AddTweetActivity;
@@ -60,7 +62,7 @@ public class TabNavFragment extends NavFragment {
         mFragments.add(ProNavFragment.newInstance(bundle));
         mFragments.add(EmptyNavFragment.newInstance(bundle));
         mFragments.add(SearchNavFragment.newInstance(bundle));
-        mFragments.add(DiscoverNavFragment.newInstance(bundle));
+        mFragments.add(SettingNavFragment.newInstance(bundle));
 
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setScrollable(false);
@@ -110,7 +112,12 @@ public class TabNavFragment extends NavFragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                int position = tab.getPosition();
+                if (position == 0) {
+                    LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_REFRESH_HOME));
+                } else if (position == 1) {
+                    LocalBroadcastManager.getInstance(Application.INSTANCE).sendBroadcast(new Intent(Constants.ACTION_REFRESH_PRO));
+                }
             }
         });
         tabLayout.getTabAt(0).getCustomView().setSelected(true);
@@ -123,8 +130,6 @@ public class TabNavFragment extends NavFragment {
         tabLayout.getTabAt(currentIndex).select();
         ViewUtils.closeKeyboard(getActivity());
     }
-
-
 
 
     public class TabAdapter extends FragmentPagerAdapter {
@@ -149,19 +154,19 @@ public class TabNavFragment extends NavFragment {
             SelectIconFontView ifv_tab = (SelectIconFontView) tab.findViewById(R.id.ifv_tab);
             switch (position) {
                 case 0:
-                    ifv_tab.setText(R.string.iconfont_tab_love,R.string.iconfont_tab_love_select);
+                    ifv_tab.setText(R.string.iconfont_tab_love, R.string.iconfont_tab_love_select);
                     break;
                 case 1:
-                    ifv_tab.setText(R.string.iconfont_tab_look,R.string.iconfont_tab_look_select);
+                    ifv_tab.setText(R.string.iconfont_tab_pro, R.string.iconfont_tab_pro_select);
                     break;
                 case 2:
-                    ifv_tab.setText(R.string.iconfont_tab_add,R.string.iconfont_tab_add_select);
+                    ifv_tab.setText(R.string.iconfont_tab_add, R.string.iconfont_tab_add_select);
                     break;
                 case 3:
-                    ifv_tab.setText(R.string.iconfont_tab_search,R.string.iconfont_tab_search_select);
+                    ifv_tab.setText(R.string.iconfont_tab_search, R.string.iconfont_tab_search_select);
                     break;
                 case 4:
-                    ifv_tab.setText(R.string.iconfont_tab_discover,R.string.iconfont_tab_discover_select);
+                    ifv_tab.setText(R.string.iconfont_tab_me, R.string.iconfont_tab_me_select);
                     break;
             }
             return tab;

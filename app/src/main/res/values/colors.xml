@@ -40,7 +40,7 @@
     <color name="color_slide_divider">#5F6470</color>
     <color name="color_icon_light_o">#C5C5C5</color>
     <!--暗黑图标-->
-    <color name="color_icon_dark">#DD000000</color>
+    <color name="color_icon_dark">#000000</color>
     <!--默认图标-->
     <color name="color_icon">#33000000</color>
     <!--特殊图标-->

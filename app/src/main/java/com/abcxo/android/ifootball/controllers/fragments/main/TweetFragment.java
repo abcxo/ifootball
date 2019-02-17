@@ -145,6 +145,9 @@ public class TweetFragment extends CommonFragment {
     }
 
     protected void loadData(final boolean first) {
+        if (first){
+            recyclerView.getRecyclerView().scrollToPosition(0);
+        }
         if (first && getGetsType() == TweetRestful.GetsType.HOME) {
             loadLiveData();
         } else {

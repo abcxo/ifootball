@@ -105,7 +105,7 @@
 
                     <Button
                         android:id="@+id/focus_btn"
-                        android:layout_width="50dp"
+                        android:layout_width="54dp"
                         android:layout_height="24dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginRight="@dimen/padding"
@@ -175,7 +175,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/location_tv"
                         android:layout_marginLeft="@dimen/padding"
-                        android:layout_marginTop="@dimen/padding"
                         android:layout_marginRight="@dimen/padding"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
@@ -188,19 +187,18 @@
                             android:orientation="horizontal">
 
                             <com.abcxo.android.ifootball.views.IconFontView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:background="@drawable/ripple_oval_bg"
                                 android:gravity="center"
                                 android:onClick="@{tweet.getHandler().onClickStar}"
                                 android:text="@{tweet.star?@string/iconfont_tab_love_select:@string/iconfont_tab_love}"
-                                android:textColor="@color/color_text_title"
+                                android:textColor="@{tweet.star?@color/color_red:@color/color_text_title}"
                                 android:textSize="20dp" />
 
                             <com.abcxo.android.ifootball.views.IconFontView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/padding_normal"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:background="@drawable/ripple_oval_bg"
                                 android:gravity="center"
                                 android:onClick="@{handler.onClickComment}"
@@ -209,9 +207,8 @@
                                 android:textSize="20dp" />
 
                             <com.abcxo.android.ifootball.views.IconFontView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/padding_normal"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:background="@drawable/ripple_oval_bg"
                                 android:gravity="center"
                                 android:onClick="@{tweet.getHandler().onClickRepeat}"
@@ -222,8 +219,8 @@
 
 
                         <com.abcxo.android.ifootball.views.IconFontView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_alignParentRight="true"
                             android:background="@drawable/ripple_oval_bg"
                             android:gravity="center"

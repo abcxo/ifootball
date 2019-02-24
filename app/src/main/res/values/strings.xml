@@ -80,7 +80,7 @@
     <string name="activity_search">搜索</string>
     <string name="activity_message">消息</string>
 
-    <string name="activity_pro">热门分析</string>
+    <string name="activity_pro">战术分析</string>
 
 
     <string name="activity_image">图片</string>
@@ -302,6 +302,8 @@
     <string name="iconfont.comment">&#xe6dc;</string>
     <string name="iconfont.forward">&#xe6de;</string>
 
+    <string name="iconfont.repeat">&#xe609;</string>
+
     <string name="iconfont.location">&#xe60a;</string>
     <string name="iconfont.face">&#xe60b;</string>
     <string name="iconfont.follow">&#xe60c;</string>
@@ -318,7 +320,7 @@
     <string name="iconfont.send">&#xe604;</string>
     <string name="iconfont.add">&#xe605;</string>
 
-    <string name="iconfont.notification">&#xe6e5;</string>
+    <string name="iconfont.notification">&#xe6dc;</string>
     <string name="iconfont.news">&#xe610;</string>
     <string name="iconfont.write.twitter">&#xe614;</string>
 
@@ -331,7 +333,7 @@
 
     <string name="iconfont.share">&#xe6dd;</string>
 
-    <string name="iconfont.discover">&#xe7a1;</string>
+    <string name="iconfont.discover">&#xe6f0;</string>
 
     <string name="iconfont.more">&#xe6ed;</string>
 
@@ -340,12 +342,14 @@
     <string name="iconfont.user.tweet">&#xe6e0;</string>
     <string name="iconfont.user.image">&#xe6df;</string>
 
+    <string name="iconfont.tab.home">&#xe6f2;</string>
     <string name="iconfont.tab.love">&#xe6d9;</string>
     <string name="iconfont.tab.pro">&#xe6ee;</string>
     <string name="iconfont.tab.add">&#xe6d5;</string>
     <string name="iconfont.tab.search">&#xe6d6;</string>
     <string name="iconfont.tab.me">&#xe6d7;</string>
 
+    <string name="iconfont.tab.home.select">&#xe6f1;</string>
     <string name="iconfont.tab.love.select">&#xe6e8;</string>
     <string name="iconfont.tab.pro.select">&#xe6ef;</string>
     <string name="iconfont.tab.add.select">&#xe6ec;</string>

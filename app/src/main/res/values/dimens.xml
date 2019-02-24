@@ -29,6 +29,7 @@
     <dimen name="text_empty">14dp</dimen>
     <dimen name="text_huge">24dp</dimen>
     <dimen name="text_max">20dp</dimen>
+    <dimen name="text_mark">30dp</dimen>
     <dimen name="text_big">18dp</dimen>
     <dimen name="text_mid">16dp</dimen>
     <dimen name="text">14dp</dimen>

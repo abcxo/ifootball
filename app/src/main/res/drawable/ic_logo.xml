@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:drawable="@drawable/ic_launcher"
-        android:top="@dimen/padding_small"
-        android:bottom="@dimen/padding_small"
+        android:top="@dimen/padding"
+        android:bottom="@dimen/padding"
         android:right="@dimen/padding_empty"
         android:left="@dimen/padding"/>
 </layer-list>

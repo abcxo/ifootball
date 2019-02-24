@@ -61,7 +61,7 @@
             android:text="@{message.content}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
-            android:singleLine="true"
+            android:maxLines="5"
             tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
 
 

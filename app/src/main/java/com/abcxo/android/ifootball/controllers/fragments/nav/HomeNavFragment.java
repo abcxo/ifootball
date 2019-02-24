@@ -13,6 +13,7 @@ import com.abcxo.android.ifootball.controllers.activities.DiscoverActivity;
 import com.abcxo.android.ifootball.controllers.fragments.main.HomeTweetFragment;
 import com.abcxo.android.ifootball.databinding.FragmentHomeNavBinding;
 import com.abcxo.android.ifootball.utils.NavUtils;
+import com.abcxo.android.ifootball.views.UIUtils;
 
 public class HomeNavFragment extends NavFragment {
     public static HomeNavFragment newInstance() {
@@ -37,6 +38,7 @@ public class HomeNavFragment extends NavFragment {
         getNavActivity().getSupportActionBar().setDisplayShowTitleEnabled(true);
         getNavActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getNavActivity().getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getNavActivity().getSupportActionBar().setTitle(UIUtils.getLogoTitleSpannable(getString(R.string.app_name)));
         FragmentHomeNavBinding binding = DataBindingUtil.bind(view);
         binding.setHandler(new BindingHandler());
         getChildFragmentManager().beginTransaction()

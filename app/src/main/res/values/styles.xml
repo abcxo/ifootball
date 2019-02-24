@@ -31,11 +31,15 @@
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="Toolbar.TitleText.Logo" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/text_huge</item>
     </style>
 
     <style name="MyCustomTabText" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">14dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar.NoStatusBar" parent="AppTheme.NoActionBar"></style>

@@ -188,6 +188,16 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
         return title;
     }
 
+
+    public String getCoverTitle() {
+        try {
+            return !TextUtils.isEmpty(title) ? title : originTweet.title;
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
     public boolean hasImage(String url) {
         List<Image> imageList = imageList();
         for (Image image : imageList) {

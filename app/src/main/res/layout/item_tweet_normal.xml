@@ -74,7 +74,7 @@
             android:textSize="16dp" />
 
 
-        <com.abcxo.android.ifootball.views.SquareRelativeLayout
+        <FrameLayout
             android:id="@+id/images_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,58 +82,78 @@
             android:layout_marginTop="@dimen/padding_small"
             android:visibility="@{tweet.cover()!=null?View.VISIBLE:View.GONE}">
 
-            <ImageView
+            <com.abcxo.android.ifootball.views.TopCropImageView
                 android:id="@+id/images"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/color_bg"
-                android:scaleType="centerCrop"
+                android:maxHeight="500dp"
+                android:adjustViewBounds="true"
                 app:imageUrl="@{tweet.cover()}"
                 tools:src="@drawable/bg_sign_complete" />
+
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/padding"
+                android:layout_marginLeft="@dimen/padding"
+                android:layout_marginBottom="@dimen/tab_height"
                 android:background="@color/color_transparent"
-                android:drawableLeft="@drawable/ic_rect"
-                android:drawablePadding="@dimen/padding_small"
-                android:gravity="center_vertical"
-                android:maxLines="1"
-                android:text="@{tweet.getTitle()}"
-                android:textColor="@color/color_text_special"
-                android:textSize="@dimen/tab_height"
-                android:textStyle="bold|italic"
-                android:visibility="@{tweet.cover!=null&amp;&amp;tweet.getTitle()!=null?View.VISIBLE:View.GONE}"
-                tools:text="尤文最强帮手sfvwefwe" />
+                android:layout_gravity="bottom"
+                android:maxLines="3"
+                android:text="@{tweet.getCoverTitle()}"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_mark"
+                android:visibility="@{tweet.getCoverTitle()!=null?View.VISIBLE:View.GONE}"
+                tools:text="vwe尤文最强帮手sf尤文最强帮手sf尤文最强帮手sf尤文尤文最强帮手sf尤文最强帮手sf尤文最强帮手sf最强帮手sffwe" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_gravity="bottom"
+                android:background="@color/color_white"
+                android:visibility="@{tweet.originTweet!=null?View.VISIBLE:View.GONE}"
+                android:gravity="center_vertical">
+
+                <com.abcxo.android.ifootball.views.IconFontView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple_oval_bg"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:text="@string/iconfont.repeat"
+                    android:gravity="center"
+                    android:textColor="@color/color_primary"
+                    android:textSize="@dimen/text_content" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:background="@drawable/ripple_oval_bg"
+                    android:scaleType="centerCrop"
+                    app:error="@{@drawable/ic_avatar}"
+                    app:imageUrl="@{tweet.icon}"
+                    app:riv_corner_radius="8dp"
+                    tools:src="@drawable/bg_sign_complete" />
 
                 <TextView
                     android:id="@+id/repeat_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="@dimen/padding_min"
                     android:layout_marginRight="@dimen/padding"
-                    android:background="@color/color_white"
-                    android:drawableLeft="@drawable/ic_repeat"
-                    android:drawablePadding="@dimen/padding"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:maxLines="1"
-                    android:paddingLeft="@dimen/padding"
-                    android:paddingRight="@dimen/padding"
                     android:text="@{tweet.originTweet.name}"
                     android:textColor="@color/color_primary"
                     android:textSize="@dimen/text_content"
-                    android:visibility="@{tweet.originTweet!=null?View.VISIBLE:View.GONE}"
                     tools:text="超人迪加" />
             </LinearLayout>
 
 
-        </com.abcxo.android.ifootball.views.SquareRelativeLayout>
+        </FrameLayout>
 
 
         <TextView
@@ -148,6 +168,7 @@
             android:text="@{tweet.getSummary()}"
             android:textColor="@color/color_text_title"
             android:textSize="14dp"
+            android:ellipsize="end"
             tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
 
 

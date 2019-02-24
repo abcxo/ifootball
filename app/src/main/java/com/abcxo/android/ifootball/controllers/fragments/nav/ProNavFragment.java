@@ -13,6 +13,7 @@ import com.abcxo.android.ifootball.controllers.activities.DiscoverActivity;
 import com.abcxo.android.ifootball.controllers.fragments.main.ProTweetFragment;
 import com.abcxo.android.ifootball.databinding.FragmentProNavBinding;
 import com.abcxo.android.ifootball.utils.NavUtils;
+import com.abcxo.android.ifootball.views.UIUtils;
 
 public class ProNavFragment extends NavFragment {
     public static ProNavFragment newInstance() {

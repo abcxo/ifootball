@@ -154,7 +154,7 @@ public class TabNavFragment extends NavFragment {
             SelectIconFontView ifv_tab = (SelectIconFontView) tab.findViewById(R.id.ifv_tab);
             switch (position) {
                 case 0:
-                    ifv_tab.setText(R.string.iconfont_tab_love, R.string.iconfont_tab_love_select);
+                    ifv_tab.setText(R.string.iconfont_tab_home, R.string.iconfont_tab_home_select);
                     break;
                 case 1:
                     ifv_tab.setText(R.string.iconfont_tab_pro, R.string.iconfont_tab_pro_select);

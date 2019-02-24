@@ -35,7 +35,7 @@
                 app:logo="@drawable/ic_logo"
                 app:title="@string/app_name"
                 app:popupTheme="@style/AppTheme.PopupLight"
-                app:titleTextAppearance="@style/Toolbar.TitleText">
+                app:titleTextAppearance="@style/Toolbar.TitleText.Logo">
 
                 <LinearLayout
                     android:layout_gravity="right"
@@ -53,7 +53,7 @@
                         android:onClick="@{handler.onClickNotification}"
                         android:text="@string/iconfont.notification"
                         android:textColor="@color/color_primary"
-                        android:textSize="@dimen/text_max" />
+                        android:textSize="@dimen/text_big" />
 
 
                     <com.abcxo.android.ifootball.views.IconFontView
@@ -65,7 +65,7 @@
                         android:onClick="@{handler.onClickDiscover}"
                         android:text="@string/iconfont.discover"
                         android:textColor="@color/color_primary"
-                        android:textSize="@dimen/text_max" />
+                        android:textSize="@dimen/text_big" />
 
 
                 </LinearLayout>

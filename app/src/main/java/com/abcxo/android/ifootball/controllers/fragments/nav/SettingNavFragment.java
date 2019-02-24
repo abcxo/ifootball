@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.abcxo.android.ifootball.R;
+import com.abcxo.android.ifootball.views.UIUtils;
 
 public class SettingNavFragment extends NavFragment {
     public static SettingNavFragment newInstance() {

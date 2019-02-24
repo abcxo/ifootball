@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/padding_small"
             android:layout_toRightOf="@id/icon"
-            android:singleLine="true"
+            android:maxLines="5"
             android:text="@{message.title}"
             android:textStyle="bold"
             android:textColor="@color/color_text_title"

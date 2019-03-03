@@ -93,21 +93,32 @@
                 tools:src="@drawable/bg_sign_complete" />
 
 
-            <TextView
-                android:id="@+id/title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/padding"
-                android:layout_marginLeft="@dimen/padding"
-                android:layout_marginBottom="@dimen/tab_height"
-                android:background="@color/color_transparent"
                 android:layout_gravity="bottom"
-                android:maxLines="3"
-                android:text="@{tweet.getCoverTitle()}"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/text_mark"
                 android:visibility="@{tweet.getCoverTitle()!=null?View.VISIBLE:View.GONE}"
-                tools:text="vwe尤文最强帮手sf尤文最强帮手sf尤文最强帮手sf尤文尤文最强帮手sf尤文最强帮手sf尤文最强帮手sf最强帮手sffwe" />
+                android:background="@color/color_transparent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/padding"
+                    android:layout_marginLeft="@dimen/padding"
+                    android:background="@color/color_transparent"
+                    android:maxLines="3"
+                    android:text="@{tweet.getCoverTitle()}"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/text_mark"
+                    tools:text="vwe尤文最强帮手sf尤文最强帮手sf尤文最强帮手sf尤文尤文最强帮手sf尤文最强帮手sf尤文最强帮手sf最强帮手sffwe" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/padding_mid"
+                    android:visibility="@{tweet.originTweet!=null?View.VISIBLE:View.GONE}">
+                </View>
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -134,7 +145,7 @@
                     android:background="@drawable/ripple_oval_bg"
                     android:scaleType="centerCrop"
                     app:error="@{@drawable/ic_avatar}"
-                    app:imageUrl="@{tweet.icon}"
+                    app:imageUrl="@{tweet.originTweet.icon}"
                     app:riv_corner_radius="8dp"
                     tools:src="@drawable/bg_sign_complete" />
 
@@ -168,8 +179,8 @@
             android:text="@{tweet.getSummary()}"
             android:textColor="@color/color_text_title"
             android:textSize="14dp"
-            android:ellipsize="end"
-            tools:text="里皮时代，恒大队的外援威震中超，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
+            android:ellipsize="middle"
+            tools:text="里皮时代，恒大队的外援威震中超尤其是孔卡、穆里奇、，尤其是孔卡、穆里奇、埃尔克森的南美前场铁三角组合，在2013年横扫亚洲赛场。“恒大靠外援”的标签，在那一年被贴得格外严实，撕都撕不掉。三人的进球，在那一年占了恒大队全队进球的七成。" />
 
 
 
@@ -266,20 +277,11 @@
             android:orientation="horizontal"
             android:visibility="@{tweet.message()!=null? View.VISIBLE : View.GONE}">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{tweet.message().title}"
-                android:textColor="@color/color_primary"
-                android:textSize="@dimen/text"
-                android:textStyle="bold"
-                tools:text="穆里尼奥" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_min"
-                android:text="@{tweet.message().content}"
+                android:text="@{tweet.message().getTitleContent()}"
                 android:textColor="@color/color_primary"
                 android:textSize="@dimen/text"
                 tools:text="睡觉潍坊潍坊潍坊问威锋" />
@@ -297,20 +299,11 @@
             android:orientation="horizontal"
             android:visibility="@{tweet.message1()!=null? View.VISIBLE : View.GONE}">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{tweet.message1().title}"
-                android:textColor="@color/color_primary"
-                android:textSize="@dimen/text"
-                android:textStyle="bold"
-                tools:text="穆里尼奥" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_min"
-                android:text="@{tweet.message1().content}"
+                android:text="@{tweet.message1().getTitleContent()}"
                 android:textColor="@color/color_primary"
                 android:textSize="@dimen/text"
                 tools:text="睡觉潍坊潍坊潍坊问威锋" />
@@ -331,17 +324,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{tweet.message2().title}"
-                android:textColor="@color/color_primary"
-                android:textSize="@dimen/text"
-                android:textStyle="bold"
-                tools:text="穆里尼奥" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/padding_min"
-                android:text="@{tweet.message2().content}"
+                android:text="@{tweet.message2().getTitleContent()}"
                 android:textColor="@color/color_primary"
                 android:textSize="@dimen/text"
                 tools:text="睡觉潍坊潍坊潍坊问威锋" />

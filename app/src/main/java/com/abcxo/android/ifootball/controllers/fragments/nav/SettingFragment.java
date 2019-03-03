@@ -383,7 +383,6 @@ public class SettingFragment extends CommonFragment {
                 @Override
                 public void onFinish() {
                     ViewUtils.dismiss();
-                    getActivity().finish();
                 }
             });
 

@@ -52,7 +52,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/color_gray_light"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/padding_min"
@@ -60,24 +59,32 @@
             android:paddingRight="@dimen/padding_small"
             android:paddingTop="@dimen/padding_min">
 
-            <EditText
-                android:id="@+id/input"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                android:background="@null"
-                android:hint="@string/detail_chat_text_hint"
-                android:textColor="@color/color_text_input"
-                android:textColorHint="@color/color_primary_light"
-                android:textSize="@dimen/text_input" />
+                android:paddingLeft="@dimen/padding"
+                android:background="@drawable/bg_comment">
+                <EditText
+                    android:id="@+id/input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/detail_chat_text_hint"
+                    android:textColor="@color/color_text_input"
+                    android:textColorHint="@color/color_primary_light"
+                    android:textSize="@dimen/text_input" />
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/send"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
-                android:backgroundTint="@color/color_button_minor"
-                android:onClick="@{handler.onClickSend}"
+                android:layout_marginLeft="@dimen/padding_small"
                 android:text="@string/detail_chat_send_text"
+                android:backgroundTint="@color/color_button_accent"
+                android:onClick="@{handler.onClickSend}"
                 android:textColor="@color/color_text_highlight"
                 android:textSize="@dimen/text_button_small" />
         </LinearLayout>

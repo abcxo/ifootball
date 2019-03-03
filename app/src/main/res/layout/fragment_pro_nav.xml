@@ -35,7 +35,7 @@
             app:logo="@drawable/ic_logo"
             app:title="@string/activity_pro"
             app:popupTheme="@style/AppTheme.PopupLight"
-            app:titleTextAppearance="@style/Toolbar.TitleText">
+            app:titleTextAppearance="@style/Toolbar.TitleText.Bold">
 
             <LinearLayout
                 android:layout_gravity="right"

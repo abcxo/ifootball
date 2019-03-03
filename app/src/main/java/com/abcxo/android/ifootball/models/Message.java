@@ -1,9 +1,15 @@
 package com.abcxo.android.ifootball.models;
 
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
+import android.text.style.StyleSpan;
 import android.view.View;
 
 import com.abcxo.android.ifootball.R;
@@ -175,6 +181,19 @@ public class Message implements Parcelable, Serializable {
         public int getIndex() {
             return index;
         }
+    }
+
+
+    public SpannableString getTitleContent() {
+        if (!TextUtils.isEmpty(title)) {
+            SpannableString mTitle = new SpannableString(title + " " + content);
+            StyleSpan span = new StyleSpan(Typeface.BOLD);
+            mTitle.setSpan(span, 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return mTitle;
+        } else {
+            return new SpannableString(content);
+        }
+
     }
 
     public class BindingHandler {

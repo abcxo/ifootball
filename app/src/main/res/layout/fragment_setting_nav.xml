@@ -24,7 +24,7 @@
                 app:logo="@drawable/ic_logo"
                 app:popupTheme="@style/AppTheme.PopupLight"
                 app:title="@string/activity_setting"
-                app:titleTextAppearance="@style/Toolbar.TitleText">
+                app:titleTextAppearance="@style/Toolbar.TitleText.Bold">
 
             </android.support.v7.widget.Toolbar>
 

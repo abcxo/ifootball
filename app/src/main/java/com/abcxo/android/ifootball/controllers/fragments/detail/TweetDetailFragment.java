@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.abcxo.android.ifootball.R;
 import com.abcxo.android.ifootball.constants.Constants;
@@ -179,10 +181,12 @@ public class TweetDetailFragment extends DetailFragment {
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                view.loadUrl("javascript:App.resize(document.body.getBoundingClientRect().height)");
                 super.onPageFinished(view, url);
                 refreshLayout.setRefreshing(false);
             }
         });
+        webView.addJavascriptInterface(this, "App");
 
 //        webView.setWebChromeClient(new WebChromeClient() {
 //
@@ -243,6 +247,21 @@ public class TweetDetailFragment extends DetailFragment {
 
 
     }
+
+    @JavascriptInterface
+    public void resize(final float height) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Toast.makeText(getActivity(), height + "", Toast.LENGTH_LONG).show();
+                //此处的 layoutParmas 需要根据父控件类型进行区分，这里为了简单就不这么做了
+                ViewGroup.LayoutParams params = webView.getLayoutParams();
+                params.height = (int)((height+20) * getResources().getDisplayMetrics().density);
+                webView.setLayoutParams(params);
+            }
+        });
+    }
+
 
     @JavascriptInterface
     public void onImageClick(final String url) {

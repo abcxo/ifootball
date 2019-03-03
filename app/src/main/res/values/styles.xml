@@ -34,6 +34,11 @@
         <item name="android:textSize">16dp</item>
     </style>
 
+    <style name="Toolbar.TitleText.Bold" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Toolbar.TitleText.Logo" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/text_huge</item>
     </style>

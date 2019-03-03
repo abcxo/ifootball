@@ -41,20 +41,20 @@
             tools:text="3小时" />
 
 
-        <TextView
+        <com.abcxo.android.ifootball.views.ManyTextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
             android:layout_alignRight="@+id/name"
             android:layout_below="@+id/name"
-            android:gravity="end"
+            android:gravity="start"
             android:layout_marginTop="@dimen/padding_small"
             android:text="@{message.content}"
             android:textColor="@color/color_text_content"
             android:textSize="14dp"
             android:maxLines="5"
-            tools:text="肥罗，今晚7点越秀山踢个友谊赛，我和北京梅西都过去，不要放飞机拉。" />
+            tools:text="肥罗，今放飞机拉。" />
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:onClick="@{message.getHandler().onClickUser}"

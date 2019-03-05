@@ -4,12 +4,15 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.StyleSpan;
 import android.view.View;
 
 import com.abcxo.android.ifootball.Application;
@@ -154,6 +157,18 @@ public class Tweet extends BaseObservable implements Parcelable, Serializable {
 
     public SpannableString getSummary() {
         return ViewUtils.getPromptString(summary);
+    }
+
+
+    public SpannableString getTitleSummary() {
+        if (!TextUtils.isEmpty(name)) {
+            SpannableString mTitle = new SpannableString(name + " " + summary);
+            StyleSpan span = new StyleSpan(Typeface.BOLD);
+            mTitle.setSpan(span, 0, name.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return mTitle;
+        } else {
+            return ViewUtils.getPromptString(summary);
+        }
     }
 
 

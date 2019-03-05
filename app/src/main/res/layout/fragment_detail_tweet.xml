@@ -68,11 +68,11 @@
                         android:layout_marginRight="@dimen/padding"
                         android:text="@{tweet.title}"
                         android:textColor="@color/color_text_title"
-                        android:textSize="16dp"
+                        android:textSize="20dp"
                         android:textStyle="bold"
                         android:layout_marginBottom="@dimen/padding_small"
                         android:visibility="@{tweet.title!=null?View.VISIBLE:View.GONE}"
-                        tools:text="咸蛋超wefwefwef人" />
+                        tools:text="咸蛋蛋超蛋超蛋超蛋超蛋超蛋超蛋超蛋超蛋超蛋超蛋超蛋超蛋超蛋超蛋超蛋超蛋超超wefwefwef人" />
 
 
                     <com.makeramen.roundedimageview.RoundedImageView
